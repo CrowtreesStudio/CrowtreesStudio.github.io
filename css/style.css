@@ -1,0 +1,35 @@
+body {
+    background-color: #5e316c;
+}
+
+.page {
+    margin: 0 auto;
+    max-width: 960px;
+}
+
+.gallery {
+    width: 100%;
+    text-align: center;
+}
+
+.gallery ul{
+    padding: 0;
+}
+
+.gallery ul li {
+    width: 150px;
+    list-style-type: none;
+    display: inline-block;
+    vertical-align: top;
+    color: #f6c7ff;
+    margin: 10px;
+}
+
+.gallery li img{
+    width: 100%;
+}
+
+.gallery li h4 {
+    text-align: center;
+    margin: 5px;
+}
