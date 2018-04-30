@@ -1,0 +1,152 @@
+{
+    "accessors" : [
+        {
+            "bufferView" : 0, 
+            "componentType" : 5123, 
+            "count" : 2268, 
+            "max" : [
+                1543
+            ], 
+            "min" : [
+                0
+            ], 
+            "type" : "SCALAR"
+        }, 
+        {
+            "bufferView" : 1, 
+            "componentType" : 5126, 
+            "count" : 1544, 
+            "max" : [
+                2.021812677383423, 
+                0.06169027090072632, 
+                0.011308073997497559
+            ], 
+            "min" : [
+                -2.0007102489471436, 
+                -0.010749651119112968, 
+                -0.9877046346664429
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 2, 
+            "componentType" : 5126, 
+            "count" : 1544, 
+            "max" : [
+                0.9999932050704956, 
+                0.9994057416915894, 
+                0.9993900656700134
+            ], 
+            "min" : [
+                -0.9999932646751404, 
+                -0.9994173645973206, 
+                -0.9993901252746582
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 3, 
+            "componentType" : 5126, 
+            "count" : 1544, 
+            "max" : [
+                1.0, 
+                1.0, 
+                1.0, 
+                1.0
+            ], 
+            "min" : [
+                1.0, 
+                1.0, 
+                1.0, 
+                1.0
+            ], 
+            "type" : "VEC4"
+        }
+    ], 
+    "asset" : {
+        "generator" : "Khronos Blender glTF 2.0 exporter", 
+        "version" : "2.0"
+    }, 
+    "bufferViews" : [
+        {
+            "buffer" : 0, 
+            "byteLength" : 4536, 
+            "byteOffset" : 0, 
+            "target" : 34963
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 18528, 
+            "byteOffset" : 4536, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 18528, 
+            "byteOffset" : 23064, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 24704, 
+            "byteOffset" : 41592, 
+            "target" : 34962
+        }
+    ], 
+    "buffers" : [
+        {
+            "byteLength" : 66296, 
+            "uri" : "fishingHut_pier.bin"
+        }
+    ], 
+    "materials" : [
+        {
+            "name" : "support post", 
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.6041561216735261, 
+                    0.5625699603940539, 
+                    0.7066667185227082, 
+                    1.0
+                ], 
+                "metallicFactor" : 0.0
+            }
+        }
+    ], 
+    "meshes" : [
+        {
+            "name" : "Cube.000", 
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "COLOR_0" : 3, 
+                        "NORMAL" : 2, 
+                        "POSITION" : 1
+                    }, 
+                    "indices" : 0, 
+                    "material" : 0
+                }
+            ]
+        }
+    ], 
+    "nodes" : [
+        {
+            "mesh" : 0, 
+            "name" : "planking.pier.001", 
+            "translation" : [
+                0.0, 
+                0.0, 
+                3.0
+            ]
+        }
+    ], 
+    "scene" : 0, 
+    "scenes" : [
+        {
+            "name" : "Scene", 
+            "nodes" : [
+                0
+            ]
+        }
+    ]
+}

@@ -1,0 +1,74 @@
+body {
+    width: 100%;
+    position: absolute;
+    background-color: cadetblue;
+}
+
+body #preloader {
+    position: absolute;
+    z-index: 100;
+    margin: 20% 43%;
+    background-color: white;
+    opacity: 0.75;
+    padding: 10px 20px 10px 20px;
+    border-radius: 45px 45px 45px 45px;
+    border: 5px solid black;
+    
+}
+
+body #preloader div {
+    text-align: center;
+}
+
+body #begin{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: none;
+}
+
+body #begin #buttonBox{
+    position: relative;
+    padding: 0;
+    width: 25%;
+    height: 100%;
+    margin: auto;
+    top: 40%;
+}
+
+body #begin #buttonBox #button{
+    margin: 0 auto;
+    width: 100%;
+    background-color: #006b79;
+/*    opacity: 0.75;*/
+    padding: 10px 20px 10px 20px;
+    border-radius: 45px 45px 45px 45px;
+    border: 5px solid #5cc9ce;
+    font-size: 1.5em;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+
+body #begin #buttonBox #button:hover{
+    background-color: #21acb2;
+    border: 5px solid #006b79;
+    color: #006b79;
+}
+
+body a-scene {
+    left: -100%;
+}
+
+#logo {
+    width: 15%;
+    position: absolute;
+    top: 10px;
+    margin-left: 10px;
+    background-color: white;
+    opacity: 0.9;
+    padding: 8px 15px 5px 15px;
+    border-radius: 45px 45px 45px 45px;
+    border: 5px solid black;
+    z-index: 10;
+}

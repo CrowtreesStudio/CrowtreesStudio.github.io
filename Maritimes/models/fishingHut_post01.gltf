@@ -1,0 +1,127 @@
+{
+    "accessors" : [
+        {
+            "bufferView" : 0, 
+            "componentType" : 5121, 
+            "count" : 330, 
+            "max" : [
+                149
+            ], 
+            "min" : [
+                0
+            ], 
+            "type" : "SCALAR"
+        }, 
+        {
+            "bufferView" : 1, 
+            "componentType" : 5126, 
+            "count" : 150, 
+            "max" : [
+                0.2127329409122467, 
+                2.26350998878479, 
+                0.22803784906864166
+            ], 
+            "min" : [
+                -0.17606522142887115, 
+                -0.005465028807520866, 
+                -0.17138083279132843
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 2, 
+            "componentType" : 5126, 
+            "count" : 150, 
+            "max" : [
+                0.9651907682418823, 
+                0.9863519072532654, 
+                0.9894894361495972
+            ], 
+            "min" : [
+                -0.9980854988098145, 
+                -0.9991634488105774, 
+                -0.9623727202415466
+            ], 
+            "type" : "VEC3"
+        }
+    ], 
+    "asset" : {
+        "generator" : "Khronos Blender glTF 2.0 exporter", 
+        "version" : "2.0"
+    }, 
+    "bufferViews" : [
+        {
+            "buffer" : 0, 
+            "byteLength" : 330, 
+            "byteOffset" : 0, 
+            "target" : 34963
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 1800, 
+            "byteOffset" : 332, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 1800, 
+            "byteOffset" : 2132, 
+            "target" : 34962
+        }
+    ], 
+    "buffers" : [
+        {
+            "byteLength" : 3932, 
+            "uri" : "fishingHut_post01.bin"
+        }
+    ], 
+    "materials" : [
+        {
+            "name" : "support post", 
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.5514875971002517, 
+                    0.5136159496548167, 
+                    0.644824800563228, 
+                    1.0
+                ], 
+                "metallicFactor" : 0.0
+            }
+        }
+    ], 
+    "meshes" : [
+        {
+            "name" : "Cylinder.003", 
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "NORMAL" : 2, 
+                        "POSITION" : 1
+                    }, 
+                    "indices" : 0, 
+                    "material" : 0
+                }
+            ]
+        }
+    ], 
+    "nodes" : [
+        {
+            "mesh" : 0, 
+            "name" : "pier post.001", 
+            "scale" : [
+                0.75, 
+                1.0, 
+                0.7499999403953552
+            ]
+        }
+    ], 
+    "scene" : 0, 
+    "scenes" : [
+        {
+            "name" : "Scene", 
+            "nodes" : [
+                0
+            ]
+        }
+    ]
+}

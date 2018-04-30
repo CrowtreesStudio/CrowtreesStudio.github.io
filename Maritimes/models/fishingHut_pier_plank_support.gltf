@@ -1,0 +1,228 @@
+{
+    "accessors" : [
+        {
+            "bufferView" : 0, 
+            "componentType" : 5123, 
+            "count" : 1056, 
+            "max" : [
+                767
+            ], 
+            "min" : [
+                0
+            ], 
+            "type" : "SCALAR"
+        }, 
+        {
+            "bufferView" : 1, 
+            "componentType" : 5126, 
+            "count" : 768, 
+            "max" : [
+                0.02500000223517418, 
+                0.0, 
+                -0.0
+            ], 
+            "min" : [
+                -3.4760000705718994, 
+                -0.20000000298023224, 
+                -4.0
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 2, 
+            "componentType" : 5126, 
+            "count" : 768, 
+            "max" : [
+                1.0, 
+                1.0, 
+                1.0
+            ], 
+            "min" : [
+                -1.0, 
+                -1.0, 
+                -1.0
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 3, 
+            "componentType" : 5123, 
+            "count" : 792, 
+            "max" : [
+                575
+            ], 
+            "min" : [
+                0
+            ], 
+            "type" : "SCALAR"
+        }, 
+        {
+            "bufferView" : 4, 
+            "componentType" : 5126, 
+            "count" : 576, 
+            "max" : [
+                0.02500024437904358, 
+                0.0, 
+                -0.0
+            ], 
+            "min" : [
+                -8.424999237060547, 
+                -0.20000000298023224, 
+                -1.6603951454162598
+            ], 
+            "type" : "VEC3"
+        }, 
+        {
+            "bufferView" : 5, 
+            "componentType" : 5126, 
+            "count" : 576, 
+            "max" : [
+                1.0, 
+                1.0, 
+                1.0
+            ], 
+            "min" : [
+                -1.0, 
+                -1.0, 
+                -1.0
+            ], 
+            "type" : "VEC3"
+        }
+    ], 
+    "asset" : {
+        "generator" : "Khronos Blender glTF 2.0 exporter", 
+        "version" : "2.0"
+    }, 
+    "bufferViews" : [
+        {
+            "buffer" : 0, 
+            "byteLength" : 2112, 
+            "byteOffset" : 0, 
+            "target" : 34963
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 9216, 
+            "byteOffset" : 2112, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 9216, 
+            "byteOffset" : 11328, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 1584, 
+            "byteOffset" : 20544, 
+            "target" : 34963
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 6912, 
+            "byteOffset" : 22128, 
+            "target" : 34962
+        }, 
+        {
+            "buffer" : 0, 
+            "byteLength" : 6912, 
+            "byteOffset" : 29040, 
+            "target" : 34962
+        }
+    ], 
+    "buffers" : [
+        {
+            "byteLength" : 35952, 
+            "uri" : "fishingHut_pier_plank_support.bin"
+        }
+    ], 
+    "materials" : [
+        {
+            "name" : "support post", 
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.6041561216735261, 
+                    0.5625699603940539, 
+                    0.7066667185227082, 
+                    1.0
+                ], 
+                "metallicFactor" : 0.0
+            }
+        }
+    ], 
+    "meshes" : [
+        {
+            "name" : "Cube.005", 
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "NORMAL" : 2, 
+                        "POSITION" : 1
+                    }, 
+                    "indices" : 0, 
+                    "material" : 0
+                }
+            ]
+        }, 
+        {
+            "name" : "Cube.021", 
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "NORMAL" : 5, 
+                        "POSITION" : 4
+                    }, 
+                    "indices" : 3, 
+                    "material" : 0
+                }
+            ]
+        }
+    ], 
+    "nodes" : [
+        {
+            "mesh" : 0, 
+            "name" : "runner.supports.length", 
+            "scale" : [
+                1.0, 
+                1.0, 
+                2.375
+            ], 
+            "translation" : [
+                1.725757122039795, 
+                0.0, 
+                3.0
+            ]
+        }, 
+        {
+            "mesh" : 1, 
+            "name" : "runner.supports.width", 
+            "rotation" : [
+                0.0, 
+                -0.7071068286895752, 
+                -0.0, 
+                0.7071067690849304
+            ], 
+            "scale" : [
+                1.0, 
+                1.0, 
+                2.375
+            ], 
+            "translation" : [
+                -1.962363362312317, 
+                -0.2005532681941986, 
+                2.8435165882110596
+            ]
+        }
+    ], 
+    "scene" : 0, 
+    "scenes" : [
+        {
+            "name" : "Scene", 
+            "nodes" : [
+                1, 
+                0
+            ]
+        }
+    ]
+}

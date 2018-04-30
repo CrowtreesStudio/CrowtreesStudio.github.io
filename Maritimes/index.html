@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maritime Experiment</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="javascript/aframe-v0.7.1.min.js"></script>
+<!--    <script src="javascript/aframe-extras.primitives.js" ></script>-->
+    <script src="javascript/cursor.js" ></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
+    <script src="javascript/aframe-extras.min.js"></script>
+<!--    <script src="https://unpkg.com/aframe-gltf-part-component/dist/aframe-gltf-part-component.min.js"></script>-->
+</head>
+<body>
+   <div id="preloader">
+        <svg x="0px" y="0px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="facet" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" style="stop-color:rgb(40,30,160);stop-opacity:1"></stop>
+              <stop offset="100%" style="stop-color:rgb(200,60,170);stop-opacity:1"></stop>
+            </linearGradient>
+          </defs>
+          <rect x="40" y="20" width="20" height="20" fill="yellow" />
+          <path d="M 40 20 L 50 0 L 60 20 L 100 100 L 0 100 Z" fill="url(#facet)" fill-rule="evenodd">
+            <animate begin="0s" dur="1s" attributeName="d"
+              values="
+                M 40 20 C 40 20 40 20 50 0 C 50 0 50 0 60 20 C 60 20 100 100 100 100 C 100 100 0 100 0 100 C 0 100 40 20 40 20 Z;
+                M 40 20 C 40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 100 100 C 80 80 20 80 0 100 C 0 80 40 20 40 20 Z;" />
+            <animate begin="1s" dur="4s" attributeName="d"
+              values="
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 100 100 C 80 80 20 80 0 100 C 0 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 100 100 C 80 80 20 80 20 80 C 20 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 80 80 C 80 80 20 80 0 100 C 0 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 100 100 C 80 80 20 80 20 80 C 20 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 80 80 C 80 80 20 80 0 100 C 0 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 100 100 C 80 80 20 80 20 80 C 20 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 80 80 C 80 80 20 80 0 100 C 0 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 100 100 C 80 80 20 80 20 80 C 20 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 80 80 C 80 80 20 80 0 100 C 0 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 100 100 C 80 80 20 80 20 80 C 20 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 80 80 C 80 80 20 80 0 100 C 0 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 100 100 C 80 80 20 80 20 80 C 20 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 80 80 C 80 80 20 80 0 100 C 0 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 100 100 C 80 80 20 80 20 80 C 20 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 80 80 C 80 80 20 80 0 100 C 0 80 40 20 40 20 Z;
+                M40 20 C40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 100 100 C 80 80 20 80 0 100 C 0 80 40 20 40 20 Z;" />
+            <animate begin="5s" dur="1s" attributeName="d"
+              values="
+                M 40 20 C 40 20 52.3 26.8 50 40 C 50 40 50 40 60 20 C 60 20 100 80 100 100 C 80 80 20 80 0 100 C 0 80 40 20 40 20 Z;
+                M 40 20 C 40 20 40 20 50 0 C 50 0 50 0 60 20 C 60 20 100 100 100 100 C 100 100 0 100 0 100 C 0 100 40 20 40 20 Z;" />
+          </path>
+          <path d="M 40 20 L 50 0 L 60 20 L 100 100 L 0 100 Z" fill="url(#facet)" fill-rule="evenodd"></path>
+        </svg>
+    </div>
+    <div id="begin">
+       <div id="buttonBox">
+            <a onclick="hidePlay()"><button id="button">Begin Experience</button></a>
+       </div>
+    </div>
+    <div id="logo">
+        <img alt="Crowtrees Studio logo" src="images/crowtrees.studio.logo.svg"/>
+    </div>
+<!--    <a-scene fog="type: exponential; color:#FFF; density:0.02;">-->
+    <a-scene id="scene" vr-mode-ui="enabled: true">
+        <a-assets asset-loader>
+          <!-- Load all assets -->
+           <!-- Models and Misc files -->
+            <a-asset-item id="land" src="models/baseScene.gltf"></a-asset-item>
+            <a-asset-item id="decor" src="models/Decor.gltf"></a-asset-item>
+            <a-asset-item id="lighthouse" src="models/lighthouse.gltf"></a-asset-item>
+            <a-asset-item id="buoy" src="models/buoyMarker.gltf"></a-asset-item>
+            <a-asset-item id="hut" src="models/fishingHut.gltf"></a-asset-item>
+            <a-asset-item id="pier" src="models/fishingHut_pier.gltf"></a-asset-item>
+            <a-asset-item id="pierSupportLength" src="models/pier_support_length.gltf"></a-asset-item>
+            <a-asset-item id="pierSupportWidth" src="models/pier_support_width.gltf"></a-asset-item>
+            <a-asset-item id="pierPost" src="models/fishingHut_post01.gltf"></a-asset-item>
+            <a-asset-item id="pierSupport" src="models/fishingHut_post02.gltf"></a-asset-item>
+            <a-asset-item id="gull" src="models/gull.gltf"></a-asset-item>
+            <!-- Sound files -->
+            <audio id="buoyBellSFX" src="audio/buoyBell.mp3"></audio>
+            <audio id="oceanWavesSFX" src="audio/waves.mp3"></audio>
+            <audio id="gullSFX" src="audio/gull.mp3"></audio>
+            <audio id="gullsSFX" src="audio/gulls_mono.mp3"></audio>
+            <!-- Image files -->
+            <img id="texture" src="https://i.imgur.com/mYmmbrp.jpg">
+            <!-- Video files -->
+            <video></video>
+        </a-assets>
+        
+        <!--###################-->
+        <!-- Setting the Scene -->
+        <!--###################-->
+        
+        <!-- Camera -->
+       <a-camera 
+           id="player"
+           log="message: What's up!" 
+           rotation="0 200 0" 
+           universal-controls="movementControls: checkpoint"
+           checkpoint-controls="mode: animate; animateSpeed:10"
+           position="-5 0 -9"
+        >
+           <!-- Cursor -->
+           <!-- Cursor:  Set raycaster to only activate on specific class of object  -->
+           <a-cursor     
+               cursor="fuse: true"
+               raycaster="objects: .clickable"   
+               position="0 0 -1"
+               geometry="primitive:ring; radiusInner:0.022; radiusOuter:0.028; segmentsTheta: 18; thetaStart:90; thetaLength:0"   
+               material="color:#117174; shader: flat">
+
+               <!-- This entity is not animated - this is "base" color reticle  -->
+               <a-entity
+                   id="reticleBase"               
+                   position="0 0 0"
+                   geometry="primitive:ring; radiusInner:0.02; radiusOuter:0.03; segmentsTheta: 18"
+                   material="color:white; shader: flat"
+                ></a-entity>
+
+               <!-- This animates the a-cursor geometry showing "warmup"  -->
+               <a-animation
+                   begin="click mouseleave"
+                   easing="linear"
+                   attribute="geometry.thetaLength"
+                   fill="none"
+                   from="0"
+                   to="0"
+                   dur=0>
+               </a-animation>
+               <a-animation
+                   begin="cursor-fusing"
+                   direction="reverse"
+                   easing="linear"
+                   attribute="geometry.thetaLength"
+                   fill="forwards"
+                   from="0"
+                   to="360"
+                   dur=1500>
+               </a-animation>
+           </a-cursor>
+       </a-camera>
+        
+        <!-- waypoints -->
+<!--        <a-cylinder 
+                id="Buoy_Waypoint"
+                checkpoint="offset: 0 1.6 0" 
+                radius="0.0" 
+                position="-31.75 -0.45 22.25"
+                class="clickable"
+                clickme
+            >
+               <a-box
+                  material="emissive:#7c0000"
+                  position="0 1.6 0"
+                  scale="0.5 0.5 0.5"
+                  >
+                   <a-animation 
+                      begin="10"
+                      easing="linear"
+                      attribute="rotation"
+                      fill="none"
+                      from="0 0 0"
+                      to="360 360 360"
+                      dur=2000
+                      repeat="indefinite"
+                    >
+                    </a-animation>
+               </a-box>
+            </a-cylinder>
+            <a-cylinder 
+                id="Hut_Waypoint"
+                checkpoint="offset: 0 1.6 0" 
+                radius="0.0" 
+                position="-5 0.73 -9" 
+                class="clickable"
+                clickme
+            >
+                <a-box
+                     material="emissive:#7c0000"
+                     position="0 1.6 0"
+                     scale="0.5 0.5 0.5"
+                  >
+                   <a-animation 
+                      begin="10"
+                      easing="linear"
+                      attribute="rotation"
+                      fill="none"
+                      from="0 0 0"
+                      to="360 360 360"
+                      dur=2000
+                      repeat="indefinite"
+                    >
+                    </a-animation>
+               </a-box>
+            </a-cylinder>
+            <a-cylinder  
+                id="Gull_Waypoint"
+                checkpoint="offset: 0 1.6 0" 
+                radius="0.0"
+                position="13.207 1.3 -13" 
+                class="clickable"
+                clickme
+            >
+                <a-box
+                     material="emissive:#7c0000"
+                     position="0 1.6 0"
+                     scale="0.5 0.5 0.5"
+                  >
+                   <a-animation 
+                      begin="10"
+                      easing="linear"
+                      attribute="rotation"
+                      fill="none"
+                      from="0 0 0"
+                      to="360 360 360"
+                      dur=2000
+                      repeat="indefinite"
+                    >
+                    </a-animation>
+               </a-box>
+            </a-cylinder>
+            <a-cylinder  
+                id="Lighthouse_Waypoint"
+                checkpoint="offset: 0 1.6 0" 
+                radius="0.0"
+                position="26.5 1.1 18" 
+                class="clickable"
+                clickme
+            >
+                <a-box
+                     material="emissive:#7c0000"
+                     position="0 1.6 0"
+                     scale="0.5 0.5 0.5"
+                  >
+                   <a-animation 
+                      begin="10"
+                      easing="linear"
+                      attribute="rotation"
+                      fill="none"
+                      from="0 0 0"
+                      to="360 360 360"
+                      dur=2000
+                      repeat="indefinite"
+                    >
+                    </a-animation>
+               </a-box>
+            </a-cylinder>-->
+        <!-- End Waypoints -->
+        
+        <!-- landscape -->
+        <a-entity>
+               <a-gltf-model id="coast" gltf-model="#land" shadow="receive:true; cast:false" ></a-gltf-model> 
+        </a-entity>
+        <a-entity>
+            <a-gltf-model src="#decor" rotation="0 -44.97718691776962 0" position="-20 5.6 -30" scale="1.893 1.893 1.893">
+            </a-gltf-model>
+        </a-entity>
+<!--        <a-entity gltf-part="src: #land; part: sandSilt" material="src:#texture" position="0 -1 0"></a-entity>-->
+        
+        <!-- Fishing Hut -->
+        <a-entity
+            id="theFishingHut" 
+            position="-5.314 0.622 -10.202"
+            rotation = "0 2.2345354010102105 0">
+            <a-gltf-model id="fishHut" src="#hut" shadow="receive:true; cast:true"></a-gltf-model>
+            <a-gltf-model id="fishHutPierSupport" src="#pierBoardSupport" shadow="receive:true; cast:true"></a-gltf-model>
+            
+            <a-entity>
+                <a-gltf-model id="fishHutPier" src="#pier" shadow="receive:true; cast:true" position="0 0 0"></a-gltf-model>
+                <a-gltf-model id="fishHutPier" src="#pier" shadow="receive:true; cast:true" position="0 0 -1"></a-gltf-model>
+                <a-gltf-model id="fishHutPier" src="#pier" shadow="receive:true; cast:true" position="0 0 -2"></a-gltf-model>
+                <a-gltf-model id="fishHutPier" src="#pier" shadow="receive:true; cast:true" position="0 0 -3"></a-gltf-model>
+                <a-gltf-model id="fishHutPier" src="#pier" shadow="receive:true; cast:true" position="0 0 -4"></a-gltf-model>
+                <a-gltf-model id="fishHutPier" src="#pier" shadow="receive:true; cast:true" position="0 0 -5"></a-gltf-model>
+                <a-gltf-model id="fishHutPier" src="#pier" shadow="receive:true; cast:true" position="0 0 -6"></a-gltf-model>
+                <a-gltf-model id="fishHutPier" src="#pier" shadow="receive:true; cast:true" position="0 0 -7"></a-gltf-model>
+                <a-gltf-model id="fishHutPier" src="#pier" shadow="receive:true; cast:true" position="0 0 -8"></a-gltf-model>
+                <a-gltf-model id="fishHutPier" src="#pier" shadow="receive:true; cast:true" position="0 0 -9"></a-gltf-model>
+            </a-entity>
+            <!-- To keep downloads of models small, using one instance of the object and replicating it to create the pier. Ideally we would add a component that would allow us to indicate the number of instances and spacing. -->
+            <!-- kleet posts -->
+            <a-entity id="pierPosts"
+               position="-2 -1.8 3.1">
+                <a-gltf-model
+                id="pierPost01"
+                gltf-model="#pierPost"
+                position="0.3 0 .01"
+                rotation="0 0 2"
+                
+                ></a-gltf-model>
+                
+                <a-gltf-model
+                id="pierPost01"
+                gltf-model="#pierPost"
+                position="2 -0.25 0.03"
+                rotation="1 250 0"
+                
+                ></a-gltf-model>
+                
+                <a-gltf-model
+                    id="pierPost01"
+                    gltf-model="#pierPost"
+                    position="4.1 -0.1 -0.04"
+                    rotation="-5 90 3"
+                >
+                </a-gltf-model>
+            </a-entity>
+            
+            <!-- support beams length -->
+            <a-entity id="pierSupportLength" position = "0 0 0">
+                   <a-gltf-model
+                        gltf-model="#pierSupportLength"
+                        position="0 -0.01 0"
+                        rotation="0 0 0"
+                        shadow="receive:true"                    
+                    >
+                    </a-gltf-model>
+                    <a-gltf-model
+                        gltf-model="#pierSupportLength"
+                        position="-0.5 -0.01 0"
+                        rotation="0 0 0"
+                        shadow="receive:true"                    
+                    >
+                    </a-gltf-model>
+                    <a-gltf-model
+                        gltf-model="#pierSupportLength"
+                        position="-1 -0.01 0"
+                        rotation="0 0 0"
+                        shadow="receive:true"                    
+                    >
+                    </a-gltf-model>
+                    <a-gltf-model
+                        gltf-model="#pierSupportLength"
+                        position="-1.5 -0.01 0"
+                        rotation="0 0 0"
+                        shadow="receive:true"                    
+                    >
+                    </a-gltf-model>
+                    <a-gltf-model
+                        gltf-model="#pierSupportLength"
+                        position="-2.0 -0.01 0"
+                        rotation="0 0 0"
+                        shadow="receive:true"                    
+                    >
+                    </a-gltf-model>
+                    <a-gltf-model
+                        gltf-model="#pierSupportLength"
+                        position="-2.5 -0.01 0"
+                        rotation="0 0 0"
+                        shadow="receive:true"                    
+                    >
+                    </a-gltf-model>
+                    <a-gltf-model
+                        gltf-model="#pierSupportLength"
+                        position="-3.0 -0.01 0"
+                        rotation="0 0 0"
+                        shadow="receive:true"                    
+                    >
+                    </a-gltf-model>
+                    <a-gltf-model
+                        gltf-model="#pierSupportLength"
+                        position="-3.4 -0.01 0"
+                        rotation="0 0 0"
+                        shadow="receive:true"                    
+                    >
+                    </a-gltf-model>
+            </a-entity>
+                
+            <!-- support posts & cross beams (width) -->  
+            <a-entity id="supportPosts"
+               position="-1.85 -1.85 2.8">
+               <a-entity id="row1" position = "0 0 0">
+                   <a-gltf-model
+                    id="pierPost02"
+                    gltf-model="#pierSupport"
+                    position="0 0 0"
+                    rotation="0 0 0"
+                    shadow="receive:true"                    
+                    ></a-gltf-model>
+
+                    <a-gltf-model
+                    id="pierPost02"
+                    gltf-model="#pierSupport"
+                    position="3.73 0 0"
+                    rotation="0 250 0"
+                    shadow="receive:true"                    
+                    ></a-gltf-model>
+                    <a-gltf-model
+                        id="pierSupportWidth"
+                        position="1.858 1.85 -2.686"
+                        gltf-model="#pierSupportWidth"
+                        shadow="receive:true"
+                    >
+                    </a-gltf-model>
+               </a-entity>
+               <a-entity id="row2" position = "0 0 -1.5">
+                   <a-gltf-model
+                    id="pierPost02"
+                    gltf-model="#pierSupport"
+                    position="0 0 0"
+                    rotation="0 30 0"
+                    shadow="receive:true"
+                    ></a-gltf-model>
+
+                    <a-gltf-model
+                    id="pierPost02"
+                    gltf-model="#pierSupport"
+                    position="3.73 0 0"
+                    rotation="0 30 0"
+                    shadow="receive:true"
+                    ></a-gltf-model>
+                    <a-gltf-model
+                        id="pierSupportWidth"
+                        position="1.858 1.85 -2.686"
+                        gltf-model="#pierSupportWidth"
+                        shadow="receive:true"
+                    >
+                    </a-gltf-model>
+               </a-entity>
+               <a-entity id="row3" position = "0 0 -3">
+                   <a-gltf-model
+                    id="pierPost02"
+                    gltf-model="#pierSupport"
+                    position="0 0 0"
+                    rotation="0 65 0"
+                    shadow="receive:true"                    
+                    ></a-gltf-model>
+
+                    <a-gltf-model
+                    id="pierPost02"
+                    gltf-model="#pierSupport"
+                    position="3.73 0 0"
+                    rotation="0 65 0"
+                    shadow="receive:true"                    
+                    ></a-gltf-model>
+                    <a-gltf-model
+                        id="pierSupportWidth"
+                        position="1.858 1.85 -2.686"
+                        gltf-model="#pierSupportWidth"
+                        shadow="receive:true"
+                    >
+                    </a-gltf-model>
+               </a-entity>
+               <a-entity id="row4" position = "0 0 -4.5">
+                   <a-gltf-model
+                    id="pierPost02"
+                    gltf-model="#pierSupport"
+                    position="0 0 0"
+                    rotation="0 100 0"
+                    shadow="receive:true"                    
+                    ></a-gltf-model>
+
+                    <a-gltf-model
+                    id="pierPost02"
+                    gltf-model="#pierSupport"
+                    position="3.73 0 0"
+                    rotation="0 100 0"
+                    shadow="receive:true"                    
+                    ></a-gltf-model>
+                    <a-gltf-model
+                        id="pierSupportWidth"
+                        position="1.858 1.85 -2.686"
+                        gltf-model="#pierSupportWidth"
+                        shadow="receive:true"
+                    >
+                    </a-gltf-model>
+               </a-entity>
+               <a-entity id="row5" position = "0 0 -6">
+                   <a-gltf-model
+                    id="pierPost02"
+                    gltf-model="#pierSupport"
+                    position="0 0 0"
+                    rotation="0 150 0"
+                    shadow="receive:true"                    
+                    ></a-gltf-model>
+
+                    <a-gltf-model
+                    id="pierPost02"
+                    gltf-model="#pierSupport"
+                    position="3.73 0 0"
+                    rotation="0 150 0"
+                    shadow="receive:true"                    
+                    ></a-gltf-model>
+                    <a-gltf-model
+                        id="pierSupportWidth"
+                        position="1.858 1.85 -2.686"
+                        gltf-model="#pierSupportWidth"
+                        shadow="receive:true"
+                    >
+                    </a-gltf-model>
+               </a-entity>
+               <a-entity id="row6" position = "0 0 -7.5">
+                   <a-gltf-model
+                    id="pierPost02"
+                    gltf-model="#pierSupport"
+                    position="0 0 0"
+                    rotation="0 270 0"
+                    shadow="receive:true"                    
+                    ></a-gltf-model>
+
+                    <a-gltf-model
+                    id="pierPost02"
+                    gltf-model="#pierSupport"
+                    position="3.73 0 0"
+                    rotation="0 270 0"
+                    shadow="receive:true"                    
+                    ></a-gltf-model>
+                    <a-gltf-model
+                        id="pierSupportWidth"
+                        position="1.858 1.85 -2.686"
+                        gltf-model="#pierSupportWidth"
+                        shadow="receive:true"
+                    >
+                    </a-gltf-model>
+               </a-entity>
+            </a-entity>
+            
+        </a-entity>
+        
+        <!-- gull -->
+<!--        <a-entity position="13.207 1.106 -11.098" rotation="0 210 0">
+            <a-gltf-model src="#gull"></a-gltf-model>
+            <a-gltf-model src="#gull" position="0.2 -0.05 -0.8" rotation="0 30 0"></a-gltf-model>
+            <a-gltf-model src="#gull" position="-0.8 .155 0.3" rotation="0 -30 0"></a-gltf-model>
+            <a-gltf-model src="#gull" position="-0.4 -.15 -3" rotation="0 -60 0"></a-gltf-model>
+            <a-sound id="gullSound" src="#gullSFX" position="-5 0 0" autoplay="false" volume="1" loop="true"></a-sound>
+            <a-sound id="gullSounds" src="#gullsSFX" autoplay="false" volume="1" loop="true"></a-sound>
+        </a-entity>-->
+        
+        <!-- House on Hill -->
+        <a-entity position="-14 5 -40" rotation="0 110 0" scale="1.3 1.3 1.3">
+            <a-gltf-model id="fishHut" src="#hut" shadow="receive:true; cast:true"></a-gltf-model>
+        </a-entity>
+        
+        <!-- lighthouse -->
+        <a-entity 
+            position="38 3 20"                
+            rotation="0 200 0" 
+            class="clickable"
+            clickme>
+            <a-gltf-model src="#lighthouse" shadow="receive:true; cast:true"></a-gltf-model>
+        </a-entity>
+        
+        <!-- testing box -->
+        <a-entity
+            id="texturedBox"
+            position= "-6.362 1.4 -9"
+        >
+            <a-box 
+                look-at="#player"
+                scale="0.75 0.75 0.75"
+                color="#0F0"
+                shadow="cast:true"
+                src="#texture"
+                class="clickable"
+                clickme>
+                <a-animation
+                          easing="ease-in-out-sine"
+                          attribute="position"
+                          repeat="indefinite"
+                          direction="alternate"
+                          dur="2000"
+                          from="0 .2 0"
+                          to="0 0 0">
+                    </a-animation>
+                    <a-animation
+                          easing="ease-in-out-sine"
+                          attribute="rotation"
+                          repeat="indefinite"
+                          direction="alternate"
+                          dur="1500"
+                          from="-2 0 3"
+                          to="2 0 -3">
+                    </a-animation>
+            </a-box>
+        </a-entity>
+        
+        <!-- Buoy Marker with Sound Effects -->
+        <a-entity 
+          id="buoy and bell" 
+          position="-20 -0.75 30" 
+          rotation="0 15 0">
+            <a-sound id="buoySound" src="#buoyBellSFX" autoplay="false" volume="1" loop="true"></a-sound>
+            <a-gltf-model 
+               id='buoy'
+               gltf-model="#buoy"
+               >
+               <a-animation
+                      easing="ease-in-out-sine"
+                      attribute="position"
+                      repeat="indefinite"
+                      direction="alternate"
+                      dur="2000"
+                      from="0 .2 0"
+                      to="0 0 0">
+                </a-animation>
+                <a-animation
+                      easing="ease-in-out-sine"
+                      attribute="rotation"
+                      repeat="indefinite"
+                      direction="alternate"
+                      dur="1500"
+                      from="-2 0 3"
+                      to="2 0 -3">
+                </a-animation>
+            </a-gltf-model>
+        </a-entity>
+        <!-- Ocean -->
+        <!-- for opacity to work, object order is back-to-front not front-to-back. Placing ocean last ensures order of render for opacity is correct otherwise "underwater" features are not rendered -->
+        
+        <a-ocean color="#1b9898" depth="150" width="150" density="100" opacity="0.75" ocean="amplitude: 0.1; amplitudeVariance: 0.0; speed: 2.0" position="0 -0.5 50"></a-ocean>
+        <a-sound id="oceanSound" src="#oceanWavesSFX" autoplay="false" volume="1" loop="true" position="-20 0 -5" ></a-sound>
+        
+        <!-- Sky -->
+        <a-sky src="images/Daylight_sunrise.jpg" rotation="0 70 0"></a-sky>
+        
+        <!-- ************** lighting ***************** -->
+        <!-- Ambient Light -->
+        <a-entity id="ambient light" light="type:ambient; color:#2c2d36; intensity:0.6;"></a-entity>
+        
+        <!-- Directional Light -->
+        <a-entity id="sunlight" light="type:directional; 
+                        castShadow:true;
+                        color:#ffdf30; 
+                        shadowCameraBottom:0;
+                        shadowCameraTop:15;
+                        shadowCameraRight:0;
+                        shadowCameraLeft:-22;
+                        shadowMapHeight:4096;
+                        shadowMapWidth:4096;
+                        intensity:1.75;" position="-0.9 1.2 2.5"
+                         ></a-entity>
+        <!-- Fill Light -->
+        <a-entity id="fill light" light="type:directional; color:#bfa8db; intensity:.5;" position="1.62 -1.26 -3.5" ></a-entity>
+        
+        <!-- Directional Light with target -->
+<!--        <a-light type="directional" intensity="1.5" position="-0.9 1.2 2.5" rotation="-90 0 0" target="#directionalTarget">
+            <a-entity id="directionalTarget" position="-6 .5 -10.3.5"></a-entity>
+        </a-light>-->
+        
+        <!--        <a-entity light="type:hemisphere; color:#AAA; groundColor:#990000; intensity:0.9;"></a-entity>-->
+    </a-scene>
+    <script>
+      document.querySelector('a-scene').addEventListener('loaded', function () {
+        document.getElementById("preloader").style.display = "none";
+        document.getElementById("begin").style.display = "block";
+      })
+    </script>
+</body>
+</html>
