@@ -57,9 +57,11 @@
             <a onclick="hidePlay()"><button id="button">Begin Experience</button></a>
        </div>
     </div>
+<!--
     <div id="logo">
         <img alt="Crowtrees Studio logo" src="images/crowtrees.studio.logo.svg"/>
     </div>
+-->
 <!--    <a-scene fog="type: exponential; color:#FFF; density:0.02;">-->
     <a-scene id="scene" vr-mode-ui="enabled: true">
         <a-assets asset-loader>
@@ -82,7 +84,8 @@
             <audio id="gullSFX" src="audio/gull.mp3"></audio>
             <audio id="gullsSFX" src="audio/gulls_mono.mp3"></audio>
             <!-- Image files -->
-            <img id="texture" src="https://i.imgur.com/mYmmbrp.jpg">
+            <img id="texture" src="images/catStare.jpeg">
+<!--            <img id="texture" src="https://i.imgur.com/mYmmbrp.jpg">-->
             <!-- Video files -->
             <video></video>
         </a-assets>
@@ -141,7 +144,7 @@
        </a-camera>
         
         <!-- waypoints -->
-<!--        <a-cylinder 
+        <a-cylinder 
                 id="Buoy_Waypoint"
                 checkpoint="offset: 0 1.6 0" 
                 radius="0.0" 
@@ -244,7 +247,7 @@
                     >
                     </a-animation>
                </a-box>
-            </a-cylinder>-->
+            </a-cylinder>
         <!-- End Waypoints -->
         
         <!-- landscape -->
@@ -535,9 +538,7 @@
         <!-- lighthouse -->
         <a-entity 
             position="38 3 20"                
-            rotation="0 200 0" 
-            class="clickable"
-            clickme>
+            rotation="0 200 0">
             <a-gltf-model src="#lighthouse" shadow="receive:true; cast:true"></a-gltf-model>
         </a-entity>
         
@@ -547,7 +548,6 @@
             position= "-6.362 1.4 -9"
         >
             <a-box 
-                look-at="#player"
                 scale="0.75 0.75 0.75"
                 color="#0F0"
                 shadow="cast:true"

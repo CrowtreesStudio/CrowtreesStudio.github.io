@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dalek City</title>
+    <link rel="stylesheet" href="css/styling.css">
+    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+    <script src="lib/aframe-extras.controls.js" ></script>
+    <script src="lib/aframe-extras.pathfinding.js"></script>
+    <script src="lib/three-pathfinding.min.js"></script>
+    <script src="js/code.js" ></script>
+</head>
+<body>
+    
+      <div id="begin">
+       <div id="buttonBox">
+            <a onclick="hidePlay()"><button id="button">Click Here to Begin<br>Dalek City Experience</button></a>
+            <img id="preloader" src="assets/SVG/preloaderSVG.svg">
+       </div>
+    </div>
+    
+   <a-scene shadow="type:pcfsoft">
+      <a-assets>
+            <a-asset-item id="room" src="assets/SkaroSet.glb"></a-asset-item>
+            <a-asset-item id="navmesh" src="assets/navMesh.glb"></a-asset-item>
+            <a-asset-item id="dalek" src="assets/dalekMk1.glb"></a-asset-item>
+            <audio id="heartbeat" src="assets/audio/DalekHeartBeat.ogg" poolSize="2" preload="auto"></audio>
+            <img id="reflect" src="assets/equirectangular.jpg" />
+            <img id="ruffNMap" src="assets/noise_03_normal.png" />
+      </a-assets>
+      
+       <!-- Camera Rig -->      
+       <a-entity id="rig"
+          movement-controls="constrainToNavMesh: true; controls: checkpoint, gamepad, trackpad, keyboard, touch; speed: 0.075;"
+          position=".25 0 3.75"
+          rotation="0 5 0">
+          <a-entity id="camera" camera="fov:50;" position="0 1.6 0" look-controls="pointerLockEnabled: true" ></a-entity>
+<!--          <a-sound id="dalekSound" src="#heartbeat" autoplay="false" volume=".5" loop="true" poolSize="10"></a-sound>-->
+       </a-entity>
+       
+       <!-- Skaro Hub Set -->
+       <a-gltf-model id="scene" src="#room" material="sphericalEnvMap:#reflect; normalMap:#ruffNMap" ></a-gltf-model>
+       
+       <!-- Nav mesh. -->
+        <a-entity nav-mesh
+                normal-material
+                visible="false"
+                gltf-model="#navmesh">
+        </a-entity>
+        
+       <!-- Dalek Mk1 -->
+       <a-gltf-model id="dalekModel" src="#dalek" position="-1 0 -1.25" rotation="0 55 0" shadow="cast:true;"></a-gltf-model>
+       
+       <a-box scale="0.5 0.5 0.5" position="2.5 .25 -0.25" rotation="0 45 0" material="color:#BBBBBB; sphericalEnvMap:#reflect; roughness:0.25; metalness:1; normalMap:#ruffNMap; normalScale:0.25 0.25;" shadow="cast:true;"></a-box>
+      
+       <!-- Spotlight with Shadow -->
+       <a-light type="spot" intensity="1" target="#lightTarget" position="0 4 1" light="castShadow:true; shadowCameraVisible:false; shadowCameraLeft:-6.5; shadowMapHeight:1024; shadowMapWidth:1024; penumbra:0.5;"></a-light>
+              
+       <!-- Spotlight from below no Shadow -->
+       <a-light type="spot" intensity="1" target="#lightTarget" position="0 -6 1" light="castShadow:false; penumbra:0.5;"></a-light>
+       
+       <!-- Spotlight target -->
+       <a-box id="lightTarget" scale="0.1 0.1 0.1" position="0 0 0.75" visible="false"></a-box>
+           
+       <!-- Fill lights -->   
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="0 6 -1.25" light="penumbra:0.5;" intensity="1" angle="60"></a-light>
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="2 6 -1" light="penumbra:0.5;" intensity="1" angle="45"></a-light>
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="3 6 1.25" light="penumbra:0.5;" intensity="1" angle="60"></a-light>
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="2 6 3.25" light="penumbra:0.5;" intensity="1" angle="45"></a-light>
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="0 6 3.75" light="penumbra:0.5;" intensity="1" angle="60"></a-light>
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="-2 6 3.75" light="penumbra:0.5;" intensity="1" angle="45"></a-light>
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="-3 6 1.25" light="penumbra:0.5;" intensity="1" angle="60"></a-light>
+       
+       <!-- Sounds Effects -->
+       <!-- Dalek Heartbeat -->
+       <a-text value="Dalek heartbeat SFX" align="center" position="0 4 1.15" width="2" visible="true">
+           <a-sound id="dalekSound" src="#heartbeat" autoplay="false" volume=".5" loop="true" poolSize="10"></a-sound>
+       </a-text>
+       
+<!--       <a-light type="ambient" intensity="0.25" ></a-light>-->
+      <a-sky src="#reflect"></a-sky>
+   </a-scene>
+    
+</body>
+</html>

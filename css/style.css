@@ -1,5 +1,11 @@
 body {
-    background-color: #5e316c;
+    background-color: #454b74;
+    margin: 0;
+}
+
+h1, h4, a, p {
+    font-family: 'Heebo', sans-serif;
+    color:#9ca7e8;
 }
 
 .page {
@@ -7,29 +13,134 @@ body {
     max-width: 960px;
 }
 
-.gallery {
+header #logo{
+    position: absolute;
+    z-index: 200;
+    width: 50%;
+}
+
+header #svg-object {
+    position: relative;
+    width: 50%;
+    max-width: 200px;
+    padding: 0 25px;
+/*    top: -25px;*/
+}
+
+header #masthead iframe{
     width: 100%;
-    text-align: center;
+    height: 400px;
+    border:0;
+    border-radius: 5px;
 }
 
-.gallery ul{
-    padding: 0;
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4);
+    grid-gap: 5px;
+/*    margin-top: 5px;*/
 }
 
-.gallery ul li {
-    width: 150px;
-    list-style-type: none;
-    display: inline-block;
-    vertical-align: top;
-    color: #f6c7ff;
-    margin: 10px;
+.box {
+/*    background-color: #5f7aa0;*/
 }
 
-.gallery li img{
+.image {
+    padding: 5px;
+}
+
+.box img {
     width: 100%;
+    border-radius: 25px;
+    border: 5px solid #616895;
+}
+.box h1{
+    position: absolute;
+    margin: 10px 0 0 20px;
+    font-size: 4em;
+    color: #222436;
+    line-height: 1em;
 }
 
-.gallery li h4 {
+.box .stroke{
+    -webkit-text-stroke-width: 4px;
+    -webkit-text-stroke-color:#8892d8;
+}
+
+.box h4{
     text-align: center;
     margin: 5px;
+}
+
+.a {
+/*
+        grid-column-start: 1;
+        grid-column-end: 2;
+*/
+        grid-column: 1/2;/* shorthand for above*/
+    
+        grid-row-start: 2;
+        grid-row-end: 3;
+}
+
+.b {
+/*
+    grid-column: 2/4;
+    grid-row: 2/4;
+*/
+    grid-area: 2/2/3/3;/* shorthand for above*/
+    /* grid-area: rowStart/colStart/rowEnd/colEnd*/
+    
+}
+
+.c {
+    grid-column: 3/4;
+    grid-row: 2/3;
+}
+
+.d {
+    grid-column: 4/5;
+    grid-row: 2/3;
+}
+
+footer {
+    grid-area: 3/1/4/7;
+    text-align: center;
+    
+}
+
+footer a{
+    text-decoration: none;
+    
+}
+
+footer p{
+    
+}
+
+
+
+#copy {
+    background-color: #616895;
+    grid-column: 1/7;/* starting col / ending col*/
+    border-radius: 5px;
+/*    margin-top: 10px;*/
+}
+
+#copy h1, #copy p {
+/*    color: white;*/
+    letter-spacing: 0.025em;
+}
+
+#copy h1 {
+    margin: 10px;
+    color:#ffffff;
+}
+
+#copy p {
+    margin: 10px  10px 40px;
+    color: #d2d8fc;
+    
 }
