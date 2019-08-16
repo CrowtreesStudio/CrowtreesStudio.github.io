@@ -4,9 +4,17 @@ body {
     background-color: #616895;
 }
 
-body #begin{
+body a-scene {
+    visibility:hidden;
+}
+
+body #preloader{
     position: absolute;
-    width: 100%;
+    top: -10%;
+}
+
+body #begin{
+    position: relative;
     height: 100%;
     padding: 0;
 }
@@ -61,3 +69,5 @@ body #begin #buttonBox img {
     border: 5px solid black;
     z-index: 10;
 }
+
+

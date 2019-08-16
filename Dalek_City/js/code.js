@@ -3,9 +3,6 @@ let loaded = false;
 
 window.onload = ()=>{
     init();
-//    let cacheLook = THREE.Cache;
-//    console.log("cacheLook = ");
-//    console.log(cacheLook.files);
     document.querySelector('a-scene').addEventListener('loaded', function () {
       document.getElementById("button").style.display = "block";
       document.getElementById("preloader").style.display = "none";
@@ -36,17 +33,6 @@ function init(){
                 // to affect
                 if(model.material){
                     model.material.shadowSide=1;
-                    /*if(model.material.name === "metal"){
-                        console.log(model.material);
-                        model.material.metalness = 0.75;
-                        model.material.roughness = 0.8;
-                        model.material.normalMap = new THREE.TextureLoader().load( "assets/noise_03_normal.png" );
-                        model.material.normalScale={x:1, y:1};
-                        model.material.normalMap.wrapS = model.material.normalMap.wrapT = THREE.RepeatWrapping;
-                        model.material.envMap = new THREE.TextureLoader().load( "assets/equirectangular.jpg" );
-                        model.material.envMap.mapping = THREE.SphericalReflectionMapping;
-                        
-                    }*/
                 }
                 // If model has more than one material
                 if(!model.material){
@@ -143,13 +129,12 @@ AFRAME.registerComponent('nav-pointer', {
 });
 
 function hidePlay(){
-    
     //hide button and colour screen
     console.log("Play sound and hide me!");
     document.getElementById("begin").style.display = "none";
+    let sc = document.getElementById("MainScene").style.visibility="visible";
     var sound1 = document.querySelector('#dalekSound');
     sound1.components.sound.playSound();
-
 }
 
 
