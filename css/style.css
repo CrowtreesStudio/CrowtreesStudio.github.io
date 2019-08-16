@@ -3,7 +3,7 @@ body {
     margin: 0;
 }
 
-h1, h4, a, p {
+h1, h2, h4, a, p {
     font-family: 'Heebo', sans-serif;
     color:#9ca7e8;
 }
@@ -129,18 +129,23 @@ footer p{
 /*    margin-top: 10px;*/
 }
 
-#copy h1, #copy p {
+#copy p {
 /*    color: white;*/
     letter-spacing: 0.025em;
 }
 
-#copy h1 {
+#copy h1, h2 {
     margin: 10px;
     color:#ffffff;
 }
 
 #copy p {
-    margin: 10px  10px 40px;
+    margin: 10px  10px 20px;
     color: #d2d8fc;
     
+}
+
+#copy #instructions{
+    margin: -10px 30px 20px 30px;
+    line-height: 1em;
 }

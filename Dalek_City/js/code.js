@@ -75,11 +75,10 @@ function init(){
                 
                 for(let i=0; i<model.children[0].children.length; i++){
                     this.boneSearch = model.children[0].children[i];
-                    
+                    // Grab the bone controlling the dome & eyestalk
                     if(boneSearch.name === "BoneDome"){
                         this.lookBone = model.children[0].children[i];
-//                        this.lookBone = this.lookBone.object3D.position;
-                        console.log(this.lookBone.position);
+//                        console.log(this.lookBone.position);
                     }
                 }
             }
@@ -104,6 +103,7 @@ function init(){
 
 function animate() {
         requestAnimationFrame(animate);
+    // Dalek watches player
         this.lookBone.lookAt(playerCam.x, 1.3, playerCam.z);
 
 }
