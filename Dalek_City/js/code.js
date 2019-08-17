@@ -47,41 +47,40 @@ function init(){
         });
     });
     
-    this.el2=document.querySelector("#dalekModel");
-    this.el2.addEventListener('model-loaded', ()=>{
-        const dalek = this.el2.getObject3D('mesh');
-        console.log(dalek.children);
-        dalek.children.forEach((model)=>{
-            console.log(model.name);
-            
-            if(model.name === "Armature"){
-                
-                console.log("Bones!");
-                console.log("Number of bones = "+model.children[0].children.length);
-                
-                for(let i=0; i<model.children[0].children.length; i++){
-                    this.boneSearch = model.children[0].children[i];
-                    // Grab the bone controlling the dome & eyestalk
-                    if(boneSearch.name === "BoneDome"){
-                        this.lookBone = model.children[0].children[i];
-//                        console.log(this.lookBone.position);
-                    }
-                }
-            }
-            
-            if(model.name ==="DalekLowPoly"){
-                console.log("A Dalek!");
-                console.log("Number of materials = "+model.children.length);
-                for(let i=0; i<model.children.length; i++){
-                    console.log("material name = "+model.children[i].material.name);
-                    model.children[i].material.shadowSide = 1;
-                    model.children[i].castShadow = true;
-                }
-            }            
-        });
-        console.log(playerCam);
-        animate();
-    });
+//    this.el2=document.querySelector("#dalekModel");
+//    this.el2.addEventListener('model-loaded', ()=>{
+//        const dalek = this.el2.getObject3D('mesh');
+//        console.log(dalek.children);
+//        dalek.children.forEach((model)=>{
+//            console.log(model.name);
+//            
+//            if(model.name === "Armature"){
+//                
+//                console.log("Bones!");
+//                console.log("Number of bones = "+model.children[0].children.length);
+//                
+//                for(let i=0; i<model.children[0].children.length; i++){
+//                    this.boneSearch = model.children[0].children[i];
+//                    // Grab the bone controlling the dome & eyestalk
+//                    if(boneSearch.name === "BoneDome"){
+//                        this.lookBone = model.children[0].children[i];
+//                    }
+//                }
+//            }
+//            
+//            if(model.name ==="DalekLowPoly"){
+//                console.log("A Dalek!");
+//                console.log("Number of materials = "+model.children.length);
+//                for(let i=0; i<model.children.length; i++){
+//                    console.log("material name = "+model.children[i].material.name);
+//                    model.children[i].material.shadowSide = 1;
+//                    model.children[i].castShadow = true;
+//                }
+//            }            
+//        });
+//        console.log(playerCam);
+//        animate();
+//    });
 }
 
 
