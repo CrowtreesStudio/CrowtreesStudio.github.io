@@ -85,14 +85,14 @@ function init(){
 
 
 
-function animate() {
+/*function animate() {
         requestAnimationFrame(animate);
     // Dalek watches player
         this.lookBone.lookAt(playerCam.x, 1.3, playerCam.z);
 
-}
+}*/
 
-AFRAME.registerComponent('nav-pointer', {
+/*AFRAME.registerComponent('nav-pointer', {
     init:function(){
         const el = this.el;
 //        console.log(el);
@@ -124,7 +124,7 @@ AFRAME.registerComponent('nav-pointer', {
         };
         
     }
-});
+});*/
 
 function hidePlay(){
     //hide button and colour screen
