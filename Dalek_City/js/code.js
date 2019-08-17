@@ -2,7 +2,7 @@
 let loaded = false;
 
 window.onload = ()=>{
-    init();
+//    init();
     document.querySelector('a-scene').addEventListener('loaded', function () {
       document.getElementById("button").style.display = "block";
       document.getElementById("preloader").style.display = "none";
@@ -17,7 +17,6 @@ function init(){
         const obj = this.el.getObject3D('mesh');
         
         console.log(obj.children);
-//        console.log(dalek.children);
         
         let matt = document.querySelector("#ruffNMap");
 
