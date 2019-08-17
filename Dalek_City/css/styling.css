@@ -10,7 +10,9 @@ body a-scene {
 
 body #preloader{
     position: absolute;
-    top: -10%;
+    width: 75%;
+    height: 75%;
+    top: -80px;
 }
 
 body #begin{
