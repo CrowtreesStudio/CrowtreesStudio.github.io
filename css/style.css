@@ -16,15 +16,14 @@ h1, h2, h4, a, p {
 header #logo{
     position: absolute;
     z-index: 200;
-    width: 50%;
+    width: 25%;
 }
 
 header #svg-object {
     position: relative;
-    width: 50%;
+    width: 100%;
     max-width: 200px;
     padding: 0 25px;
-/*    top: -25px;*/
 }
 
 header #masthead iframe{
@@ -125,13 +124,10 @@ footer p{
     
 }
 
-
-
 #copy {
     background-color: #616895;
     grid-column: 1/7;/* starting col / ending col*/
     border-radius: 5px;
-/*    margin-top: 10px;*/
 }
 
 #copy p {
