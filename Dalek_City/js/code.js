@@ -5,8 +5,20 @@ window.onload = ()=>{
 //    init();
     document.querySelector('a-scene').addEventListener('loaded', function () {
       document.getElementById("button").style.display = "block";
-      document.getElementById("preloader").style.display = "none";
-    })
+      document.getElementById("preloader").style.visibility = "hidden";
+    });
+    
+    // Hide logo when entering VR mode
+    let test = parent.document.getElementById("logo");
+    document.querySelector('a-scene').addEventListener('enter-vr', function () {
+        console.log("ENTERED VR");
+        test.style.visibility = "hidden";
+    });
+    
+    document.querySelector('a-scene').addEventListener('exit-vr', function () {
+        console.log("EXIT VR");
+        test.style.visibility = "visible";
+    });
 }
 
 function init(){
