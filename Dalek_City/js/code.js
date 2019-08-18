@@ -4,6 +4,7 @@ let loaded = false;
 window.onload = ()=>{
 //    init();
     document.querySelector('a-scene').addEventListener('loaded', function () {
+          console.log("scene loaded");
       document.getElementById("button").style.display = "block";
       document.getElementById("preloader").style.visibility = "hidden";
     });
@@ -144,6 +145,14 @@ function hidePlay(){
     var sound1 = document.querySelector('#dalekSound');
     sound1.components.sound.playSound();
 }
+
+AFRAME.registerComponent('log', {
+  schema: {type: 'string'},
+  init: function () {
+    var stringToLog = this.data;
+    console.log(stringToLog);
+  }
+});
 
 
 

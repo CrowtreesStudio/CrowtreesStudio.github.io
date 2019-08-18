@@ -18,6 +18,7 @@
             <img id="preloader" src="assets/SVG/preloaderAnimatedSVG.svg">
        </div>
     </div>
+    <div id="log" ></div>
     
    <a-scene id="MainScene" shadow="type:pcfsoft">
       <a-assets>
@@ -35,11 +36,11 @@
           position=".25 0 3.75"
           rotation="0 5 0">
           <a-entity id="camera" camera="fov:50;" position="0 1.6 0" look-controls="pointerLockEnabled: true" ></a-entity>
-          <a-sound id="dalekSound" src="#corridorSFX" autoplay="false" volume=".5" loop="true" ></a-sound>
+          <a-sound log="sound loaded" id="dalekSound" src="#corridorSFX" autoplay="false" volume=".5" loop="true" ></a-sound>
        </a-entity>
        
        <!-- Skaro Hub Set -->
-       <a-gltf-model id="scene" src="#room" material="sphericalEnvMap:#reflect; normalMap:#ruffNMap" ></a-gltf-model>
+       <a-gltf-model log="hub loaded" id="scene" src="#room" material="sphericalEnvMap:#reflect; normalMap:#ruffNMap" ></a-gltf-model>
        
        <!-- Nav mesh. -->
         <a-entity nav-mesh
@@ -49,7 +50,7 @@
         </a-entity>
         
        <!-- Dalek Mk1 -->
-       <a-gltf-model id="dalekModel" src="#dalek" position="0 0 -0.5" rotation="0 20 0" shadow="cast:true;"></a-gltf-model>
+       <a-gltf-model log="dalek loaded" id="dalekModel" src="#dalek" position="0 0 -0.5" rotation="0 20 0" shadow="cast:true;"><a-text value="this is a dalek" align="center" position="0 1.6 0" width="2"></a-text></a-gltf-model>
        
        <a-box scale="0.5 0.5 0.5" position="2.5 .25 -0.25" rotation="0 45 0" material="color:#BBBBBB; sphericalEnvMap:#reflect; roughness:0.25; metalness:1; normalMap:#ruffNMap; normalScale:0.25 0.25;" shadow="cast:true;"></a-box>
        
@@ -88,3 +89,18 @@
     
 </body>
 </html>
+<script>
+    (function () {
+    var old = console.log;
+    var logger = document.getElementById('log');
+    console.log = function () {
+      for (var i = 0; i < arguments.length; i++) {
+        if (typeof arguments[i] == 'object') {
+            logger.innerHTML += (JSON && JSON.stringify ? JSON.stringify(arguments[i], undefined, 2) : arguments[i]) + '<br />';
+        } else {
+            logger.innerHTML += arguments[i] + '<br />';
+        }
+      }
+    }
+})();
+</script>
