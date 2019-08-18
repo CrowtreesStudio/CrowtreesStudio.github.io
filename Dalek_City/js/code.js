@@ -2,7 +2,7 @@
 let loaded = false;
 
 window.onload = ()=>{
-//    init();
+    init();
     document.querySelector('a-scene').addEventListener('loaded', function () {
       document.getElementById("button").style.display = "block";
       document.getElementById("preloader").style.visibility = "hidden";
@@ -24,6 +24,7 @@ window.onload = ()=>{
 function init(){
     this.playerCam = document.querySelector("#rig");
     this.playerCam = playerCam.object3D.position;
+    this.lookBone="";    
     this.el=document.querySelector("#scene") ;
     this.el.addEventListener('model-loaded', ()=>{
         const obj = this.el.getObject3D('mesh');
@@ -34,7 +35,6 @@ function init(){
 
         obj.children.forEach((model)=>{
             model.receiveShadow=true;
-            
             if(model.name === "Ground_Plane"){
                 model.castShadow=false;
             }else{
@@ -58,51 +58,49 @@ function init(){
         });
     });
     
-//    this.el2=document.querySelector("#dalekModel");
-//    this.el2.addEventListener('model-loaded', ()=>{
-//        const dalek = this.el2.getObject3D('mesh');
-//        console.log(dalek.children);
-//        dalek.children.forEach((model)=>{
-//            console.log(model.name);
-//            
-//            if(model.name === "Armature"){
-//                
-//                console.log("Bones!");
-//                console.log("Number of bones = "+model.children[0].children.length);
-//                
-//                for(let i=0; i<model.children[0].children.length; i++){
-//                    this.boneSearch = model.children[0].children[i];
-//                    // Grab the bone controlling the dome & eyestalk
-//                    if(boneSearch.name === "BoneDome"){
-//                        this.lookBone = model.children[0].children[i];
-//                    }
-//                }
-//            }
-//            
-//            if(model.name ==="DalekLowPoly"){
-//                console.log("A Dalek!");
-//                console.log("Number of materials = "+model.children.length);
-//                for(let i=0; i<model.children.length; i++){
-//                    console.log("material name = "+model.children[i].material.name);
-//                    model.children[i].material.shadowSide = 1;
-//                    model.children[i].castShadow = true;
-//                }
-//            }            
-//        });
-//        console.log(playerCam);
-//        animate();
-//    });
+    this.el2=document.querySelector("#dalekModel");
+    
+    this.el2.addEventListener('model-loaded', ()=>{
+        const dalek = this.el2.getObject3D('mesh');
+        console.log(dalek.children[0].children);
+        dalek.children[0].children.forEach((model)=>{
+            console.log(model.name);
+            
+            if(model.name === "BoneRoot"){
+                console.log("Bones!");
+                model.children.forEach((model)=>{
+                    if(model.name === "BoneDome"){
+                        console.log("bone dome located");
+                        lookBone = model;
+                    }
+                })
+            }
+            
+            if(model.name ==="DalekLowPoly"){
+                console.log("A Dalek!");
+                console.log("Number of materials = "+model.children.length);
+                for(let i=0; i<model.children.length; i++){
+                    console.log("material name = "+model.children[i].material.name);
+                    console.log(model.children[i].material);
+                    model.children[i].material.shadowSide = 1;
+                    model.children[i].castShadow = true;
+                }
+            }            
+        });
+        animate();
+    });
 }
 
 
 
 
-/*function animate() {
-        requestAnimationFrame(animate);
+function animate() {
+        requestAnimationFrame(animate);    
+//    console.log(lookBone);
     // Dalek watches player
-        this.lookBone.lookAt(playerCam.x, 1.3, playerCam.z);
+        lookBone.lookAt(playerCam.x, 1.3, playerCam.z);
 
-}*/
+}
 
 /*AFRAME.registerComponent('nav-pointer', {
     init:function(){
