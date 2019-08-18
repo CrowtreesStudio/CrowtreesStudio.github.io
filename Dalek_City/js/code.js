@@ -2,7 +2,7 @@
 let loaded = false;
 
 window.onload = ()=>{
-    init();
+//    init();
     document.querySelector('a-scene').addEventListener('loaded', function () {
       document.getElementById("button").style.display = "block";
       document.getElementById("preloader").style.visibility = "hidden";
