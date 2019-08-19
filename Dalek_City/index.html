@@ -21,12 +21,12 @@
     <div id="log" ></div>
     
    <a-scene id="MainScene" shadow="type:pcfsoft">
-      <a-assets timeout="60000">
-            <a-asset-item id="room" src="assets/SkaroSet.glb"></a-asset-item>
-            <a-asset-item id="navmesh" src="assets/navMesh.glb"></a-asset-item>
+      <a-assets timeout="3000">
+<!--            <a-asset-item id="room" src="assets/SkaroSet.glb"></a-asset-item>-->
+<!--            <a-asset-item id="navmesh" src="assets/navMesh.glb"></a-asset-item>-->
             <a-asset-item id="dalek" src="assets/dalekMk1v1.5.glb"></a-asset-item>
             <audio id="corridorSFX" src="assets/audio/DalekCityCorridor_loop.wav" poolSize="2" preload="auto"></audio>
-            <img id="reflect" src="assets/equirectangular.jpg" />
+<!--            <img id="reflect" src="assets/equirectangular.jpg" />-->
             <img id="ruffNMap" src="assets/noise_03_normal.png" />
       </a-assets>
       
@@ -40,17 +40,17 @@
        </a-entity>
        
        <!-- Skaro Hub Set -->
-       <a-gltf-model log="hub loaded" id="scene" src="#room" material="sphericalEnvMap:#reflect; normalMap:#ruffNMap" ></a-gltf-model>
+<!--       <a-gltf-model log="hub loaded" id="scene" src="#room" material="sphericalEnvMap:#reflect; normalMap:#ruffNMap" ></a-gltf-model>-->
        
        <!-- Nav mesh. -->
-        <a-entity nav-mesh
+        <!--<a-entity nav-mesh
                 normal-material
                 visible="false"
                 gltf-model="#navmesh">
-        </a-entity>
+        </a-entity>-->
         
        <!-- Dalek Mk1 -->
-       <a-gltf-model log="dalek loaded" id="dalekModel" src="#dalek" position="0 0 -0.5" rotation="0 20 0" shadow="cast:true;"><a-text value="this is a dalek" align="center" position="0 1.6 0" width="2"></a-text></a-gltf-model>
+       <a-gltf-model log="dalek loaded" id="dalekModel" src="#dalek" position="0 0 -0.5" rotation="0 20 0" shadow="cast:true;"></a-gltf-model>
        
        <a-box scale="0.5 0.5 0.5" position="2.5 .25 -0.25" rotation="0 45 0" material="color:#BBBBBB; sphericalEnvMap:#reflect; roughness:0.25; metalness:1; normalMap:#ruffNMap; normalScale:0.25 0.25;" shadow="cast:true;"></a-box>
        
@@ -84,13 +84,13 @@
 -->
        
 <!--       <a-light type="ambient" intensity="0.25" ></a-light>-->
-      <a-sky src="#reflect"></a-sky>
+<!--      <a-sky src="#reflect"></a-sky>-->
    </a-scene>
     
 </body>
 </html>
 <script>
-    (function () {
+    /*(function () {
     var old = console.log;
     var logger = document.getElementById('log');
     console.log = function () {
@@ -102,5 +102,5 @@
         }
       }
     }
-})();
+})();*/
 </script>
