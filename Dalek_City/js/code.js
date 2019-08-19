@@ -4,9 +4,9 @@ let loaded = false;
 window.onload = ()=>{
 //    init();
     document.querySelector('a-scene').addEventListener('loaded', function () {
-          console.log("scene loaded");
-      document.getElementById("button").style.display = "block";
-      document.getElementById("preloader").style.visibility = "hidden";
+        console.log("scene loaded");
+/*        document.getElementById("button").style.display = "block";
+        document.getElementById("preloader").style.visibility = "hidden";*/
     });
     
     // Hide logo when entering VR mode
@@ -19,6 +19,22 @@ window.onload = ()=>{
     document.querySelector('a-scene').addEventListener('exit-vr', function () {
         console.log("EXIT VR");
         test.style.visibility = "visible";
+    });
+    
+    document.querySelector('#scene').addEventListener('model-loaded', ()=>{
+        console.log("room loaded");
+    });
+    document.querySelector('#dalekModel').addEventListener('model-loaded', ()=>{
+        console.log("Dalek loaded");
+    });
+    document.querySelector('#navigationMesh').addEventListener('model-loaded', ()=>{
+        console.log("navmesh loaded");
+    });
+    
+    document.querySelector('#dalekSound').addEventListener('sound-loaded', ()=>{
+        console.log("sound loaded");
+        document.getElementById("button").style.display = "block";
+        document.getElementById("preloader").style.visibility = "hidden";
     });
 }
 
