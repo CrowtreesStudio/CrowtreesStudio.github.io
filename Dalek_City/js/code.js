@@ -2,7 +2,7 @@
 let loaded = false;
 
 window.onload = ()=>{
-//    init();
+    init();
     document.querySelector('a-scene').addEventListener('loaded', function () {
         console.log("scene loaded");
 /*        document.getElementById("button").style.display = "block";
@@ -104,7 +104,7 @@ function init(){
                 }
             }            
         });
-        animate();
+//        animate();
     });
 }
 
@@ -162,13 +162,13 @@ function hidePlay(){
     sound1.components.sound.playSound();
 }
 
-AFRAME.registerComponent('log', {
-  schema: {type: 'string'},
-  init: function () {
-    var stringToLog = this.data;
-    console.log(stringToLog);
-  }
-});
+//AFRAME.registerComponent('log', {
+//  schema: {type: 'string'},
+//  init: function () {
+//    var stringToLog = this.data;
+//    console.log(stringToLog);
+//  }
+//});
 
 
 
