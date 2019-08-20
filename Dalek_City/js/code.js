@@ -75,7 +75,7 @@ function init(){
         });
     });
     
-    this.el2=document.querySelector("#dalekModel");
+    /*this.el2=document.querySelector("#dalekModel");
     
     this.el2.addEventListener('model-loaded', ()=>{
         const dalek = this.el2.getObject3D('mesh');
@@ -104,9 +104,9 @@ function init(){
                 }
             }            
         });
-//        animate();
+        animate();
     });
-}
+}*/
 
 
 
