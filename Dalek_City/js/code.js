@@ -52,6 +52,7 @@ function init(){
 //        let matt = document.querySelector("#ruffNMap");
 
         obj.children.forEach((model)=>{
+            console.log(model);
             model.receiveShadow=true;
             /*if(model.name === "Ground_Plane"){
                 model.castShadow=false;
