@@ -39,18 +39,19 @@ window.onload = ()=>{
 }
 
 function init(){
-    this.playerCam = document.querySelector("#rig");
+    /*this.playerCam = document.querySelector("#rig");
     this.playerCam = playerCam.object3D.position;
-    this.lookBone="";    
+    this.lookBone="";*/    
     this.el=document.querySelector("#scene") ;
     this.el.addEventListener('model-loaded', ()=>{
         const obj = this.el.getObject3D('mesh');
+        console.log(obj);
         
         console.log(obj.children);
         
         let matt = document.querySelector("#ruffNMap");
 
-        obj.children.forEach((model)=>{
+        /*obj.children.forEach((model)=>{
             model.receiveShadow=true;
             if(model.name === "Ground_Plane"){
                 model.castShadow=false;
@@ -72,7 +73,7 @@ function init(){
                     }
                 }
             }
-        });
+        });*/
     });
     
     /*this.el2=document.querySelector("#dalekModel");
