@@ -49,31 +49,31 @@ function init(){
         
         console.log(obj.children);
         
-        let matt = document.querySelector("#ruffNMap");
+//        let matt = document.querySelector("#ruffNMap");
 
-        /*obj.children.forEach((model)=>{
+        obj.children.forEach((model)=>{
             model.receiveShadow=true;
-            if(model.name === "Ground_Plane"){
+            /*if(model.name === "Ground_Plane"){
                 model.castShadow=false;
-            }else{
+            }else{*/
                 model.castShadow=true;
                 
                 // check to make sure there is a material available
                 // to affect
-                if(model.material){
+                /*if(model.material){
                     model.material.shadowSide=1;
-                }
+                }*/
                 // If model has more than one material
-                if(!model.material){
+                /*if(!model.material){
                     if(model.children.length >0){
                         for(let i = 0; i<model.children.length; i++){
                             model.children[i].material.shadowSide=1;
                             model.children[i].castShadow=true;
                         }
                     }
-                }
+                }*/
             }
-        });*/
+        });
     });
     
     /*this.el2=document.querySelector("#dalekModel");
