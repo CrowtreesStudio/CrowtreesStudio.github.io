@@ -25,9 +25,7 @@
       <a-assets timeout="3000">
             <a-asset-item id="room" src="assets/models/SkaroSet.glb"></a-asset-item>
             <a-asset-item id="navmesh" src="assets/navMesh.glb"></a-asset-item>
-            <a-asset-item id="dalek" src="assets/models/dalekMk1.obj"></a-asset-item>
-            <a-asset-item id="dalekmtl" src="assets/models/dalekMk1.mtl"></a-asset-item>
-<!--            <a-asset-item id="dalek" src="assets/models/dalekMk1v1.5.glb"></a-asset-item>-->
+            <a-asset-item id="dalek" src="assets/models/dalekMk1v1.5.glb"></a-asset-item>
             <audio id="corridorSFX" src="assets/audio/DalekCityCorridor_loop.wav" poolSize="2" preload="auto"></audio>
             <img id="reflect" src="assets/equirectangular.jpg" />
             <img id="ruffNMap" src="assets/noise_03_normal.png" />
@@ -39,7 +37,7 @@
           position=".25 0 3.75"
           rotation="0 5 0">
           <a-entity id="camera" camera="fov:50;" position="0 1.6 0" look-controls="pointerLockEnabled: true" ></a-entity>
-          <a-sound id="dalekSound" src="#corridorSFX" autoplay="false" volume=".5" loop="true" ></a-sound>
+          <a-sound id="dalekSound" src="#corridorSFX" autoplay="false" volume=".25" loop="true" ></a-sound>
        </a-entity>
        
        <!-- Skaro Hub Set -->
@@ -53,8 +51,7 @@
         </a-entity>
         
        <!-- Dalek Mk1 -->
-       <a-obj-model id="dalekModel" class="loaderItem" src="#dalek" mtl="#dalekmtl" position="0 0 -0.5" rotation="0 -20 0" shadow="cast:true;"><a-text value="Dalek 14" align="center" position="0 1.75 0" width="3" ></a-text></a-obj-model>
-<!--       <a-gltf-model id="dalekModel" class="loaderItem" src="#dalek" position="0 0 -0.5" rotation="0 -20 0" shadow="cast:true;"><a-text value="Dalek 14" align="center" position="0 1.75 0" width="3" ></a-text></a-gltf-model>-->
+       <a-gltf-model id="dalekModel" class="loaderItem" src="#dalek" position="0 0 -0.5" rotation="0 -20 0" shadow="cast:true;"><a-text value="Dalek 15" align="center" position="0 1.75 0" width="3" ></a-text></a-gltf-model>
        
        <!--<a-box scale="0.5 0.5 0.5" position="2.5 .25 -0.25" rotation="0 45 0" material="color:#BBBBBB; sphericalEnvMap:#reflect; roughness:0.25; metalness:1; normalMap:#ruffNMap; normalScale:0.25 0.25;" shadow="cast:true;"></a-box>-->
        
