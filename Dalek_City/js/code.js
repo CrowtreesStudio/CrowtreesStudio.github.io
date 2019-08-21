@@ -43,6 +43,7 @@ function init(){
     this.playerCam = playerCam.object3D.position;
     this.lookBone="";*/    
     this.el=document.querySelector("#scene") ;
+    
     this.el.addEventListener('model-loaded', ()=>{
         const obj = this.el.getObject3D('mesh');
         console.log(obj);
@@ -52,7 +53,7 @@ function init(){
 //        let matt = document.querySelector("#ruffNMap");
 
         obj.children.forEach((model)=>{
-            console.log(model);
+            console.log(model.material);
             model.receiveShadow=true;
             /*if(model.name === "Ground_Plane"){
                 model.castShadow=false;
@@ -61,19 +62,19 @@ function init(){
                 
                 // check to make sure there is a material available
                 // to affect
-                /*if(model.material){
+                if(model.material){
                     model.material.shadowSide=1;
-                }*/
+                }
                 // If model has more than one material
-                /*if(!model.material){
+                if(!model.material){
                     if(model.children.length >0){
                         for(let i = 0; i<model.children.length; i++){
                             model.children[i].material.shadowSide=1;
                             model.children[i].castShadow=true;
                         }
                     }
-                }*/
-            }
+                }
+            //}
         });
     });
     
