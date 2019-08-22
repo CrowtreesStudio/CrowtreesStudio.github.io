@@ -1,7 +1,8 @@
 body {
     width: 100%;
+    height: 100%;
     position: absolute;
-    background-color: #616895;
+    background-color: #0b374b;
 }
 
 body a-scene {
@@ -9,77 +10,38 @@ body a-scene {
 }
 
 body #preloader{
-    position: absolute;
-    width: 35%;
-    height: 35%;
-    top: 0px;
-    left: 80px;
+    text-align: center;
 }
 
-body #begin{
-    position: relative;
-    height: 100%;
-    padding: 0;
+body #preloader img{
+    width: 50%;
+    height: 50%;
 }
 
-body #begin #buttonBox{
-    position: relative;
-    padding: 0;
-    width: 25%;
+header{
+    width: 100%;
     height: 100%;
-    margin: auto;
-    top: 30%;
 }
 
 body #begin #buttonBox #button{
-    position: relative;
-    z-index: 200;
-    margin: 0 auto;
-    width: 100%;
     background-color: #0e5271;
     opacity: 0.9;
     padding: 10px 20px 10px 20px;
-    border-radius: 45px 45px 45px 45px;
-    border: 4px solid #0b374b;
+    border-radius: 5px;
+    border-style: none;
     font-size: 1.5em;
-    text-align: center;
-    text-decoration: none;
     color: #a1e1ff;
     display: none;
 }
 
 body #begin #buttonBox #button:hover{
     background-color: #1d7ba5;
-    border: 4px solid #0a3041;
     color: #071d27;
 }
 
-body #begin #buttonBox img {
-    position: relative;
-    z-index: 100;
-    bottom: 100px;
+.center{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-
-#log{
-    position: absolute;
-    z-index: 500;
-    margin: 10px;
-    width: 100%;
-    color: white;
-    font-size: 1.25em;
-}
-
-#logo {
-    width: 15%;
-    position: absolute;
-    top: 10px;
-    margin-left: 10px;
-    background-color: white;
-    opacity: 0.9;
-    padding: 8px 15px 5px 15px;
-    border-radius: 45px 45px 45px 45px;
-    border: 5px solid black;
-    z-index: 10;
-}
-
-

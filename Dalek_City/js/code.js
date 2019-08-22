@@ -5,8 +5,6 @@ window.onload = ()=>{
     init();
     document.querySelector('a-scene').addEventListener('loaded', function () {
         console.log("scene loaded");
-/*        document.getElementById("button").style.display = "block";
-        document.getElementById("preloader").style.visibility = "hidden";*/
     });
     
     // Hide logo when entering VR mode
@@ -46,35 +44,27 @@ function init(){
     
     this.el.addEventListener('model-loaded', ()=>{
         const obj = this.el.getObject3D('mesh');
-        console.log(obj);
         
-        console.log(obj.children);
-        
-//        let matt = document.querySelector("#ruffNMap");
-
         obj.children.forEach((model)=>{
-            console.log(model.material);
-            model.receiveShadow=true;
-            /*if(model.name === "Ground_Plane"){
-                model.castShadow=false;
-            }else{*/
-                model.castShadow=true;
+            model.material.receiveShadow=true;
+            model.material.shadowSide = 1;
+//            console.log(model.material.color);
+//            model.material.color={r:1, g:1, b:1};
+//            model.material.color={r:0.25, g:0.25, b:0.25};
+            
+            if(model.name === "Ground_Plane"){
+                console.log("Don't cast shadow");
+                model.material.castShadow=false;
+            model.material.color={r:0.5, g:0.5, b:0.5};
                 
-                // check to make sure there is a material available
-                // to affect
-                if(model.material){
-                    model.material.shadowSide=1;
-                }
-                // If model has more than one material
-                if(!model.material){
-                    if(model.children.length >0){
-                        for(let i = 0; i<model.children.length; i++){
-                            model.children[i].material.shadowSide=1;
-                            model.children[i].castShadow=true;
-                        }
-                    }
-                }
-            //}
+            }
+            
+            if(model.name !== "Ground_Plane"){
+                console.log("Cast shadow");
+                model.material.castShadow = true;
+            }
+            /*console.log(model.name);
+            console.log(model.material.castShadow);*/
         });
     });
     
