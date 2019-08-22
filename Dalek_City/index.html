@@ -74,7 +74,8 @@
            position="0.75 -0.02 0.5" 
            rotation="0 -180 0" 
            shadow="cast:true" 
-           animation-mixer="clip: Idle;">
+           animation-mixer="clip: Idle;"
+           not-mobile>
        </a-gltf-model>
        <a-gltf-model 
            id="Doctor"
@@ -83,7 +84,8 @@
            position="0.5 -0.02 0.4" 
            rotation="0 -180 0" 
            shadow="cast:true" 
-           animation-mixer="clip: Idle;">
+           animation-mixer="clip: Idle;"
+           not-mobile>
        </a-gltf-model>
        
        <!--<a-box scale="0.5 0.5 0.5" position="2.5 .25 -0.25" rotation="0 45 0" material="color:#BBBBBB; sphericalEnvMap:#reflect; roughness:0.25; metalness:1; normalMap:#ruffNMap; normalScale:0.25 0.25;" shadow="cast:true;"></a-box>-->
@@ -141,3 +143,5 @@
 <script>
     const el = document.querySelector('[animation-mixer]');
 </script>
+
+

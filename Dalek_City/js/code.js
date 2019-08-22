@@ -155,6 +155,18 @@ function hidePlay(){
     sound1.components.sound.playSound();
 }
 
+/**
+ * Removes current element if on a mobile device.
+ */
+AFRAME.registerComponent('not-mobile',  {
+  init: function () {
+    var el = this.el;
+    if (el.sceneEl.isMobile) {
+      el.parentEl.remove(el);
+    }
+  }
+});
+
 //AFRAME.registerComponent('log', {
 //  schema: {type: 'string'},
 //  init: function () {
