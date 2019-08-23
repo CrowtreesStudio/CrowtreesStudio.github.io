@@ -22,13 +22,18 @@
     </header>
     
    <a-scene id="MainScene" shadow="type:pcfsoft">
+<!--###################################################################################-->
+<!--########################       Asset Loading        ###############################-->
+<!--###################################################################################-->
       <a-assets timeout="3000">
             <a-asset-item id="room" src="assets/models/SkaroSet.glb"></a-asset-item>
             <a-asset-item id="navmesh" src="assets/navMesh.glb"></a-asset-item>
             <audio id="corridorSFX" src="assets/audio/DalekCityCorridor_loop.wav" poolSize="2" preload="auto"></audio>
       </a-assets>
-      
-       <!-- Camera Rig -->      
+
+<!--###################################################################################-->
+<!--########################        Camera Rig          ###############################-->
+<!--###################################################################################-->      
        <a-entity id="rig"
           movement-controls="constrainToNavMesh: true; controls: checkpoint, gamepad, trackpad, keyboard, touch; speed: 0.075;"
           position=".25 0 3.75"
@@ -37,6 +42,9 @@
           <a-sound id="dalekSound" src="#corridorSFX" autoplay="false" volume=".25" loop="true" ></a-sound>
        </a-entity>
        
+<!--###################################################################################-->
+<!--########################           Models           ###############################-->
+<!--###################################################################################-->        
        <!-- Skaro Hub Set -->
        <a-gltf-model id="scene" src="#room" shadow="cast:true;"></a-gltf-model>
        
@@ -47,19 +55,27 @@
                 gltf-model="#navmesh">
         </a-entity>
         
+        <!-- placeholder box -->
         <a-box position=" 0 1 -2" ></a-box>
        
-       <a-light type="ambient" intensity="0.5" ></a-light>
-      
-       <!-- Spotlight with Shadow -->
-       <a-light type="spot" intensity="1.5" target="#lightTarget" position="0 4 1" light="castShadow:true; shadowCameraVisible:true; shadowCameraLeft:-6.5; shadowMapHeight:1024; shadowMapWidth:1024; penumbra:0.5;"></a-light>
-
-       
-       <!-- Spotlight target -->
+<!--###################################################################################-->
+<!--########################        Lights              ###############################-->
+<!--###################################################################################-->
+<!-- Spotlight with Shadow -->
+       <a-light type="spot" intensity="1.5" target="#lightTarget" position="0 4 1" light="castShadow:true; shadowCameraVisible:false; shadowCameraLeft:-6.5; shadowMapHeight:1024; shadowMapWidth:1024; penumbra:0.5;"></a-light>
+<!-- Spotlight target -->
        <a-box id="lightTarget" scale="0.1 0.1 0.1" position="0 0 0.75" visible="false"></a-box>
-
+<!-- Ambient Light -->
+       <a-light type="ambient" intensity="0.5" ></a-light>
+<!-- Fill lights -->   
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="0 6 -1.25" light="penumbra:0.5;" intensity="0.5" angle="60"></a-light>
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="2 6 -1" light="penumbra:0.5;" intensity="0.5" angle="45"></a-light>
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="3 6 1.25" light="penumbra:0.5;" intensity="0.5" angle="60"></a-light>
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="2 6 3.25" light="penumbra:0.5;" intensity="0.5" angle="45"></a-light>
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="0 6 3.75" light="penumbra:0.5;" intensity="0.5" angle="60"></a-light>
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="-2 6 3.75" light="penumbra:0.5;" intensity="0.5" angle="45"></a-light>
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="-3 6 1.25" light="penumbra:0.5;" intensity="0.5" angle="60"></a-light>
    </a-scene>
-    
 </body>
 </html>
 

@@ -55,8 +55,7 @@ function init(){
             if(model.name === "Ground_Plane"){
                 console.log("Don't cast shadow");
                 model.material.castShadow=false;
-            model.material.color={r:0.5, g:0.5, b:0.5};
-                
+                model.material.color={r:1, g:1, b:1};
             }
             
             if(model.name !== "Ground_Plane"){
