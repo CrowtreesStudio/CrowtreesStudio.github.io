@@ -7,6 +7,8 @@ body {
 
 body a-scene {
     visibility:hidden;
+    position: relative;
+    z-index: 200;
 }
 
 body #preloader{

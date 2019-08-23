@@ -148,7 +148,7 @@ function animate() {
 function hidePlay(){
     //hide button and colour screen
     console.log("Play sound and hide me!");
-    document.getElementById("begin").style.display = "none";
+    document.getElementById("loading").style.display = "none";
     let sc = document.getElementById("MainScene").style.visibility="visible";
     var sound1 = document.querySelector('#dalekSound');
     sound1.components.sound.playSound();
