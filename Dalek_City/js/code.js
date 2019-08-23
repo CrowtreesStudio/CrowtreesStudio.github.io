@@ -22,9 +22,9 @@ window.onload = ()=>{
     document.querySelector('#scene').addEventListener('model-loaded', ()=>{
         console.log("room loaded");
     });
-    document.querySelector('#dalekModel').addEventListener('model-loaded', ()=>{
+    /*document.querySelector('#dalekModel').addEventListener('model-loaded', ()=>{
         console.log("Dalek loaded");
-    });
+    });*/
     document.querySelector('#navigationMesh').addEventListener('model-loaded', ()=>{
         console.log("navmesh loaded");
     });
