@@ -28,7 +28,8 @@
       <a-assets timeout="3000">
             <a-asset-item id="room" src="assets/models/SkaroSet.glb"></a-asset-item>
             <a-asset-item id="navmesh" src="assets/models/navMesh.glb"></a-asset-item>
-            <audio id="corridorSFX" src="assets/audio/DalekCityCorridor_loop.wav" poolSize="2" preload="auto"></audio>
+            <a-asset-item id="dalek" src="assets/models/dalekMk1v1.5.glb"></a-asset-item>
+            <audio id="corridorSFX" src="assets/audio/DalekCityCorridor_loop.wav" preload="auto"></audio>
       </a-assets>
 
 <!--###################################################################################-->
@@ -44,8 +45,9 @@
        
 <!--###################################################################################-->
 <!--########################           Models           ###############################-->
-<!--###################################################################################-->        
-       <!-- Skaro Hub Set -->
+<!--###################################################################################-->
+      
+<!--########################       Skaro Hub Set        ###############################-->
        <a-gltf-model id="scene" src="#room" shadow="cast:true;"></a-gltf-model>
        
        <!-- Nav mesh. -->
@@ -55,7 +57,12 @@
                 gltf-model="#navmesh">
         </a-entity>
         
-        <!-- placeholder box -->
+<!--########################         Dalek Mk1          ###############################-->
+        <a-gltf-model id="dalekModel" src="#dalek" position="0 0 -0.5" rotation="0 -20 0" shadow="cast:true;">
+            <a-text value="Dalek 32" align="center" position="0 1.75 0" width="3" ></a-text>
+        </a-gltf-model>
+        
+<!--########################      placeholder box       ###############################-->
         <a-box position=" 0 1 -2" ></a-box>
        
 <!--###################################################################################-->
