@@ -19,15 +19,15 @@ window.onload = ()=>{
         test.style.visibility = "visible";
     });
     
-    document.querySelector('#scene').addEventListener('model-loaded', ()=>{
+    /*document.querySelector('#scene').addEventListener('model-loaded', ()=>{
         console.log("room loaded");
-    });
+    });*/
     /*document.querySelector('#dalekModel').addEventListener('model-loaded', ()=>{
         console.log("Dalek loaded");
     });*/
-    document.querySelector('#navigationMesh').addEventListener('model-loaded', ()=>{
+    /*document.querySelector('#navigationMesh').addEventListener('model-loaded', ()=>{
         console.log("navmesh loaded");
-    });
+    });*/
     
     document.querySelector('#dalekSound').addEventListener('sound-loaded', ()=>{
         console.log("sound loaded");

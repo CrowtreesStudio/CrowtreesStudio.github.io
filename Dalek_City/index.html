@@ -22,7 +22,6 @@
             </div>
         </div>
     </header>
-<!--    <div id="log" ></div>-->
     
    <a-scene id="MainScene" shadow="type:pcfsoft">
       <a-assets timeout="3000">
@@ -31,8 +30,8 @@
 <!--            <a-asset-item id="dalek" src="assets/models/dalekMk1v1.5.glb"></a-asset-item>-->
 <!--            <a-asset-item id="standin" src="assets/models/standinCharacter.glb"></a-asset-item>-->
             <audio id="corridorSFX" src="assets/audio/DalekCityCorridor_loop.wav" poolSize="2" preload="auto"></audio>
-            <img id="reflect" src="assets/equirectangular.jpg" />
-            <img id="ruffNMap" src="assets/noise_03_normal.png" />
+<!--            <img id="reflect" src="assets/equirectangular.jpg" />-->
+<!--            <img id="ruffNMap" src="assets/noise_03_normal.png" />-->
       </a-assets>
       
        <!-- Camera Rig -->      
@@ -50,14 +49,44 @@
        <!-- Nav mesh. -->
         <a-entity id="navigationMesh" nav-mesh
                 normal-material
-                visible="false"
+                visible="false"x
                 gltf-model="#navmesh">
         </a-entity>
         
        <!-- Dalek Mk1 -->
-<!--       <a-gltf-model id="dalekModel" src="#dalek" position="0 0 -0.5" rotation="0 -20 0" shadow="cast:true;"><a-text value="Dalek 31" align="center" position="0 1.75 0" width="3" ></a-text></a-gltf-model>-->
+       <!--<a-gltf-model id="dalekModel" src="#dalek" position="0 0 -0.5" rotation="0 -20 0" shadow="cast:true;"><a-text value="Dalek 32" align="center" position="0 1.75 0" width="3" ></a-text></a-gltf-model>-->
        
+       <!--<a-gltf-model 
+           id="Ian"
+           scale="1.023 1.023 1.023"
+           src="#standin" 
+           position="-2.85 -0.02 -.35" 
+           rotation="0 -40 0" 
+           shadow="cast:true" 
+           animation-mixer="clip: Idle;"
+           not-mobile>
+       </a-gltf-model>
        
+       <a-gltf-model 
+           id="Doctor"
+           scale="0.967374 0.967374 0.967374"
+           src="#standin" 
+           position="0.75 -0.02 0.5" 
+           rotation="0 -180 0" 
+           shadow="cast:true" 
+           animation-mixer="clip: Idle;"
+           not-mobile>
+       </a-gltf-model>
+       <a-gltf-model 
+           id="Doctor"
+           scale="0.866723 0.866723 0.866723"
+           src="#standin" 
+           position="0.5 -0.02 0.4" 
+           rotation="0 -180 0" 
+           shadow="cast:true" 
+           animation-mixer="clip: Idle;"
+           not-mobile>
+       </a-gltf-model>-->
        
        <!--<a-box scale="0.5 0.5 0.5" position="2.5 .25 -0.25" rotation="0 45 0" material="color:#BBBBBB; sphericalEnvMap:#reflect; roughness:0.25; metalness:1; normalMap:#ruffNMap; normalScale:0.25 0.25;" shadow="cast:true;"></a-box>-->
        
@@ -112,7 +141,7 @@
 })();*/
 </script>
 <script>
-    const el = document.querySelector('[animation-mixer]');
+//    const el = document.querySelector('[animation-mixer]');
 </script>
 
 

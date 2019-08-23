@@ -3,6 +3,10 @@ h1, h4, a, p {
     color:#a0b0b0;
 }
 
+#warning{
+    color: #ffce00;
+}
+
 #copy h1 {
     color: #dcffff;
 }
@@ -27,7 +31,6 @@ body{
 }
 
 .box {
-/*    background-color: #454e92;*/
     padding: 5px;
     overflow: hidden;
     border-radius: 5px;
