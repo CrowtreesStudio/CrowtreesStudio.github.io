@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="css/styling.css">
     <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
 <!--    <script src="lib/animation-mixer.js"></script>-->
-    <script src="lib/aframe-extras.min.js"></script>
-    <script src="lib/aframe-extras.controls.js" ></script>
+<!--    <script src="lib/aframe-extras.min.js"></script>-->
+<!--    <script src="lib/aframe-extras.controls.js" ></script>-->
     <script src="js/code.js" ></script>
 </head>
 <body>
@@ -49,9 +49,10 @@
        <!-- Nav mesh. -->
         <a-entity id="navigationMesh" nav-mesh
                 normal-material
-                visible="false"x
+                visible="false"
                 gltf-model="#navmesh">
         </a-entity>
+        <a-box></a-box>
         
        <!-- Dalek Mk1 -->
        <!--<a-gltf-model id="dalekModel" src="#dalek" position="0 0 -0.5" rotation="0 -20 0" shadow="cast:true;"><a-text value="Dalek 32" align="center" position="0 1.75 0" width="3" ></a-text></a-gltf-model>-->
