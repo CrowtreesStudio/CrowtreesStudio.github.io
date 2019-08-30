@@ -37,10 +37,10 @@
 <!--###################################################################################-->      
        <a-entity id="rig"
           movement-controls="constrainToNavMesh: true; controls: checkpoint, gamepad, trackpad, keyboard, touch; speed: 0.075;"
-          position=".25 0 3.75"
-          rotation="0 5 0">
+          position="0.5 0 3"
+          rotation="0 10 0">
           <a-entity id="camera" camera="fov:50;" position="0 1.6 0" look-controls="pointerLockEnabled: true" ></a-entity>
-          <a-sound id="dalekSound" src="#corridorSFX" autoplay="false" volume="0" loop="true" ></a-sound>
+          <a-sound id="dalekSound" src="#corridorSFX" autoplay="false" volume="0.5" loop="true" ></a-sound>
        </a-entity>
        
 <!--###################################################################################-->
@@ -58,8 +58,8 @@
         </a-entity>
         
 <!--########################         Dalek Mk1          ###############################-->
-        <a-gltf-model id="dalekModel" src="#dalek" position="0 0 -0.5" rotation="0 -20 0" shadow="cast:true;">
-            <a-text value="Dalek 34" align="center" position="0 1.75 0" width="3" ></a-text>
+        <a-gltf-model id="dalekModel" src="#dalek" position="0 0 -1.5" rotation="0 -20 0" shadow="cast:true;">
+<!--            <a-text value="Dalek 34" align="center" position="0 1.75 0" width="3" ></a-text>-->
         </a-gltf-model>
         
 <!--########################      placeholder box       ###############################-->
@@ -77,6 +77,9 @@
        <a-light type="spot" distance="15" rotation="-90 0 0" position="2 6 -1" light="penumbra:0.5;" intensity="2" angle="45"></a-light>
        <a-light type="spot" distance="15" rotation="-90 0 0" position="2 6 3.25" light="penumbra:0.5;" intensity="2" angle="45"></a-light>
        <a-light type="spot" distance="15" rotation="-90 0 0" position="-2 6 3.75" light="penumbra:0.5;" intensity="2" angle="45"></a-light>
+       
+       <a-light type="directional" position="0 -2.8 1.2" intensity="1"></a-light>
+<!--       <a-light type="directional" position="0 2.8 0.5" intensity="2"></a-light>-->
    </a-scene>
 </body>
 </html>
