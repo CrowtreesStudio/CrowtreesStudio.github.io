@@ -45,10 +45,12 @@ function init(){
     this.el.addEventListener('model-loaded', ()=>{
         const obj = this.el.getObject3D('mesh');
         
+        console.log(obj);
+        
         obj.children.forEach((model)=>{
             model.material.receiveShadow=true;
             model.material.shadowSide = 1;
-//            console.log(model.material.color);
+//            console.log(model.material);
 //            model.material.color={r:1, g:1, b:1};
 //            model.material.color={r:0.25, g:0.25, b:0.25};
             
@@ -56,9 +58,7 @@ function init(){
                 console.log("Don't cast shadow");
                 model.material.castShadow=false;
 //                model.material.color={r:1, g:1, b:1};
-            }
-            
-            if(model.name !== "Ground_Plane"){
+            }else{
                 console.log("Cast shadow");
                 model.material.castShadow = true;
             }
@@ -67,15 +67,18 @@ function init(){
         });
     });
     
-    /*this.el2=document.querySelector("#dalekModel");
+    this.el2=document.querySelector("#dalekModel");
     
     this.el2.addEventListener('model-loaded', ()=>{
         const dalek = this.el2.getObject3D('mesh');
-        console.log(dalek.children[0].children);
-        dalek.children[0].children.forEach((model)=>{
-            console.log(model.name);
+        console.log(dalek.children[0].name);// name of mesh or bone root
+        dalek.children.forEach((model)=>{
             
-            if(model.name === "BoneRoot"){
+//            console.log(model.name);// each mesh is a material
+//            console.log(model.material.name);// the material names
+            
+            // Look for BoneRoot
+            /*if(model.name === "BoneRoot"){
                 console.log("Bones!");
                 model.children.forEach((model)=>{
                     if(model.name === "BoneDome"){
@@ -83,9 +86,10 @@ function init(){
                         lookBone = model;
                     }
                 })
-            }
+            }*/
             
-            if(model.name ==="DalekLowPoly"){
+            // Look For Mesh
+            if(model.name ==="lowpolyDalekMerged"){
                 console.log("A Dalek!");
                 console.log("Number of materials = "+model.children.length);
                 for(let i=0; i<model.children.length; i++){
@@ -96,8 +100,8 @@ function init(){
                 }
             }            
         });
-        animate();
-    });*/
+//        animate();
+    });
 }
 
 
