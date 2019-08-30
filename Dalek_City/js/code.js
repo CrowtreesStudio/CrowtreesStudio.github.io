@@ -2,9 +2,29 @@
 let loaded = false;
 
 window.onload = ()=>{
+    
+    let preloadMods = ['#dalekSound', 'a-scene', '#navigationMesh','#dalekModel','#scene'];
+    console.log(preloadMods.length);
+    
+    let loader = setInterval(checkLoad, 1000);
+    
+    function checkLoad(){
+        console.log("check load");
+        console.log(preloadMods.length);
+        
+        if(preloadMods.length <=0){
+            console.log("Loaded!");
+            document.getElementById("button").style.display = "block";
+            document.getElementById("preloader").style.visibility = "hidden";
+            clearInterval(loader);
+        }
+    }
+    
+    
     init();
     document.querySelector('a-scene').addEventListener('loaded', function () {
         console.log("scene loaded");
+        preloadMods.pop();
     });
     
     // Hide logo when entering VR mode
@@ -19,21 +39,28 @@ window.onload = ()=>{
         test.style.visibility = "visible";
     });
     
-    /*document.querySelector('#scene').addEventListener('model-loaded', ()=>{
+    document.querySelector('#scene').addEventListener('model-loaded', ()=>{
+        preloadMods.pop();
         console.log("room loaded");
-    });*/
-    /*document.querySelector('#dalekModel').addEventListener('model-loaded', ()=>{
+    });
+    document.querySelector('#dalekModel').addEventListener('model-loaded', ()=>{
+        preloadMods.pop();
         console.log("Dalek loaded");
-    });*/
-    /*document.querySelector('#navigationMesh').addEventListener('model-loaded', ()=>{
+    });
+    document.querySelector('#navigationMesh').addEventListener('model-loaded', ()=>{
+        preloadMods.pop();
         console.log("navmesh loaded");
-    });*/
+    });
     
     document.querySelector('#dalekSound').addEventListener('sound-loaded', ()=>{
         console.log("sound loaded");
-        document.getElementById("button").style.display = "block";
-        document.getElementById("preloader").style.visibility = "hidden";
+        preloadMods.pop();
     });
+    
+    
+    /*while(preloadMods.length>0){
+        console.log("preloadmods "+preloadMods.length);
+    }*/
 }
 
 function init(){
