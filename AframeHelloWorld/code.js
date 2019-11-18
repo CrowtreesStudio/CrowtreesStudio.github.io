@@ -3,6 +3,7 @@ function hidePlay() {
     
     /*************************************************/            
             // Give permission to use Motoin & Orientation
+    // This code works
         if(typeof DeviceMotionEvent.requestPermission === 'function'){
             DeviceMotionEvent.requestPermission()
             .then(response => {
