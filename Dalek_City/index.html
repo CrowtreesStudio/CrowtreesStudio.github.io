@@ -5,7 +5,9 @@
     <title>Dalek City</title>
     <link rel="stylesheet" href="css/styling.css">
     <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="lib/aframe-extras.min.js"></script>
+    <script src="lib/animation-mixer.js"></script>
     <script src="js/code.js" ></script>
 </head>
 <body>
@@ -26,9 +28,11 @@
 <!--########################       Asset Loading        ###############################-->
 <!--###################################################################################-->
       <a-assets timeout="3000">
-            <a-asset-item id="room" src="assets/models/SkaroSet.glb"></a-asset-item>
+<!--            <a-asset-item id="room" src="assets/models/SkaroSet.glb"></a-asset-item>-->
+            <a-asset-item id="room" src="assets/models/SkaroSetShadow.glb"></a-asset-item>
             <a-asset-item id="navmesh" src="assets/models/navMesh.glb"></a-asset-item>
             <a-asset-item id="dalek" src="assets/models/dalekMk1v1.5.glb"></a-asset-item>
+            <img id="shadow" src="assets/models/textures/diffuseShadow.png" >
             <audio id="corridorSFX" src="assets/audio/DalekCityCorridor_loop.wav" preload="auto"></audio>
       </a-assets>
 
@@ -40,7 +44,7 @@
           position="0.5 0 3"
           rotation="0 10 0">
           <a-entity id="camera" camera="fov:50;" position="0 1.6 0" look-controls="pointerLockEnabled: true" ></a-entity>
-          <a-sound id="dalekSound" src="#corridorSFX" autoplay="false" volume="0.5" loop="true" ></a-sound>
+<!--          <a-sound id="dalekSound" src="#corridorSFX" autoplay="false" volume="0.5" loop="true" ></a-sound>-->
        </a-entity>
        
 <!--###################################################################################-->
@@ -48,35 +52,54 @@
 <!--###################################################################################-->
       
 <!--########################       Skaro Hub Set        ###############################-->
-       <a-gltf-model id="scene" src="#room" shadow="cast:true;"></a-gltf-model>
+       <a-gltf-model 
+         id="scene" 
+         load-model 
+         src="#room" 
+         shadow="cast:false;"
+          >  
+       </a-gltf-model>
        
        <!-- Nav mesh. -->
-        <a-entity id="navigationMesh" nav-mesh
+<!--        <a-entity id="navigationMesh" nav-mesh
                 normal-material
                 visible="false"
                 gltf-model="#navmesh">
-        </a-entity>
+        </a-entity>-->
         
 <!--########################         Dalek Mk1          ###############################-->
-        <a-gltf-model id="dalekModel" src="#dalek" position="0 0 -1.5" rotation="0 -20 0" shadow="cast:true;">
+        <a-gltf-model 
+            id="dalekModel"
+            load-model="shadow:true;"
+            load-rig="bone:Dome;"
+            stare-at="targetObj:#rig;" 
+            animation-mixer="clip: dalekRigAction;" 
+            src="#dalek" 
+            position="0 0 -1.5" 
+            rotation="0 -20 0" 
+            shadow="cast:true;">
 <!--            <a-text value="Dalek 34" align="center" position="0 1.75 0" width="3" ></a-text>-->
         </a-gltf-model>
         
-<!--########################      placeholder box       ###############################-->
-<!--        <a-box position=" 0 1 -2" ></a-box>-->
        
 <!--###################################################################################-->
 <!--########################        Lights              ###############################-->
 <!--###################################################################################-->
 <!-- Spotlight with Shadow -->
-       <a-light type="spot" intensity="1" target="#lightTarget" position="0 4 1" light="castShadow:true; shadowCameraVisible:false; shadowCameraLeft:-6.5; shadowMapHeight:1024; shadowMapWidth:1024; penumbra:0.5;"></a-light>
+       <a-light type="spot" intensity="0.25" target="#lightTarget" position="0 4 1" light="castShadow:true; shadowCameraVisible:false; shadowCameraLeft:-6.5; shadowMapHeight:1024; shadowMapWidth:1024; penumbra:0.5;"></a-light>
+       <a-light
+          type="ambient"
+          intensity="0.75">
+           
+       </a-light>
 <!-- Spotlight target -->
        <a-box id="lightTarget" scale="0.1 0.1 0.1" position="0 0 0.75" visible="false"></a-box>
+
 <!-- Fill lights -->   
-       <a-light type="spot" distance="15" rotation="-90 0 0" position="-2 6 -1" light="penumbra:0.5;" intensity="2" angle="45"></a-light>
+<!--       <a-light type="spot" distance="15" rotation="-90 0 0" position="-2 6 -1" light="penumbra:0.5;" intensity="2" angle="45"></a-light>
        <a-light type="spot" distance="15" rotation="-90 0 0" position="2 6 -1" light="penumbra:0.5;" intensity="2" angle="45"></a-light>
        <a-light type="spot" distance="15" rotation="-90 0 0" position="2 6 3.25" light="penumbra:0.5;" intensity="2" angle="45"></a-light>
-       <a-light type="spot" distance="15" rotation="-90 0 0" position="-2 6 3.75" light="penumbra:0.5;" intensity="2" angle="45"></a-light>
+       <a-light type="spot" distance="15" rotation="-90 0 0" position="-2 6 3.75" light="penumbra:0.5;" intensity="2" angle="45"></a-light>-->
        
 <!--       <a-light type="directional" position="0 -2.8 1.2" intensity="1"></a-light>-->
 <!--       <a-light type="directional" position="0 2.8 0.5" intensity="2"></a-light>-->

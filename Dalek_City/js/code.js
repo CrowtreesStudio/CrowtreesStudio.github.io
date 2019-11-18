@@ -3,20 +3,24 @@ let loaded = false;
 
 window.onload = ()=>{
     
-    let preloadMods = ['#dalekSound', 'a-scene', '#navigationMesh','#dalekModel','#scene'];
-    console.log(preloadMods.length);
-    
+//    let preloadMods = ['#dalekSound', 'a-scene', '#navigationMesh','#dalekModel','#scene'];
+    let preloadMods = ['a-scene','#dalekModel','#scene'];
+//    console.log(preloadMods.length);
+        
     let loader = setInterval(checkLoad, 1000);
     
     function checkLoad(){
         console.log("check load");
         console.log(preloadMods.length);
+//        console.log(preloadMods[0]);
         
         if(preloadMods.length <=0){
             console.log("Loaded!");
             document.getElementById("button").style.display = "block";
             document.getElementById("preloader").style.visibility = "hidden";
+            loaded = true;
             clearInterval(loader);
+            console.log("loaded = "+loaded)
         }
     }
     
@@ -56,91 +60,149 @@ window.onload = ()=>{
         console.log("sound loaded");
         preloadMods.pop();
     });
-    
-    
-    /*while(preloadMods.length>0){
-        console.log("preloadmods "+preloadMods.length);
-    }*/
 }
 
 function init(){
-    /*this.playerCam = document.querySelector("#rig");
-    this.playerCam = playerCam.object3D.position;
-    this.lookBone="";*/    
-    this.el=document.querySelector("#scene") ;
+ 
+}
+
+AFRAME.registerComponent('stare-at', {
     
-    this.el.addEventListener('model-loaded', ()=>{
-        const obj = this.el.getObject3D('mesh');
+    schema:{
+        event:{default:null},
+        targetObj:{default:'empty'},
+        playerPos:{default:null},
+        lookWith:{default:null}
+    },
+    
+    init: function(){
+        let playerCam = document.querySelector(this.data.targetObj);
+        this.data.playerPos = playerCam.object3D.position;
+    },
+    
+    tick: function(){
+        this.data.lookWith.lookAt(this.data.playerPos.x, 1, this.data.playerPos.z);
+    },
+    
+    update: function(){
+        console.log("update");
+    }
+    
+});
+
+
+
+AFRAME.registerComponent('load-model', {
+    schema:{
+        lookBone:{default:null},
+        shadow:{default:false}
+    },
+    
+    init:function(){
+        const el = this.el;
+        let animation = false;
+        let path = "";
+        let type = ""
         
-        console.log(obj);
-        
-        obj.children.forEach((model)=>{
-            model.material.receiveShadow=true;
-            model.material.shadowSide = 1;
-//            console.log(model.material);
-//            model.material.color={r:1, g:1, b:1};
-//            model.material.color={r:0.25, g:0.25, b:0.25};
+        this.el.addEventListener('model-loaded', ()=>{
+            let mesh = this.el.getObject3D('mesh');
             
-            if(model.name === "Ground_Plane"){
-                console.log("Don't cast shadow");
-                model.material.castShadow=false;
-//                model.material.color={r:1, g:1, b:1};
-            }else{
-                console.log("Cast shadow");
-                model.material.castShadow = true;
+            // Check for animations
+            if(mesh.animations.length >0){
+//                console.log("there are animations");
+                animation = true;
             }
-            /*console.log(model.name);
-            console.log(model.material.castShadow);*/
-        });
-    });
-    
-    this.el2=document.querySelector("#dalekModel");
-    
-    this.el2.addEventListener('model-loaded', ()=>{
-        const dalek = this.el2.getObject3D('mesh');
-        console.log(dalek.children[0].name);// name of mesh or bone root
-        dalek.children.forEach((model)=>{
             
-//            console.log(model.name);// each mesh is a material
-//            console.log(model.material.name);// the material names
+            console.log(mesh.children.length);
+            console.log(mesh);
+            if(mesh.children.length > 1){
+                path = mesh.children;
+            }else{
+                path = mesh.children[0].children;
+            }
             
-            // Look for BoneRoot
-            /*if(model.name === "BoneRoot"){
-                console.log("Bones!");
-                model.children.forEach((model)=>{
-                    if(model.name === "BoneDome"){
-                        console.log("bone dome located");
-                        lookBone = model;
+        
+            if(path.length > 1){
+                path.forEach((element)=>{
+                    switch(element.type){
+                        case 'Bone':
+                            console.log("it's a bone so ignore it");
+                            break;
+                        case 'Group':
+                            console.log("it's a Model Mesh");
+                            el.model = element;
+                            type = "Model";
+                            break;
+                        case 'Mesh':
+                            console.log("it's an unrigged Model Mesh");
+                            el.model = element.parent;
+                            type = "Model";
+                            break;
                     }
                 })
-            }*/
-            
-            // Look For Mesh
-            if(model.name ==="lowpolyDalekMerged"){
-                console.log("A Dalek!");
-                console.log("Number of materials = "+model.children.length);
-                for(let i=0; i<model.children.length; i++){
-                    console.log("material name = "+model.children[i].material.name);
-                    console.log(model.children[i].material);
-                    model.children[i].material.shadowSide = 1;
-                    model.children[i].castShadow = true;
+            };
+            console.log("Next search");
+            console.log("found the model");
+            if(shadow!==false){
+                for(let i=0; i<el.model.children.length; i++){
+                    el.model.children[i].material.shadowSide = 1;
+                    el.model.children[i].material.castShadow = true;
                 }
-            }            
+            }
         });
-//        animate();
-    });
-}
+    }
+});
 
-
-
-
-function animate() {
-        requestAnimationFrame(animate);    
-//    console.log(lookBone);
-    // Dalek watches player
-        lookBone.lookAt(playerCam.x, 1.3, playerCam.z);
-
-}
+AFRAME.registerComponent('load-rig', {
+    schema:{
+        bone:{default:null}
+    },
+    
+    init: function(){
+        let path = "";
+        let type = "";
+        let rig = "";
+        
+        this.el.addEventListener('model-loaded', ()=>{
+            let mesh = this.el.getObject3D('mesh');
+            
+            // Check for animations
+            if(mesh.animations.length >0){
+//                console.log("there are animations");
+                animation = true;
+            }
+            
+            path = mesh.children[0].children;
+            console.log(path);
+                
+            path.forEach((element)=>{
+                switch(element.type){
+                    case 'Bone':
+                        console.log("it's a bone so grab it");
+                        type = "Bone";
+                        rig = element;
+                        break;
+                    case 'Group':
+                        console.log("it's the Model so ignore it");
+                        break;
+                }
+            });
+            
+            rig.children.forEach((bone)=>{
+                    if(bone.name === this.data.bone){
+                        console.log("found the right bone");
+                        this.data.bone = bone;
+                    }
+             });
+            
+            console.log("Log the find");
+            console.log(this.data.bone);
+            // What to look with
+            this.el.setAttribute('stare-at','lookWith', this.data.bone);
+            console.log(this.el.getAttribute('stare-at'));
+        });
+    }  
+});
 
 /*AFRAME.registerComponent('nav-pointer', {
     init:function(){
