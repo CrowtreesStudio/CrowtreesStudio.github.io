@@ -18,7 +18,7 @@ function hidePlay(){
 //    document.getElementById("begin").style.visibility="hidden";
     
     // Bring scene back into frame
-    document.getElementById("scene").style.left = "0%";
+    document.getElementById("scene").style.left = "1000px";
     var sound1 = document.querySelector('#oceanSound');
     var sound2 = document.querySelector('#buoySound');
 //    var sound3 = document.querySelector('#gullSound');
@@ -32,7 +32,7 @@ function hidePlay(){
 
 /*************************************************/            
             // Give permission to use Motoin & Orientation
-window.onload = function(){
+/*window.onload = function(){
     if(typeof DeviceMotionEvent.requestPermission === 'function'){
         DeviceMotionEvent.requestPermission()
         .then(response => {
@@ -55,6 +55,6 @@ window.onload = function(){
         })
         .catch(console.error)
     }
-}
+}*/
             
 /*************************************************/

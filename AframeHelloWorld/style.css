@@ -1,0 +1,25 @@
+body #begin{
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+}
+
+body #buttonBox{
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin: 25% 0;
+}
+
+body #buttonBox #click{
+    margin: 0 auto;
+    width: 30%;
+    background-color: #6b0074;
+    padding: 10px 20px 10px 20px;
+    border-radius: 45px 45px 45px 45px;
+    border: 5px solid #ae21ba;
+    font-size: 1.5em;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}

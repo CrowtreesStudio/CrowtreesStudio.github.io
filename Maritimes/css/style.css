@@ -36,6 +36,7 @@ body #begin #buttonBox{
     height: 100%;
     margin: auto;
     top: 40%;
+    z-index: 10;
 }
 
 body #begin #buttonBox #button{
@@ -60,5 +61,6 @@ body #begin #buttonBox #button:hover{
 
 body a-scene {
     position: absolute;
-    left: -100%;
+    z-index: 1;
+/*    left: -200px;*/
 }
