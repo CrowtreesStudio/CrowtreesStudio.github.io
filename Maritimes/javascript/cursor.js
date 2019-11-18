@@ -6,6 +6,29 @@ AFRAME.registerComponent('clickme', {
             lastIndex = (lastIndex + 1) % COLORS.length;
             this.setAttribute('material', 'color', COLORS[lastIndex]);
 //            console.log('I was clicked at: ', evt.detail.intersection.point);
+            
+/*************************************************/            
+            // Give permission to use Motoin & Orientation
+            DeviceMotionEvent.requestPermission()
+            .then(response => {
+              if (response == 'granted') {
+                window.addEventListener('devicemotion', (e) => {
+                  // do something with e
+                })
+              }
+            })
+            .catch(console.error)
+            
+            DeviceOrientationEvent.requestPermission()
+            .then(response => {
+              if (response == 'granted') {
+                window.addEventListener('deviceorientation', (e) => {
+                  // do something with e
+                })
+              }
+            })
+            .catch(console.error)
+/*************************************************/
         });
     }
 });
@@ -27,4 +50,5 @@ function hidePlay(){
     sound2.components.sound.playSound();
 //    sound3.components.sound.playSound();
     sound4.components.sound.playSound();
+    
 }
