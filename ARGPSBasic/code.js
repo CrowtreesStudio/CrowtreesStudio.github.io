@@ -2,7 +2,7 @@ function hidePlay() {
     document.getElementById("begin").style.display = "none";
     
     /*************************************************/            
-            // Give permission to use Motoin & Orientation
+            // Give permission to use Motion & Orientation
     // This code works
         if(typeof DeviceMotionEvent.requestPermission === 'function'){
             DeviceMotionEvent.requestPermission()
