@@ -4,35 +4,33 @@
     <meta charset="UTF-8">
     <title>Maritime Experiment</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src='https://aframe.io/releases/0.9.2/aframe.min.js'></script>
-<!--    <script src="javascript/aframe-extras.primitives.js" ></script>-->
-    <script src="javascript/cursor.js" ></script>
+    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+    <!--    <script src='https://aframe.io/releases/0.9.2/aframe.min.js'></script>-->
+    <!--    <script src="javascript/aframe-extras.primitives.js" ></script>-->
+    <script src="javascript/cursor.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
     <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.min.js"></script>
-<!--    <script src="https://unpkg.com/aframe-gltf-part-component/dist/aframe-gltf-part-component.min.js"></script>-->
+    <!--    <script src="https://unpkg.com/aframe-gltf-part-component/dist/aframe-gltf-part-component.min.js"></script>-->
 </head>
+
 <body>
-   <div id="preloader">
-<!--
-        <svg x="0px" y="0px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        </svg>
--->
+    <div id="preloader">
     </div>
     <div id="begin">
-       <div id="buttonBox">
+        <div id="buttonBox">
             <a onclick="hidePlay()"><button id="button">Begin Experience</button></a>
-       </div>
+        </div>
     </div>
-<!--
+    <!--
     <div id="logo">
         <img alt="Crowtrees Studio logo" src="images/crowtrees.studio.logo.svg"/>
     </div>
 -->
-<!--    <a-scene fog="type: exponential; color:#FFF; density:0.02;">-->
+    <!--    <a-scene fog="type: exponential; color:#FFF; density:0.02;">-->
     <a-scene id="scene" vr-mode-ui="enabled: true">
         <a-assets asset-loader>
-          <!-- Load all assets -->
-           <!-- Models and Misc files -->
+            <!-- Load all assets -->
+            <!-- Models and Misc files -->
             <a-asset-item id="land" src="models/baseScene.gltf"></a-asset-item>
             <a-asset-item id="decor" src="models/Decor.gltf"></a-asset-item>
             <a-asset-item id="lighthouse" src="models/lighthouse.gltf"></a-asset-item>
@@ -51,189 +49,84 @@
             <audio id="gullsSFX" src="audio/gulls_mono.mp3"></audio>
             <!-- Image files -->
             <img id="texture" src="images/catStare.jpeg">
-<!--            <img id="texture" src="https://i.imgur.com/mYmmbrp.jpg">-->
+            <!--            <img id="texture" src="https://i.imgur.com/mYmmbrp.jpg">-->
             <!-- Video files -->
             <video></video>
         </a-assets>
-        
+
         <!--###################-->
         <!-- Setting the Scene -->
         <!--###################-->
-        
+
         <!-- Camera -->
-       <a-camera 
-           id="player"
-           log="message: What's up!" 
-           rotation="0 200 0" 
-           universal-controls="movementControls: checkpoint"
-           checkpoint-controls="mode: animate; animateSpeed:10"
-           position="-5 2.5 -9"
-        >
-           <!-- Cursor -->
-           <!-- Cursor:  Set raycaster to only activate on specific class of object  -->
-           <a-cursor     
-               cursor="fuse: true"
-               raycaster="objects: .clickable"   
-               position="0 0 -1"
-               geometry="primitive:ring; radiusInner:0.022; radiusOuter:0.028; segmentsTheta: 18; thetaStart:90; thetaLength:0"   
-               material="color:#117174; shader: flat">
+        <a-entity id="camRig" position="-5 0.5 -9" rotation="0 180 0">
+            <a-camera id="player" log="message: What's up!" wasd-controls="acceleration:200;" universal-controls="movementControls: checkpoint;" checkpoint-controls="mode: animate; animateSpeed:10">
+                <!-- Cursor -->
+                <!-- Cursor:  Set raycaster to only activate on specific class of object  -->
+                <!--<a-cursor cursor="fuse: true" raycaster="objects: .clickable" position="0 0 -1" geometry="primitive:ring; radiusInner:0.022; radiusOuter:0.028; segmentsTheta: 18; thetaStart:90; thetaLength:0" material="color:#117174; shader: flat">-->
+                <a-cursor
+                        id="reticleBase"
+                        cursor="fuse:true;"
+                        raycaster="objects:.clickable" 
+                        position="0 0 -1" 
+                        geometry="primitive:ring; radiusInner:0.023; radiusOuter:0.027; segmentsTheta: 18; thetaStart:90; thetaLength:0;" 
+                        material="color:#117174; shader: flat"
+                        animation__fusing="property: geometry.thetaLength; startEvents:fusing; dur:1500; from:0; to:360;"
+                        animation__mouseleave="property: geometry.thetaLength; startEvents:mouseleave; dur:0; from:0; to:0;"
+                        >
+                    <!-- cursorBase is not animated - this is "base" color for the reticle  -->
+                    <a-entity
+                        id="cursorBase"                    
+                        position="0 0 -0.01" 
+                        geometry="primitive:ring; radiusInner:0.02; radiusOuter:0.03; segmentsTheta: 18;" 
+                        material="color:white; shader: flat"
+                    ></a-entity>
+                </a-cursor>
+            </a-camera>
+        </a-entity>
 
-               <!-- This entity is not animated - this is "base" color reticle  -->
-               <a-entity
-                   id="reticleBase"               
-                   position="0 0 0"
-                   geometry="primitive:ring; radiusInner:0.02; radiusOuter:0.03; segmentsTheta: 18"
-                   material="color:white; shader: flat"
-                ></a-entity>
-
-               <!-- This animates the a-cursor geometry showing "warmup"  -->
-               <a-animation
-                   begin="click mouseleave"
-                   easing="linear"
-                   attribute="geometry.thetaLength"
-                   fill="none"
-                   from="0"
-                   to="0"
-                   dur=0>
-               </a-animation>
-               <a-animation
-                   begin="cursor-fusing"
-                   direction="reverse"
-                   easing="linear"
-                   attribute="geometry.thetaLength"
-                   fill="forwards"
-                   from="0"
-                   to="360"
-                   dur=1500>
-               </a-animation>
-           </a-cursor>
-       </a-camera>
-        
         <!-- waypoints -->
-        <a-cylinder 
-                id="Buoy_Waypoint"
-                checkpoint="offset: 0 1.6 0" 
-                radius="0.0" 
-                position="-31.75 -0.45 22.25"
-                class="clickable"
-                clickme
-            >
-               <a-box
-                  material="emissive:#7c0000"
-                  position="0 1.6 0"
-                  scale="0.5 0.5 0.5"
-                  >
-                   <a-animation 
-                      begin="10"
-                      easing="linear"
-                      attribute="rotation"
-                      fill="none"
-                      from="0 0 0"
-                      to="360 360 360"
-                      dur=2000
-                      repeat="indefinite"
-                    >
-                    </a-animation>
-               </a-box>
-            </a-cylinder>
-            <a-cylinder 
-                id="Hut_Waypoint"
-                checkpoint="offset: 0 1.6 0" 
-                radius="0.0" 
-                position="-5 0.73 -9" 
-                class="clickable"
-                clickme
-            >
-                <a-box
-                     material="emissive:#7c0000"
-                     position="0 1.6 0"
-                     scale="0.5 0.5 0.5"
-                  >
-                   <a-animation 
-                      begin="10"
-                      easing="linear"
-                      attribute="rotation"
-                      fill="none"
-                      from="0 0 0"
-                      to="360 360 360"
-                      dur=2000
-                      repeat="indefinite"
-                    >
-                    </a-animation>
-               </a-box>
-            </a-cylinder>
-            <a-cylinder  
-                id="Gull_Waypoint"
-                checkpoint="offset: 0 1.6 0" 
-                radius="0.0"
-                position="13.207 1.3 -13" 
-                class="clickable"
-                clickme
-            >
-                <a-box
-                     material="emissive:#7c0000"
-                     position="0 1.6 0"
-                     scale="0.5 0.5 0.5"
-                  >
-                   <a-animation 
-                      begin="10"
-                      easing="linear"
-                      attribute="rotation"
-                      fill="none"
-                      from="0 0 0"
-                      to="360 360 360"
-                      dur=2000
-                      repeat="indefinite"
-                    >
-                    </a-animation>
-               </a-box>
-            </a-cylinder>
-            <a-cylinder  
-                id="Lighthouse_Waypoint"
-                checkpoint="offset: 0 1.6 0" 
-                radius="0.0"
-                position="26.5 1.1 18" 
-                class="clickable"
-                clickme
-            >
-                <a-box
-                     material="emissive:#7c0000"
-                     position="0 1.6 0"
-                     scale="0.5 0.5 0.5"
-                  >
-                   <a-animation 
-                      begin="10"
-                      easing="linear"
-                      attribute="rotation"
-                      fill="none"
-                      from="0 0 0"
-                      to="360 360 360"
-                      dur=2000
-                      repeat="indefinite"
-                    >
-                    </a-animation>
-               </a-box>
-            </a-cylinder>
+        <a-cylinder id="Buoy_Waypoint" checkpoint="offset: 0 1.6 0" radius="0.0" position="-31.75 -0.45 22.25" class="clickable" clickme>
+            <a-box material="emissive:#7c0000" position="0 1.6 0" scale="0.5 0.5 0.5" visible=false>
+                <a-animation begin="10" easing="linear" attribute="rotation" fill="none" from="0 0 0" to="360 360 360" dur=2000 repeat="indefinite">
+                </a-animation>
+            </a-box>
+        </a-cylinder>
+        <a-cylinder id="Hut_Waypoint" checkpoint="offset: 0 1.6 0" radius="0.0" position="-5 0.73 -9" class="clickable" clickme>
+            <a-box material="emissive:#7c0000" position="0 1.6 0" scale="0.5 0.5 0.5" visible=false>
+                <a-animation begin="10" easing="linear" attribute="rotation" fill="none" from="0 0 0" to="360 360 360" dur=2000 repeat="indefinite">
+                </a-animation>
+            </a-box>
+        </a-cylinder>
+        <a-cylinder id="Gull_Waypoint" checkpoint="offset: 0 1.6 0" radius="0.0" position="13.207 1.3 -13" class="clickable" clickme>
+            <a-box material="emissive:#7c0000" position="0 1.6 0" scale="0.5 0.5 0.5" visible=false>
+                <a-animation begin="10" easing="linear" attribute="rotation" fill="none" from="0 0 0" to="360 360 360" dur=2000 repeat="indefinite">
+                </a-animation>
+            </a-box>
+        </a-cylinder>
+        <a-cylinder id="Lighthouse_Waypoint" checkpoint="offset: 0 1.6 0" radius="0.0" position="26.5 1.1 18" class="clickable" clickme>
+            <a-box material="emissive:#7c0000" position="0 1.6 0" scale="0.5 0.5 0.5" visible=false>
+                <a-animation begin="10" easing="linear" attribute="rotation" fill="none" from="0 0 0" to="360 360 360" dur=2000 repeat="indefinite">
+                </a-animation>
+            </a-box>
+        </a-cylinder>
         <!-- End Waypoints -->
-        
+
         <!-- landscape -->
         <a-entity>
-               <a-gltf-model id="coast" gltf-model="#land" shadow="receive:true; cast:false" ></a-gltf-model> 
+            <a-gltf-model id="coast" gltf-model="#land" shadow="receive:true; cast:false"></a-gltf-model>
         </a-entity>
         <a-entity>
             <a-gltf-model src="#decor" rotation="0 -44.97718691776962 0" position="-20 5.6 -30" scale="1.893 1.893 1.893">
             </a-gltf-model>
         </a-entity>
-<!--        <a-entity gltf-part="src: #land; part: sandSilt" material="src:#texture" position="0 -1 0"></a-entity>-->
-        
+        <!--        <a-entity gltf-part="src: #land; part: sandSilt" material="src:#texture" position="0 -1 0"></a-entity>-->
+
         <!-- Fishing Hut -->
-        <a-entity
-            id="theFishingHut" 
-            position="-5.314 0.622 -10.202"
-            rotation = "0 2.2345354010102105 0">
-            <a-gltf-model id="fishHut" src="#hut" shadow="receive:true; cast:true"></a-gltf-model>
+        <a-entity id="theFishingHut" position="-5.314 0.622 -10.202" rotation="0 2.2345354010102105 0">
+            <a-gltf-model id="fishHut" src="#hut" position="0 0 -9" rotation="0 -90 0" shadow="receive:true; cast:true"></a-gltf-model>
             <a-gltf-model id="fishHutPierSupport" src="#pierBoardSupport" shadow="receive:true; cast:true"></a-gltf-model>
-            
+
             <a-entity>
                 <a-gltf-model id="fishHutPier" src="#pier" shadow="receive:true; cast:true" position="0 0 0"></a-gltf-model>
                 <a-gltf-model id="fishHutPier" src="#pier" shadow="receive:true; cast:true" position="0 0 -1"></a-gltf-model>
@@ -248,246 +141,85 @@
             </a-entity>
             <!-- To keep downloads of models small, using one instance of the object and replicating it to create the pier. Ideally we would add a component that would allow us to indicate the number of instances and spacing. -->
             <!-- kleet posts -->
-            <a-entity id="pierPosts"
-               position="-2 -1.8 3.1">
-                <a-gltf-model
-                id="pierPost01"
-                gltf-model="#pierPost"
-                position="0.3 0 .01"
-                rotation="0 0 2"
-                
-                ></a-gltf-model>
-                
-                <a-gltf-model
-                id="pierPost01"
-                gltf-model="#pierPost"
-                position="2 -0.25 0.03"
-                rotation="1 250 0"
-                
-                ></a-gltf-model>
-                
-                <a-gltf-model
-                    id="pierPost01"
-                    gltf-model="#pierPost"
-                    position="4.1 -0.1 -0.04"
-                    rotation="-5 90 3"
-                >
+            <a-entity id="pierPosts" position="-2 -1.8 3.1">
+                <a-gltf-model id="pierPost01" gltf-model="#pierPost" position="0.3 0 .01" rotation="0 0 2"></a-gltf-model>
+
+                <a-gltf-model id="pierPost01" gltf-model="#pierPost" position="2 -0.25 0.03" rotation="1 250 0"></a-gltf-model>
+
+                <a-gltf-model id="pierPost01" gltf-model="#pierPost" position="4.1 -0.1 -0.04" rotation="-5 90 3">
                 </a-gltf-model>
             </a-entity>
-            
+
             <!-- support beams length -->
-            <a-entity id="pierSupportLength" position = "0 0 0">
-                   <a-gltf-model
-                        gltf-model="#pierSupportLength"
-                        position="0 -0.01 0"
-                        rotation="0 0 0"
-                        shadow="receive:true"                    
-                    >
-                    </a-gltf-model>
-                    <a-gltf-model
-                        gltf-model="#pierSupportLength"
-                        position="-0.5 -0.01 0"
-                        rotation="0 0 0"
-                        shadow="receive:true"                    
-                    >
-                    </a-gltf-model>
-                    <a-gltf-model
-                        gltf-model="#pierSupportLength"
-                        position="-1 -0.01 0"
-                        rotation="0 0 0"
-                        shadow="receive:true"                    
-                    >
-                    </a-gltf-model>
-                    <a-gltf-model
-                        gltf-model="#pierSupportLength"
-                        position="-1.5 -0.01 0"
-                        rotation="0 0 0"
-                        shadow="receive:true"                    
-                    >
-                    </a-gltf-model>
-                    <a-gltf-model
-                        gltf-model="#pierSupportLength"
-                        position="-2.0 -0.01 0"
-                        rotation="0 0 0"
-                        shadow="receive:true"                    
-                    >
-                    </a-gltf-model>
-                    <a-gltf-model
-                        gltf-model="#pierSupportLength"
-                        position="-2.5 -0.01 0"
-                        rotation="0 0 0"
-                        shadow="receive:true"                    
-                    >
-                    </a-gltf-model>
-                    <a-gltf-model
-                        gltf-model="#pierSupportLength"
-                        position="-3.0 -0.01 0"
-                        rotation="0 0 0"
-                        shadow="receive:true"                    
-                    >
-                    </a-gltf-model>
-                    <a-gltf-model
-                        gltf-model="#pierSupportLength"
-                        position="-3.4 -0.01 0"
-                        rotation="0 0 0"
-                        shadow="receive:true"                    
-                    >
-                    </a-gltf-model>
+            <a-entity id="pierSupportLength" position="0 0 0">
+                <a-gltf-model gltf-model="#pierSupportLength" position="0 -0.01 0" rotation="0 0 0" shadow="receive:true">
+                </a-gltf-model>
+                <a-gltf-model gltf-model="#pierSupportLength" position="-0.5 -0.01 0" rotation="0 0 0" shadow="receive:true">
+                </a-gltf-model>
+                <a-gltf-model gltf-model="#pierSupportLength" position="-1 -0.01 0" rotation="0 0 0" shadow="receive:true">
+                </a-gltf-model>
+                <a-gltf-model gltf-model="#pierSupportLength" position="-1.5 -0.01 0" rotation="0 0 0" shadow="receive:true">
+                </a-gltf-model>
+                <a-gltf-model gltf-model="#pierSupportLength" position="-2.0 -0.01 0" rotation="0 0 0" shadow="receive:true">
+                </a-gltf-model>
+                <a-gltf-model gltf-model="#pierSupportLength" position="-2.5 -0.01 0" rotation="0 0 0" shadow="receive:true">
+                </a-gltf-model>
+                <a-gltf-model gltf-model="#pierSupportLength" position="-3.0 -0.01 0" rotation="0 0 0" shadow="receive:true">
+                </a-gltf-model>
+                <a-gltf-model gltf-model="#pierSupportLength" position="-3.4 -0.01 0" rotation="0 0 0" shadow="receive:true">
+                </a-gltf-model>
             </a-entity>
-                
-            <!-- support posts & cross beams (width) -->  
-            <a-entity id="supportPosts"
-               position="-1.85 -1.85 2.8">
-               <a-entity id="row1" position = "0 0 0">
-                   <a-gltf-model
-                    id="pierPost02"
-                    gltf-model="#pierSupport"
-                    position="0 0 0"
-                    rotation="0 0 0"
-                    shadow="receive:true"                    
-                    ></a-gltf-model>
 
-                    <a-gltf-model
-                    id="pierPost02"
-                    gltf-model="#pierSupport"
-                    position="3.73 0 0"
-                    rotation="0 250 0"
-                    shadow="receive:true"                    
-                    ></a-gltf-model>
-                    <a-gltf-model
-                        id="pierSupportWidth"
-                        position="1.858 1.85 -2.686"
-                        gltf-model="#pierSupportWidth"
-                        shadow="receive:true"
-                    >
-                    </a-gltf-model>
-               </a-entity>
-               <a-entity id="row2" position = "0 0 -1.5">
-                   <a-gltf-model
-                    id="pierPost02"
-                    gltf-model="#pierSupport"
-                    position="0 0 0"
-                    rotation="0 30 0"
-                    shadow="receive:true"
-                    ></a-gltf-model>
+            <!-- support posts & cross beams (width) -->
+            <a-entity id="supportPosts" position="-1.85 -1.85 2.8">
+                <a-entity id="row1" position="0 0 0">
+                    <a-gltf-model id="pierPost02" gltf-model="#pierSupport" position="0 0 0" rotation="0 0 0" shadow="receive:true"></a-gltf-model>
 
-                    <a-gltf-model
-                    id="pierPost02"
-                    gltf-model="#pierSupport"
-                    position="3.73 0 0"
-                    rotation="0 30 0"
-                    shadow="receive:true"
-                    ></a-gltf-model>
-                    <a-gltf-model
-                        id="pierSupportWidth"
-                        position="1.858 1.85 -2.686"
-                        gltf-model="#pierSupportWidth"
-                        shadow="receive:true"
-                    >
+                    <a-gltf-model id="pierPost02" gltf-model="#pierSupport" position="3.73 0 0" rotation="0 250 0" shadow="receive:true"></a-gltf-model>
+                    <a-gltf-model id="pierSupportWidth" position="1.858 1.85 -2.686" gltf-model="#pierSupportWidth" shadow="receive:true">
                     </a-gltf-model>
-               </a-entity>
-               <a-entity id="row3" position = "0 0 -3">
-                   <a-gltf-model
-                    id="pierPost02"
-                    gltf-model="#pierSupport"
-                    position="0 0 0"
-                    rotation="0 65 0"
-                    shadow="receive:true"                    
-                    ></a-gltf-model>
+                </a-entity>
+                <a-entity id="row2" position="0 0 -1.5">
+                    <a-gltf-model id="pierPost02" gltf-model="#pierSupport" position="0 0 0" rotation="0 30 0" shadow="receive:true"></a-gltf-model>
 
-                    <a-gltf-model
-                    id="pierPost02"
-                    gltf-model="#pierSupport"
-                    position="3.73 0 0"
-                    rotation="0 65 0"
-                    shadow="receive:true"                    
-                    ></a-gltf-model>
-                    <a-gltf-model
-                        id="pierSupportWidth"
-                        position="1.858 1.85 -2.686"
-                        gltf-model="#pierSupportWidth"
-                        shadow="receive:true"
-                    >
+                    <a-gltf-model id="pierPost02" gltf-model="#pierSupport" position="3.73 0 0" rotation="0 30 0" shadow="receive:true"></a-gltf-model>
+                    <a-gltf-model id="pierSupportWidth" position="1.858 1.85 -2.686" gltf-model="#pierSupportWidth" shadow="receive:true">
                     </a-gltf-model>
-               </a-entity>
-               <a-entity id="row4" position = "0 0 -4.5">
-                   <a-gltf-model
-                    id="pierPost02"
-                    gltf-model="#pierSupport"
-                    position="0 0 0"
-                    rotation="0 100 0"
-                    shadow="receive:true"                    
-                    ></a-gltf-model>
+                </a-entity>
+                <a-entity id="row3" position="0 0 -3">
+                    <a-gltf-model id="pierPost02" gltf-model="#pierSupport" position="0 0 0" rotation="0 65 0" shadow="receive:true"></a-gltf-model>
 
-                    <a-gltf-model
-                    id="pierPost02"
-                    gltf-model="#pierSupport"
-                    position="3.73 0 0"
-                    rotation="0 100 0"
-                    shadow="receive:true"                    
-                    ></a-gltf-model>
-                    <a-gltf-model
-                        id="pierSupportWidth"
-                        position="1.858 1.85 -2.686"
-                        gltf-model="#pierSupportWidth"
-                        shadow="receive:true"
-                    >
+                    <a-gltf-model id="pierPost02" gltf-model="#pierSupport" position="3.73 0 0" rotation="0 65 0" shadow="receive:true"></a-gltf-model>
+                    <a-gltf-model id="pierSupportWidth" position="1.858 1.85 -2.686" gltf-model="#pierSupportWidth" shadow="receive:true">
                     </a-gltf-model>
-               </a-entity>
-               <a-entity id="row5" position = "0 0 -6">
-                   <a-gltf-model
-                    id="pierPost02"
-                    gltf-model="#pierSupport"
-                    position="0 0 0"
-                    rotation="0 150 0"
-                    shadow="receive:true"                    
-                    ></a-gltf-model>
+                </a-entity>
+                <a-entity id="row4" position="0 0 -4.5">
+                    <a-gltf-model id="pierPost02" gltf-model="#pierSupport" position="0 0 0" rotation="0 100 0" shadow="receive:true"></a-gltf-model>
 
-                    <a-gltf-model
-                    id="pierPost02"
-                    gltf-model="#pierSupport"
-                    position="3.73 0 0"
-                    rotation="0 150 0"
-                    shadow="receive:true"                    
-                    ></a-gltf-model>
-                    <a-gltf-model
-                        id="pierSupportWidth"
-                        position="1.858 1.85 -2.686"
-                        gltf-model="#pierSupportWidth"
-                        shadow="receive:true"
-                    >
+                    <a-gltf-model id="pierPost02" gltf-model="#pierSupport" position="3.73 0 0" rotation="0 100 0" shadow="receive:true"></a-gltf-model>
+                    <a-gltf-model id="pierSupportWidth" position="1.858 1.85 -2.686" gltf-model="#pierSupportWidth" shadow="receive:true">
                     </a-gltf-model>
-               </a-entity>
-               <a-entity id="row6" position = "0 0 -7.5">
-                   <a-gltf-model
-                    id="pierPost02"
-                    gltf-model="#pierSupport"
-                    position="0 0 0"
-                    rotation="0 270 0"
-                    shadow="receive:true"                    
-                    ></a-gltf-model>
+                </a-entity>
+                <a-entity id="row5" position="0 0 -6">
+                    <a-gltf-model id="pierPost02" gltf-model="#pierSupport" position="0 0 0" rotation="0 150 0" shadow="receive:true"></a-gltf-model>
 
-                    <a-gltf-model
-                    id="pierPost02"
-                    gltf-model="#pierSupport"
-                    position="3.73 0 0"
-                    rotation="0 270 0"
-                    shadow="receive:true"                    
-                    ></a-gltf-model>
-                    <a-gltf-model
-                        id="pierSupportWidth"
-                        position="1.858 1.85 -2.686"
-                        gltf-model="#pierSupportWidth"
-                        shadow="receive:true"
-                    >
+                    <a-gltf-model id="pierPost02" gltf-model="#pierSupport" position="3.73 0 0" rotation="0 150 0" shadow="receive:true"></a-gltf-model>
+                    <a-gltf-model id="pierSupportWidth" position="1.858 1.85 -2.686" gltf-model="#pierSupportWidth" shadow="receive:true">
                     </a-gltf-model>
-               </a-entity>
+                </a-entity>
+                <a-entity id="row6" position="0 0 -7.5">
+                    <a-gltf-model id="pierPost02" gltf-model="#pierSupport" position="0 0 0" rotation="0 270 0" shadow="receive:true"></a-gltf-model>
+
+                    <a-gltf-model id="pierPost02" gltf-model="#pierSupport" position="3.73 0 0" rotation="0 270 0" shadow="receive:true"></a-gltf-model>
+                    <a-gltf-model id="pierSupportWidth" position="1.858 1.85 -2.686" gltf-model="#pierSupportWidth" shadow="receive:true">
+                    </a-gltf-model>
+                </a-entity>
             </a-entity>
-            
+
         </a-entity>
-        
+
         <!-- gull -->
-<!--        <a-entity position="13.207 1.106 -11.098" rotation="0 210 0">
+        <!--        <a-entity position="13.207 1.106 -11.098" rotation="0 210 0">
             <a-gltf-model src="#gull"></a-gltf-model>
             <a-gltf-model src="#gull" position="0.2 -0.05 -0.8" rotation="0 30 0"></a-gltf-model>
             <a-gltf-model src="#gull" position="-0.8 .155 0.3" rotation="0 -30 0"></a-gltf-model>
@@ -495,95 +227,51 @@
             <a-sound id="gullSound" src="#gullSFX" position="-5 0 0" autoplay="false" volume="1" loop="true"></a-sound>
             <a-sound id="gullSounds" src="#gullsSFX" autoplay="false" volume="1" loop="true"></a-sound>
         </a-entity>-->
-        
+
         <!-- House on Hill -->
         <a-entity position="-14 5 -40" rotation="0 110 0" scale="1.3 1.3 1.3">
             <a-gltf-model id="fishHut" src="#hut" shadow="receive:true; cast:true"></a-gltf-model>
         </a-entity>
-        
+
         <!-- lighthouse -->
-        <a-entity 
-            position="38 3 20"                
-            rotation="0 200 0">
+        <a-entity position="38 3 20" rotation="0 200 0">
             <a-gltf-model src="#lighthouse" shadow="receive:true; cast:true"></a-gltf-model>
         </a-entity>
-        
+
         <!-- testing box -->
-        <a-entity
-            id="texturedBox"
-            position= "-6.362 1.4 -9"
-        >
-            <a-box 
-                scale="0.75 0.75 0.75"
-                color="#0F0"
-                shadow="cast:true"
-                src="#texture"
-                class="clickable"
-                clickme>
-                <a-animation
-                          easing="ease-in-out-sine"
-                          attribute="position"
-                          repeat="indefinite"
-                          direction="alternate"
-                          dur="2000"
-                          from="0 .2 0"
-                          to="0 0 0">
-                    </a-animation>
-                    <a-animation
-                          easing="ease-in-out-sine"
-                          attribute="rotation"
-                          repeat="indefinite"
-                          direction="alternate"
-                          dur="1500"
-                          from="-2 0 3"
-                          to="2 0 -3">
-                    </a-animation>
-            </a-box>
+        <a-entity id="texturedBox" position="-6.5 1 -10.5" rotation="0 45 0">
+            <a-box scale="0.75 0.75 0.75" color="#0F0" shadow="cast:true" src="#texture" class="clickable" clickme></a-box>
         </a-entity>
-        
+
         <!-- Buoy Marker with Sound Effects -->
         <a-entity 
-          id="buoy and bell" 
-          position="-20 -0.75 30" 
-          rotation="0 15 0">
-            <a-sound id="buoySound" src="#buoyBellSFX" autoplay="false" volume="1" loop="true"></a-sound>
-            <a-gltf-model 
-               id='buoy'
-               gltf-model="#buoy"
-               >
-               <a-animation
-                      easing="ease-in-out-sine"
-                      attribute="position"
-                      repeat="indefinite"
-                      direction="alternate"
-                      dur="2000"
-                      from="0 .2 0"
-                      to="0 0 0">
-                </a-animation>
-                <a-animation
-                      easing="ease-in-out-sine"
-                      attribute="rotation"
-                      repeat="indefinite"
-                      direction="alternate"
-                      dur="1500"
-                      from="-2 0 3"
-                      to="2 0 -3">
-                </a-animation>
-            </a-gltf-model>
+           id="buoy and bell" 
+           position="-20 -0.75 30" 
+           rotation="0 15 0">
+            <a-entity
+               id="buoyPosition"
+               animation="property:position; loop:true; easing:easeInOutSine; dur:2000; dir:alternate; from:0 0.2 0; to: 0 0 0">
+                <a-gltf-model 
+                   id='buoy' 
+                   gltf-model="#buoy"
+                   animation="property:rotation; easing:easeInOutSine; loop:true; dir:alternate; dur:1500; from:-2 0 3; to:2 0 -3;">
+                       <a-sound id="buoySound" src="#buoyBellSFX" autoplay="false" volume="1" loop="true"></a-sound>
+                </a-gltf-model>
+            </a-entity>
         </a-entity>
         <!-- Ocean -->
         <!-- for opacity to work, object order is back-to-front not front-to-back. Placing ocean last ensures order of render for opacity is correct otherwise "underwater" features are not rendered -->
-        
+
         <a-ocean color="#1b9898" depth="150" width="150" density="100" opacity="0.75" ocean="amplitude: 0.1; amplitudeVariance: 0.0; speed: 2.0" position="0 -0.5 50"></a-ocean>
-        <a-sound id="oceanSound" src="#oceanWavesSFX" autoplay="false" volume="1" loop="true" position="-20 0 -5" ></a-sound>
-        
+        <a-sound id="oceanSound" src="#oceanWavesSFX" autoplay="false" volume="1" loop="true" position="-20 0 -5"></a-sound>
+
         <!-- Sky -->
         <a-sky src="images/Daylight_sunrise.jpg" rotation="0 70 0"></a-sky>
-        
+
         <!-- ************** lighting ***************** -->
         <!-- Ambient Light -->
         <a-entity id="ambient light" light="type:ambient; color:#2c2d36; intensity:0.6;"></a-entity>
-        
+
         <!-- Directional Light -->
         <a-entity id="sunlight" light="type:directional; 
                         castShadow:true;
@@ -594,23 +282,21 @@
                         shadowCameraLeft:-22;
                         shadowMapHeight:4096;
                         shadowMapWidth:4096;
-                        intensity:1.75;" position="-0.9 1.2 2.5"
-                         ></a-entity>
+                        intensity:1.75;" position="-0.9 1.2 2.5"></a-entity>
         <!-- Fill Light -->
-        <a-entity id="fill light" light="type:directional; color:#bfa8db; intensity:.5;" position="1.62 -1.26 -3.5" ></a-entity>
-        
+        <a-entity id="fill light" light="type:directional; color:#bfa8db; intensity:.5;" position="1.62 -1.26 -3.5"></a-entity>
+
         <!-- Directional Light with target -->
-<!--        <a-light type="directional" intensity="1.5" position="-0.9 1.2 2.5" rotation="-90 0 0" target="#directionalTarget">
+        <!--        <a-light type="directional" intensity="1.5" position="-0.9 1.2 2.5" rotation="-90 0 0" target="#directionalTarget">
             <a-entity id="directionalTarget" position="-6 .5 -10.3.5"></a-entity>
         </a-light>-->
-        
+
         <!--        <a-entity light="type:hemisphere; color:#AAA; groundColor:#990000; intensity:0.9;"></a-entity>-->
     </a-scene>
     <script>
-      document.querySelector('a-scene').addEventListener('loaded', function () {
-        document.getElementById("preloader").style.display = "none";
-        document.getElementById("begin").style.display = "block";
-      })
+        document.querySelector('a-scene').addEventListener('loaded', function() {
+            document.getElementById("preloader").style.display = "none";
+            document.getElementById("begin").style.display = "block";
+        })
     </script>
-</body>
-</html>
+</body></html>

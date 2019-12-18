@@ -1,7 +1,7 @@
 body {
     width: 100%;
     position: absolute;
-    background-color: cadetblue;
+/*    background-color: cadetblue;*/
 }
 
 /*
@@ -25,8 +25,11 @@ body #preloader div {
 */
 
 body #begin{
+    position: relative;
     height: 100%;
     padding: 0;
+    z-index: 9;
+    background-color: cadetblue;
 }
 
 body #begin #buttonBox{
@@ -59,8 +62,7 @@ body #begin #buttonBox #button:hover{
     color: #006b79;
 }
 
-body a-scene {
+a-scene {
     position: absolute;
     z-index: 1;
-/*    left: -200px;*/
 }
