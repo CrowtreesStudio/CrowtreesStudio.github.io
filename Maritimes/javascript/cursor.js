@@ -15,10 +15,8 @@ function hidePlay(){
     //hide button and colour screen
     console.log("Play sound and hide me!");
     document.getElementById("begin").style.display = "none";
-//    document.getElementById("begin").style.visibility="hidden";
     
-    // Bring scene back into frame
-    document.getElementById("scene").style.left = "1000px";
+
     var sound1 = document.querySelector('#oceanSound');
     var sound2 = document.querySelector('#buoySound');
 //    var sound3 = document.querySelector('#gullSound');
