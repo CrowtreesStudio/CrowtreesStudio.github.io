@@ -251,6 +251,10 @@ footer a{
         grid-column: 4/5;
         grid-row: 3/4;
     }
+    .i {
+        grid-column: 2/3;
+        grid-row: 4/5;
+    }
 
     footer {
         grid-area: 6/1/7/7;

@@ -81,11 +81,8 @@ AFRAME.registerComponent('stare-at', {
     },
     
     tick: function(){
-        this.data.lookWith.lookAt(this.data.playerPos.x, 1, this.data.playerPos.z);
-    },
-    
-    update: function(){
-        console.log("update");
+        this.data.lookWith.lookAt(this.data.playerPos.x+0.3, 1, this.data.playerPos.z+3);
+        console.log(this.data.playerPos.x);
     }
     
 });
@@ -113,8 +110,8 @@ AFRAME.registerComponent('load-model', {
                 animation = true;
             }
             
-            console.log(mesh.children.length);
-            console.log(mesh);
+//            console.log(mesh.children.length);
+//            console.log(mesh);
             if(mesh.children.length > 1){
                 path = mesh.children;
             }else{
@@ -195,8 +192,8 @@ AFRAME.registerComponent('load-rig', {
                     }
              });
             
-            console.log("Log the find");
-            console.log(this.data.bone);
+//            console.log("Log the find");
+//            console.log(this.data.bone);
             // What to look with
             this.el.setAttribute('stare-at','lookWith', this.data.bone);
             console.log(this.el.getAttribute('stare-at'));
