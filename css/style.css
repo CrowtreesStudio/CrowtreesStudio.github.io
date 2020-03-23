@@ -22,40 +22,7 @@ body{
     padding: 5px;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(10);
-    grid-gap: 5px;
-    background-color: #152d2d;
-}
 
-.box {
-    padding: 5px;
-    overflow: hidden;
-    border-radius: 5px;
-}
-
-.box img{
-    width: 100%;
-    border-radius: 5px;
-}
-
-.box h1{
-    position: absolute;
-    margin-left: 5px;
-    margin-top: 0px;
-    font-size: 3em;
-    color:#222436;
-}
-
-.box .stroke{
-    -webkit-text-stroke-width: 4px;
-    -webkit-text-stroke-color:#8892d8;
-}
-
-header{
-}
 
 #logo{
     overflow: hidden;
@@ -82,12 +49,13 @@ header{
 }
 
 article{
+    display: grid;
     grid-column: 1/3;
 }
 
 #copy{
-    grid-column: 1/3;
-    grid-row: 1/2;
+    grid-column: 1/1;
+    grid-row: 1/1;
     margin:5px 5px 0 5px;
     padding: 5px;
     background-color: darkslategrey;
@@ -104,25 +72,12 @@ article{
 #copy #instructions{
         margin: -10px 30px 20px 30px;
         line-height: 1.25em;
-    }
-
-footer {
-    height: 50px;
-    width: 100%;
-    grid-column: 1/3;
-    grid-row: 6/7;
-    text-align: center;
-    background-color: darkslategrey;
-}
-footer a{
-    text-decoration: none;
 }
 
-/*****************************************/
-/*****************************************/
-/*****************************************/
 
-@media only screen and (min-width: 768px){
+/*****************************************/
+/*****************************************/
+/*****************************************/
  
     body {
         margin: 0;
@@ -146,10 +101,17 @@ footer a{
         padding: 0 25px;
     }
 
+    /*       Start of Grid:     ;*/
 
+    .grid {
+        display: grid;
+        grid-gap: 0px;
+    }
+    
     #copy {
         /* starting col / ending col*/
-        grid-column: 1/7;
+        /* starting col / span including end col*/
+        grid-column: 1/ span 4;
         border-radius: 5px;
     }
 
@@ -158,31 +120,34 @@ footer a{
     }
 
     #copy h1, h2 {
-/*        margin: 10px;*/
-/*        color:#ffffff;*/
+        margin: 10px;
+        color:#ffffff;
     }
 
     #copy p {
-/*        margin: 10px  10px 20px;*/
-/*        color: #d2d8fc;*/
+        margin: 10px  10px 20px;
+        color: #FFF;
 
     }
 
     #copy #instructions{
-        margin: -10px 20px 20px 20px;
+        margin: -10px 10px 20px 10px;
         line-height: 1em;
     }
-
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(5);
-        grid-gap: 0px;
+    
+    
+    
+    
+    .box {
+        padding: 5px;
+        overflow: hidden;
+        border-radius: 5px;
     }
+
 
     .box h1{
         position: absolute;
-        margin: 10px 0 0 20px;
+        margin: 10px 0 0 10px;
         font-size: 4em;
         color: #222436;
         line-height: 1em;
@@ -199,16 +164,26 @@ footer a{
         text-align: justify;
     }
     
+    .box img{
+        width: 100%;
+        border-radius: 5px;
+    }
+
+
+    .box .stroke{
+        -webkit-text-stroke-width: 4px;
+        -webkit-text-stroke-color:#8892d8;
+    }
+    
     .a {
     /*
             grid-column-start: 1;
             grid-column-end: 2;
     */
         /* shorthand for above*/
-            grid-column: 3/4;
-
-            grid-row-start: 2;
-            grid-row-end: 3;
+        grid-column: 1/1;
+        grid-row-start: 2;
+        grid-row-end: 2;
     }
 
     .b {
@@ -223,42 +198,164 @@ footer a{
     }
 
     .c {
-        grid-column: 2/3;
-        grid-row: 3/4;
+        grid-column: 3/3;
+        grid-row: 2/2;
     }
 
     .d {
-        grid-column: 3/4;
-        grid-row: 3/4;
+        grid-column: 4/4;
+        grid-row: 2/2;
     }
 
     .e {
-        grid-column: 1/2;
-        grid-row: 2/3;
+        grid-column: 1/1;
+        grid-row: 3/3;
     }
     
     .f {
-        grid-column: 4/5;
-        grid-row: 2/3;
+        grid-column: 2/2;
+        grid-row: 3/3;
     }
     
     .g {
-        grid-column: 1/2;
-        grid-row: 3/4;
+        grid-column: 3/3;
+        grid-row: 3/3;
     }
     
     .h {
-        grid-column: 4/5;
-        grid-row: 3/4;
+        grid-column: 4/4;
+        grid-row: 3/3;
     }
     .i {
-        grid-column: 2/3;
-        grid-row: 4/5;
+        grid-column: 1/1;
+        grid-row: 4/4;
     }
 
+    
     footer {
-        grid-area: 7/1/8/7;
+        display: grid;
+        grid-area: 20/1/20/ span 4;
+        height: 50px;
+        background-color: darkslategrey;
+        justify-items: center;
+    }
+    
+    footer a{
+        display: grid;
+        text-decoration: none;
+        align-items: center;
+        
     }
 
+/*****************************************/
+/*****************************************/
+/*****************************************/
+
+@media only screen and (max-width: 767px){
+    
+    /* grid shift */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(10);
+        grid-template-rows: repeat(20);
+    }
+    
+    #copy {
+        /* starting col / ending col*/
+        /* starting col / span including end col*/
+        grid-column: 1/ span 2;
+        border-radius: 5px;
+    }
+    
+    /* box */
+    .box {
+        padding: 5px;
+        overflow: hidden;
+        border-radius: 5px;
+    }
+
+
+    .box h1{
+        position: absolute;
+        margin: 10px 0 0 10px;
+        font-size: 4em;
+        color: #222436;
+        line-height: 1em;
+    }
+
+
+    .box h4{
+        text-align: center;
+        margin: 5px;
+    }
+    
+    .box p{
+        margin: 0 10px 10px 10px;
+        text-align: justify;
+    }
+    
+    .box img{
+        width: 100%;
+        border-radius: 5px;
+    }
+
+
+    .box .stroke{
+        -webkit-text-stroke-width: 4px;
+        -webkit-text-stroke-color:#8892d8;
+    }
+    
+    .a {
+        grid-column: 1/1;
+        grid-row: 2/2;
+    }
+
+    .b {
+        grid-area: 2/2/2/2;
+        /* grid-area: rowStart/colStart/rowEnd/colEnd*/
+    }
+
+    .c {
+        grid-column: 1/1;
+        grid-row: 3/3;
+    }
+
+    .d {
+        grid-column: 2/2;
+        grid-row: 3/3;
+    }
+
+    .e {
+        grid-column: 1/1;
+        grid-row: 4/4;
+    }
+    
+    .f {
+        grid-column: 2/2;
+        grid-row: 4/4;
+    }
+    
+    .g {
+        grid-column: 1/1;
+        grid-row: 5/5;
+    }
+    
+    .h {
+        grid-column: 2/2;
+        grid-row: 5/5;
+    }
+    .i {
+        grid-column: 1/1;
+        grid-row: 6    /6    ;
+    }
+    
+    footer {
+        display: grid;
+        grid-area: 20/1/20/ span 2;
+        height: 50px;
+        background-color: darkslategrey;
+        justify-items: center;
+    }
+    
 }
 
