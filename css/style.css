@@ -346,7 +346,11 @@ article{
     }
     .i {
         grid-column: 1/1;
-        grid-row: 6    /6    ;
+        grid-row: 6/6;
+    }
+    .j {
+        grid-column: 4/4;
+        grid-row: 6/6;
     }
     
     footer {
