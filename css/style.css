@@ -202,32 +202,8 @@ article{
         grid-row: 2/2;
     }
 
-    .d {
+    .j {
         grid-column: 4/4;
-        grid-row: 2/2;
-    }
-
-    .e {
-        grid-column: 1/1;
-        grid-row: 3/3;
-    }
-    
-    .f {
-        grid-column: 2/2;
-        grid-row: 3/3;
-    }
-    
-    .g {
-        grid-column: 3/3;
-        grid-row: 3/3;
-    }
-    
-    .h {
-        grid-column: 4/4;
-        grid-row: 3/3;
-    }
-    .i {
-        grid-column: 1/1;
         grid-row: 4/4;
     }
 
@@ -349,7 +325,7 @@ article{
         grid-row: 6/6;
     }
     .j {
-        grid-column: 4/4;
+        grid-column: 2/2;
         grid-row: 6/6;
     }
     
