@@ -9,7 +9,7 @@
 <body>
    <a-scene>
        <a-entity id="leftHand" hand-controls="hand:left; handModelStyle:lowPoly; color:#c568ff;" ></a-entity>
-       <a-entity id="rightHand" hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" ></a-entity>
+       <a-entity id="rightHand" hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" laser-controls raycaster="far:2;" ></a-entity>
        <a-box position="-3 0.5 -3" color="#2f80d1" ></a-box>
        <a-sphere position="3 0.5 -3" radius="0.5" color="orange"></a-sphere>
        <a-cone position="-3 0.5 3" radius-bottom="0.5" color="yellow" ></a-cone>
