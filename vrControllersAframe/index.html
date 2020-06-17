@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HMD Hand-Controls - A-frame</title>
+<!--    <link rel="stylesheet" href="css/style.css">-->
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+</head>
+<body>
+   <a-scene>
+       <a-entity id="leftHand" hand-controls="hand:left; handModelStyle:lowPoly; color:#c568ff;" ></a-entity>
+       <a-entity id="rightHand" hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" ></a-entity>
+       <a-box position="-3 0.5 -3" color="#2f80d1" ></a-box>
+       <a-sphere position="3 0.5 -3" radius="0.5" color="orange"></a-sphere>
+       <a-cone position="-3 0.5 3" radius-bottom="0.5" color="yellow" ></a-cone>
+       <a-cylinder position="3 0.5 3" radius="0.5" color="red" ></a-cylinder>
+       <a-plane rotation="-90 0 0" height="10" width="10" color="#00b95c"></a-plane>
+   </a-scene>
+</body>
+</html>
