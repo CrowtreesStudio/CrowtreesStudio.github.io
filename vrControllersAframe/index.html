@@ -8,8 +8,12 @@
 </head>
 <body>
    <a-scene>
-       <a-entity id="leftHand" hand-controls="hand:left; handModelStyle:lowPoly; color:#c568ff;" ></a-entity>
-       <a-entity id="rightHand" hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" laser-controls raycaster="far:2;" ></a-entity>
+       <a-entity id="leftHand" hand-controls="hand:left; handModelStyle:toon; color:#c568ff;" ></a-entity>
+       <a-entity id="rightHand" hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" laser-controls raycaster="far:3;" ></a-entity>
+       <!-- the hand-controls works as advertized: trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
+       <!-- the laser-controls work as indicated above and are activated (seen) when they raycaster intersects an object that is (currently) within 3 meteres -->
+       
+       <!-- Basic VR scene for testing -->
        <a-box position="-3 0.5 -3" color="#2f80d1" ></a-box>
        <a-sphere position="3 0.5 -3" radius="0.5" color="orange"></a-sphere>
        <a-cone position="-3 0.5 3" radius-bottom="0.5" color="yellow" ></a-cone>
