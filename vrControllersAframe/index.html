@@ -9,16 +9,26 @@
 <body>
    <a-scene>
        <a-entity id="leftHand" hand-controls="hand:left; handModelStyle:toon; color:#c568ff;" ></a-entity>
-       <a-entity id="rightHand" hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" laser-controls raycaster="far:3;" ></a-entity>
+       <a-entity id="rightHand" hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" laser-controls raycaster="far:3; objects: .clickable;" ></a-entity>
        <!-- the hand-controls works as advertized: trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
-       <!-- the laser-controls work as indicated above and are activated (seen) when they raycaster intersects an object that is (currently) within 3 meteres -->
+       <!-- the laser-controls work as indicated above and are activated (seen) when they raycaster intersects an object that is (currently) within 3 meters -->
+       <a-camera>
+           <a-text
+              id="text"
+               value="touch or point at an object" 
+               position="0 -0.25 -2" 
+               align="center" 
+               color="#cecece">
+           </a-text>
+       </a-camera>
+       
        
        <!-- Basic VR scene for testing -->
-       <a-box position="-3 0.5 -3" color="#2f80d1" ></a-box>
-       <a-sphere position="3 0.5 -3" radius="0.5" color="orange"></a-sphere>
-       <a-cone position="-3 0.5 3" radius-bottom="0.5" color="yellow" ></a-cone>
-       <a-cylinder position="3 0.5 3" radius="0.5" color="red" ></a-cylinder>
-       <a-plane rotation="-90 0 0" height="10" width="10" color="#00b95c"></a-plane>
+       <a-box contact-listner class="clickable" position="-3 0.5 -3" color="#2f80d1" ></a-box>
+       <a-sphere contact-listner class="clickable" position="3 0.5 -3" radius="0.5" color="orange"></a-sphere>
+       <a-cone contact-listner class="clickable" position="-3 0.5 3" radius-bottom="0.5" color="yellow" ></a-cone>
+       <a-cylinder contact-listner class="clickable" position="3 0.5 3" radius="0.5" color="red" ></a-cylinder>
+       <a-plane contact-listner rotation="-90 0 0" height="10" width="10" color="#00b95c"></a-plane>
    </a-scene>
 </body>
 </html>
