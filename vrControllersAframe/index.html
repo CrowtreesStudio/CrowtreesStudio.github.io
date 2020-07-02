@@ -12,21 +12,22 @@
    <a-scene>
       
        <a-entity id="cameraRig">
-           <a-entity id="head" camera wasd-controls look-controls>
-               <a-text
-                  id="text"
-                   value="touch or point at an object" 
-                   position="0 0.75 -2" 
-                   align="center" 
-                   color="#cecece">
-               </a-text>
+           <a-entity id="camera" camera wasd-controls look-controls>
            </a-entity>
            
            <!-- Left hand teleport control -->
-           <a-entity id="leftHand" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;" ></a-entity>
+           <a-entity id="leftHand" 
+              teleport-controls="cameraRig: #cameraRig;"
+              hand-controls="hand: left;">
+               
+           </a-entity>
 
            <!-- Right hand laser control -->
-           <a-entity id="rightHand" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;" ></a-entity>
+           <a-entity id="rightHand" 
+              teleport-controls="cameraRig: #cameraRig;"
+              hand-controls="hand: right;">
+               
+           </a-entity>
 
            <!-- the hand-controls works as advertized: 
            trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
