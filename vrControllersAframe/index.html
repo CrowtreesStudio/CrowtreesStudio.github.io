@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>HMD Hand-Controls - A-frame</title>
-<!--    <link rel="stylesheet" href="css/style.css">-->
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>
 </head>
 <body>
    <a-scene>
-       <a-entity id="leftHand" teleport-controls="type: parabolic; collisionEntities: #cube, #ground" hand-controls="hand:left; handModelStyle:toon; color:#c568ff;" ></a-entity>
+      <!-- Left hand teleport control -->
+       <a-entity id="leftHand" teleport-controls hand-controls="hand:left; handModelStyle:toon; color:#c568ff;" ></a-entity>
+       
+       <!-- Right hand laser control -->
        <a-entity id="rightHand" hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" laser-controls raycaster="far:3; objects: .clickable;" ></a-entity>
-       <!-- the hand-controls works as advertized: trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
-       <!-- the laser-controls work as indicated above and are activated (seen) when they raycaster intersects an object that is (currently) within 3 meters -->
+       
+       <!-- the hand-controls works as advertized: 
+       trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
+       
+       <!-- the laser-controls work as indicated above and are activated (seen) 
+       when they raycaster intersects an object that is (currently) within 3 meters -->
+       
        <a-camera>
            <a-text
               id="text"
@@ -25,11 +32,15 @@
        
        
        <!-- Basic VR scene for testing -->
-       <a-box id="box" contact-listner class="clickable" position="-3 0.5 -3" color="#2f80d1" ></a-box>
-       <a-sphere contact-listner class="clickable" position="3 0.5 -3" radius="0.5" color="orange"></a-sphere>
-       <a-cone contact-listner class="clickable" position="-3 0.5 3" radius-bottom="0.5" color="yellow" ></a-cone>
-       <a-cylinder contact-listner class="clickable" position="3 0.5 3" radius="0.5" color="red" ></a-cylinder>
-       <a-plane id="ground" contact-listner rotation="-90 0 0" height="10" width="10" color="#00b95c"></a-plane>
+       <a-box id="box" position="-3 0.5 -3" color="#2f80d1" ></a-box>
+       <a-sphere position="3 0.5 -3" radius="0.5" color="orange"></a-sphere>
+       <a-cone position="-3 0.5 3" radius-bottom="0.5" color="yellow" ></a-cone>
+       <a-cylinder position="3 0.5 3" radius="0.5" color="red" ></a-cylinder>
+       <a-plane id="ground" rotation="-90 0 0" height="10" width="10" color="#00b95c"></a-plane>
+       
    </a-scene>
 </body>
 </html>
+
+<!-- below are specific settings which we'll currently ignore -->
+<!-- teleport-controls="type: parabolic; collisionEntities: #ground" -->
