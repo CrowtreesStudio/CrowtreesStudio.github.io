@@ -10,6 +10,12 @@
 </head>
 <body>
    <a-scene>
+       <!-- Basic VR scene for testing -->
+       <a-box id="box" position="-3 0.5 -3" color="#2f80d1" ></a-box>
+       <a-sphere position="3 0.5 -3" radius="0.5" color="orange"></a-sphere>
+       <a-cone position="-3 0.5 3" radius-bottom="0.5" color="yellow" ></a-cone>
+       <a-cylinder position="3 0.5 3" radius="0.5" color="red" ></a-cylinder>
+       <a-plane id="ground" rotation="-90 0 0" height="10" width="10" color="#00b95c"></a-plane>
       
        <a-entity id="cameraRig">
            <a-entity id="camera" camera wasd-controls look-controls>
@@ -35,14 +41,6 @@
            <!-- the laser-controls work as indicated above and are activated (seen) 
            when they raycaster intersects an object that is (currently) within 3 meters -->
        </a-entity>
-       
-       
-       <!-- Basic VR scene for testing -->
-       <a-box id="box" position="-3 0.5 -3" color="#2f80d1" ></a-box>
-       <a-sphere position="3 0.5 -3" radius="0.5" color="orange"></a-sphere>
-       <a-cone position="-3 0.5 3" radius-bottom="0.5" color="yellow" ></a-cone>
-       <a-cylinder position="3 0.5 3" radius="0.5" color="red" ></a-cylinder>
-       <a-plane id="ground" rotation="-90 0 0" height="10" width="10" color="#00b95c"></a-plane>
        
    </a-scene>
 </body>
