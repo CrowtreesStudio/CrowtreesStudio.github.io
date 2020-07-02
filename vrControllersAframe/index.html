@@ -8,27 +8,29 @@
 </head>
 <body>
    <a-scene>
-      <!-- Left hand teleport control -->
-       <a-entity id="leftHand" teleport-controls hand-controls="hand:left; handModelStyle:toon; color:#c568ff;" ></a-entity>
-       
-       <!-- Right hand laser control -->
-       <a-entity id="rightHand" hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" laser-controls raycaster="far:3; objects: .clickable;" ></a-entity>
-       
-       <!-- the hand-controls works as advertized: 
-       trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
-       
-       <!-- the laser-controls work as indicated above and are activated (seen) 
-       when they raycaster intersects an object that is (currently) within 3 meters -->
-       
-       <a-camera>
-           <a-text
-              id="text"
-               value="touch or point at an object" 
-               position="0 -0.25 -2" 
-               align="center" 
-               color="#cecece">
-           </a-text>
-       </a-camera>
+      
+       <a-entity id="cameraRig">
+           <a-camera id="head">
+               <a-text
+                  id="text"
+                   value="touch or point at an object" 
+                   position="0 -0.25 -2" 
+                   align="center" 
+                   color="#cecece">
+               </a-text>
+           </a-camera>
+           <!-- Left hand teleport control -->
+           <a-entity id="leftHand" teleport-controls="cameraRig:#cameraRig; teleportOrigin:#head;" hand-controls="hand:left; handModelStyle:toon; color:#c568ff;" ></a-entity>
+
+           <!-- Right hand laser control -->
+           <a-entity id="rightHand" hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" laser-controls raycaster="far:3; objects: .clickable;" ></a-entity>
+
+           <!-- the hand-controls works as advertized: 
+           trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
+
+           <!-- the laser-controls work as indicated above and are activated (seen) 
+           when they raycaster intersects an object that is (currently) within 3 meters -->
+       </a-entity>
        
        
        <!-- Basic VR scene for testing -->
