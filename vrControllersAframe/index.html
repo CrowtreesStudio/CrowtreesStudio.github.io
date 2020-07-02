@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>HMD Hand-Controls - A-frame</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>
+<!--    <script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>-->
+    <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
 </head>
 <body>
    <a-scene>
@@ -21,10 +22,10 @@
            </a-entity>
            
            <!-- Left hand teleport control -->
-           <a-entity id="leftHand" teleport-controls="cameraRig:#cameraRig; teleportOrigin:#head;" ></a-entity>
+           <a-entity id="leftHand" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;" ></a-entity>
 
            <!-- Right hand laser control -->
-           <a-entity id="rightHand" teleport-controls="cameraRig:#cameraRig; teleportOrigin:#head;" ></a-entity>
+           <a-entity id="rightHand" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head;" ></a-entity>
 
            <!-- the hand-controls works as advertized: 
            trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
