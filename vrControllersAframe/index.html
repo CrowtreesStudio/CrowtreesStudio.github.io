@@ -13,22 +13,23 @@
        <a-sphere position="3 0.5 -3" radius="0.5" color="orange"></a-sphere>
        <a-cone position="-3 0.5 3" radius-bottom="0.5" color="yellow" ></a-cone>
        <a-cylinder id="tube" position="3 0.5 3" radius="0.5" color="red" ></a-cylinder>
-       <a-plane id="floor" rotation="-90 0 0" height="10" width="10" color="#00b95c"></a-plane>
+       <a-plane id="wall" rotation="0 0 0" position="0 0 -10" height="10" width="10" color="#00b95c"></a-plane>
+       <a-box id="floor" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a"></a-box>
       
-       <a-entity id="cameraRig">
+       <a-entity id="cameraRig" position="0 1 0">
            <a-entity id="camera" camera wasd-controls look-controls>
            </a-entity>
            
            <!-- Left hand teleport control -->
            <a-entity id="leftHand" 
-              teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #floor;"
+              teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #wall, #floor;"
               hand-controls="hand: left;">
                
            </a-entity>
 
            <!-- Right hand laser control -->
            <a-entity id="rightHand" 
-              teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #floor;"
+              teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #wall, #floor;"
               hand-controls="hand: right;">
                
            </a-entity>
