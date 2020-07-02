@@ -21,10 +21,10 @@
            </a-entity>
            
            <!-- Left hand teleport control -->
-           <a-entity id="leftHand" teleport-controls="cameraRig:#cameraRig; teleportOrigin:#head;" hand-controls="hand:left; handModelStyle:toon; color:#c568ff;" ></a-entity>
+           <a-entity id="leftHand" teleport-controls="cameraRig:#cameraRig; teleportOrigin:#head;" ></a-entity>
 
            <!-- Right hand laser control -->
-           <a-entity id="rightHand" hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" laser-controls raycaster="far:3; objects: .clickable;" ></a-entity>
+           <a-entity id="rightHand" teleport-controls="cameraRig:#cameraRig; teleportOrigin:#head;" ></a-entity>
 
            <!-- the hand-controls works as advertized: 
            trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
@@ -47,3 +47,5 @@
 
 <!-- below are specific settings which we'll currently ignore -->
 <!-- teleport-controls="type: parabolic; collisionEntities: #ground" -->
+<!-- hand-controls="hand:left; handModelStyle:toon; color:#c568ff;" -->
+<!-- hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" laser-controls raycaster="far:3; objects: .clickable;" -->
