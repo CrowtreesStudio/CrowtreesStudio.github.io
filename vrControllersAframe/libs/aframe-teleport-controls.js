@@ -319,6 +319,7 @@
 
 	    collisionEntities = [].slice.call(el.sceneEl.querySelectorAll(data.collisionEntities));
 	    this.collisionEntities = collisionEntities;
+          console.log("collision entities is a ", this.collisionEntities);
 
 	    // Update entity list on attach.
 	    this.childAttachHandler = function childAttachHandler (evt) {

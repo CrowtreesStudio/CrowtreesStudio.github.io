@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <title>HMD Hand-Controls - A-frame</title>
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-<!--    <script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>-->
     <script src="/vrControllersAframe/libs/aframe-teleport-controls.js"></script>
-<!--    <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>-->
 </head>
 <body>
    <a-scene>
@@ -14,7 +12,7 @@
        <a-box id="box" position="-3 0.5 -3" color="#2f80d1" ></a-box>
        <a-sphere position="3 0.5 -3" radius="0.5" color="orange"></a-sphere>
        <a-cone position="-3 0.5 3" radius-bottom="0.5" color="yellow" ></a-cone>
-       <a-cylinder position="3 0.5 3" radius="0.5" color="red" ></a-cylinder>
+       <a-cylinder id="tube" position="3 0.5 3" radius="0.5" color="red" ></a-cylinder>
        <a-plane id="ground" rotation="-90 0 0" height="10" width="10" color="#00b95c"></a-plane>
       
        <a-entity id="cameraRig">
@@ -23,14 +21,14 @@
            
            <!-- Left hand teleport control -->
            <a-entity id="leftHand" 
-              teleport-controls="cameraRig: #cameraRig;"
+              teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #ground;"
               hand-controls="hand: left;">
                
            </a-entity>
 
            <!-- Right hand laser control -->
            <a-entity id="rightHand" 
-              teleport-controls="cameraRig: #cameraRig; collisionEntities: #ground, #box;"
+              teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #ground;"
               hand-controls="hand: right;">
                
            </a-entity>
