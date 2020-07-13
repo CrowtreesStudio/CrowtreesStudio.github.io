@@ -27,8 +27,8 @@ AFRAME.registerComponent('controllisten', {
         console.log("testing", el);
         console.log("test2", id);
         
-//        el.addEventListener('buttonchanged', function(){
-//            console.log(id, "button pressed");
-//        });
+        el.addEventListener('buttonchanged', function(){
+            console.log(id, "button pressed");
+        });
     }
 });
