@@ -4,6 +4,8 @@ AFRAME.registerComponent('contact-listener', {
         let object = this.el.id;
         let color = '#9300ff';
         
+        console.log("hello world", object);
+        
         this.el.addEventListener('over', function(evt){
             document.getElementById("text").setAttribute("value", message+object);
             this.setAttribute('material', 'color', color);
@@ -25,8 +27,8 @@ AFRAME.registerComponent('controllisten', {
         console.log("testing", el);
         console.log("test2", id);
         
-        el.addEventListener('buttonchanged', function(){
-            console.log(id, "button pressed");
-        })
+//        el.addEventListener('buttonchanged', function(){
+//            console.log(id, "button pressed");
+//        });
     }
 });
