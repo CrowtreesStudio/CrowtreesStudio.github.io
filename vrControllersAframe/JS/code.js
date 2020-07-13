@@ -17,3 +17,13 @@ AFRAME.registerComponent('contact-listener', {
 //        });
     }
 });
+
+AFRAME.registerComponent('controllisten', {
+    init: function(){
+        let el = this.el;// controller
+        
+        el.addEventListener('buttonchanged', function(){
+            console.log(el.id, "button pressed");
+        })
+    }
+});
