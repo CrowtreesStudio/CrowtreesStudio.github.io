@@ -28,14 +28,14 @@ AFRAME.registerComponent('controllisten', {
         console.log("test2", id);
         
         el.addEventListener('buttonup', function(evt){
-            console.log(id, "button pressed");
+            console.log(id, "button released");
             console.log(evt, "button");
         });
         
         el.addEventListener('axismove', function(evt){
             console.log(id, "joystick moved");
-            console.log("Axis value =", evt.axis);
-            console.log("Axis changed value =", evt.axisChanged);
+            console.log("Axis value =", evt);
+//            console.log("Axis changed value =", evt.axisChanged);
         });
     }
 });
