@@ -27,8 +27,14 @@ AFRAME.registerComponent('controllisten', {
         console.log("testing", el);
         console.log("test2", id);
         
-        el.addEventListener('buttonchanged', function(){
+        el.addEventListener('buttonup', function(evt){
             console.log(id, "button pressed");
+            console.log(evt, "button");
+        });
+        
+        el.addEventListener('axismove', function(evt){
+            console.log(id, "joystick moved");
+            console.log("value =", evt)
         });
     }
 });
