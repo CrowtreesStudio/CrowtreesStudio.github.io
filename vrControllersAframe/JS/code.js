@@ -34,8 +34,8 @@ AFRAME.registerComponent('controllisten', {
         
         el.addEventListener('axismove', function(evt){
             console.log(id, "joystick moved");
-            console.log("Axis value =", evt);
-//            console.log("Axis changed value =", evt.axisChanged);
+            console.log("Axis value =", evt.detail.axis);
+            console.log("Axis changed value =", evt.detail.changed);
         });
     }
 });
