@@ -21,9 +21,12 @@ AFRAME.registerComponent('contact-listener', {
 AFRAME.registerComponent('controllisten', {
     init: function(){
         let el = this.el;// controller
+        let id = el.id;
+        console.log("testing", el);
+        console.log("test2", id);
         
         el.addEventListener('buttonchanged', function(){
-            console.log(el.id, "button pressed");
+            console.log(id, "button pressed");
         })
     }
 });
