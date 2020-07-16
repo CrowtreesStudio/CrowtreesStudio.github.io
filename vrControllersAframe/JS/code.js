@@ -34,15 +34,61 @@ AFRAME.registerComponent('controllisten', {
 //
 //        button 0 = trackpad, button 1 = trigger, button 2 = side trigger, button 3 = menu
 //        
-//        el.addEventListener('axismove', function(evt){
+        el.addEventListener('axismove', function(evt){
 //            console.log(id, "joystick moved");
 //            console.log("Axis value =", evt.detail.axis);
 //            console.log("Axis changed value =", evt.detail.changed);
-//        });
+            
+            //test code for thumbstick courtesy SirFizX
+            if(evt.detail.axis[2]>0.5){
+                console.log("rotate view to the right");
+            }else if(evt.detail.axis[2]<-0.5){
+                console.log("rotate view to the left");
+            };
+            
+            if(evt.detail.axis[3]>0.5){
+                console.log("move forward");
+            }else if(evt.detail.axis[3]<-0.5){
+                console.log("move back");
+            };
+        });
         
 //        specific to windows mixed reality
-        el.addEventListener('thumbstickchanged', function(evt){
-            console.log("evt for thumbstick",evt);
-        })
+//        el.addEventListener('thumbstickchanged', function(evt){
+//            console.log("evt for thumbstick",evt);
+//        })
     }
 });
+
+//Example code for implementing the thumbstick to rotate the camera
+// found on A-frame Slack - credit SirFizX
+
+//CS1.MyPlayer.Lh.addEventListener('axismove',e=>{
+//      if(CS1.Cam.isSweeping)return;
+//      if(CS1.Rig && CS1.Rig.rotateInSteps){
+//        if(  (e.detail.axis[2]>.5) && !CS1.Rig.isRotating ){
+//          CS1.Rig.object3D.rotateY(-CS1.Rig.rotateStep)
+//          CS1.MyPlayer.object3D.rotateY(-CS1.Rig.rotateStep)
+//          CS1.Rig.isRotating = true
+//          setTimeout(e=>{CS1.Rig.isRotating=false},1000)
+//        }else if(  (e.detail.axis[2]<-.5) && !CS1.Rig.isRotating  ){
+//          CS1.Rig.object3D.rotateY(CS1.Rig.rotateStep)
+//          CS1.MyPlayer.object3D.rotateY(CS1.Rig.rotateStep)
+//          CS1.Rig.isRotating = true
+//          setTimeout(e=>{CS1.Rig.isRotating=false},1000)
+//        } 
+//      }else{
+//        if(  e.detail.axis[2]>.5 ){
+//          CS1.Rig.object3D.rotateY(-CS1.MyPlayer.rotSpeed)
+//          CS1.MyPlayer.object3D.rotateY(-CS1.MyPlayer.rotSpeed)
+//        }else if(  e.detail.axis[2]<-.5  ){
+//          CS1.Rig.object3D.rotateY(CS1.MyPlayer.rotSpeed)
+//          CS1.MyPlayer.object3D.rotateY(CS1.MyPlayer.rotSpeed)
+//        }
+//      }
+//      if( e.detail.axis[3]>.5 ){
+//        CS1.MyPlayer.object3D.translateZ(CS1.MyPlayer.speed)
+//      }else if( e.detail.axis[3]<-.5 ){
+//        CS1.MyPlayer.object3D.translateZ(-CS1.MyPlayer.speed)
+//      }
+//    })
