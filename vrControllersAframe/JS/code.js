@@ -24,7 +24,7 @@ AFRAME.registerComponent('controllisten', {
     init: function(){
         let el = this.el;// controller
         let id = el.id;
-        let player = document.getElementById("rig");
+        let player = document.getElementById("cameraRig");
         console.log("player is",player);
         console.log("testing", el);
         console.log("test2", id);
