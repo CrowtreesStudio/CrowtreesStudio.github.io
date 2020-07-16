@@ -24,6 +24,7 @@ AFRAME.registerComponent('controllisten', {
     init: function(){
         let el = this.el;// controller
         let id = el.id;
+        let player = document.querySelector("a-entity#rig");
         console.log("testing", el);
         console.log("test2", id);
         
@@ -35,21 +36,20 @@ AFRAME.registerComponent('controllisten', {
 //        button 0 = trackpad, button 1 = trigger, button 2 = side trigger, button 3 = menu
 //        
         el.addEventListener('axismove', function(evt){
-//            console.log(id, "joystick moved");
-//            console.log("Axis value =", evt.detail.axis);
-//            console.log("Axis changed value =", evt.detail.changed);
             
-            //test code for thumbstick courtesy SirFizX
+            //test code for thumbstick courtesy SirFizX & Pavel
             if(evt.detail.axis[2]>0.5){
                 console.log("rotate view to the right");
+                player.object3D.rotation.y-=0.05;
             }else if(evt.detail.axis[2]<-0.5){
                 console.log("rotate view to the left");
+                player.object3D.rotation.y+=0.05;
             };
             
             if(evt.detail.axis[3]>0.5){
-                console.log("move forward");
-            }else if(evt.detail.axis[3]<-0.5){
                 console.log("move back");
+            }else if(evt.detail.axis[3]<-0.5){
+                console.log("move forward");
             };
         });
         
