@@ -64,32 +64,39 @@ AFRAME.registerComponent('controllisten', {
 //Example code for implementing the thumbstick to rotate the camera
 // found on A-frame Slack - credit SirFizX
 
-//CS1.MyPlayer.Lh.addEventListener('axismove',e=>{
-//      if(CS1.Cam.isSweeping)return;
-//      if(CS1.Rig && CS1.Rig.rotateInSteps){
-//        if(  (e.detail.axis[2]>.5) && !CS1.Rig.isRotating ){
-//          CS1.Rig.object3D.rotateY(-CS1.Rig.rotateStep)
-//          CS1.MyPlayer.object3D.rotateY(-CS1.Rig.rotateStep)
-//          CS1.Rig.isRotating = true
-//          setTimeout(e=>{CS1.Rig.isRotating=false},1000)
-//        }else if(  (e.detail.axis[2]<-.5) && !CS1.Rig.isRotating  ){
-//          CS1.Rig.object3D.rotateY(CS1.Rig.rotateStep)
-//          CS1.MyPlayer.object3D.rotateY(CS1.Rig.rotateStep)
-//          CS1.Rig.isRotating = true
-//          setTimeout(e=>{CS1.Rig.isRotating=false},1000)
-//        } 
-//      }else{
-//        if(  e.detail.axis[2]>.5 ){
-//          CS1.Rig.object3D.rotateY(-CS1.MyPlayer.rotSpeed)
-//          CS1.MyPlayer.object3D.rotateY(-CS1.MyPlayer.rotSpeed)
-//        }else if(  e.detail.axis[2]<-.5  ){
-//          CS1.Rig.object3D.rotateY(CS1.MyPlayer.rotSpeed)
-//          CS1.MyPlayer.object3D.rotateY(CS1.MyPlayer.rotSpeed)
+//CS1.MyPlayer.Lh.addEventListener('axismove', e => {
+//    if (CS1.Cam.isSweeping) return;
+//
+//    if (CS1.Rig && CS1.Rig.rotateInSteps) {
+//        if ((e.detail.axis[2] > .5) && !CS1.Rig.isRotating) {
+//            CS1.Rig.object3D.rotateY(-CS1.Rig.rotateStep)
+//            CS1.MyPlayer.object3D.rotateY(-CS1.Rig.rotateStep)
+//            CS1.Rig.isRotating = true
+//            setTimeout(e => {
+//                CS1.Rig.isRotating = false
+//            }, 1000)
+//        } else if ((e.detail.axis[2] < -.5) && !CS1.Rig.isRotating) {
+//            CS1.Rig.object3D.rotateY(CS1.Rig.rotateStep)
+//            CS1.MyPlayer.object3D.rotateY(CS1.Rig.rotateStep)
+//            CS1.Rig.isRotating = true
+//            setTimeout(e => {
+//                CS1.Rig.isRotating = false
+//            }, 1000)
 //        }
-//      }
-//      if( e.detail.axis[3]>.5 ){
+//    } else {
+//        if (e.detail.axis[2] > .5) {
+//            CS1.Rig.object3D.rotateY(-CS1.MyPlayer.rotSpeed)
+//            CS1.MyPlayer.object3D.rotateY(-CS1.MyPlayer.rotSpeed)
+//        } else if (e.detail.axis[2] < -.5) {
+//            CS1.Rig.object3D.rotateY(CS1.MyPlayer.rotSpeed)
+//            CS1.MyPlayer.object3D.rotateY(CS1.MyPlayer.rotSpeed)
+//        }
+//    }
+//    
+//    if (e.detail.axis[3] > .5) {
 //        CS1.MyPlayer.object3D.translateZ(CS1.MyPlayer.speed)
-//      }else if( e.detail.axis[3]<-.5 ){
+//    } else if (e.detail.axis[3] < -.5) {
 //        CS1.MyPlayer.object3D.translateZ(-CS1.MyPlayer.speed)
-//      }
-//    })
+//    }
+//    
+//})

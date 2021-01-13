@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <script>
+      if (window.location.protocol === 'http:') window.location.protocol = 'https:';
+    </script>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>AFrame Augmented Reality - Hit Test</title>
+    <meta property="og:title" content="A-Frame Hit Test Demo" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@lady_ada_king" />
+    <meta name="twitter:creator" content="@lady_ada_king" />
+    <meta property="og:url" content="https://hit-test.glitch.me/" />
+    <meta property="og:description" content="Remix to make your own augmented reality scenes." />
+    <meta
+      property="og:image"
+      content="https://cdn.glitch.com/31ab0503-2a9b-4eab-8fd3-9910e8398336%2F30887ddb-a924-4826-9bc4-16ca771b2378.image.png?v=1594912355500"
+    />
+
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1f00d0beadf87bad7d275c174616e048f8b573fc/dist/aframe-master.min.js"></script>
+    <script src="./code.js"></script>
+  </head>
+  <body>
+    <a-scene webxr="optionalFeatures: hit-test, local-floor, viewer; referenceSpaceType: local;">
+      <a-entity id="world" position="0 0 -3" hide-in-ar-mode>
+        <!-- Model from Google Poly https://poly.google.com/view/3XAJojWxSWz -->
+        <a-gltf-model shadow="receive: false" src="https://cdn.glitch.com/31ab0503-2a9b-4eab-8fd3-9910e8398336%2Flion.glb?v=1594912179600" scale="0.18 0.18 0.18" rotation="0 75 0" position="0 0 0.16315"></a-gltf-model>
+        <a-box scale="0.419 0.419 0.419" position="-0.88427 1.15425 0.79258" rotation="-30.588497808649258 44.204839809933276 45.09693509695196" color="#4CC3D9" material="" geometry=""></a-box>
+        <a-sphere scale="0.201 0.201 0.201" position="0.83618 0.3861 1.02483" radius="1.25" color="#EF2D5E" material="color: #622eef" geometry=""></a-sphere>
+        <a-sphere scale="0.283 0.283 0.283" position="0.05687 1.23661 -0.26732" radius="1.25" color="#EF2D5E" material="" geometry=""></a-sphere>
+        <a-cylinder position="1.3037 0.51773 -0.03474" scale="0.59 0.59 0.59" radius="0.5" height="1.5" color="#FFC65D" material="" geometry="" rotation="-31.270890542650072 0 -38.38301565360898"></a-cylinder>
+        <a-plane hide-in-ar-mode scale="0.431 0.275 0.352"  width="4" height="4" position="" rotation="-90 0 0" color="#7BC8A4" material="transparent:true;" geometry=""></a-plane>
+        <a-sky hide-in-ar-mode color="#ECECEC" material="" geometry="" scale="1 1 1"></a-sky>
+      </a-entity>
+      
+      <!-- This is the pointer for working out where to place the object -->
+      <a-plane visible="false" ar-hit-test="offset: 0 0;" id="reticle" rotation="-90 0 0" width="0.1" height="0.1" material="src:https://cdn.glitch.com/31ab0503-2a9b-4eab-8fd3-9910e8398336%2F31ab0503-2a9b-4eab-8fd3-9910e8398336_target.png?v=1594646291100;transparent:true">
+        <a-plane scale="0.431 0.275 0.352" position="0 0 -0.01" width="4" height="4" material="src:https://cdn.glitch.com/31ab0503-2a9b-4eab-8fd3-9910e8398336%2Fborder.png?v=1594720463100;transparent:true"></a-plane>
+      </a-plane>
+    
+    </a-scene>
+    <script>
+      
+      <!-- When the user does a select action, such as tapping on the screen in handheld AR it will update the position -->
+      const reticle = document.getElementById('reticle');
+      reticle.addEventListener('select', function (event) {
+        
+        if (
+          event.detail.inputSource.profiles[0] === "generic-touchscreen" &&
+          event.detail.inputSource.gamepad
+        ) {
+          // Handle input if you want via the axes -1, -1 is top left, 1, 1 is bottom right
+          const x = event.detail.inputSource.gamepad.axes[0];
+          const y = event.detail.inputSource.gamepad.axes[1];
+          console.log(x,y);
+        }
+        
+        // Get the next hit event to position the element
+        reticle.addEventListener('hit', function (event) {
+          if (document.querySelector('a-scene').is("ar-mode")) {
+            const position = this.getAttribute('position');
+            document.getElementById('world').setAttribute('position', position);
+            document.getElementById('world').setAttribute('visible', true);
+          }
+        }, {
+          once: true
+        });
+      });
+    </script>
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+    <script src="https://button.glitch.me/button.js"></script>
+  </body>
+</html>

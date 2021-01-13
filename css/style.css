@@ -181,7 +181,7 @@ article{
             grid-column-end: 2;
     */
         /* shorthand for above*/
-        grid-column: 1/1;
+        grid-column: 1/2;
         grid-row-start: 2;
         grid-row-end: 2;
     }
