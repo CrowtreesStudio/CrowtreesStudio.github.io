@@ -20,21 +20,37 @@ tw-sidebar {
   display: none;
 }
 
+tw-link {
+  color: #7290E9;
+}
+
+.visited {
+  color: #ACFCD9;  
+}
+
+
+
+
+
 
 
 
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">
 
+
+
+
+
 </script><tw-passagedata pid="1" name="Escape The Tomb" tags="" position="552,39" size="100,100">(align: &quot;=&gt;&lt;=&quot;)[###Escape&lt;br&gt;The Tomb&lt;h1&gt;]
 ####Egypt, 1927 during the winter season (November). The Museum funding the dig is demanding a report on progress but there is little to report. Five weeks have past with little to show for it until one evening...&lt;h4&gt;
 
-Escape The Tomb is a simple (colour: red+white)[Escape Plot] where the audience find themselves trapped underground in an ancient tomb. To find a way out, they will need to collect artifacts which will unlock a path through which they can (colour: red+white)[Escape the Tomb].
+Escape The Tomb is a simple (colour: blue+white)[Escape Plot or Milieu] where the audience find themselves trapped underground in an ancient tomb. To find their a way out, they will need to collect artifacts to unlock a secret path through which they can (colour: yellow)[Escape the Tomb].
 
-This simple adventure illustrates basic and common elements needed to track the audience progress in the experience. This involves simple puzzles and revealing new items as they progress.
+This simple adventure illustrates basic and common elements needed to track a reader&#39;s progress through a (colour:green)[Twine] experience. This involves simple puzzles and revealing new items as they progress.
 
-We begin our story in the excevations [[The Field Hut]]...
+We begin our story in the excavations [[The Field Hut...-&gt;The Field Hut]]
 
-(set: $signedName to &quot;Mr. Bogwart&quot;)
+(set: $signedName to &quot;Your Name&quot;)
 (set: $chest to false)
 (set: $collectedJars to 0)
 (set: $jackal to false)
@@ -45,9 +61,9 @@ We begin our story in the excevations [[The Field Hut]]...
 (set: $switch to false)
 (set: $ankh to false)
 
-&lt;!-- Need to track which jars have been collected using either an array or specific variables for the rooms. --&gt;</tw-passagedata><tw-passagedata pid="2" name="letter to the Museum" tags="" position="728,195" size="100,100">Gentlemen,
+&lt;!-- Need to track which jars have been collected using either an array or specific variables for the rooms. In this case I went with variables to keep it simple. --&gt;</tw-passagedata><tw-passagedata pid="2" name="letter to the Museum" tags="" position="728,195" size="100,100">Gentlemen,
 
-I know it is with some impatience you await results from this season dig and I will do my best to describe the current circumstances. I admit, these long 5 weeks have been empty of exciting news and that all the work (and cost) done so far seems to be for nothing.
+I know it is with some impatience you await results from this season dig and I will do my best to describe the current circumstances. I admit, these long 5 weeks have been empty of exciting news and that all the work (and cost) so far seems to be for nothing.
 
 Do not dispair. We are making great strands this last fortnight and it is with some anticipation I expect to reward your patience with a wonderful find.
 
@@ -56,9 +72,9 @@ Taking the lead from my esteemed colleague and friend [[Mr. Howard Carter]], I h
 We begin in earnest tomorrow to excavate that which I have no doubt will prove the biggest find since King Tut.
 
 Your Humble Servant,
-(if: $signedName is &quot;Mr. Bogwart&quot;)[(It needs your [[ Signature -&gt; Signing]])]</tw-passagedata><tw-passagedata pid="3" name="The Field Hut" tags="" position="549,196" size="100,100">Evening is settling in.
+(if: $signedName is &quot;Your Name&quot;)[(It needs your [[ Signature -&gt; Signing]])](else:)[$signedName]</tw-passagedata><tw-passagedata pid="3" name="The Field Hut" tags="" position="549,196" size="100,100">Evening is settling in.
 
-(if: $signedName is &quot;Mr. Bogwart&quot;)[The heat and dust of the day still fresh in your mind as you sit at your writing desk. The smell from the various artifacts around you, pot shards and chipped stone with heiroglyphs rougly scratched into their surfaces, fill your nostrils as you work on your field report. Not much to show for 5 weeks of back breaking work but you haven&#39;t given up hope yet.
+(if: $signedName is &quot;Your Name&quot;)[The heat and dust of the day still fresh in your mind as you sit at your writing desk. The smell from the various artifacts around you, pot shards and chipped stone with heiroglyphs rougly scratched into their surfaces, fill your nostrils as you work on your field report. Not much to show for 5 weeks of back breaking work but you haven&#39;t given up hope yet.
 
 You finish typing up a [[letter to the Museum]] and carefully read over it before signing.](else:)[You sigh deeply. &quot;I&#39;m calling it a night.&quot; Slowly you get up from your desk/work bench and close your eyes as you flop onto your sleeping cot. There&#39;s a commotion outside the hut and [[Shakir]] bursts through the open door. 
 
@@ -72,14 +88,11 @@ Shakir will not take no for an answer and roughly shakes your shoulder.
 
 &quot;No $signedName, this is different, you must come see for yourself.
 
-You roll back over looking into Shakir beaming face full of excitement. 
-He wouldn&#39;t bother you like this if it wasn&#39;t important.
+Half reluctantly, you follow Shakir out to the excavation, finding it hard not to become caught up in his enthusiasm. 
 
-Half reluctantly, you follow Shakir out to the excevation, finding it hard to not become caught up in his enthusiasm. 
+There have been so many false hopes raised on this dig, please don&#39;t let this be another
 
-But there have been so many false expectations on this dig. Please don&#39;t let this turn into just another let down.
-
-Still, you move quickly to see what [[they&#39;ve discovered | The Pit]]]</tw-passagedata><tw-passagedata pid="4" name=" Signing" tags="" position="814,339" size="100,100">(put: (prompt: &quot;Your Name&quot;, &quot;Mr. Bogwart&quot;) into $signedName)
+You pick up your pace to keep up with the excited Shakir and what [[he may have discovered.-&gt; The Pit]]]</tw-passagedata><tw-passagedata pid="4" name=" Signing" tags="" position="814,339" size="100,100">(put: (prompt: &quot;Enter Your First Name&quot;, &quot;Your Name&quot;) into $signedName)
 
 [It&#39;s getting [[late -&gt;The Field Hut]] and it will be a long day tomorrow.]</tw-passagedata><tw-passagedata pid="5" name=" The Pit" tags="" position="549,346" size="100,100">You see four workmen standing around a specific part of the area you had asked them to clear away.
 
@@ -91,73 +104,79 @@ Shakir hands you a whisk and you kneel down to brush away the loose sand.
 
 &quot;Shakir! This...this is unbelievable. If I am translating the cartouches correctly, we&#39;ve found h-&quot;
 
-There&#39;s a sharpe CRACK and the stones beneath you give way.
+There&#39;s a sharp CRACK and the stones give way beneath you.
 
-Falling. The rushing of air. You feel your self falling, sand and grit getting into your mouth, nose and eyes. Then [[ blackness... | corridor ]]</tw-passagedata><tw-passagedata pid="6" name="Zosar" tags="" position="1153,119" size="100,100">After the name of a pharaoh, this name means “royalty and abundance”.</tw-passagedata><tw-passagedata pid="7" name="Shakir" tags="" position="389,192" size="100,100">Your friend and site foreman for the project.</tw-passagedata><tw-passagedata pid="8" name="Canopic Jars" tags="" position="1151,231" size="100,100">There are four in total:
+Falling. The rushing of air. Sand and grit getting into your mouth, nose and eyes. Then [[ blackness... | corridor ]]</tw-passagedata><tw-passagedata pid="6" name="Zosar" tags="" position="1153,119" size="100,100">After the name of a pharaoh, this name means “royalty and abundance”.</tw-passagedata><tw-passagedata pid="7" name="Shakir" tags="" position="389,192" size="100,100">Your friend and site foreman for the project.
+[[Return to Field Hut-&gt;The Field Hut]]</tw-passagedata><tw-passagedata pid="8" name="Canopic Jars" tags="" position="1151,231" size="100,100">There are four in total:
 Imsety has a Human head and contain the Liver
 Qebehsenuf has the head of a Falcon and holds the Intestines
 Hapy is a Baboon headed jar containing the Lungs
 Duamatef is the Jackal holding the Stomach</tw-passagedata><tw-passagedata pid="9" name="Chest" tags="" position="243,253" size="100,100">A beautifully crafted wooden chest, taller than it is wide. You examine the interior and see what look to be slots or baffles breaking up it&#39;s interior space into 4 sections. Closing the lid, you admire the inlaid garnet and glass with gold leaf and studs. Priceless.
 
 Will you (link: &quot;take the chest&quot;)[(set: $chest to true)(goto: &quot;Burial Chamber&quot;)] or [[leave it-&gt;Burial Chamber]]?</tw-passagedata><tw-passagedata pid="10" name=" corridor " tags="" position="549,496" size="100,100">####West Corridor &lt;h4&gt;
-You cough. The air is stale and filled with dust from your fall. In the dark, you slowly check yourself for damage. Pulling out a box of matches from your pocket, you strike a match. 
+You cough. The air is stale and filled with dust from your fall. In the dark, you carefully check yourself for damage. Pulling a box of matches from your pocket, you strike a match. 
 
 You stand in what looks like a short corridor. Above you is the now filled hole you fell through, blocked by stone and gravel.
 
 &quot;Hello! Shakir! Can you hear me!?&quot;
 
-You drop the match before it can burn your fingers and listen.
+You drop the match before it burns your fingers and listen.
 
 No reply. How deep could you be?
 
-Time to take stock. You strike another match. It is indeed a corridor and what appear to be torches in staunches on the wall. If the oils haven&#39;t completely dried out...
+Time to take stock. You strike another match. It is indeed a corridor and there appear to be torches in staunches on the wall. If the oils haven&#39;t completely dried out...
 
-The torch crackles into flaming life. That&#39;s better. Behind you, to the West (at least that&#39;s what you&#39;ll call it) are a buried flight of stairs and the blocked hole in the ceiling. This is the tomb entrance! You turn round to the east and there is an passage way branching off to [[the East -&gt;Burial Chamber]].</tw-passagedata><tw-passagedata pid="11" name="Burial Chamber" tags="" position="692,498" size="100,100">####The Pharoh&#39;s Tomb &lt;h4&gt;
-Here rests the king
+The torch crackles into flaming life. That&#39;s better. Behind you, to the West (at least that&#39;s what you&#39;ll call it from now on) are a buried flight of stairs and the blocked hole in the ceiling. This is the tomb entrance! You look down the corridor to the east and there is a passage way branching off to [[the East. -&gt;Burial Chamber]].</tw-passagedata><tw-passagedata pid="11" name="Burial Chamber" tags="" position="692,498" size="100,100">####The Pharoh&#39;s Tomb &lt;h4&gt;
+Here rests the King&#39;s sarcophagus.
 (if: $chest is false)[There is a [[small open chest-&gt;Chest]] cast to one side.
-A dust free rectangle at the foot of the sarcophagus marks the chests original resting place.](else-if: $collectedJars is 4 and $switch is false)[You enter the chamber to find the sacophgus lid open and a rather degnified albeit, dry figure wrapped in muslin standing beside it.
+A dust free rectangle at the foot of the sarcophagus marks the chests original resting place.](else-if: $collectedJars is 4 and $switch is false)[You enter the chamber to find the sarcophagus lid open and a rather degnified albeit, skeletal looking figure wrapped in muslin standing beside it.
 
-&quot;You have retrieved my sacred canopic jars, now I may continue my journey to the afterlife. I am grateful and to show my gratitude, I present passage so you too may continue your journey.&quot;
+&quot;You have retrieved my sacred canopic jars, now I may continue my journey to the afterlife. I am grateful and to show my gratitude, I present a passage so you too may continue your journey.&quot;
 
 From his wrappings he produces an Ankh which he hands to you. Placing the canopic chest down at the foot of the sacophogus, you accept the key.
 
 &quot;Let Anubis be your guide.&quot;(set: $ankh to true)
 
 With that, the great Pharoh crumbles into a heap of rotten muslin, bones and dust.
-](else-if: $switch is true)[A [[secret exit-&gt;Stairway Escape]] is here branching off to the East. You can make out a flight of stairs that appear to head up.]
+](else-if: $switch is true)[A [[secret exit-&gt;Stairway Escape]] is here branching off to the East. You can make out dimly a flight of stairs.]
 
-There is a passage to [[the South-&gt;Treasure Room]].
+There is a passage to the South that will take you [[to the Treasure Room-&gt;Treasure Room]].
 
 A passage takes you West [[back to the corridor-&gt; corridor ]] through which you arrived.</tw-passagedata><tw-passagedata pid="12" name="Treasure Room" tags="" position="692,647" size="100,100">####Treasure Room &lt;h4&gt;
 As you enter, the light from your torch catches the gleam of gold everywhere. Bright flashes distract you as you move through the chamber.
 
-(if: $jackal is false)[You notice a canopic jar with a [[jackal head-&gt;Jackal]] on the ground.](else:)[You see the outline of the jar you picked up in the dust.]
+(if: $jackal is false)[You notice a canopic jar with a [[jackal&#39;s head-&gt;Jackal]] on the ground.](else:)[You see the outline of the jar you picked up in the dust.]
 
 [There are passages to [[the East-&gt;Annex]] and directly ahead to [[the South-&gt;Antichamber]].]
 
 The other passage takes you back to the [[Pharoh&#39;s Tomb-&gt;Burial Chamber]].</tw-passagedata><tw-passagedata pid="13" name="Annex" tags="" position="847,646" size="100,100">####The Annex&lt;h4&gt;
+Filled with everyday objects for the afterlife. In any egyptian home, these would be recognizable and common. But to an Archeologist, they are priceless treasures as valuable as the gold in the other room.
+
 A Passage to [[the South-&gt;Storeroom]] and the passage back to the [[Treasure Room]].	</tw-passagedata><tw-passagedata pid="14" name="Storeroom" tags="" position="848,801" size="100,100">####Store Room &lt;h4&gt;
-There are boxes and large jars here filled with food for the afterlife.
+There are boxes and large jars here filled with what are now dryed out food and wine for the afterlife.
+
 (if: $falcon is false)[There is a [[Falcon headed-&gt;Falcon]] canopic jar on the floor.]
+
 The only way out is back through the [[Annex]].</tw-passagedata><tw-passagedata pid="15" name="Antichamber" tags="" position="690,801" size="100,100">####Antichamber &lt;h4&gt;
-Bits and pieces of furniture are here.
+Bits and pieces of furniture are here. The materials maybe &#39;common&#39; but the value to history make their value incalculable.
+
 (if: $baboon is false)[One [[baboon headed-&gt;Baboon]] canopic jar.]
 
 There is a passage to [[the West-&gt;Shrine Room]] and the passage back to the [[Treasure Room]].</tw-passagedata><tw-passagedata pid="16" name="Shrine Room" tags="" position="546,802" size="100,100">####Shrine Room &lt;h4&gt;
 A beautiful golden statue of Anubis is in the corner housed in a guilded shrine.
 
-(if: $switch is false)[Oddly, Anubis is facing the wall, his back to you. The only way out is through the [[Antichamber]].](else:)[Anubis points back towards the [[Antichamber-&gt;Antichamber]]]
+(if: $switch is false)[Oddly, Anubis is facing the wall, his back to you. The only way out seems to be back through the [[Antichamber]].](else:)[Anubis points back towards the [[Antichamber-&gt;Antichamber]]]
 
-The bones of an ancient tomb robber lies on the floor.(if: $human is false)[Close by is a [[human headed-&gt;Human]] canopic jar.]
+The bones of an ancient tomb robber lie on the floor.(if: $human is false)[Close by is a [[human headed-&gt;Human]] canopic jar.]
 
-(if: $ankh and $switch is false)[Heeding the Pharoh&#39;s words, you look over the Shrine of Anubis more carefully and sure enough, you see an indentation that matches the shape of the Ankh. Putting it in place, you hear a click and a switch is revealed. Licking your dry lips [[you toggle it-&gt;Switch]].]</tw-passagedata><tw-passagedata pid="17" name="Stairway Escape" tags="" position="848,498" size="100,100">Stairs leading up and out of the tomb.
-You can go [[back to the tomb-&gt;Burial Chamber]] if you wish or head up the steps and [[fresh air-&gt;Fresh Air]].</tw-passagedata><tw-passagedata pid="18" name="Fresh Air" tags="" position="1009,499" size="100,100">You come to heavy flagstones that block your exit from the tomb. You try with all your might to shift one but to no effect. Then you hear the thuds of picks and scrap of shovels. Could it be...!?
+(if: $ankh and $switch is false)[Heeding the Pharoh&#39;s words, you look over the Shrine of Anubis more carefully now, &quot;Let Anubis be your guide.&quot; Sure enough, you see an indentation that matches the shape of the Ankh. Putting it in place, you hear a click and a switch is revealed at the base of the statue is revealed. Licking your dry lips [[you toggle it-&gt;Switch]].]</tw-passagedata><tw-passagedata pid="17" name="Stairway Escape" tags="" position="848,498" size="100,100">Stairs leading up and out of the tomb. You hope.
+You can go [[back to the tomb-&gt;Burial Chamber]] if you wish or head up the steps and [[fresh air-&gt;Fresh Air]].</tw-passagedata><tw-passagedata pid="18" name="Fresh Air" tags="" position="1009,499" size="100,100">You come to heavy flagstones that block your exit from the tomb. You try with all your might to shift them but to no affect. Then you hear the thuds of picks and scrap of shovels. Could it be...!?
 
 &quot;SHAKIR!&quot;
 
-The digging noise die away...
+The digging noises die away...
 
-&quot;$signedName is that you!?&quot;
+A voice muffled through the rock, &quot;$signedName is that you!?&quot;
 
 &quot;Yes, it&#39;s me! I&#39;m just below some flagstones!&quot;
 
@@ -165,28 +184,34 @@ The digging noise die away...
 
 As good as his word, you see the flagstones lifted away and a rush of fresh air fills your lungs. Skakir&#39;s hand reaches down and with that help you are once again breathing in the open night air.
 
-&quot;I cannot say how enormously pleased I am that you are rescued unhurt.&quot;
+Shakir looks you over with a mixed look of joy and concerned all at once. &quot;I cannot say how enormously pleased I am that you are rescued. Are you hurt at all my friend?&quot;
 
-&quot;And I cannot not thank you enough at how happy I am you didn&#39;t give up on me Shakir. I never doubted you. Thank you. Thank you my friend.&quot;
+&quot;No, not at all as surprising as that may see,. I cannot not thank you enough at how happy I am you didn&#39;t give up on me Shakir. Thank you my friend.&quot;
+
+&quot;Let me get you back to the hut and bring you water $signedName.&quot;
+
+&quot;No, not water Shakir. Wine. In fact for everyone. Do I have a story for you.&quot;
 
 The End.</tw-passagedata><tw-passagedata pid="19" name="Switch" tags="" position="115,743" size="100,100">(set: $switch to true)
-The statue rotates counter clockwise, it&#39;s arm points past the [[Shrine&#39;s entrance-&gt;Shrine Room]] and beyond.</tw-passagedata><tw-passagedata pid="20" name="Jackal" tags="" position="243,420" size="100,100">####Duamutef&lt;h4&gt;
+The statue rotates counter clockwise, it&#39;s arm points past the [[Shrine&#39;s entrance-&gt;Shrine Room]] and beyond. You feel more than hear a faint deep rumbling in the walls around you. Something has changed...</tw-passagedata><tw-passagedata pid="20" name="Jackal" tags="" position="243,420" size="100,100">####Duamutef&lt;h4&gt;
 You hold a canopic jar with a Jackal&#39;s head. This is Duamutef a son of Horus. One of four actually. Or was it Osiris? This canopic jar would hold the Pharoh&#39;s stomach once it was removed during the mummification process and Duamutef&#39;s job is to protect it. Best not to open and peek in side...
 
 (if: $chest is false)[You put it back and [[carry on-&gt;Treasure Room]]](else:)[Will you (link: &quot;take the Canopic jar&quot;)[(set: $jackal to true)(set: $collectedJars to $collectedJars+1)(goto: &quot;Treasure Room&quot;)] or [[leave it-&gt;Treasure Room]]?]</tw-passagedata><tw-passagedata pid="21" name="Human" tags="" position="242,842" size="100,100">####Imsety&lt;h4&gt;
 The human head of this canopic jar indicates it&#39;s Imsety, son of Horus, charged like his brothers to guard and organ of the dead Pharoh. In this case the liver. His key role in the afterlife would be to revivify the body of the Pharoh.
 
-(if: $chest is false)[You put it back and [[carry on-&gt;Shrine Room]]](else:)[Will you (link: &quot;take the Canopic jar&quot;)[(set: $human to true)(set: $collectedJars to $collectedJars+1)(goto: &quot;Shrine Room&quot;)]or [[leave it-&gt;Shrine Room]]?]</tw-passagedata><tw-passagedata pid="22" name="Falcon" tags="" position="242,528" size="100,100">####Qebehsenuf&lt;h4&gt;
+(if: $chest is false)[You put it back and [[carry on-&gt;Shrine Room]]](else:)[Will you (link: &quot;take the Canopic jar&quot;)[(set: $human to true)(set: $collectedJars to $collectedJars+1)(goto: &quot;Shrine Room&quot;)] or [[leave it-&gt;Shrine Room]]?]</tw-passagedata><tw-passagedata pid="22" name="Falcon" tags="" position="242,528" size="100,100">####Qebehsenuf&lt;h4&gt;
 You hold a canopic jar with a stopper in the shape of a Falcon&#39;s head. This is Qebehsenuf one of the four sons of Horus. This jar holds the Pharoh&#39;s intestines removed during mummification. Qebehsenuf guards it. You resist the temptation to peek in side...
 
-(if: $chest is false)[You put it back and [[carry on-&gt;Storeroom]]](else:)[Will you (link: &quot;take the Canopic jar&quot;)[(set: $falcon to true)(set: $collectedJars to $collectedJars+1)(goto: &quot;Storeroom&quot;)]or [[leave it-&gt;Storeroom]]?]</tw-passagedata><tw-passagedata pid="23" name="Baboon" tags="" position="243,634" size="100,100">####Hapy&lt;h4&gt;
+(if: $chest is false)[You put it back and [[carry on-&gt;Storeroom]]](else:)[Will you (link: &quot;take the Canopic jar&quot;)[(set: $falcon to true)(set: $collectedJars to $collectedJars+1)(goto: &quot;Storeroom&quot;)] or [[leave it-&gt;Storeroom]]?]</tw-passagedata><tw-passagedata pid="23" name="Baboon" tags="" position="243,634" size="100,100">####Hapy&lt;h4&gt;
 You hold Hapy the Baboon headed son of Horus. No need to look inside, the jar holds the Pharoh&#39;s lungs, one of the many organs removed during mummification and Hapy was it&#39;s guardian.
 
-(if: $chest is false)[You put it back and [[carry on-&gt;Antichamber]]](else:)[Will you (link: &quot;take the Canopic jar&quot;)[(set: $baboon to true)(set: $collectedJars to $collectedJars+1)(goto: &quot;Antichamber&quot;)]or [[leave it-&gt;Antichamber]]?]</tw-passagedata><tw-passagedata pid="24" name="Mr. Howard Carter" tags="" position="962,192" size="100,100">[###Howard Carter&lt;h3&gt;]
+(if: $chest is false)[You put it back and [[carry on-&gt;Antichamber]]](else:)[Will you (link: &quot;take the Canopic jar&quot;)[(set: $baboon to true)(set: $collectedJars to $collectedJars+1)(goto: &quot;Antichamber&quot;)] or [[leave it-&gt;Antichamber]]?]</tw-passagedata><tw-passagedata pid="24" name="Mr. Howard Carter" tags="" position="962,192" size="100,100">[###Howard Carter&lt;h3&gt;]
 (9 May 1874 – 2 March 1939) was an English archaeologist and Egyptologist. He became world-famous after discovering the intact tomb of the 18th Dynasty Pharaoh, Tutankhamun (designated as KV62) in November 1922. Tutankhamun&#39;s tomb is famous because of the treasures it held intact for over three thousand years; it is the best-preserved pharaonic tomb found in the Valley of the Kings.
 
 (align: &quot;=&gt;&lt;=&quot; )[&lt;img src=&quot;https://upload.wikimedia.org/wikipedia/commons/2/24/Howard_carter.jpg&quot;&gt;]
-(align: &quot;=&gt;&lt;=&quot; )[(Courtesy Wikipedia)]</tw-passagedata></tw-storydata>
+(align: &quot;=&gt;&lt;=&quot; )[(Courtesy Wikipedia)]
+
+[[Return to Letter-&gt;letter to the Museum]]</tw-passagedata></tw-storydata>
 
 <script title="Twine engine code" data-main="harlowe">"use strict";function _defineProperty(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function _toConsumableArray(e){if(Array.isArray(e)){for(var t=0,n=Array(e.length);t<e.length;t++)n[t]=e[t];return n}return Array.from(e)}var _slicedToArray=function(){function e(e,t){var n=[],r=!0,i=!1,o=void 0;try{for(var a,s=e[Symbol.iterator]();!(r=(a=s.next()).done)&&(n.push(a.value),!t||n.length!==t);r=!0);}catch(e){i=!0,o=e}finally{try{!r&&s.return&&s.return()}finally{if(i)throw o}}return n}return function(t,n){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};!function(){/**
  * @license almond 0.3.3 Copyright jQuery Foundation and other contributors.
