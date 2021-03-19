@@ -18,12 +18,6 @@ body{
     padding: 0;
 }
 
-.page {
-    padding: 5px;
-}
-
-
-
 #logo{
     overflow: hidden;
     height: 200px;
@@ -47,26 +41,11 @@ body{
     border-style: none;
     border-radius: 5px;
 }
-
-article{
-    display: grid;
-    grid-column: 1/3;
-}
-
 #copy{
-    grid-column: 1/1;
-    grid-row: 1/1;
     margin:5px 5px 0 5px;
     padding: 5px;
     background-color: darkslategrey;
     border-radius: 5px;
-}
-
-#copy h1, h2 {
-/*    color:#ffffff;*/
-}
-
-#copy p {
 }
 
 #copy #instructions{
@@ -79,170 +58,148 @@ article{
 /*****************************************/
 /*****************************************/
  
-    body {
-        margin: 0;
-    }
+body {
+    margin: 0;
+}
 
-    .page {
-        margin: 0 auto;
-        max-width: 960px;
-    }
-
-    header #logo{
-        position: absolute;
-        z-index: 200;
-        width: 25%;
-    }
-
-    header #svg-object {
-        position: relative;
-        width: 100%;
-        max-width: 200px;
-        padding: 0 25px;
-    }
-
-    /*       Start of Grid:     ;*/
-
-    .grid {
-        display: grid;
-        grid-gap: 0px;
-    }
-    
-    #copy {
-        /* starting col / ending col*/
-        /* starting col / span including end col*/
-        grid-column: 1/ span 4;
-        border-radius: 5px;
-    }
-
-    #copy p {
-        letter-spacing: 0.025em;
-    }
-
-    #copy h1, h2 {
-        margin: 10px;
-        color:#ffffff;
-    }
-
-    #copy p {
-        margin: 10px  10px 20px;
-        color: #FFF;
-
-    }
-
-    #copy #instructions{
-        margin: -10px 10px 20px 10px;
-        line-height: 1em;
-    }
-    
-    
-    
-    
-    .box {
-        padding: 5px;
-        overflow: hidden;
-        border-radius: 5px;
-    }
+.page {
+    margin: 0 auto;
+    padding: 5px;
+    max-width: 960px;
+}
 
 
-    .box h1{
-        position: absolute;
-        margin: 10px 0 0 10px;
-        font-size: 4em;
-        color: #222436;
-        line-height: 1em;
-    }
+/*       Start of Grid:     ;*/
+
+.grid {
+    display: grid;
+    grid-gap: 0px;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+header {
+    grid-column-end: span 12;
+}
 
 
-    .box h4{
-        text-align: center;
-        margin: 5px;
-    }
-    
-    .box p{
-        margin: 0 10px 10px 10px;
-        text-align: justify;
-    }
-    
-    .box img{
-        width: 100%;
-        border-radius: 5px;
-    }
+header #logo{
+    position: absolute;
+    z-index: 200;
+    width: 25%;
+}
+
+header #svg-object {
+    position: relative;
+    width: 100%;
+    max-width: 200px;
+    padding: 0 25px;
+}
+
+article{
+    grid-column-end: span 12;
+}
+
+#copy {
+    border-radius: 10px;
+}
+
+#copy p {
+    margin: 10px  10px 20px;
+    letter-spacing: 0.025em;
+    color: #FFF;
+}
+
+#copy h1, h2 {
+    margin: 10px;
+    color:#ffffff;
+}
+
+#copy #instructions{
+    margin: -10px 10px 20px 10px;
+    line-height: 1em;
+}
 
 
-    .box .stroke{
-        -webkit-text-stroke-width: 4px;
-        -webkit-text-stroke-color:#8892d8;
-    }
-    
-    .a {
-    /*
-            grid-column-start: 1;
-            grid-column-end: 2;
-    */
-        /* shorthand for above*/
-        grid-column: 1/2;
-        grid-row-start: 2;
-        grid-row-end: 2;
-    }
 
-    .b {
-    /*
-        grid-column: 2/4;
-        grid-row: 2/4;
-    */
-        /* shorthand for above*/
-        grid-area: 2/2/3/3;
-        /* grid-area: rowStart/colStart/rowEnd/colEnd*/
 
-    }
+.box {
+    padding: 5px;
+    overflow: hidden;
+    border-radius: 5px;
+}
 
-    .c {
-        grid-column: 3/3;
-        grid-row: 2/2;
-    }
 
-    .j {
-        grid-column: 4/4;
-        grid-row: 4/4;
-    }
+.box h1{
+    position: absolute;
+    margin: 10px 0 0 10px;
+    font-size: 4em;
+    color: #222436;
+    line-height: 1em;
+}
 
-    
-    footer {
-        display: grid;
-        grid-area: 20/1/20/ span 4;
-        height: 50px;
-        background-color: darkslategrey;
-        justify-items: center;
-    }
-    
-    footer a{
-        display: grid;
-        text-decoration: none;
-        align-items: center;
-        
-    }
 
+.box h4{
+    text-align: center;
+    margin: 5px;
+}
+
+.box p{
+    margin: 0 10px 10px 10px;
+    text-align: justify;
+}
+
+.box img{
+    width: 100%;
+    border-radius: 5px;
+}
+
+
+.box .stroke{
+    -webkit-text-stroke-width: 4px;
+    -webkit-text-stroke-color:#8892d8;
+}
+
+.product {
+    grid-column-end: span 3;
+}
+
+footer {
+    width: 100%;
+    height: 50px;
+    grid-column-end: span 12;
+    background-color: darkslategrey;
+    border-radius: 5px;
+}
+
+footer a{
+    text-decoration: none;
+}
+
+footer p{
+    width: 100%;
+    line-height: 1em;
+    text-align: center;
+}
 /*****************************************/
 /*****************************************/
 /*****************************************/
 
 @media only screen and (max-width: 767px){
-    
+
     /* grid shift */
     .grid {
         display: grid;
         grid-template-columns: repeat(10);
         grid-template-rows: repeat(20);
     }
-    
+
     #copy {
         /* starting col / ending col*/
         /* starting col / span including end col*/
         grid-column: 1/ span 2;
         border-radius: 5px;
     }
-    
+
     /* box */
     .box {
         padding: 5px;
@@ -264,12 +221,12 @@ article{
         text-align: center;
         margin: 5px;
     }
-    
+
     .box p{
         margin: 0 10px 10px 10px;
         text-align: justify;
     }
-    
+
     .box img{
         width: 100%;
         border-radius: 5px;
@@ -281,60 +238,8 @@ article{
         -webkit-text-stroke-color:#8892d8;
     }
     
-    .a {
-        grid-column: 1/1;
-        grid-row: 2/2;
-    }
-
-    .b {
-        grid-area: 2/2/2/2;
-        /* grid-area: rowStart/colStart/rowEnd/colEnd*/
-    }
-
-    .c {
-        grid-column: 1/1;
-        grid-row: 3/3;
-    }
-
-    .d {
-        grid-column: 2/2;
-        grid-row: 3/3;
-    }
-
-    .e {
-        grid-column: 1/1;
-        grid-row: 4/4;
-    }
-    
-    .f {
-        grid-column: 2/2;
-        grid-row: 4/4;
-    }
-    
-    .g {
-        grid-column: 1/1;
-        grid-row: 5/5;
-    }
-    
-    .h {
-        grid-column: 2/2;
-        grid-row: 5/5;
-    }
-    .i {
-        grid-column: 1/1;
-        grid-row: 6/6;
-    }
-    .j {
-        grid-column: 2/2;
-        grid-row: 6/6;
-    }
-    
-    footer {
-        display: grid;
-        grid-area: 20/1/20/ span 2;
-        height: 50px;
-        background-color: darkslategrey;
-        justify-items: center;
+    .product {
+        grid-column-end: span 6;
     }
     
 }
