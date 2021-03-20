@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>A-frame Level</title>
-    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <title>A-frame Level With Contorllers</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    <script src="/vrControllersAframe/libs/aframe-teleport-controls.js"></script>
+    <script src="js/modelShadows.js"></script>
 </head>
 <body>
     <a-scene>
@@ -16,13 +19,19 @@
         </a-assets>
 
         <!-- load models -->
-        <a-gltf-model src="#level"></a-gltf-model>
+        <a-gltf-model model-shadows src="#level"></a-gltf-model>
         <a-gltf-model nav-mesh src="#navmesh" visible="false"></a-gltf-model>
         
-        <a-box color="#ffff00" position="0 0.5 -4" rotation="0 45 0"></a-box>
+        <a-box color="#ff4e00" position="2 2.7 -3" rotation="0 0 0" scale="0.5 0.5 0.5" shadow animation="property:rotation; to:0 360 0; dur:3000; loop:true; easing:linear;"></a-box>
 
         <!-- sky -->
         <a-sky color="#91ccff"></a-sky>
+        
+        <!-- environment -->
+        <a-entity environment="preset:arches;" position="0 -4 0"></a-entity>
+        
+        <!-- ocean -->
+        <a-ocean position="0 -0.5 0" width="150" depth="150" density="75" opacity="1.0" color="#95178b" ></a-ocean>
         
         <!-- camera -->
         <a-entity 
@@ -31,8 +40,33 @@
          movement-controls="constrainToNavMesh:true; controls: keyboard, touch; speed:0.15;">
           
            <a-entity id="camera" camera position="0 1.65 0" look-controls="pointerLockEnabled:true;"></a-entity>
+           
+           <!-- Left hand teleport control -->
+           <a-entity id="leftHand" controllisten
+              teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #navmesh;"
+              hand-controls="hand: left;">
+               
+           </a-entity>
+
+           <!-- Right hand laser control -->
+           <a-entity id="rightHand" controllisten
+              teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #navmesh;"
+              hand-controls="hand: right;">
+               
+           </a-entity>
+
+           <!-- the hand-controls works as advertized: 
+           trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
+
+           <!-- the laser-controls work as indicated above and are activated (seen) 
+           when they raycaster intersects an object that is (currently) within 3 meters -->
             
         </a-entity>
+        
+        <!-- lights -->
+        <a-light id="sunlight" type="directional" position="-2.5 5.0 4" light="castShadow:true; shadowCameraVisible:false; shadowCameraLeft:-6.25; shadowMapHeight:512; shadowMapWidth:512;"></a-light>
+        
+        <a-light id="fillLight" type="ambient" intensity="0.4"></a-light>
 
     </a-scene>
 
