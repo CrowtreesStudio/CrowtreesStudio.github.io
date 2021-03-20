@@ -8,7 +8,7 @@
     <script  src="JS/code.js"></script>
 </head>
 <body>
-   <a-scene>
+   <a-scene background="color:#000000;">
        <!-- Basic VR scene for testing -->
        <a-box id="box" position="-3 0.5 -3" color="#2f80d1" ></a-box>
        <a-sphere position="3 0.5 -3" radius="0.5" color="orange"></a-sphere>
@@ -22,7 +22,7 @@
        <a-box id="floor" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a"></a-box>
       
        <a-entity id="cameraRig" position="0 0 0">
-           <a-entity id="camera" camera wasd-controls look-controls>
+           <a-entity id="camera" camera position="0 1.65 0" wasd-controls look-controls>
            </a-entity>
            
            <!-- Left hand teleport control -->
