@@ -22,7 +22,7 @@
         <a-gltf-model model-shadows src="#level"></a-gltf-model>
         <a-gltf-model nav-mesh src="assets/navmesh.glb" visible="true" position="0 0.01 0"></a-gltf-model>
         
-        <a-box color="#ff4e00" position="2 2.7 -3" rotation="0 0 0" scale="0.5 0.5 0.5" shadow animation="property:rotation; to:0 360 0; dur:3000; loop:true; easing:linear;"></a-box>
+        <a-box id="boxone" color="#ff4e00" position="1 0.2 2" rotation="0 0 0" scale="0.5 0.5 0.5" shadow animation="property:rotation; to:0 360 0; dur:3000; loop:true; easing:linear;"></a-box>
 
         <!-- sky -->
         <a-sky color="#91ccff"></a-sky>
@@ -43,14 +43,14 @@
            
            <!-- Left hand teleport control -->
            <a-entity id="leftHand"
-              teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #navmesh;"
+              teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #navmesh, #boxone;"
               hand-controls="hand: left;">
                
            </a-entity>
 
            <!-- Right hand laser control -->
            <a-entity id="rightHand"
-              teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #navmesh;"
+              teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #navmesh, #boxone;"
               hand-controls="hand: right;">
                
            </a-entity>
