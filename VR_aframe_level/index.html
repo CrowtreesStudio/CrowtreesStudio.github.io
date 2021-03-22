@@ -15,13 +15,14 @@
         <!-- asset manager -->
         <a-assets>
             <a-asset-item id="level" src="assets/level.glb" ></a-asset-item>
-<!--            <a-asset-item id="navmesh" src="assets/navmesh.glb"></a-asset-item>-->
+            <a-asset-item id="navigationmesh" src="assets/navmesh.glb"></a-asset-item>
 <!-- a-asset-item does not appear to work with the current version of teleport controls -->
         </a-assets>
 
         <!-- load models -->
         <a-gltf-model model-shadows src="#level"></a-gltf-model>
-        <a-gltf-model id="navmesh" nav-mesh src="assets/navmesh.glb" visible="false" position="0 0 0"></a-gltf-model>
+<!--        <a-gltf-model id="navmesh" nav-mesh src="assets/navmesh.glb" visible="false" position="0 0 0"></a-gltf-model>-->
+        <a-gltf-model id="navmesh" nav-mesh src="#navigationmesh" visible="false" position="0 0 0"></a-gltf-model>
         
         <a-box id="boxone" color="#ff4e00" position="2 2.7 -3" rotation="0 0 0" scale="0.5 0.5 0.5" shadow animation="property:rotation; to:0 360 0; dur:3000; loop:true; easing:linear;"></a-box>
 
