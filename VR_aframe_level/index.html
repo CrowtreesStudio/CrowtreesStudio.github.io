@@ -44,14 +44,18 @@
            <!-- Left hand teleport control -->
            <a-entity id="leftHand"
               teleport-controls="cameraRig: #camRig; teleportOrigin: #camera; collisionEntities: #navmesh;"
-              hand-controls="hand: left;">
+              hand-controls="hand: left;"
+              laser-controls="hand:left;"
+              raycaster="far:3;">
                
            </a-entity>
 
            <!-- Right hand laser control -->
            <a-entity id="rightHand"
               teleport-controls="cameraRig: #camRig; teleportOrigin: #camera; collisionEntities: #navmesh;"
-              hand-controls="hand: right;">
+              hand-controls="hand: right;"
+              laser-controls="hand:right;"
+              raycaster="far:3;">
                
            </a-entity>
 
