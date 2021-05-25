@@ -2,6 +2,24 @@
   <head>
     <title>A-Frame Super Hands Component</title>
     <style>
+      .grid{
+        display: grid;
+        grid-gap: 0px;
+        grid-template-columns: repeat(12, 1fr);
+      }
+
+      .item{
+        grid-column-end: span 2;
+        margin: 5px;
+        padding: 5px;
+        background-color: #478ab6;
+        text-align: center;
+      }
+
+      .item a{
+        text-decoration: none;
+      }
+
       html {
         background: #33425B;
         color: #FAFAFA;
@@ -60,6 +78,14 @@
      </style>
   </head>
   <body>
+    <div id="Addition" class="grid">
+      <div class="item"><a href="/mouse/index.html" target="_blank">Mouse</a></div>
+      <div class="item"><a href="/physics/index.html" target="_blank">Physi</a>cs</div>
+      <div class="item"><a href="/sticky/index.html" target="_blank">Stick</a>y</div>
+      <div class="item"><a href="/super-basic/index.html" target="_blank">Super-basic</a></div>
+      <div class="item"><a href="/touch-test/index.html" target="_blank">Touch-test</a></div>  
+      <div class="item"><a href="/events/index.html" target="_blank">Events</a></div>  
+    </div>
     <h1>A-Frame Super Hands Component</h1>
     <p>This is the examples page for the
       <a href="http://github.com/wmurphyrd/aframe-super-hands-component">

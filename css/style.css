@@ -95,6 +95,21 @@ header #svg-object {
     padding: 0 25px;
 }
 
+.item{
+    color: #ffffff;
+    grid-column-end: span 2;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    background-color: rgb(70, 132, 208);
+    border-radius: 5px;
+}
+
+.item a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
 article{
     grid-column-end: span 12;
 }
