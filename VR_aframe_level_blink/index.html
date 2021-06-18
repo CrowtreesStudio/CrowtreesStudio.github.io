@@ -42,20 +42,16 @@
            <a-entity id="camera" camera position="0 1.65 0" look-controls="pointerLockEnabled:true;"></a-entity>
            
            <!-- Left hand teleport control -->
-           <a-entity id="leftHand"
-              blink-controls="cameraRig: #camRig; teleportOrigin: #camera; collisionEntities: #navmesh;"
-              hand-controls="hand: left;"
-              laser-controls="hand:left;"
-              raycaster="far:3;">
-               
+           <a-entity    id="leftHand"
+                        hand-controls="hand: left;"
+                        blink-controls="cameraRig: #camRig; teleportOrigin: #camera; collisionEntities: #navmesh;">
            </a-entity>
 
            <!-- Right hand laser control -->
-           <a-entity id="rightHand"
-              blink-controls="cameraRig: #camRig; teleportOrigin: #camera; collisionEntities: #navmesh;"
-              hand-controls="hand: right;"
-              laser-controls="hand:right;"
-              raycaster="far:3;">
+           <a-entity    id="rightHand"
+                        hand-controls="hand: right;"
+                        laser-controls="hand:right;"
+                        raycaster="far:3;">
                
            </a-entity>
 
