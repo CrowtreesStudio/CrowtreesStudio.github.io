@@ -1,0 +1,50 @@
+<!-- GITHUB for mapbox component-->
+<!-- https://github.com/mattrei/aframe-mapbox-component -->
+<!-- Additional info and examples -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A-frame & Mapbox</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-mapbox-component/dist/aframe-mapbox-component.min.js"></script>
+</head>
+<body>
+  <a-scene>
+    <!-- <a-entity   geometry="primitive: plane; width: 20; height: 20;"
+                shadow="cast:false; receive:true;"
+                material="color: #ffffff; shader: flat; side: both; transparent: true;"
+                mapbox="center: -79.15376539898406, 44.42952749534432; zoom: 15; 
+                accessToken: pk.eyJ1Ijoic2hlcmlkYW5oYW1pc2giLCJhIjoiY2tweWl0emJtMGk2bTJ1cHBtbWN1OWp2biJ9.ZdRoi2zeRZs7Jk4mhwaW2Q;
+                style: mapbox://styles/sheridanhamish/ckpyom2od1erl17n5htbmnu3m"
+                position="0 0 -2"
+                rotation=" -90 0 0" >      
+    </a-entity> -->
+    <!-- center: Longtitude, Latitude; Zoom: see: https://docs.mapbox.com/help/glossary/zoom-level/#zoom-levels-and-geographical-distance -->
+    <a-plane  mapbox="center: -79.15376539898406, 44.42952749534432; zoom: 16; 
+              accessToken: pk.eyJ1Ijoic2hlcmlkYW5oYW1pc2giLCJhIjoiY2tweWl0emJtMGk2bTJ1cHBtbWN1OWp2biJ9.ZdRoi2zeRZs7Jk4mhwaW2Q;
+              style: mapbox://styles/sheridanhamish/ckq118dsp3d7a17s5ezf6pmtr"
+              width="50" height="50"
+              position="0 0 -2"
+              rotation="-90 0 0"
+              shadow="cast:false; receive:true;">
+      </a-plane>
+              
+    <a-entity id="building" scale="0.25 0.25 0.25" position="-3.14612 0 -3.132" rotation="0 -13.834 0">
+              <a-box position="0 0.5 0" color="#dddddd" shadow="receive: false"></a-box>
+              <a-box position="0 1 0" rotation="0 0 45" scale="0.75 0.75 0.99" color="555555" shadow="receive: false" material="" geometry=""></a-box>
+    </a-entity>
+    <a-light type="ambient" intensity="0.4" ></a-light>
+    <a-light type="directional" intensity="0.75" position="0.149 0.40667 0.29867" light="castShadow: true"></a-light>
+
+    <a-sky color="#aaaaff"></a-sky>
+    <a-entity>
+    <a-camera position="0 1.65 0"></a-camera>
+  </a-entity>
+  </a-scene>
+  
+</body>
+</html>
