@@ -1,6 +1,9 @@
-<!-- GITHUB for AR component-->
+<!-- GITHUB for AR & GPS component-->
 <!-- https://github.com/AR-js-org/AR.js -->
 <!-- Additional info and examples -->
+
+<!-- Notes from Diego Marcos
+    "GPS is not super accurate for 6DOF tracking. GPS gives a precision of few meters at best and is heavily affected by near by buildings, trees, weather. GPS is good for a rough indication of location / direction of things in the distance." -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,8 +21,6 @@
 
         <a-box id="morrison ave 1" color="red" scale="1 3 1" gps-entity-place="latitude: 44.435254; longitude: -79.163058;"></a-box>
         <a-box id="morrison ave 2" color="green" scale="1 1 1" gps-entity-place="latitude: 44.435330; longitude: -79.163019;"></a-box>
-                
-        <!-- <a-entity gltf-model="assets/magnemite/scene.gltf" position="0 0 3" rotation="0 180 0" scale="0.15 0.15 0.15" gps-entity-place="latitude: 44.435330; longitude: -79.163019;" animation-mixer></a-entity> -->
                 
         <a-camera gps-camera rotation-reader></a-camera>
         
