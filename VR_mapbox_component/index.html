@@ -26,11 +26,41 @@
               accessToken: pk.eyJ1Ijoic2hlcmlkYW5oYW1pc2giLCJhIjoiY2tweWl0emJtMGk2bTJ1cHBtbWN1OWp2biJ9.ZdRoi2zeRZs7Jk4mhwaW2Q;
               style: mapbox://styles/sheridanhamish/ckq118dsp3d7a17s5ezf6pmtr">
       </a-plane>
-              
-    <a-entity id="building" scale="0.25 0.25 0.25" position="-3.14612 0 -3.132" rotation="0 -13.834 0">
-              <a-box position="0 0.5 0" color="#dddddd" shadow="receive: false"></a-box>
-              <a-box position="0 1 0" rotation="0 0 45" scale="0.75 0.75 0.99" color="555555" shadow="receive: false" material="" geometry=""></a-box>
+
+      <!-- Some geometry to look at -->        
+      <a-entity id="sculpture" position="-5.95 0 -4" scale="0.25 0.25 0.25" shadow="cast: true;">
+        <!-- Upper Block -->
+        <a-entity id="upperBlock" position="0 6 0" rotation="180 0 0">
+            <a-box id="block_top" width="0.75" depth="0.75" height="1.5" position="0 1.75 0" color="#ffff55" ></a-box>
+            <a-entity animation="property:rotation; to: 0 360 0; dur: 2000; loop:true; easing:linear;">
+                <a-box id="plate_top" width="0.75" depth="0.75" height="0.05" position="0 0.75 0" color="#bb3300" ></a-box>
+                <a-sphere color="#ff8800" radius="0.1" position="0.25 0.6 0.25" ></a-sphere>
+                <a-sphere color="#ff8800" radius="0.1" position="0.25 0.6 -0.25" ></a-sphere>
+                <a-sphere color="#ff8800" radius="0.1" position="-0.25 0.6 0.25" ></a-sphere>
+                <a-sphere color="#ff8800" radius="0.1" position="-0.25 0.6 -0.25" ></a-sphere>
+                <a-cone id="pyramid_top" segments-radial="4" radius-bottom="0.5" height="0.5" position="0 0.25 0" rotation="0 45 180" color="#0044dd" ></a-cone>
+            </a-entity>
+        </a-entity>
+        <!-- Center Gem -->
+        <a-sphere id="center" radius="0.3" scale="1 1.25 1" segments-width="8" segments-height="2" position="0 3 0" material="flatShading: true" color="#559900" animation="property:rotation; to: 0 360 0; dur: 4000; loop:true; easing:linear;"></a-sphere>
+        <!-- Bottom Block -->
+        <a-entity id="lowerBlock" position="0 0 0">
+            <a-box id="block_btm" width="0.75" depth="0.75" height="1.5" position="0 1.75 0" color="#ffff55" ></a-box>
+            <a-entity animation="property:rotation; to: 0 360 0; dur: 2000; loop:true; easing:linear;">
+                <a-box id="plate_btm" width="0.75" depth="0.75" height="0.05" position="0 0.75 0" color="#bb3300" ></a-box>
+                <a-sphere color="#ff8800" radius="0.1" position="0.25 0.6 0.25" ></a-sphere>
+                <a-sphere color="#ff8800" radius="0.1" position="0.25 0.6 -0.25" ></a-sphere>
+                <a-sphere color="#ff8800" radius="0.1" position="-0.25 0.6 0.25" ></a-sphere>
+                <a-sphere color="#ff8800" radius="0.1" position="-0.25 0.6 -0.25" ></a-sphere>
+                <a-cone id="pyramid_btm" segments-radial="4" radius-bottom="0.5" height="0.5" position="0 0.25 0" rotation="0 45 180" color="#0044dd" ></a-cone>
+            </a-entity>
+        </a-entity>
+        <!-- Bouncing Rings -->
+        <a-torus id="ring1" radius="0.6" radius-tubular="0.02" position="0 1 0" rotation="90 0 0" color="pink" animation="property:position; to: 0 5 0; loop: true; dur: 1000; easing: easeInOutQuad; dir: alternate;"></a-torus>
+        <a-torus id="ring2" radius="0.6" radius-tubular="0.02" position="0 2.5 0" rotation="90 0 0" color="pink" animation="property:position; to: 0 3.5 0; loop: true; dur: 500; easing: easeInOutQuad; dir: alternate;"></a-torus>
+        <a-torus id="ring3" radius="0.6" radius-tubular="0.02" position="0 5 0" rotation="90 0 0" color="pink" animation="property:position; to: 0 1 0; loop: true; dur: 1000; easing: easeInOutQuad; dir: alternate;"></a-torus>
     </a-entity>
+
     <a-light type="ambient" intensity="0.4" ></a-light>
     <a-light type="directional" intensity="0.75" position="0.149 0.40667 0.29867" light="castShadow: true"></a-light>
 
