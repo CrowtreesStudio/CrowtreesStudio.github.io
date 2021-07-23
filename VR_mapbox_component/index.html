@@ -11,6 +11,7 @@
   <title>A-frame & Mapbox</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-mapbox-component/dist/aframe-mapbox-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
 </head>
 <body>
   <a-scene>
@@ -65,9 +66,9 @@
     <a-light type="directional" intensity="0.75" position="0.149 0.40667 0.29867" light="castShadow: true"></a-light>
 
     <a-sky color="#aaaaff"></a-sky>
-    <a-entity>
-    <a-camera position="0 1.65 0" movement-controls="controls: keyboard, touch; speed: 0.15;"></a-camera>
-  </a-entity>
+    <a-entity id="camRig" movement-controls="controls: keyboard, touch; speed: 0.15;" >
+      <a-entity id="camera" camera position="0 1.65 0" look-controls="pointerLockEnabled:true;" ></a-entity>
+    </a-entity>
   </a-scene>
   
 </body>
