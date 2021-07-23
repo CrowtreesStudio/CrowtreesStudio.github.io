@@ -18,6 +18,7 @@
     <!-- There appears to be an upper limit to the plane size being mapped to. 50 seems to break it. -->
     
     <!-- center: Longtitude, Latitude; Zoom: see: https://docs.mapbox.com/help/glossary/zoom-level/#zoom-levels-and-geographical-distance -->
+    <!-- Pick your Longtitude and Latitude for your project using Google Maps or other service -->
     
     <a-plane  width="40" height="40"
               position="0 0 -2"
@@ -29,7 +30,7 @@
       </a-plane>
 
       <!-- Some geometry to look at -->        
-      <a-entity id="sculpture" position="-5.95 0 -4" scale="0.25 0.25 0.25" shadow="cast: true;">
+      <a-entity id="sculpture" position="-5.95 0 -4" scale="0.5 0.5 0.5" shadow="cast: true;">
         <!-- Upper Block -->
         <a-entity id="upperBlock" position="0 6 0" rotation="180 0 0">
             <a-box id="block_top" width="0.75" depth="0.75" height="1.5" position="0 1.75 0" color="#ffff55" ></a-box>
@@ -62,13 +63,17 @@
         <a-torus id="ring3" radius="0.6" radius-tubular="0.02" position="0 5 0" rotation="90 0 0" color="pink" animation="property:position; to: 0 1 0; loop: true; dur: 1000; easing: easeInOutQuad; dir: alternate;"></a-torus>
     </a-entity>
 
+    <!-- Lights -->
     <a-light type="ambient" intensity="0.4" ></a-light>
     <a-light type="directional" intensity="0.75" position="0.149 0.40667 0.29867" light="castShadow: true"></a-light>
 
     <a-sky color="#aaaaff"></a-sky>
+
+    <!-- Camera and Camera Rig -->
     <a-entity id="camRig" movement-controls="controls: keyboard, touch; speed: 0.15;" >
       <a-entity id="camera" camera position="0 1.65 0" look-controls="pointerLockEnabled:true;" ></a-entity>
     </a-entity>
+
   </a-scene>
   
 </body>
