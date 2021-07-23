@@ -17,43 +17,9 @@
         vr-mode-ui="enabled: false"
 		embedded
 		arjs='sourceType: webcam; debugUIEnabled: false;'> <!--sourceWidth:1334; sourceHeight:750; displayWidth: 1334; displayHeight: 750; -->
-        
-        <!-- this is outside my house :) -->
-        <a-entity id="sculpture" gps-entity-place="latitude: 44.435254; longitude: -79.163058;">
-            <!-- Upper Block -->
-            <a-entity id="upperBlock" position="0 6 0" rotation="180 0 0">
-                <a-box id="block_top" width="0.75" depth="0.75" height="1.5" position="0 1.75 0" color="#ffff55" ></a-box>
-                <a-entity animation="property:rotation; to: 0 360 0; dur: 2000; loop:true; easing:linear;">
-                    <a-box id="plate_top" width="0.75" depth="0.75" height="0.05" position="0 0.75 0" color="#bb3300" ></a-box>
-                    <a-sphere color="#ff8800" radius="0.1" position="0.25 0.6 0.25" ></a-sphere>
-                    <a-sphere color="#ff8800" radius="0.1" position="0.25 0.6 -0.25" ></a-sphere>
-                    <a-sphere color="#ff8800" radius="0.1" position="-0.25 0.6 0.25" ></a-sphere>
-                    <a-sphere color="#ff8800" radius="0.1" position="-0.25 0.6 -0.25" ></a-sphere>
-                    <a-cone id="pyramid_top" segments-radial="4" radius-bottom="0.5" height="0.5" position="0 0.25 0" rotation="0 45 180" color="#0044dd" ></a-cone>
-                </a-entity>
-            </a-entity>
-            <!-- Center Gem -->
-            <a-sphere id="center" radius="0.3" scale="1 1.25 1" segments-width="8" segments-height="2" position="0 3 0" material="flatShading: true" color="#559900" animation="property:rotation; to: 0 360 0; dur: 4000; loop:true; easing:linear;"></a-sphere>
-            <!-- Bottom Block -->
-            <a-entity id="lowerBlock" position="0 0 0">
-                <a-box id="block_btm" width="0.75" depth="0.75" height="1.5" position="0 1.75 0" color="#ffff55" ></a-box>
-                <a-entity animation="property:rotation; to: 0 360 0; dur: 2000; loop:true; easing:linear;">
-                    <a-box id="plate_btm" width="0.75" depth="0.75" height="0.05" position="0 0.75 0" color="#bb3300" ></a-box>
-                    <a-sphere color="#ff8800" radius="0.1" position="0.25 0.6 0.25" ></a-sphere>
-                    <a-sphere color="#ff8800" radius="0.1" position="0.25 0.6 -0.25" ></a-sphere>
-                    <a-sphere color="#ff8800" radius="0.1" position="-0.25 0.6 0.25" ></a-sphere>
-                    <a-sphere color="#ff8800" radius="0.1" position="-0.25 0.6 -0.25" ></a-sphere>
-                    <a-cone id="pyramid_btm" segments-radial="4" radius-bottom="0.5" height="0.5" position="0 0.25 0" rotation="0 45 180" color="#0044dd" ></a-cone>
-                </a-entity>
-            </a-entity>
-            <!-- Bouncing Rings -->
-            <a-torus id="ring1" radius="0.6" radius-tubular="0.02" position="0 1 0" rotation="90 0 0" color="pink" animation="property:position; to: 0 5 0; loop: true; dur: 1000; easing: easeInOutQuad; dir: alternate;"></a-torus>
-            <a-torus id="ring2" radius="0.6" radius-tubular="0.02" position="0 2.5 0" rotation="90 0 0" color="pink" animation="property:position; to: 0 3.5 0; loop: true; dur: 500; easing: easeInOutQuad; dir: alternate;"></a-torus>
-            <a-torus id="ring3" radius="0.6" radius-tubular="0.02" position="0 5 0" rotation="90 0 0" color="pink" animation="property:position; to: 0 1 0; loop: true; dur: 1000; easing: easeInOutQuad; dir: alternate;"></a-torus>
-        </a-entity>
 
-        <!-- <a-box id="morrison ave 1" color="red" scale="1 3 1" gps-entity-place="latitude: 44.435254; longitude: -79.163058;"></a-box>
-        <a-box id="morrison ave 2" color="green" scale="1 1 1" gps-entity-place="latitude: 44.435330; longitude: -79.163019;"></a-box> -->
+        <a-box id="morrison ave 1" color="red" scale="1 3 1" gps-entity-place="latitude: 44.435254; longitude: -79.163058;"></a-box>
+        <a-box id="morrison ave 2" color="green" scale="1 1 1" gps-entity-place="latitude: 44.435330; longitude: -79.163019;"></a-box>
                 
         <!-- <a-entity gltf-model="assets/magnemite/scene.gltf" position="0 0 3" rotation="0 180 0" scale="0.15 0.15 0.15" gps-entity-place="latitude: 44.435330; longitude: -79.163019;" animation-mixer></a-entity> -->
                 
