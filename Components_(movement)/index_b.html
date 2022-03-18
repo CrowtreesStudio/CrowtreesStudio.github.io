@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Frame Movement</title>
+    <!-- A-Frame Framework and Component Scripts -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.3.1/dist/aframe-environment-component.min.js"></script>
+    <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+    <script src="components/simple-navmesh-constraint.js"></script>
+    <script src="components/mesh-shadows.js"></script>
+    <script src="components/a-water.js"></script>
+</head>
+<body>
+    <a-scene renderer="colorManagement:true;" >
+
+        <a-asset>
+            <a-asset-item id="level" src="assets/meshes/Level.glb" ></a-asset-item>
+            <a-asset-item id="navMesh" src="assets/meshes/Navmesh.glb" ></a-asset-item>
+            <a-asset-item id="sub" src="assets/meshes/submarine.glb" ></a-asset-item>
+            <a-mixin id="coin" geometry="primitive:cylinder; height:0.1; radius:0.25;" material="color:#ffaa00;" animation="property:rotation; to:90 360 0; loop:true; dur:2000; easing:linear;" ></a-mixin>
+            <a-mixin 
+                id="fuel" 
+                geometry="primitive:octahedron; radius:1;" 
+                scale="0.25 0.5 0.25" 
+                material="color:#ff2266; transparent:true; opacity:0.7; side:double;" ></a-mixin>
+            <a-mixin id="spin" animation__rot="property:rotation; to:0 360 0; loop:true; dur:2000; easing:linear;"></a-mixin>
+            <a-mixin id="bob" animation__pos="property:position; to:0 1.05 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad;"></a-mixin>
+        </a-asset>
+
+        <!-- scene objects -->
+        <a-entity mixin="coin" position="3 3 -4" rotation="90 0 0"></a-entity>
+        <a-entity mixin="coin" position="4 1 -4" rotation="90 0 0"></a-entity>
+        <a-entity mixin="coin" position="-3 3 -2" rotation="90 0 0"></a-entity>
+        <a-entity mixin="coin" position="-4 3 4.5" rotation="90 0 0"></a-entity>
+        
+        <!-- <a-cylinder 
+            position="1 1 -2" 
+            rotation="90 0 0" 
+            height="0.1" 
+            radius="0.25" 
+            color="#ffaa00" 
+            animation__rotation="property:rotation; to:90 360 0; loop:true; dur:2000; easing:linear;">
+        </a-cylinder> -->
+        
+        <a-entity id="fuelGem" position="-2.25 0 2.75">
+            <a-entity mixin="fuel spin bob" position="0 1 0" rotation="0 0 0"></a-entity>
+            <a-light type="point" position="0 1 0" intensity="1.0" distance="4"></a-light>
+        </a-entity>
+
+
+        <a-gltf-model id="gameLvl" src="#level" mesh-shadows visible="true" ></a-gltf-model>
+        <a-gltf-model id="navmesh" gltf-model="#navMesh" position="0 0 0" visible="false"></a-gltf-model>
+        <a-gltf-model 
+                    id="submarine" 
+                    src="#sub" 
+                    position="3 -1.2 7" 
+                    gltf-model="assets/meshes/submarine.glb" 
+                    rotation="-181 -90 -174"
+                    shadow="cast:false; receive:true;"
+                    animation="property:position; to:3 -1.0 7; dir:alternate; loop:true; dur:1500; easing:easeInOutQuad;"
+                    animation__rotation="property:rotation; to:-179 -90 -186; dir:alternate; loop:true; dur:1500; easing:easeInOutQuad;"
+              ></a-gltf-model>
+        <a-water
+            position="0 -0.5 0"  
+            width="100" 
+            depth="100"
+            density="75"
+            wavelength="0.5" 
+            amplitude="2.0" 
+            speed="2"
+            noise="6" 
+            color="#891884"
+            opacity="1.0">
+        </a-water>
+
+        <a-entity environment="preset:arches;" position="0 -4 0"></a-entity>
+        
+        <!-- Lights -->
+        <a-light id="sunlight" position="-2.5 4.0 5" rotation="106 -25 -46.5" light="castShadow: true; shadowCameraLeft:-6.0;"></a-light>
+        <a-light id="ambient" type="ambient" intensity="0.35"></a-light>        
+
+        <!-- Ada Rose Cannon's Navmesh Component -->
+        
+        <a-entity 
+            id="cameraRig"
+            position="0 0 0"
+            rotation="0 180 0" >
+            <!-- camera -->
+            <a-entity 
+                id="head" 
+                camera="near: 0.01" 
+                look-controls="pointerLockEnabled: true" 
+                position="0 1.65 0" 
+                wasd-controls="acceleration: 10" 
+                simple-navmesh-constraint="navmesh: #navmesh;fall: 0.1; height: 1.65" 
+                rotation="0 0 0" 
+                >
+            </a-entity>
+            <!-- hand controls -->
+            <a-entity 
+                id="left-hand" 
+                teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head; collisionEntities: #navmesh;"
+                hand-controls="hand: left;"
+                laser-controls="hand:left;"
+                raycaster="far:3;">
+            </a-entity>
+            <a-entity 
+                id="right-hand" 
+                hand-controls="hand: right;"
+                laser-controls="hand:right;"
+                raycaster="far:3;">
+            </a-entity>
+        </a-entity>
+
+    </a-scene>
+</body>
+</html>

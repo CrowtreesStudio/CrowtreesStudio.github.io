@@ -66,29 +66,6 @@ function init(){
  
 }
 
-AFRAME.registerComponent('stare-at', {
-    
-    schema:{
-        event:{default:null},
-        targetObj:{default:'empty'},
-        playerPos:{default:null},
-        lookWith:{default:null}
-    },
-    
-    init: function(){
-        let playerCam = document.querySelector(this.data.targetObj);
-        this.data.playerPos = playerCam.object3D.position;
-    },
-    
-    tick: function(){
-        this.data.lookWith.lookAt(this.data.playerPos.x+0.3, 1, this.data.playerPos.z+3);
-        console.log(this.data.playerPos.x);
-    }
-    
-});
-
-
-
 AFRAME.registerComponent('load-model', {
     schema:{
         lookBone:{default:null},
@@ -200,6 +177,29 @@ AFRAME.registerComponent('load-rig', {
         });
     }  
 });
+
+AFRAME.registerComponent('stare-at', {
+    
+    schema:{
+        event:{default:null},
+        targetObj:{default:'empty'},
+        playerPos:{default:null},
+        lookWith:{default:null}
+    },
+    
+    init: function(){
+        let playerCam = document.querySelector(this.data.targetObj);
+        this.data.playerPos = playerCam.object3D.position;
+        console.log("look with 1", this.data.lookWith);
+        console.log("look with 2", this.data);
+    },
+    
+    tick: function(){
+        this.data.lookWith.lookAt(this.data.playerPos.x+0.3, 1, this.data.playerPos.z+3);
+        console.log("Player Pos",this.data.playerPos.x);
+    }
+    
+});ß
 
 /*AFRAME.registerComponent('nav-pointer', {
     init:function(){
