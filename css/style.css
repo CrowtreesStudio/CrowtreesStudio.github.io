@@ -1,6 +1,6 @@
 h1, h4, a, p {
     font-family: 'Heebo', sans-serif;
-    color:#a0b0b0;
+    color:#ffffff;
 }
 
 #warning{
@@ -12,7 +12,8 @@ h1, h4, a, p {
 }
 
 body{
-    background-color: #152d2d;
+    /* background-color: #152d2d; */
+    background-color: #320013;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -52,6 +53,14 @@ body{
 #copy #instructions{
         margin: -10px 30px 20px 30px;
         line-height: 1.25em;
+}
+
+#instructions{
+    font-size: 1.25em;
+}
+
+blockquote{
+    color: white;
 }
 
 
