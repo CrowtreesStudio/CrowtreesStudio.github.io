@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
 <body>
-    <div class="page grid">
+    <div class="page grid" id="top">
        <header>
           <div id="logo" class="box">
              <object id="svg-object" data="assets/preloaderSVG.svg" ></object>
@@ -20,14 +20,14 @@
                    <iframe 
                        allowvr="yes"
                        allowfullscreen="yes" 
-                       src="VR_dalek_city/index.html" 
+                       src="VR_aframe_level/index.html" 
                     ></iframe>
            </div>
        </header>
 
-        <div class="item"><a href="/VR_superhands/index.html" target="_blank" >Super Hands</a></div>
-        <div class="item"><a href="#" target="_blank" >Not Yet</a></div>
-        <div class="item"><a href="#" target="_blank" >Coming Soon</a></div>
+       <div id="virtual" class="item"><a href="#one" >Virtual Reality</a></div>
+       <div id="augmented" class="item"><a href="#two" >Augmented Reality</a></div>
+       <div id="super" class="item"><a href="/VR_superhands/index.html" target="_blank" >Super Hands</a></div>
        
        <article>
            <div id="copy">
@@ -38,183 +38,204 @@
                <p id="instructions"><strong>Instructions: </strong><br><br><strong>Browser:</strong><small> Click on the VR button to enter fullscreen mode and click on the scene to activate mouse look. Navigate using the WASD keys. Press the Esc key to release the cursor. This behaves in the same manner as a FPS game.</small><br><br><strong>Smartphone VR viewer:</strong><small> Click on the symbol in the lower right to enter true VR mode. If the viewer includes a button, use it to move about the scene.</small><br><br><strong>Tracked headset:</strong><small> Use the built in browser to navigate to this page. Click the symbol in the lower right and move around the scene.</small></p> -->
            </div>
         </article>
-        <!-- Simple Hello World in A-frame -->
-            <div class="box product image">
-                   <a href="/VR_aframe_hello_world/index.html" target="_blank">
-                       <h1 class="stroke">Vr</h1>
-                       <h1>Vr</h1>
-                       <img alt="A-Frame Hello World" src="assets/icons/iconHelloWorld.jpg" />
-                   </a>
-                <h4>A-Frame Hello World</h4>
-                <p>Basic A-Frame &quot;Hello World&quot; scene illustrating the ease of implementation. Included is the code to give permission to iOS Safari to share Motion &amp; Orientation data with the scene.</p>
-            </div>
-        <!-- Teleport Controllers - Base Level -->         
-            <div class="box product image">
-                  <h1 class="stroke">Vr</h1>
-                  <h1>Vr</h1>
-                   <a href="VR_aframe_level/index.html" target="_blank">
-                    <img alt="VR Tracking Contollers" src="assets/icons/iconLevelCtrl.jpg" />
-                    </a>
-                <h4>Level with Tracked Controllers</h4>
-                <p>Using a HMD and tracked controllers, navigate this simple level using teleport. Level uses 'nav-mesh' detection to indicate accessible areas.</p>
-            </div>
-
-        <!-- Teleport Controllers - Submariner Walkabout -->         
-            <div class="box product image">
-                  <h1 class="stroke">Vr</h1>
-                  <h1>Vr</h1>
-                   <a href="Components (movement)/index.html" target="_blank">
-                    <img alt="VR Tracking Contollers" src="assets/icons/iconWalkabout.jpg" />
-                    </a>
-                <h4>Submariner Walkabout</h4>
-                <p>Using a HMD and tracked controllers, navigate this simple level using teleport and collect the coins to reveal the fuel crystal for your submarine.</p>
-            </div>
-        <!-- Blink controllers currently not working WMR HMD-->
-            <div class="box product image">
+<!-- ////////////////////////// -->
+<!--  Virtual Reality Projects  -->
+<!-- ////////////////////////// -->
+        <div class="subHeader" id="one">
+            <h1>A-Frame Virtual Reality</h1>
+        </div>
+<!-- Simple Hello World in A-frame -->
+        <div class="box product image">
+                <a href="/VR_aframe_hello_world/index.html" target="_blank">
                     <h1 class="stroke">Vr</h1>
                     <h1>Vr</h1>
-                    <a href="VR_aframe_level_blink/index.html" target="_blank">
-                    <img alt="VR Tracking Contollers" src="assets/icons/iconLevelCtrl.jpg" />
-                    </a>
-                <h4>Blink Controllers</h4>
-                <p>Uses Blink Controls, to teleport a simple level with a HMD. The 'nav-mesh' will determine what areas are accessible.</p>
-            </div>
-            <!-- Blink controllers currently not working WMR HMD-->
-            <div class="box product image">
+                    <img alt="A-Frame Hello World" src="assets/icons/iconHelloWorld.jpg" />
+                </a>
+            <h4>A-Frame Hello World</h4>
+            <p>Basic A-Frame &quot;Hello World&quot; scene illustrating the ease of implementation. Included is the code to give permission to iOS Safari to share Motion &amp; Orientation data with the scene.</p>
+        </div>
+<!-- VR Working controller Teleport-->    
+        <div class="box product image">
+            <a href="VR_teleport_controllers/index.html" target="_blank">
                 <h1 class="stroke">Vr</h1>
                 <h1>Vr</h1>
-                <a href="VR_aframe_level_Superhands/index.html" target="_blank">
+                <img alt="A-Frame VR HMD tracked controllers" src="assets/icons/iconHMDControllers.jpg" />
+            </a>
+        <h4>Basic Teleport Controls</h4>
+        <p>Basic implementation in A-frame to tracked hand controllers for HMD such as WMR/Oculus/Vive. Adds the scene primitives that are targets to collisionEntities and teleports to that location.</p>
+        </div>
+<!-- Teleport Controllers - Base Level -->         
+        <div class="box product image">
+                <h1 class="stroke">Vr</h1>
+                <h1>Vr</h1>
+                <a href="VR_aframe_level/index.html" target="_blank">
                 <img alt="VR Tracking Contollers" src="assets/icons/iconLevelCtrl.jpg" />
                 </a>
-                <h4>Super Hands Controller</h4>
-                <p>Uses Super Hands Controls, to implement input controls in a scene. Example: Hover, grab, click, etc</p>
-            </div>
-        <!-- Maritime experience -->
-            <div class="box product image">
-                   <h1 class="stroke">Vr</h1>
-                   <h1>Vr</h1>
-                   <a href="VR_maritimes/index.html" target="_blank">
-                    <img alt="VR Maritime Experience" src="assets/icons/iconMaritimes.jpg" />
+            <h4>Level with Tracked Controllers</h4>
+            <p>Using a HMD and tracked controllers, navigate this simple level using teleport. Level uses 'nav-mesh' detection to indicate accessible areas.</p>
+        </div>
+
+<!-- Teleport Controllers - Submariner Walkabout -->         
+        <div class="box product image">
+                <h1 class="stroke">Vr</h1>
+                <h1>Vr</h1>
+                <a href="Components (movement)/index.html" target="_blank">
+                <img alt="VR Tracking Contollers" src="assets/icons/iconWalkabout.jpg" />
                 </a>
-                <h4>VR Maritime Experience</h4>
-                <p>First A-frame environment targetting Cardboard VR using geometry imported in the GLTF format, imported A-Frame components &amp; sound.<br>Rough but informative</p>
-            </div>
-        <!-- Dalek City - Broken -->
-            <div class="box product image">
-                   <a href="/VR_dalek_city/index.html" target="_blank">
-                       <h1 class="stroke">Vr</h1>
-                       <h1>Vr</h1>
-                       <img alt="Dalek City Entrance Hall" src="assets/icons/iconDalek.jpg" />
-                   </a>
-                <h4>VR Dalek City</h4>
-                <p>The interior of the Dalek City from the Doctor Who story &quot;The Daleks&quot; 1963.<br>Currently Broken &amp; still a WIP.</p>
-            </div>
-        <!-- Multiple AR Markers -->    
-            <div class="box product image">
-                   <a href="/AR_multi_markers/index.html" target="_blank">
-                       <h1 class="stroke">Ar</h1>
-                       <h1>Ar</h1>
-                       <img alt="A-Frame Multiple AR Markers" src="assets/icons/iconGeneralAR.jpg" />
-                   </a>
-                <h4>A-Frame Multimarker</h4>
-                <p>Basic A-Frame Multimarker AR scene illustrating the ease of implementation. Three markers are required: the built in Hiro and two custom markers.</p>
-            </div>
-        <!-- WebXR Demo for markerless AR-->    
-            <div class="box product image">
-                   <a href="/AR_webXR_aFrame/index.html" target="_blank">
-                       <h1 class="stroke">Ar</h1>
-                       <h1>Ar</h1>
-                       <img alt="A-Frame WebXR Spinosaurus" src="assets/icons/iconWebXR.jpg" />
-                   </a>
-                <h4>A-Frame WebXR</h4>
-                <p>A-frame WebXR demo. Works on Android & Chrome and XRViewer on Mac.</p>
-            </div>
-            <div class="box product image">
-                    <a href="/AR_webXR_boilerplate/">
-                        <h1 class="stroke">Ar</h1>
-                        <h1>Ar</h1>
-                        <img alt="A-Frame Box & Environment Component." src="assets/icons/iconWebXRBox.jpg" />
-                    </a>
-                <h4>WebXR Boilerplate</h4>
-                <p>A-frame WebXR boilerplate file. Works on Android & Chrome and XRViewer on Mac.</p>
-            </div>
-        <!-- AR marker with click -->
-            <div class="box product image">
-                   <a href="/AR_tap/index.html" target="_blank">
-                       <h1 class="stroke">Ar</h1>
-                       <h1>Ar</h1>
-                       <img alt="A-Frame AR Reticle Click" src="assets/icons/iconGeneralAR.jpg" />
-                   </a>
-                <h4>A-Frame AR reticle Click</h4>
-                <p>A-frame AR example using a reticle and 'click' event to affect or activate the artifact when hovering over them.</p>
-            </div>
-        <!-- AR Mouse Click -->
-            <div class="box product image">
-                   <a href="/AR_mouse_click/index.html" target="_blank">
-                       <h1 class="stroke">Ar</h1>
-                       <h1>Ar</h1>
-                       <img alt="A-Frame AR Mouse Click" src="assets/icons/iconGeneralAR.jpg" />
-                   </a>
-                <h4>A-Frame AR Mouse Click</h4>
-                <p>A-frame AR example allowing for targeted clicks on objects displayed by the marker.</p>
-            </div>
-        <!-- VR Stereo Skybox-->
-            <div class="box product image">
-                   <a href="/VR_stereo_skybox/index.html" target="_blank">
-                       <h1 class="stroke">Vr</h1>
-                       <h1>Vr</h1>
-                       <img alt="A-Frame VR Stereo Skybox" src="assets/icons/iconStereoSkyBox.jpg" />
-                   </a>
-                <h4>A-Frame VR Stereo Skybox</h4>
-                <p>Simple 360 stereo image using the aframe-stereo-component</p>
-            </div>
-        <!-- VR Working controller Teleport-->    
-            <div class="box product image">
-                   <a href="/VR_teleport_controllers/" target="_blank">
-                       <h1 class="stroke">Vr</h1>
-                       <h1>Vr</h1>
-                       <img alt="A-Frame VR HMD tracked controllers" src="assets/icons/iconHMDControllers.jpg" />
-                   </a>
-                <h4>HMD Teleport Controls</h4>
-                <p>Basic implementation in A-frame to tracked hand controllers for HMD such as WMR/Oculus/Vive. This uses a 'nav-mesh' and teleport to move through the scene.</p>
-            </div>
-        <!-- A-frame example of tracked controllers -->
-            <div class="box product image">
-                  <h1 class="stroke">Vr</h1>
-                  <h1>Vr</h1>
-                   <a href="VR_tracked_controllers/index.html" target="_blank">
-                    <img alt="VR HMD Tracked Contollers" src="assets/icons/iconTrackedControl.jpg" />
-                    </a>
-                <h4>VR HMD Grab</h4>
-                <p>A-Frame.io example. Using any headset that has tracked controllers, it allows you to grab and move the cubes making up the A.</p>
-            </div>
-        <!-- AR GPS Tracking -->
-            <div class="box product image">
-                <h1 class="stroke">Ar</h1>
-                <h1>Ar</h1>
-                 <a href="AR_GPS_boilerplate/index.html" target="_self">
-                  <img alt="AR GPS tracking" src="assets/icons/iconGeneralAR.jpg" />
-                  </a>
-              <h4>AR GPS Boilerplate</h4>
-              <p>Position an object using GPS coordinates and track with AR camera.</p>
-          </div>
-          <!-- Mapbox Component -->
-          <div class="box product image">
+            <h4>Submariner Walkabout</h4>
+            <p>Using a HMD and tracked controllers, navigate this simple level using teleport and collect the coins to reveal the fuel crystal for your submarine.</p>
+        </div>
+<!-- Blink controllers currently not working WMR HMD-->
+        <div class="box product image">
+                <h1 class="stroke">Vr</h1>
+                <h1>Vr</h1>
+                <a href="VR_aframe_level_blink/index.html" target="_blank">
+                <img alt="VR Tracking Contollers" src="assets/icons/iconLevelCtrl.jpg" />
+                </a>
+            <h4>Blink Controllers</h4>
+            <p>Uses Blink Controls, to teleport a simple level with a HMD. The 'nav-mesh' will determine what areas are accessible.</p>
+        </div>
+    <!-- Blink controllers currently not working WMR HMD-->
+        <div class="box product image">
             <h1 class="stroke">Vr</h1>
             <h1>Vr</h1>
-             <a href="VR_mapbox_component/index.html" target="_self">
-              <img alt="AR GPS tracking" src="assets/icons/iconHelloWorld.jpg" />
-              </a>
-          <h4>Mapbox Component</h4>
-          <p>Basic implementation of the Mapbox component for A-frame.</p>
-      </div>
-           <footer>
-              <div id="trademark">
-                   <a href="http://www.crowtreesstudio.com" target="_blank">
-                      <p>Crowtrees Studio &copy; 2020</p>
-                   </a>
-               </div>
-           </footer>
+            <a href="VR_aframe_level_Superhands/index.html" target="_blank">
+            <img alt="VR Tracking Contollers" src="assets/icons/iconLevelCtrl.jpg" />
+            </a>
+            <h4>Super Hands Controller</h4>
+            <p>Uses Super Hands Controls, to implement input controls in a scene. Example: Hover, grab, click, etc</p>
+        </div>
+<!-- Maritime experience -->
+        <div class="box product image">
+                <h1 class="stroke">Vr</h1>
+                <h1>Vr</h1>
+                <a href="VR_maritimes/index.html" target="_blank">
+                <img alt="VR Maritime Experience" src="assets/icons/iconMaritimes.jpg" />
+            </a>
+            <h4>VR Maritime Experience</h4>
+            <p>First A-frame environment targetting Cardboard VR using geometry imported in the GLTF format, imported A-Frame components &amp; sound.<br>Rough but informative</p>
+        </div>
+<!-- Dalek City - Broken -->
+        <div class="box product image">
+                <a href="/VR_dalek_city/index.html" target="_blank">
+                    <h1 class="stroke">Vr</h1>
+                    <h1>Vr</h1>
+                    <img alt="Dalek City Entrance Hall" src="assets/icons/iconDalek.jpg" />
+                </a>
+            <h4>VR Dalek City</h4>
+            <p>The interior of the Dalek City from the Doctor Who story &quot;The Daleks&quot; 1963.<br>Currently Broken &amp; still a WIP.</p>
+        </div>
+<!-- Mapbox Component -->
+        <div class="box product image">
+            <h1 class="stroke">Vr</h1>
+            <h1>Vr</h1>
+                <a href="VR_mapbox_component/index.html" target="_self">
+                <img alt="AR GPS tracking" src="assets/icons/iconHelloWorld.jpg" />
+                </a>
+            <h4>Mapbox Component</h4>
+            <p>Basic implementation of the Mapbox component for A-frame.</p>
+        </div>
+<!-- VR Stereo Skybox-->
+        <div class="box product image">
+            <a href="/VR_stereo_skybox/index.html" target="_blank">
+                <h1 class="stroke">Vr</h1>
+                <h1>Vr</h1>
+                <img alt="A-Frame VR Stereo Skybox" src="assets/icons/iconStereoSkyBox.jpg" />
+            </a>
+        <h4>A-Frame VR Stereo Skybox</h4>
+        <p>Simple 360 stereo image using the aframe-stereo-component</p>
+        </div>
+<!-- A-frame example of tracked controllers -->
+        <div class="box product image">
+            <h1 class="stroke">Vr</h1>
+            <h1>Vr</h1>
+            <a href="VR_tracked_controllers/index.html" target="_blank">
+            <img alt="VR HMD Tracked Contollers" src="assets/icons/iconTrackedControl.jpg" />
+            </a>
+        <h4>VR HMD Grab</h4>
+        <p>A-Frame.io example. Using any headset that has tracked controllers, it allows you to grab and move the cubes making up the A.</p>
+        </div>
+
+       <div id="backTop" class="item"><a href="#top" >Back to Top of Page</a></div>
+
+<!-- ////////////////////////// -->
+<!-- Augmented Reality Projects -->
+<!-- ////////////////////////// -->
+
+        <div class="subHeader" id="two">
+            <h1>A-Frame Augmented Reality</h1>
+        </div>
+
+<!-- Multiple AR Markers -->    
+        <div class="box product image">
+                <a href="/AR_multi_markers/index.html" target="_blank">
+                    <h1 class="stroke">Ar</h1>
+                    <h1>Ar</h1>
+                    <img alt="A-Frame Multiple AR Markers" src="assets/icons/iconGeneralAR.jpg" />
+                </a>
+            <h4>A-Frame Multimarker</h4>
+            <p>Basic A-Frame Multimarker AR scene illustrating the ease of implementation. Three markers are required: the built in Hiro and two custom markers.</p>
+        </div>
+<!-- WebXR Demo for markerless AR-->    
+        <div class="box product image">
+                <a href="/AR_webXR_aFrame/index.html" target="_blank">
+                    <h1 class="stroke">Ar</h1>
+                    <h1>Ar</h1>
+                    <img alt="A-Frame WebXR Spinosaurus" src="assets/icons/iconWebXR.jpg" />
+                </a>
+            <h4>A-Frame WebXR</h4>
+            <p>A-frame WebXR demo. Works on Android &amp; XRViewer on Mac.</p>
+        </div>
+        <div class="box product image">
+                <a href="/AR_webXR_boilerplate/">
+                    <h1 class="stroke">Ar</h1>
+                    <h1>Ar</h1>
+                    <img alt="A-Frame Box & Environment Component." src="assets/icons/iconWebXRBox.jpg" />
+                </a>
+            <h4>WebXR Boilerplate</h4>
+            <p>A-frame WebXR boilerplate file. Works on Android &amp; XRViewer on Mac.</p>
+        </div>
+<!-- AR marker with click -->
+        <div class="box product image">
+                <a href="/AR_tap/index.html" target="_blank">
+                    <h1 class="stroke">Ar</h1>
+                    <h1>Ar</h1>
+                    <img alt="A-Frame AR Reticle Click" src="assets/icons/iconGeneralAR.jpg" />
+                </a>
+            <h4>A-Frame AR reticle Click</h4>
+            <p>A-frame AR example using a reticle and 'click' event to affect or activate the artifact when hovering over them.</p>
+        </div>
+<!-- AR Mouse Click -->
+        <div class="box product image">
+                <a href="/AR_mouse_click/index.html" target="_blank">
+                    <h1 class="stroke">Ar</h1>
+                    <h1>Ar</h1>
+                    <img alt="A-Frame AR Mouse Click" src="assets/icons/iconGeneralAR.jpg" />
+                </a>
+            <h4>A-Frame AR Mouse Click</h4>
+            <p>A-frame AR example allowing for targeted clicks on objects displayed by the marker.</p>
+        </div>
+<!-- AR GPS Tracking -->
+        <div class="box product image">
+            <h1 class="stroke">Ar</h1>
+            <h1>Ar</h1>
+                <a href="AR_GPS_boilerplate/index.html" target="_self">
+                <img alt="AR GPS tracking" src="assets/icons/iconGeneralAR.jpg" />
+                </a>
+            <h4>AR GPS Boilerplate</h4>
+            <p>Position an object using GPS coordinates and track with AR camera.</p>
+        </div>
+
+        <div id="backTop" class="item"><a href="#top" >Back to Top of Page</a></div>
+        
+<!-- Footer - end of page -->
+        <footer>
+            <div id="trademark">
+                <a href="http://www.crowtreesstudio.com" target="_blank">
+                    <p>Crowtrees Studio &copy; 2022</p>
+                </a>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
