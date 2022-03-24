@@ -28,14 +28,7 @@ AFRAME.registerComponent('controllisten', {
         console.log("player is",player);
         console.log("testing", el);
         console.log("test2", id);
-        
-//        el.addEventListener('buttonup', function(evt){
-//            console.log(id, "button released");
-//            console.log(evt, "button");
-//        });
-//
-//        button 0 = trackpad, button 1 = trigger, button 2 = side trigger, button 3 = menu
-//        
+             
         el.addEventListener('axismove', function(evt){
             
             //test code for thumbstick courtesy SirFizX & Pavel
@@ -53,11 +46,6 @@ AFRAME.registerComponent('controllisten', {
                 console.log("move forward");
             };
         });
-        
-//        specific to windows mixed reality
-//        el.addEventListener('thumbstickchanged', function(evt){
-//            console.log("evt for thumbstick",evt);
-//        })
     }
 });
 

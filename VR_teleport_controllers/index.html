@@ -8,6 +8,9 @@
     <script  src="JS/code.js"></script>
 </head>
 <body>
+    <div style="position:absolute; z-index: 100;">
+        <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's ...</div>
+    </div>
    <a-scene background="color:#000000;">
        <!-- Basic VR scene for testing -->
        <a-box id="box" position="-3 0.5 -3" color="#2f80d1" ></a-box>
@@ -25,14 +28,13 @@
            <a-entity id="camera" camera position="0 1.65 0" wasd-controls look-controls>
            </a-entity>
            
-           <!-- Left hand teleport control -->
+           <!-- Left hand laser control -->
            <a-entity id="leftHand" controllisten
-              teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #wall, #floor;"
               hand-controls="hand: left;">
                
            </a-entity>
 
-           <!-- Right hand laser control -->
+           <!-- Right hand teleport control -->
            <a-entity id="rightHand" controllisten
               teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #wall, #floor;"
               hand-controls="hand: right;">
