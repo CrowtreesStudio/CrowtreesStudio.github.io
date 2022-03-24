@@ -25,19 +25,18 @@
        <a-box id="floor" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a"></a-box>
       
        <a-entity id="cameraRig" position="0 0 0">
-           <a-entity id="camera" camera position="0 1.65 0" wasd-controls look-controls>
-           </a-entity>
+           <a-entity id="camera" camera position="0 1.65 0" wasd-controls look-controls ></a-entity>
            
            <!-- Left hand laser control -->
            <a-entity id="leftHand" controllisten
-              hand-controls="hand: left;">
+              hand-controls="hand: left;" windows-motion-controls="hand: left">
                
            </a-entity>
 
            <!-- Right hand teleport control -->
            <a-entity id="rightHand" controllisten
               teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #wall, #floor;"
-              hand-controls="hand: right;">
+              hand-controls="hand: right;" windows-motion-controls="hand:right;">
                
            </a-entity>
 
