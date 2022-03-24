@@ -20,7 +20,7 @@
 
         <!-- load models -->
         <a-gltf-model model-shadows src="#level"></a-gltf-model>
-        <a-gltf-model id="navmesh" nav-mesh src="#navigationmesh" visible="true" position="0 0 0"></a-gltf-model>
+        <a-gltf-model class="navmesh" src="#navigationmesh" visible="true" position="0 0 0"></a-gltf-model>
         
         <a-box id="boxone" color="#ff4e00" position="2 2.7 -3" rotation="0 0 0" scale="0.5 0.5 0.5" shadow animation="property:rotation; to:0 360 0; dur:3000; loop:true; easing:linear;"></a-box>
 
@@ -35,25 +35,23 @@
             id="camRig" 
             position="2 0 4">
 
-            <a-entity id="camera" camera position="0 1.65 0" wasd-controls="acceleration:8;" look-controls="pointerLockEnabled:true;"></a-entity>
+            <a-entity id="camera" 
+                camera 
+                position="0 1.65 0" 
+                wasd-controls="acceleration:8;" 
+                look-controls="pointerLockEnabled:true;"
+                simple-navmesh-constraint="navmesh:.navmesh;fall:0.5;height:1.65;"></a-entity>
             
-            <!-- Left hand teleport control -->
             <a-entity    
                 id="left-hand"
                 hand-controls="hand: left;"
-                blink-controls="cameraRig: #camRig; teleportOrigin: #camera; collisionEntities: #navmesh;">
+                blink-controls="cameraRig: #camRig; teleportOrigin: #camera; collisionEntities:.navmesh;">
             </a-entity>
 
-            <!-- Right hand -->
             <a-entity    
                 id="right-hand"
                 hand-controls="hand: right;">
-                
             </a-entity>
-
-            <!-- the blink-controls ... -->
-
-            <!-- the laser-controls ... -->
             
         </a-entity>
         
