@@ -83,13 +83,16 @@
 
   <!-- ////////////////////////////////// -->
   <!-- ////////////////////////////////// -->
+
   <!-- The direction hands are facing, we will also attach labels to show the currently detected pose or controller button -->
 
   <!-- Teleportaion for Blink controls in VR -->
         <a-entity data-right="ray" mixin="blink" blink-controls>
           <a-entity position="0 0 -0.22" visible="false" class="pose-label" text="value: Hello World; align: center;"></a-entity>
         </a-entity>
-        <a-entity data-left="ray" mixin="blink" blink-controls>
+
+        <!-- <a-entity data-left="ray" mixin="blink" blink-controls> -->
+        <a-entity mixin="blink" blink-controls>
           <a-entity position="0 0 -0.30" visible="false" class="pose-label" text="value: Hello World; align: center;"></a-entity>
         </a-entity>
 
@@ -135,7 +138,7 @@
     ></a-entity>
 
 <!-- These items and models are hidden on entering ar -->
-    <!-- <a-entity hide-on-enter-ar position="0 -0.2 0" environment="lighting:none;shadow:true;preset: osiris;"></a-entity> -->
+    <a-entity hide-on-enter-ar position="0 -0.2 0" environment="lighting:none;shadow:true;preset: osiris;"></a-entity>
 		<a-entity rotation="0 -45 0" position="0 0 0" hide-on-enter-ar>
       <!-- <a-box 
         position="-5.148 -0.1 -0.355"
