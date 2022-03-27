@@ -78,10 +78,12 @@
 <!-- Hand tracking -->
       <!-- <a-entity handy-controls="right:#right-gltf; materialOverride:right;" material="color:gold; metalness:1; roughness:0;"> -->
       <a-entity handy-controls="right:#right-gltf; left:#left-gltf">
+        <!-- Models are not being loaded - Windows MR controllers are rendered -->
         
         <!-- Use the finger tips for teleporting when the user points -->
         <a-entity data-right="index-finger-tip" mixin="blink" blink-controls="rotateOnTeleport:false;startEvents:pose_point_fuseShort;endEvents:pose_point_fuseLong;"></a-entity>
         <a-entity data-left="index-finger-tip"  mixin="blink" blink-controls="rotateOnTeleport:false;startEvents:pose_point_fuseShort;endEvents:pose_point_fuseLong;"></a-entity>
+        <!-- blink-controls: rotateOnTeleport:false removes the ability to change player facing at end of teleport -->
 
   <!-- ////////////////////////////////// -->
   <!-- ////////////////////////////////// -->
@@ -153,14 +155,14 @@
 <!-- These items and models are hidden on entering ar -->
     <a-entity hide-on-enter-ar position="0 -0.2 0" environment="lighting:none;shadow:true;preset: osiris;"></a-entity>
 		<a-entity rotation="0 -45 0" position="0 0 0" hide-on-enter-ar>
-      <!-- <a-box 
+      <a-box 
         position="-5.148 -0.1 -0.355"
         visible="false"
         geometry="width:33.67;height:0.2;depth:19.06"
         ammo-body="type: static;"
         ammo-shape="type: box"
         ammo-restitution="1.5">
-      </a-box> -->
+      </a-box>
       <!-- <a-gltf-model id="pot" toggle-physics shadow="receive:false;" src="#stew-gltf" position="-2 1.2 0.8" ammo-body-from-model="type:dynamic;mass:2;" ammo-shape-from-model="type:cylinder;offset:0 0.2 0;">
         <a-entity id="stew-handle-1" data-magnet-range="0.2,0.1,360,180" data-pick-up="parent" class="magnet-left magnet-right" mixin="handle-visual" position="0 0.35 -0.35" rotation="0 90 0"></a-entity>
         <a-entity id="stew-handle-2" data-magnet-range="0.2,0.1,360,180" data-pick-up="parent" class="magnet-left magnet-right" mixin="handle-visual" position="0 0.35 0.35" rotation="0 90 0"></a-entity>
