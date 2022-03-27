@@ -63,8 +63,6 @@
 <!-- ////////////////////////////////// -->
 <!-- ////////////////////////////////// -->
 
-<a-gltf-model id="model hand" src="#right-gltf" position="-1.1 1.65 0.5"></a-gltf-model>
-
 <!-- camera rig -->
     <a-entity id="cameraRig" position="-1 0 1" rotation="0 0 0" origin-on-ar-start >
 <!-- camera -->
@@ -78,7 +76,8 @@
 <!-- Camera ends -->
       
 <!-- Hand tracking -->
-      <a-entity handy-controls="right:#right-gltf; materialOverride:right;" material="color:gold; metalness:1; roughness:0;">
+      <!-- <a-entity handy-controls="right:#right-gltf; materialOverride:right;" material="color:gold; metalness:1; roughness:0;"> -->
+      <a-entity handy-controls="right:#right-gltf;">
         
         <!-- Use the finger tips for teleporting when the user points -->
         <a-entity data-right="index-finger-tip" mixin="blink" blink-controls="rotateOnTeleport:false;startEvents:pose_point_fuseShort;endEvents:pose_point_fuseLong;"></a-entity>
@@ -94,7 +93,7 @@
           <a-entity position="0 0 -0.22" visible="false" class="pose-label" text="value: Hello World; align: center;"></a-entity>
         </a-entity>
 
-        <a-entity data-left mixin="blink" blink-controls>
+        <a-entity data-left="ray" mixin="blink" blink-controls>
           <a-entity position="0 0 -0.30" visible="false" class="pose-label" text="value: Hello World; align: center;"></a-entity>
         </a-entity>
 
@@ -102,8 +101,8 @@
   <!-- ////////////////////////////////// -->
 
   <!-- These get drawn towards grabable objects, moving the whole hand and the attached elements-->
-        <!-- <a-entity id="right-magnet" data-right="grip" data-magnet="magnet-right" grab-magnet-target="startEvents:squeezestart,pose_fist;stopEvents:pose_flat_fuseShort,squeezeend;"></a-entity>
-        <a-entity id="left-magnet" data-left="grip"  data-magnet="magnet-left"  grab-magnet-target="startEvents:squeezestart,pose_fist;stopEvents:pose_flat_fuseShort,squeezeend;"></a-entity> -->
+        <a-entity id="right-magnet" data-right="grip" data-magnet="magnet-right" grab-magnet-target="startEvents:squeezestart,pose_fist;stopEvents:pose_flat_fuseShort,squeezeend;"></a-entity>
+        <a-entity id="left-magnet" data-left="grip"  data-magnet="magnet-left"  grab-magnet-target="startEvents:squeezestart,pose_fist;stopEvents:pose_flat_fuseShort,squeezeend;"></a-entity>
 
   <!-- ////////////////////////////////// -->
   <!-- ////////////////////////////////// -->
