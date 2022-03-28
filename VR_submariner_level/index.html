@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Aframe Submariner Walkabout</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <!-- <script src="lib/aframe-master.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    <script src="js/code.js"></script>
+</head>
+
+<body>
+   <div id="begin">
+       <div id="infoBox">
+           <div id="copy">Loading...</div>
+           <div id="buttonBox">
+                <a href="#" id="clickEvent" onclick="document.querySelector('#scene').components.scenemgr.startExperience()">
+                    <button id="click">Click to Begin</button>
+                </a>
+           </div>
+       </div>
+   </div>   
+   
+    <a-scene id="scene" scenemgr="pickups:0;" vr-mode-ui="enabled:false;">
+        <!-- Load all assets -->
+        <a-assets>
+            <a-asset-item id="island" src="assets/Level.glb"></a-asset-item>
+            <a-asset-item id="navmesh" src="assets/Navmesh.glb"></a-asset-item>
+            <a-asset-item id="sub" src="assets/submarine.glb" ></a-asset-item>
+            <audio id="oceanSnd" src="assets/waveshort.mp3" ></audio>
+            <audio id="gemAppears" src="assets/gemAppears.mp3" ></audio>
+            <audio id="pickup" src="assets/pickup.mp3"></audio>
+<!--            <img id="ui" src="assets/UI/panelTest.png" >-->
+        </a-assets>
+
+        <!--Set-->
+        <a-entity>
+            <a-gltf-model mesh-check id="level" gltf-model="#island"></a-gltf-model>
+            <!-- Box pickup group -->
+            <a-entity>
+                <a-box 
+                   id="Box01"
+                   class="clickable"
+                   color="#990000"
+                   scale="0.5 0.5 0.5"
+                   position="2 2.5 -3.0"
+                   shadow="cast:true;"
+                   animation="property: rotation; to: 0 360 0; loop:true; dur: 5000; easing: linear;">
+
+                </a-box>
+                <a-box 
+                   id="Box02"
+                   class="clickable"
+                   color="#3b9900"
+                   scale="0.5 0.5 0.5"
+                   position="-3.00079 2.5 -0.95463"
+                   shadow="cast:true;"
+                   animation="property: rotation; to: 0 360 0; loop:true; dur: 5000; easing: linear;">
+
+                </a-box>
+                <a-box 
+                   id="Box03"
+                   class="clickable"
+                   color="#870099"
+                   scale="0.5 0.5 0.5"
+                   position="-4.54648 2.5 4.8843"
+                   shadow="cast:true;"
+                   animation="property: rotation; to: 0 360 0; loop:true; dur: 5000; easing: linear;">
+
+                </a-box>
+                <a-box 
+                   id="Box04"
+                   class="clickable"
+                   color="#ff8000"
+                   scale="0.5 0.5 0.5"
+                   position="4.50931 0.66703 -4.37119"
+                   shadow="cast:true;"
+                   animation="property: rotation; to: 0 360 0; loop:true; dur: 5000; easing: linear;">
+
+                </a-box>
+            </a-entity>
+            <!-- end of box pickup group -->
+            
+            <!-- diamond -->
+            <a-sphere class="not-clickable" id="diamond" emissive="#05a" opacity="0.85" visible="false" radius="0.25" scale="1 1.5 1" position="-2.2 0.75 2.75" segments-height="2" segments-width="4" material="flatShading:true" shadow animation="property: rotation; to: 0 -360 0; loop:true; dur: 5000; easing: linear;">
+                <a-sound id="gemSnd" src="#gemAppears" volume="0.5"></a-sound>
+            </a-sphere>
+
+        </a-entity>
+
+        <!-- Nav mesh. -->
+        <a-entity nav-mesh normal-material visible="false" gltf-model="#navmesh"></a-entity>
+        
+        <!-- Escape Submarine -->
+        <a-entity 
+           id="subRig" 
+           position="0 0 0"
+           animation="property:position; to: 20 -3 0; dur:10000; easing:easeInQuad; autoplay:false;">
+           <a-gltf-model 
+              id="submarine" 
+              class="not-clickable" 
+              visible="false"
+              position="3 -1 6.5"
+              rotation="-1.5 90 -1.5" 
+              gltf-model="#sub"
+              animation="property:position; to:3 -0.85 6.5; dir:alternate; loop:true; dur:1250; easing:easeInOutQuad;"
+              animation__rotation="property:rotation; to:1.5 90 1.5; dir:alternate; loop:true; dur:1750; easing:easeInOutQuad;"
+              >
+               
+           </a-gltf-model>
+            
+        </a-entity>
+        
+        <!-- Ocean -->
+        <a-ocean position="0 -0.5 0" color="#891884" width="150" depth="150" density="75" speed="1" opacity="1.0">
+        </a-ocean>
+        
+        
+        <a-sound id="oceanWaves" src="#oceanSnd" volume="0.5" loop="true"></a-sound>
+        
+        <!-- Environment Component -->
+        <a-entity environment="preset:arches;" position="0 -5 0" ></a-entity>
+        
+<!--     *******************    -->
+<!--     Camera 1 Rig: Main     -->
+<!--     *******************    -->
+        <a-entity 
+            id="rig"  
+            position="2 0 4" 
+            rotation="0 45 0"
+            movement-controls="
+                            constrainToNavMesh: true;
+                            enabled:false;
+                            controls: checkpoint, gamepad, trackpad, keyboard, touch;
+                            speed: 0.15;">
+                            
+            <!-- Camera -->
+            <a-entity 
+               id="mainCam"
+               camera 
+               position="0 1.65 0" 
+               look-controls="enabled:false; pointerLockEnabled: false;">
+                
+                <!-- pickup sound -->
+                <a-sound id="itemPickup" src="#pickup" volume="1" sound="preload:auto;"></a-sound>
+                
+                <!-- Cursor -->
+                <a-cursor 
+                    pointer 
+                    raycaster="objects: .clickable; far: 1;"
+                    color="#ffffff">
+                </a-cursor><!-- Cursor End -->
+                
+                <!-- HUD UI -->              
+                <a-plane
+                    id="HUD"
+                    position="0 -0.025 -1"
+                    height=0.05
+                    width=0.5
+                    color="#af845b"
+                    material="shader:flat; opacity:0.0;"
+                    visible=false>
+                        <a-text
+                            id="feedback"
+                            value=""
+                            position="0 0 0"
+                            opacity="1.0"
+                            animation="property:position; to:0 0.25 0; dur:2000; easing:easeInSine; autoplay:false;"
+                            animation__fade="property: opacity; to: 0; dur:2000; easing:easeInSine; autoplay:false;"
+                            text="align:center; width:1.5; wrapCount:30;">
+                        </a-text>
+                </a-plane><!-- HUD UI End -->
+                
+            </a-entity><!-- #mainCam end -->
+            
+            <!-- Main UI Panel -->
+            <a-entity id="uiGroup" position="0 1.75 -1.25">
+               <!-- Main Dialogue: Title -->
+                <a-text 
+                   id="uiTitle" 
+                   value="Dialogue Title" 
+                   position="0 0.2 0"
+                   color="#ffcfff" 
+                   text="align:center; width:1.75; wrapCount: 25" >
+                </a-text>
+                
+               <!-- Main Dialogue: Copy -->
+                <a-text 
+                    id="uiCopy"
+                    value="This might be interesting..."
+                    position="0 -0.025 0"
+                    color="#f9afff" 
+                    text="align:center; wrapCount:46; width:2;">
+                </a-text>
+                
+                <!-- Button -->
+                <a-plane 
+                    class="clickable"
+                    position="0 -0.325 0.1" 
+                    color="#470f65" 
+                    width="0.45" 
+                    height="0.1"
+                    material="shader:flat;">
+                    <a-text 
+                        value="Click to Begin"
+                        position="0 0.004 0" 
+                        text="align:center; width:auto; wrapCount:25"
+                        color="#f9afff">
+                    </a-text>
+                </a-plane>
+                
+                <!-- Background Framing Plane -->
+                <a-plane 
+                color="#8632c4" 
+                position="0 -0.09 -0.001"
+                width="1.7"
+                height="0.76" 
+                visible="true"
+                material="shader:flat;">
+                   <!-- border -->
+                    <a-plane position="0 0 -0.001" width="1.75" height="0.81" color="#470f65" material="shader:flat;"></a-plane>
+                </a-plane>
+            </a-entity>
+                
+        </a-entity><!-- camera #rig end -->
+        
+        <!-- Camera 2 Rig: Cinematic -->
+        <a-entity 
+            id="rig2"  
+            position="0 4.45 -5" 
+            rotation="-25 210 0"
+            movement-controls="enabled:false;">
+                            
+            <!-- Camera -->
+            <a-entity 
+               id="cinematic"
+               camera 
+               position="0 0 0"
+               visible="false" 
+               look-controls="enabled:false;">
+               <a-entity>
+                   <a-text value="FIN" position="0 0.1 -1" text="align:center; opacity:0.90;" ></a-text>
+               </a-entity>
+            </a-entity>
+        </a-entity>
+        
+        <!-- Lights -->
+        <!-- Direction Light that casts shadows -->
+        <a-light 
+           type="directional" 
+           position="-10 20 10" 
+           light="target:#level; 
+           castShadow:true; 
+           shadowCameraVisible:false; 
+           shadowCameraLeft:-6.5;
+           shadowCameraTop: 6.0; 
+           shadowMapHeight:1024; 
+           shadowMapWidth:1024;">
+            
+        </a-light>
+        
+        <!-- Ambient Light does not cast shadows -->
+        <a-light 
+           type="ambient" 
+           intensity="0.5">
+            
+        </a-light>
+        
+        <a-light id="diamondLight" type="point" distance="2.5" position="-2.2 0.75 2.75" intensity="0.0"></a-light>
+        
+    </a-scene>
+</body>
+
+</html>
+
+

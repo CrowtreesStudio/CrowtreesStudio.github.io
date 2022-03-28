@@ -127,6 +127,11 @@ header #svg-object {
     border-radius: 5px;
 }
 
+.pageBreak {
+    grid-column-end: span 12;
+    background-color: red;;
+}
+
 .item a{
     color: #ffffff;
     text-decoration: none;
