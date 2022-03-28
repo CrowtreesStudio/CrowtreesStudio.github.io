@@ -7,10 +7,6 @@ h1, h4, a, p {
     color: #ffce00;
 }
 
-#copy h1 {
-    color: #dcffff;
-}
-
 body{
     /* background-color: #152d2d; */
     background-color: #320013;
@@ -46,13 +42,13 @@ body{
     margin:5px 5px 0 5px;
     padding: 5px;
     /* background-color: darkslategrey; */
-    background-image: linear-gradient(to bottom, rgb(0, 175, 129), rgb(0, 135, 184));
+    /* background-image: linear-gradient(to bottom, rgb(0, 175, 129), rgb(0, 135, 184)); */
+    background-image: linear-gradient(to bottom, rgb(77, 1, 0), rgb(128, 38, 0));
     border-radius: 5px;
 }
 
 #copy #instructions{
-        margin: -10px 30px 20px 30px;
-        line-height: 1.25em;
+    line-height: 1.25em;
 }
 
 #instructions{
@@ -60,7 +56,8 @@ body{
 }
 
 blockquote{
-    color: white;
+    padding: 0 0 10px 0;
+    color: rgb(255, 255, 255);
 }
 
 
@@ -113,17 +110,7 @@ header #svg-object {
     padding: 5px;
     color: #ffffff;
     font-size: 1.75em;
-    background-image: linear-gradient(to top right, rgb(0, 175, 129), rgb(0, 135, 184));
-    border-radius: 5px;
-}
-
-.item{
-    color: #ffffff;
-    grid-column-end: span 4;
-    text-align: center;
-    padding: 5px;
-    margin: 5px;
-    background-image: linear-gradient(to top right, rgb(212, 0, 255), rgb(0, 187, 255));
+    background-image: linear-gradient(to top right, rgb(0, 175, 114), #00a9e6);
     border-radius: 5px;
 }
 
@@ -132,10 +119,24 @@ header #svg-object {
     background-color: red;;
 }
 
+/* buttons */
+.item{
+    color: #ffffff;
+    grid-column-end: span 4;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    background-image: linear-gradient(to top right, rgb(212, 0, 255), rgb(0, 187, 255));
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+
 .item a{
     color: #ffffff;
     text-decoration: none;
 }
+
 
 #backTop{
     margin: 10px 0px 50px 0px;
