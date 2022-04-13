@@ -28,9 +28,9 @@ AFRAME.registerComponent('controllisten', {
         console.log("player is",player);
         console.log("testing", el);
         console.log("test2", id);
-             
+        console.log('next: thumbstick activation!');
         el.addEventListener('axismove', function(evt){
-            
+            console.log('thumb stick moved');
             //test code for thumbstick courtesy SirFizX & Pavel
             if(evt.detail.axis[2]>0.5){
                 console.log("rotate view to the right");
