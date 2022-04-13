@@ -73057,7 +73057,8 @@ module.exports.System = registerSystem('tracked-controls-webxr', {
     }
 
     this.oldControllersLength = this.controllers.length;
-	console.log("controller selected", this.controllers);
+	console.log("controllers length", this.controllers.length);
+	console.log("controllers type selected", this.controllers);
     this.el.emit('controllersupdated', undefined, false);
   }
 });
