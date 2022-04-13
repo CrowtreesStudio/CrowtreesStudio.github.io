@@ -73024,8 +73024,7 @@ module.exports.System = registerSystem('tracked-controls-webxr', {
   },
 
   updateControllerList: function () {
-	console.log('controller list still');
-	console.log('controllers length', this.controllers.length);
+	console.log('controller list');
 	console.log('controllers type selected', this.controllers);
     var xrSession = this.el.xrSession;
     var oldControllers = this.oldControllers;
@@ -73055,14 +73054,15 @@ module.exports.System = registerSystem('tracked-controls-webxr', {
 				break;
 			}
 			console.log('return statement 5')
-      if (equal) { return; }
-    }
-
-    // Store reference to current controllers
-    oldControllers.length = 0;
-    for (i = 0; i < this.controllers.length; i++) {
-      oldControllers.push(this.controllers[i]);
-    }
+			if (equal) { return; }
+		}
+		
+		// Store reference to current controllers
+		oldControllers.length = 0;
+		for (i = 0; i < this.controllers.length; i++) {
+			oldControllers.push(this.controllers[i]);
+		}
+		console.log('here we see the controller');
 
     this.oldControllersLength = this.controllers.length;
 	console.log('controllers type selected', this.controllers);
