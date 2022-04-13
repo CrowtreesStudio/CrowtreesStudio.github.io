@@ -73030,26 +73030,31 @@ module.exports.System = registerSystem('tracked-controls-webxr', {
     var xrSession = this.el.xrSession;
     var oldControllers = this.oldControllers;
     var i;
+	console.log('return statement 1')
     if (!xrSession) {
-      if (this.oldControllersLength === 0) { return; }
-      // Broadcast that we now have zero controllers connected if there is
-      // no session
-      this.oldControllersLength = 0;
-      this.controllers = [];
-      this.el.emit('controllersupdated', undefined, false);
+		console.log('return statement 2')
+		if (this.oldControllersLength === 0) { return; }
+		// Broadcast that we now have zero controllers connected if there is
+		// no session
+		this.oldControllersLength = 0;
+		this.controllers = [];
+		this.el.emit('controllersupdated', undefined, false);
+		console.log('return statement 3')
       return;
     }
 
+	console.log('return statement 4')
     if (!xrSession.inputSources) { return; }
     this.controllers = xrSession.inputSources;
     if (this.oldControllersLength === this.controllers.length) {
-      var equal = true;
-      for (i = 0; i < this.controllers.length; ++i) {
-        if (this.controllers[i] === oldControllers[i] &&
-            this.controllers[i].gamepad === oldControllers[i].gamepad) { continue; }
-        equal = false;
-        break;
-      }
+		var equal = true;
+		for (i = 0; i < this.controllers.length; ++i) {
+			if (this.controllers[i] === oldControllers[i] &&
+				this.controllers[i].gamepad === oldControllers[i].gamepad) { continue; }
+				equal = false;
+				break;
+			}
+			console.log('return statement 5')
       if (equal) { return; }
     }
 
