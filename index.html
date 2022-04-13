@@ -28,6 +28,7 @@
        <!-- <div id="virtual" class="item"><a href="#one" >Virtual Reality</a></div> -->
        <a href="#one" id="virtual" class="item" ><div>Virtual Reality</div></a>
        <a href="#two" id="augmented" class="item" ><div>Augmented Reality</div></a>
+       <a href="#three" id="twine" class="item" ><div>Twine Stories</div></a>
        <a href="/VR_superhands/index.html" target="_blank"  id="super" class="item" ><div>Super Hands</div></a>
        
        <article>
@@ -45,16 +46,7 @@
         <div class="subHeader" id="one">
             <h1>A-Frame Virtual Reality: <small>Click an icon to explore</small></h1>
         </div>
-<!-- Simple Hello World in A-frame -->
-        <div class="box product image">
-                <a href="/VR_aframe_hello_world/index.html" target="_self">
-                    <h1 class="stroke">Vr</h1>
-                    <h1>Vr</h1>
-                    <img alt="A-Frame Hello World" src="assets/icons/iconHelloWorld.jpg" />
-                </a>
-            <h4>A-Frame Hello World</h4>
-            <p>Basic A-Frame &quot;Hello World&quot; scene illustrating the ease of implementation. Included is the code to give permission to iOS Safari to share Motion &amp; Orientation data with the scene.</p>
-        </div>
+
 <!-- Ada Rose Cannon's XR boilerplate -->    
 <!-- Controllers visible and partially functional - no teleport but arc and drop is there -->    
         <div class="box product image">
@@ -66,6 +58,7 @@
         <h4>A-Frame XR Boilerplate</h4>
         <p>Ada Rose Cannon's XR boilerplate. In it, the Blink teleport controls work as well as basic hand controls using Quest and Vive(?) but not my Windows.<br>WebXR</p>
         </div>
+
 <!-- VR Working controller Teleport aframe-teleport-controls -->    
         <div class="box product image">
             <a href="VR_teleport_controllers/index.html" target="_blank">
@@ -76,77 +69,7 @@
         <h4>Basic Teleport Controls</h4>
         <p>Basic tracked hand controllers for HMD such as WMR/Oculus/Vive. Adds the scene primitives that are targets to collisionEntities and teleports to that location.<br>WebVR</p>
         </div>
-<!-- Teleport Controllers - Base Level -->         
-        <!-- <div class="box product image">
-                <h1 class="stroke">Vr</h1>
-                <h1>Vr</h1>
-                <a href="VR_aframe_level/index.html" target="_blank">
-                <img alt="VR Tracking Contollers" src="assets/icons/iconLevelCtrl.jpg" />
-                </a>
-            <h4>Level with Tracked Controllers</h4>
-            <p>Using a HMD and tracked controllers, navigate this simple level using teleport. Level uses 'nav-mesh' detection to indicate accessible areas.</p>
-        </div> -->
 
-<!-- Teleport Controllers - Submariner Walkabout -->         
-        <div class="box product image">
-                <h1 class="stroke">Vr</h1>
-                <h1>Vr</h1>
-                <a href="VR_submariner_level/index.html" target="_blank">
-                <img alt="VR Tracking Contollers" src="assets/icons/iconSubmariner.jpg" />
-                </a>
-            <h4>Submariner Walkabout</h4>
-            <p>Using a HMD and tracked controllers, navigate this simple level using teleport and collect the cubes to reveal the submarine fuel crystal.<br>WebVR</p>
-        </div>
-<!-- Blink controllers currently not working WMR HMD-->
-        <div class="box product image">
-                <h1 class="stroke">Vr</h1>
-                <h1>Vr</h1>
-                <a href="VR_aframe_level_blink/index.html" target="_blank">
-                <img alt="VR Tracking Contollers" src="assets/icons/iconLevelCtrl.jpg" />
-                </a>
-            <h4>Blink Controllers</h4>
-            <p>Uses Blink Controls, to teleport a simple level with a HMD. The 'nav-mesh' will determine what areas are accessible.</p>
-        </div>
-    <!-- Super Hands controllers currently not working WMR HMD-->
-        <!-- <div class="box product image">
-            <h1 class="stroke">Vr</h1>
-            <h1>Vr</h1>
-            <a href="VR_aframe_level_Superhands/index.html" target="_blank">
-            <img alt="VR Tracking Contollers" src="assets/icons/iconLevelCtrl.jpg" />
-            </a>
-            <h4>Super Hands Controller</h4>
-            <p>Uses Super Hands Controls, to implement input controls in a scene. Example: Hover, grab, click, etc</p>
-        </div> -->
-<!-- Maritime experience -->
-        <div class="box product image">
-                <h1 class="stroke">Vr</h1>
-                <h1>Vr</h1>
-                <a href="VR_maritimes/index.html" target="_blank">
-                <img alt="VR Maritime Experience" src="assets/icons/iconMaritimes.jpg" />
-            </a>
-            <h4>VR Maritime Experience</h4>
-            <p>First A-frame environment targetting Cardboard VR using geometry imported in the GLTF format, imported A-Frame components &amp; sound.<br>Rough but informative</p>
-        </div>
-<!-- Dalek City - Broken -->
-        <div class="box product image">
-                <a href="/VR_dalek_city/index.html" target="_blank">
-                    <h1 class="stroke">Vr</h1>
-                    <h1>Vr</h1>
-                    <img alt="Dalek City Entrance Hall" src="assets/icons/iconDalek.jpg" />
-                </a>
-            <h4>VR Dalek City</h4>
-            <p>The interior of the Dalek City from the Doctor Who story &quot;The Daleks&quot; 1963.<br>Currently Broken &amp; still a WIP.<br>WebVR</p>
-        </div>
-<!-- Mapbox Component -->
-        <!-- <div class="box product image">
-            <h1 class="stroke">Vr</h1>
-            <h1>Vr</h1>
-                <a href="VR_mapbox_component/index.html" target="_self">
-                <img alt="AR GPS tracking" src="assets/icons/iconHelloWorld.jpg" />
-                </a>
-            <h4>Mapbox Component</h4>
-            <p>Basic implementation of the Mapbox component for A-frame.</p>
-        </div> -->
 <!-- VR Stereo Skybox-->
         <div class="box product image">
             <a href="/VR_stereo_skybox/index.html" target="_blank">
@@ -167,6 +90,18 @@
         <h4>VR HMD Grab</h4>
         <p>A-Frame.io example. Using any headset that has tracked controllers, it allows you to grab and move the cubes making up the A.<br>WebVR</p>
         </div>
+
+        <!-- Babylon Windows Mixed Reality tutorial - piano -->
+        <div class="box product image">
+            <h1 class="stroke">Vr</h1>
+            <h1>Vr</h1>
+            <a href="VR_babylon_piano/index.html" target="_blank">
+            <img alt="VR HMD Tracked Contollers" src="assets/icons/iconWebXR.jpg" />
+            </a>
+        <h4>Babylon WMR Tutorial</h4>
+        <p>Copy and paste of MS's Babylon WMR tutorial code to test teleport.<br>WebVR</p>
+        </div>
+        <!-- https://docs.microsoft.com/en-us/windows/mixed-reality/develop/javascript/tutorials/babylonjs-webxr-piano/introduction-01 -->
 
         <span class="pageBreak"></span>
         <a href="#top" id="backTop" class="item"><div>Back to Top of Page</div></a>
@@ -251,6 +186,29 @@
 
         <span class="pageBreak"></span>
         <a href="#top" id="backTop" class="item"><div>Back to Top of Page</div></a>
+
+<!-- ////////////////////////// -->
+<!-- Twine Story Projects -->
+<!-- ////////////////////////// -->
+
+<div class="subHeader" id="three">
+    <h1>Twine Stories: <small>Click an icon to explore</small></h1>
+</div>
+
+<!-- Escape from The Tomb -->
+<div class="box product image">
+    <h1 class="stroke">Ar</h1>
+    <h1>Ar</h1>
+        <a href="Twine_tomb/Escape The Tomb.html" target="_blank">
+        <img alt="Escape The Tomb Adventure" src="assets/icons/iconGeneralAR.jpg" />
+        </a>
+    <h4>Escape The Tomb</h4>
+    <p>A simple Twine adventure illustrating the use of variables to the game play.</p>
+</div>
+
+        <span class="pageBreak"></span>
+        <a href="#top" id="backTop" class="item"><div>Back to Top of Page</div></a>
+
 
 <!-- Footer - end of page -->
         <footer>

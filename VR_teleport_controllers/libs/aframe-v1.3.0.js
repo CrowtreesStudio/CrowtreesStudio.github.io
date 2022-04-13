@@ -73056,13 +73056,13 @@ module.exports.System = registerSystem('tracked-controls-webxr', {
 			console.log('return statement 5')
 			if (equal) { return; }
 		}
+		console.log('here we see the controller');
 		
 		// Store reference to current controllers
 		oldControllers.length = 0;
 		for (i = 0; i < this.controllers.length; i++) {
 			oldControllers.push(this.controllers[i]);
 		}
-		console.log('here we see the controller');
 
     this.oldControllersLength = this.controllers.length;
 	console.log('controllers type selected', this.controllers);
