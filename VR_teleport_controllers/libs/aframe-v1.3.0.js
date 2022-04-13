@@ -73024,7 +73024,7 @@ module.exports.System = registerSystem('tracked-controls-webxr', {
   },
 
   updateControllerList: function () {
-	console.log('controller list');
+	console.log('controller list again');
     var xrSession = this.el.xrSession;
     var oldControllers = this.oldControllers;
     var i;
