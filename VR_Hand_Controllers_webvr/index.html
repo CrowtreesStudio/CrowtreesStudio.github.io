@@ -10,10 +10,10 @@
 <body>
    <a-scene>
       <!-- Lefthand has teleport -->
-       <a-entity id="leftHand" hand-controls="hand:left; handModelStyle:toon; color:#c568ff;" tracked-controls vive-controls="hand: left" oculus-touch-controls="hand: left" windows-motion-controls="hand: left" teleport-controls="type: parabolic; collisionEntities: #ground"></a-entity>
+       <a-entity id="leftHand" hand-controls="hand:left; handModelStyle:toon; color:#c568ff;" tracked-controls teleport-controls="type: parabolic; collisionEntities: #ground"></a-entity>
        
        <!-- Righthand has laser controls -->
-       <a-entity id="rightHand" hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" tracked-controls vive-controls="hand: right" oculus-touch-controls="hand: right" windows-motion-controls="hand: right" laser-controls  raycaster="far:3; objects: .clickable;" ></a-entity>
+       <a-entity id="rightHand" hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" tracked-controls laser-controls  raycaster="far:3; objects: .clickable;" ></a-entity>
        
        <!-- the hand-controls works as advertized: trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
        <!-- the laser-controls work as indicated above and are activated (seen) when they raycaster intersects an object that is (currently) within 3 meters -->
