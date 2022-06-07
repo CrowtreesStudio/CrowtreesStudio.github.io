@@ -139,29 +139,29 @@ window.addEventListener("DOMContentLoaded", function() {
     });
   }
   
-  const watergun = document.getElementById("watergun");
-  const watergunSlider = watergun.firstElementChild;
-  watergun.addEventListener('grabbed', function (e) {
-    const by = e.detail.by;
-    if (e.target === watergun) {
-      if (by.dataset.right) watergunSlider.className = 'magnet-left';
-      if (by.dataset.left) watergunSlider.className = 'magnet-right';
-    }
-    if (e.target === watergunSlider) {
-      if (by.dataset.right) watergun.setAttribute('linear-constraint', 'target', '#right-no-magnet');
-      if (by.dataset.left) watergun.setAttribute('linear-constraint', 'target', '#left-no-magnet');
-    }
-  });
-  watergun.addEventListener('released', function (e) {
-    const by = e.detail.by;
-    if (e.target === watergun) {
-      watergunSlider.className = '';
-      watergun.setAttribute('linear-constraint', 'target', '');
-    }
-    if (e.target === watergunSlider) {
-      watergun.setAttribute('linear-constraint', 'target', '');
-    }
-  });
+  // const watergun = document.getElementById("watergun");
+  // const watergunSlider = watergun.firstElementChild;
+  // watergun.addEventListener('grabbed', function (e) {
+  //   const by = e.detail.by;
+  //   if (e.target === watergun) {
+  //     if (by.dataset.right) watergunSlider.className = 'magnet-left';
+  //     if (by.dataset.left) watergunSlider.className = 'magnet-right';
+  //   }
+  //   if (e.target === watergunSlider) {
+  //     if (by.dataset.right) watergun.setAttribute('linear-constraint', 'target', '#right-no-magnet');
+  //     if (by.dataset.left) watergun.setAttribute('linear-constraint', 'target', '#left-no-magnet');
+  //   }
+  // });
+  // watergun.addEventListener('released', function (e) {
+  //   const by = e.detail.by;
+  //   if (e.target === watergun) {
+  //     watergunSlider.className = '';
+  //     watergun.setAttribute('linear-constraint', 'target', '');
+  //   }
+  //   if (e.target === watergunSlider) {
+  //     watergun.setAttribute('linear-constraint', 'target', '');
+  //   }
+  // });
 
   // If the user taps on any buttons or interactive elements we may add then prevent
   // Any WebXR select events from firing
