@@ -9,6 +9,7 @@
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.3.1/dist/aframe-environment-component.min.js"></script>
     
+    <!-- For some unknown reason, targeting the component remotely does not work. It's weird as a downloaded and locally referenced version does work. -->
     <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script> -->
     <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.js"></script> -->
     
@@ -19,7 +20,7 @@
     <script src="components/a-water.js"></script>
 </head>
 <body>
-    <a-scene renderer="colorManagement:true;" >
+    <a-scene renderer="colorManagement:false;" >
 
         <a-asset>
             <a-asset-item id="level" src="assets/meshes/Level.glb" ></a-asset-item>
@@ -85,7 +86,7 @@
         
         <!-- Lights -->
         <a-light id="sunlight" position="-2.5 4.0 5" rotation="106 -25 -46.5" light="castShadow: true; shadowCameraLeft:-6.0;"></a-light>
-        <a-light id="ambient" type="ambient" intensity="0.0"></a-light>        
+        <a-light id="ambient" type="ambient" intensity="0.4"></a-light>        
 
         <!-- Ada Rose Cannon's Navmesh Component -->
         
