@@ -8,7 +8,10 @@
     <!-- A-Frame Framework and Component Scripts -->
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.3.1/dist/aframe-environment-component.min.js"></script>
-    <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script>
+    
+    <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script> -->
+    <script src="components/aframe-teleport-controls.js"></script>
+
     <script src="components/simple-navmesh-constraint.js"></script>
     <script src="components/mesh-shadows.js"></script>
     <script src="components/a-water.js"></script>
@@ -106,6 +109,7 @@
                 hand-controls="hand: left;"
                 laser-controls="hand:left;"
                 raycaster="far:3;">
+            </a-entity>                    
             </a-entity>
             <a-entity 
                 id="right-hand" 
