@@ -144,8 +144,7 @@ header #svg-object {
 
 #backTop{
     margin: 10px 0px 50px 0px;
-    grid-column-start: 5;
-    /* grid-column-end: 8; */
+    grid-column-start: 6;
 }
 
 article{
