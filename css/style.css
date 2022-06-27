@@ -3,6 +3,10 @@ h1, h4, a, p {
     color:#ffffff;
 }
 
+h4 {
+    color:#e6cb00;
+}
+
 #warning{
     color: #ffce00;
 }
