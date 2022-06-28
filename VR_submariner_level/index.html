@@ -12,12 +12,15 @@
     <!-- For some unknown reason, targeting the component remotely does not work. It's weird as a downloaded and locally referenced version does work. -->
     <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script> -->
     <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.js"></script> -->
-    
     <script src="components/aframe-teleport-controls.js"></script>
 
+    <!-- Ada's Navmesh -->
     <script src="components/simple-navmesh-constraint.js"></script>
+
+    <!-- James' Components -->
     <script src="components/mesh-shadows.js"></script>
     <script src="components/a-water.js"></script>
+    <script src="components/code.js"></script>
 </head>
 <body>
     <a-scene renderer="colorManagement:false;" >
@@ -107,14 +110,16 @@
             </a-entity>
             <!-- hand controls -->
             <a-entity 
-                id="left-hand" 
-                teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head; collisionEntities: #navmesh;"
+                id="left-hand"
+                controllisten 
                 hand-controls="hand: left;"
                 laser-controls="hand:left;"
                 raycaster="far:3;">
             </a-entity>                    
             <a-entity 
-                id="right-hand" 
+                id="right-hand"
+                controllisten
+                teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head; collisionEntities: #navmesh;"
                 hand-controls="hand: right;"
                 laser-controls="hand:right;"
                 raycaster="far:3;">
