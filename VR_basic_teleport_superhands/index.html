@@ -20,6 +20,8 @@
        <a-sphere position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere>
        <a-cone position="-3 0.5 3" radius-bottom="0.5" color="yellow" shadow="cast:true; receive:false"></a-cone>
        <a-cylinder id="tube" position="3 0.5 3" radius="0.5" color="red" shadow="cast:true; receive:false"></a-cylinder>
+       <!-- hover & drag-drop won't have any obvious effect without some additional event handlers or components. See the examples page for more -->
+       <a-box hoverable grabbable stretchable draggable dropppable color="purple" position="0 1 -2" rotation="0 45 0" scale="0.5 0.5 0.5" shadow></a-box>
        
        <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
        <a-plane id="wall" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" color="#00b95c" shadow="cast:false; receive:true"></a-plane>
@@ -47,9 +49,6 @@
                 super-hands
                 hand-controls="hand: right;">
            </a-entity>
-
-           <!-- hover & drag-drop won't have any obvious effect without some additional event handlers or components. See the examples page for more -->
-           <a-box hoverable grabbable stretchable draggable dropppable color="purple" position="0 1 -2" rotation="0 45 0" scale="0.5 0.5 0.5" shadow></a-box>
 
            <!-- the hand-controls works as advertized: 
            trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
