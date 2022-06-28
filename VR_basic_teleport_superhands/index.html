@@ -17,16 +17,16 @@
     </div>
    <a-scene background="color:#000000;">
        <!-- Basic VR scene for testing -->
-       <a-box id="box" position="-3 0.5 -3" color="#2f80d1"  shadow="cast:true; receive:false"></a-box>
-       <a-sphere position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere>
-       <a-cone position="-3 0.5 3" radius-bottom="0.5" color="yellow" shadow="cast:true; receive:false"></a-cone>
-       <a-cylinder id="tube" position="3 0.5 3" radius="0.5" color="red" shadow="cast:true; receive:false"></a-cylinder>
+       <a-box class="grabbable" hoverable grabbable stretchable draggable dropppable position="-3 0.5 -3" color="#2f80d1"  shadow="cast:true; receive:false"></a-box>
+       <a-sphere class="grabbable" hoverable grabbable stretchable draggable dropppable position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere>
+       <a-cone class="grabbable" hoverable grabbable stretchable draggable dropppable position="-3 0.5 3" radius-bottom="0.5" color="yellow" shadow="cast:true; receive:false"></a-cone>
+       <a-cylinder class="grabbable" hoverable grabbable stretchable draggable dropppable position="3 0.5 3" radius="0.5" color="red" shadow="cast:true; receive:false"></a-cylinder>
+       <a-plane id="wall" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" color="#00b95c" shadow="cast:false; receive:true"></a-plane>
+
        <!-- hover & drag-drop won't have any obvious effect without some additional event handlers or components. See the examples page for more -->
-       <a-sphere id="theBox" hoverable grabbable stretchable draggable dropppable color="purple" position="0 1 -2" rotation="0 45 0" scale="0.25 0.25 0.25" shadow></a-sphere>
+       <a-sphere class="grabbable" hoverable grabbable stretchable draggable dropppable color="purple" position="0 1 -2" rotation="0 45 0" scale="0.25 0.25 0.25" shadow></a-sphere>
        
        <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
-       <a-plane id="wall" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" color="#00b95c" shadow="cast:false; receive:true"></a-plane>
-       
        <!-- replaced floor plane with a box -->
        <a-box id="floor" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box>
       
@@ -37,7 +37,7 @@
            <!-- console log to id controller type at line 73060 -->
            <a-entity id="leftHand"
                 controllisten
-                sphere-collider="objects: a-box" 
+                sphere-collider="objects: .grabbable" 
                 super-hands   
                 hand-controls="hand: left;">
            </a-entity>
@@ -46,7 +46,7 @@
            <a-entity id="rightHand" 
                 controllisten
                 teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #wall, #floor;"
-                sphere-collider="objects: #theBox"
+                sphere-collider="objects: .grabbable"
                 super-hands
                 hand-controls="hand: right;">
            </a-entity>
