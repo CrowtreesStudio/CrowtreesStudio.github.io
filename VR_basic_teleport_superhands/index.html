@@ -17,10 +17,10 @@
     </div>
    <a-scene background="color:#000000;">
        <!-- Basic VR scene for testing -->
-       <a-box class="grabbable" hoverable grabbable stretchable draggable dropppable position="-3 0.5 -3" color="#2f80d1"  shadow="cast:true; receive:false"></a-box>
+       <a-box class="grabbable collide" hoverable grabbable stretchable draggable dropppable position="-3 0.5 -3" color="#2f80d1"  shadow="cast:true; receive:false"></a-box>
        <a-sphere class="grabbable" hoverable grabbable stretchable draggable dropppable position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere>
        <a-cone class="grabbable" hoverable grabbable stretchable draggable dropppable position="-3 0.5 3" radius-bottom="0.5" color="yellow" shadow="cast:true; receive:false"></a-cone>
-       <a-cylinder class="grabbable" hoverable grabbable stretchable draggable dropppable position="3 0.5 3" radius="0.5" color="red" shadow="cast:true; receive:false"></a-cylinder>
+       <a-cylinder class="grabbable collide" hoverable grabbable stretchable draggable dropppable position="3 0.5 3" radius="0.5" color="red" shadow="cast:true; receive:false"></a-cylinder>
        <a-plane id="wall" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" color="#00b95c" shadow="cast:false; receive:true"></a-plane>
 
        <!-- hover & drag-drop won't have any obvious effect without some additional event handlers or components. See the examples page for more -->
@@ -45,7 +45,7 @@
            <!-- Right hand teleport control -->
            <a-entity id="rightHand" 
                 controllisten
-                teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #wall, #floor;"
+                teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: .collide #floor;"
                 sphere-collider="objects: .grabbable"
                 super-hands
                 hand-controls="hand: right;">
