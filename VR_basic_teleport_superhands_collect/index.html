@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A-Frame Super Hands Component - GlobalEventHandler Integration</title>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="libs/aframe-teleport-controls.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+    <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
+
+    <script>
+        function randomizeColor (target) {
+          target.setAttribute('color','#'+Math.random().toString(16).substr(-6));
+          // color randomizer credit: http://stackoverflow.com/a/7638362
+        }
+        function paintBall (evt) {
+          var col = evt.target.getAttribute('color');
+          var target = evt.relatedTarget.querySelector('a-sphere')
+          target.setAttribute('color', col);
+          target.setAttribute('visible', true);
+        }
+        function unPaintBall (evt) {
+          evt.relatedTarget.querySelector('a-sphere')
+              .setAttribute('visible', false);
+        }
+      </script>
+
+    <!-- James' Components -->
+    <script  src="JS/code.js"></script>
+</head>
+<body>
+    <div style="position:absolute; z-index: 100;">
+        <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's ...1.3.0</div>
+    </div>
+    <a-scene environment="preset: japan; shadow: true">
+        <a-assets>
+          <img id="portals-preview" src="../assets/portals.jpg"></img>
+        </a-assets>
+        <a-entity progressive-controls="objects: a-box, a-torus-knot, a-link">
+          <a-camera position="0 1.6 0">
+            <a-entity class="gazecaster">
+              <a-sphere radius="0.02" visible="false" shadow>
+              </a-sphere>
+            </a-entity>
+          </a-camera>
+          <a-entity id="lhand" class="left-controller">
+            <a-sphere radius="0.07" position="-0.01 -0.02 0.02" visible="false"
+                      shadow>
+            </a-sphere>
+          </a-entity>
+          <a-entity id="rhand" class="right-controller">
+            <a-sphere radius="0.07" position="-0.01 -0.02 0.02" visible="false"
+                      shadow>
+            </a-sphere>
+          </a-entity>
+        </a-entity>
+        <a-box position="0 1 -1" color="red"
+               onclick="randomizeColor(this)"
+               ondragstart="paintBall(event)"
+               ondragend="unPaintBall(event)"
+               ondrop="event.relatedTarget.setAttribute('color', this.getAttribute('color'))">
+          <a-text position="0 0 0.5"
+                  value="click to change color\ndrag-drop to paint the knot"
+                  width="1" wrap-count="15" anchor="center"></a-text>
+        </a-box>
+        <a-torus-knot position="0 0.838 0.152" radius="0.15" radius-tubular="0.04"
+                      transparent="true" shadow
+                      ondragenter="this.setAttribute('opacity', 0.5)"
+                      ondragleave="this.setAttribute('opacity', 1)"
+                      onmousedown="this.setAttribute('wireframe', true)"
+                      onclick="this.setAttribute('wireframe', false)">
+        </a-torus-knot>
+        <a-link href="../portals.html" title="Other Examples"
+                image="#portals-preview"
+                onmouseover="this.setAttribute('link', {highlighted: true})"
+                onmouseout="this.setAttribute('link', {highlighted: false})"
+                position = "0 1.6 0.7" rotation="0 0 0" scale="0.25 0.25 0.25">
+        </a-link>
+      </a-scene>
+</body>
+</html>
+
+<!-- below are specific settings which we'll currently ignore -->
+<!-- teleport-controls="type: parabolic; collisionEntities: #ground" -->
+<!-- hand-controls="hand:left; handModelStyle:toon; color:#c568ff;" -->
+<!-- hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" laser-controls raycaster="far:3; objects: .clickable;" -->
