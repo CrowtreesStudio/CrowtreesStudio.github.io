@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maritime Experiment</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="javascript/cursor.js" ></script>
+    <script src="libs/aframe-extras.min.js"></script>
+    <script src="libs/animation-mixer.js"></script>
+    <!-- includes for pathfinding -->
+<!--    <script src="libs/aframe-extras.controls.js"></script>-->
+<!--    <script src="libs/aframe-extras.pathfinding.js"></script>-->
+
+        <!--###################################-->
+        <!-- READ BELOW REGARDING PATHFINDING  -->
+        <!--###################################-->
+
+<!-- IMPORTANT NOTE TO SELF - using the full extras componenet package includes controls and pathfinding which is essential to have pathing finding work. In this case the scene is using the Ocean component and pathfinding -->
+
+</head>
+<body>
+    <div id="begin">
+       <div id="buttonBox">
+            <a onclick="hidePlay()"><button id="button">Begin Experience</button></a>
+            <img id="preloader" src="assets/preloaderSVG.svg">
+       </div>
+    </div>
+   <!-- <a-scene id="scene" vr-mode-ui="enabled: true" fog="type:exponential; density:0.0175; color:#ccccdf;"> -->
+       <!-- <a-scene id="scene" vr-mode-ui="enabled: true" fog="type:linear; near:10; far:100; color:#ffffff;" > -->
+       <a-scene id="scene" vr-mode-ui="enabled: true" >
+       <!--    <a-scene id="scene" vr-mode-ui="enabled: true">-->
+        <a-assets asset-loader>
+          <!-- Load all assets -->
+           <!-- Models and Misc files -->
+            <a-asset-item id="land" src="models/island.glb"></a-asset-item>
+            <a-asset-item id="fisherman" src="models/paintedHead.glb"></a-asset-item>
+            <a-asset-item id="path" src="models/path.glb"></a-asset-item>
+            <a-asset-item id="buoy" src="models/buoyMarker.glb"></a-asset-item>
+            <a-asset-item id="boat" src="models/fishingBoat.glb"></a-asset-item>
+            <a-asset-item id="lobsterpot" src="models/lobsterPot.glb"></a-asset-item>
+            <a-asset-item id="lobsPotGrp" src="models/lobsterPotGrp.glb"></a-asset-item>
+            <a-asset-item id="flower" src="models/flower.glb"></a-asset-item>
+            <a-asset-item id="flyingGull" src="models/gull.flying.glb"></a-asset-item>
+            <a-img id="skyTex" src="assets/Daylight_sunrise.jpg"></a-img>
+            <!-- Sound files -->
+            <audio id="buoyBellSFX" src="audio/buoyBell.mp3"></audio>
+            <audio id="oceanWavesSFX" src="audio/waves.mp3"></audio>
+            <audio id="gullSFX" src="audio/gull.mp3"></audio>
+            <audio id="gullsSFX" src="audio/gulls_mono.mp3"></audio>
+        </a-assets>
+        
+<!--
+        <a-entity
+           id="fishermanhead"
+           flatshader
+           position="0 1.65 -7"
+           gltf-model="#fisherman"
+           scale="0.25 0.25 0.25"
+           rotation="0 180 0"
+           material="shader: flat;">
+        </a-entity>
+-->
+        
+<!--        <a-sphere material="shader: flat;"></a-sphere>-->
+        
+        <!--###################-->
+        <!-- Setting the Scene -->
+        <!--###################-->
+        
+      <!-- Camera -->        
+        <a-entity id="rig"
+                movement-controls="constrainToNavMesh: true;
+                                   controls: checkpoint, gamepad, trackpad, keyboard, touch;
+                                   speed: 0.15;"
+                position="-1 0.34 -8"
+                rotation="0 190 0">
+            <a-entity camera
+                      position="0 1.65 0"
+                      look-controls="pointerLockEnabled: true">
+            </a-entity>
+        </a-entity>
+       <!-- End Camera -->
+       
+        <!--###################-->
+        <!--     landscape     -->
+        <!--###################-->
+        <a-entity>
+               <a-gltf-model id="coast" gltf-model="#land" shadow="receive:false; cast:false;"></a-gltf-model> 
+        </a-entity>
+        
+        <a-entity id="gullRig" position="0 0 0" animation="property:rotation; from: 0 0 0; to:0 360 0; dur:20000; easing:linear; loop:true;">
+            <a-gltf-model gltf-model="#flyingGull" rotation="0 90 0" animation="property:position; from:1 18 30; to:1 17 30; dur: 3000; easing:easeInOutSine; loop:true; dir:alternate;" animation-mixer="clip: fly; timeScale: 2.2;">
+                <a-sound id="gullSound" src="#gullsSFX" autoplay="false" volume="1" loop="true"></a-sound>
+            </a-gltf-model>
+            
+            <a-gltf-model gltf-model="#flyingGull" rotation="0 90 0" animation="property:position; from:-1 19 31; to:-1 18 31; dur: 3000; easing:easeInOutSine; loop:true; dir:alternate; delay:1000;" animation-mixer="clip: fly; timeScale: 2.1;"></a-gltf-model>
+            
+            <a-gltf-model gltf-model="#flyingGull" rotation="0 90 0" animation="property:position; from:0 18 28; to:0 17 28; dur: 3000; easing:easeInOutSine; loop:true; dir:alternate; delay:1000;" animation-mixer="clip: fly; timeScale: 2;"></a-gltf-model>
+        </a-entity>
+        
+        <a-gltf-model gltf-model="#flower" position="4 2.62 -25"></a-gltf-model>
+        
+        <!--     navigation mesh     -->
+        <a-entity nav-mesh
+            normal-material
+            visible="false"
+            gltf-model="#path">
+        </a-entity>
+        <!--     end nav mesh     -->
+        <!--################################-->
+        <!-- Buoy Marker with Sound Effects -->
+        <a-entity 
+          id="buoy and bell" 
+          position="20 -0.75 50" 
+          rotation="0 15 0"
+           >
+            <a-sound id="buoySound" src="#buoyBellSFX" autoplay="false" volume="1" loop="true"></a-sound>
+            <a-entity animation="property:position; from:0 0 0; to:0 -.25 0; dur:2000; easing:easeInOutSine; loop: true; dir:alternate;">
+                <a-gltf-model 
+                   id='buoy'
+                   gltf-model="#buoy"
+                   animation="property:rotation; from:-2 0 3; to:2 0 -3; dur:1500; easing:easeInOutSine; loop:true; dir:alternate;"
+                   >
+                </a-gltf-model>
+            </a-entity>
+        </a-entity>
+        
+        <!--###################################-->
+        <!--              Ocean                -->
+        <!--###################################-->
+        
+        <!--###################################-->
+        <!-- READ BELOW REGARDING TRANSPARENCY -->
+        <!--###################################-->
+        
+        <!-- for opacity to work, object order is back-to-front not front-to-back. Placing ocean last ensures order of render for opacity is correct otherwise "underwater" features are not rendered -->
+        
+        <!--###################################-->
+        <!--###################################-->
+        
+        <!-- <a-ocean color="#004845" depth="250" width="250" density="100" opacity="0.85" ocean="amplitude: 0.2; amplitudeVariance: 0.0; speed: 1.0" position="25 -0.5 -10;"></a-ocean> -->
+        <a-ocean color="#434F5E" depth="450" width="450" density="300" opacity="0.95" ocean="amplitude: 0.1; amplitudeVariance: 0.0; speed: 1.0" position="25 -0.5 -10;"></a-ocean>
+        <!-- End Ocean -->
+        
+        <!--###################################-->
+        <!--         Lobster Pot Grp           -->
+        <!--###################################-->
+        <a-entity
+            id="theLobsterPot" 
+            position="1.486 0.334 -7.106"
+            rotation = "0 -99 0"
+            scale="1.25 1.25 1.25"
+            >
+            <a-gltf-model id="lobsPotGrp" src="#lobsPotGrp" shadow="receive:true; cast:true;"></a-gltf-model>
+        </a-entity>   
+        <!-- Lobster Pot -->
+        
+        <!--###################################-->
+        <!--             Fishing Boat          -->
+        <!--###################################-->
+        <a-entity
+            position="-15 -0.6 30"
+            class="clickable"
+            rotation = "0 110 0">
+            <a-entity
+                animation="property:position; from:0 0 0; to:0 -0.2 0; dur:2000; easing:easeInOutSine; loop:true; dir:alternate;"
+            >
+            <a-gltf-model 
+                id="boat" 
+                src="#boat" 
+                shadow="receive:false; cast:false"
+                animation="property:rotation; from:-1 0 1; to:1 0 -1; dur:1500; easing:easeInOutSine; loop:true; dir:alternate;"
+            >
+               <!-- Lobster Pot Grp -->
+                <a-entity
+                    id="theLobsterPot" 
+                    position="-1 0.5 -4.5"
+                    rotation = "0 20 0"
+                    scale="1.25 1.25 1.25">
+                    <a-gltf-model id="lobsPotGrp" src="#lobsPotGrp" shadow="receive:true; cast:true;"></a-gltf-model>
+                </a-entity>   
+                <!-- Lobster Pot -->
+                <a-animation
+                      easing="ease-in-out-sine"
+                      attribute="position"
+                      repeat="indefinite"
+                      direction="alternate"
+                      dur="2000"
+                      from="0 .2 0"
+                      to="0 0 0">
+                </a-animation>
+            </a-gltf-model>
+            </a-entity>
+        </a-entity>   
+        <!-- End of Fishing Boat -->  
+        
+<!--        <a-plane position="0 -6 0" rotation="-90 0 0" height="400" width="400" color="black" ></a-plane>-->
+        
+        
+        <!--#######################-->
+        <!-- Sound Effects General -->
+        <!--#######################-->
+        
+        <!-- Ocean SFX -->
+        <a-sound id="oceanSound" src="#oceanWavesSFX" autoplay="false" volume="1" loop="true" position="-20 0 -5" ></a-sound>
+        <!-- End Ocean SFX -->
+        
+        <!-- Gull SFX -->
+<!--        <a-sound id="gullSounds" src="#gullsSFX" autoplay="false" volume="1" loop="true" position="3.003 0 31.002"></a-sound>-->
+        <!-- End Gull SFX -->
+        
+        <!-- End Sound Effects General -->
+        
+        <!-- Sky -->
+<!--        <a-sky src="#skyTex" rotation="0 70 0" theta-length="95"></a-sky>-->
+        <a-sky src="#skyTex" rotation="0 50 0"></a-sky>
+        
+        <!--###################################-->
+        <!--             lighting              -->
+        <!--###################################-->
+        
+        <!-- Ambient Light -->
+        <a-entity id="ambient light" light="type:ambient; color:#2c2d36; intensity:0.6;"></a-entity>
+        
+        <!-- Directional Light -->
+        <a-entity id="sunlight" light="type:directional; 
+                        castShadow:false;
+                        color:#ffffff; 
+                        shadowCameraBottom:0;
+                        shadowCameraTop:15;
+                        shadowCameraRight:0;
+                        shadowCameraLeft:-22;
+                        shadowMapHeight:4096;
+                        shadowMapWidth:4096;
+                        intensity:1;
+                        target:#theFishingHut
+                        " position="-3.8 2.8 4.3"
+                        
+                         ></a-entity>
+                         <!-- <a-entity id="sunlight" light="color: #ffffff; shadowCameraBottom: 0; shadowCameraTop: 15; shadowCameraRight: 0; shadowCameraLeft: -22; shadowMapHeight: 4096; shadowMapWidth: 4096" position="-3.787 2.81059 4.268"></a-entity> -->
+        <!-- Fill Light -->
+        <a-entity 
+           id="fill_light" 
+           light="type:directional; color:#ffffff; intensity:0.25;" 
+           position="30 -30 -20">
+        </a-entity>
+        <!-- ambient Light -->
+        <a-entity 
+           id="fill_light" 
+           light="type:ambient; color:#ffffff; intensity:0.2;" 
+           position="30 -30 -20">
+        </a-entity>
+        <!-- ambient Light -->
+        <a-entity 
+           id="point_light" 
+           light="type:point; color:#ffffff; intensity:0.3; distance:20;" 
+           position="6 10 -38">
+<!--           <a-box color="yellow"></a-box>-->
+        </a-entity>
+    </a-scene>
+    <script>
+      document.querySelector('a-scene').addEventListener('loaded', function () {
+          document.getElementById("button").style.display = "block";
+          document.getElementById("preloader").style.display = "none";
+      })
+    </script>
+</body>
+</html>
