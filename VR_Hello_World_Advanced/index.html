@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Advanced Hello World A-Frame WebXR</title>
+    <meta name="description" content="Advanced Hello World, WebXR! A-frame provides a hello world that is really remarkable, however you usually need to have controller selection and environment with movement.  With this example you get what works across the most headsets and controllers.">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="gray-translucent" /><!-- *** CHANGE THESE TO COMPONENTS ON YOUR SERVER *** -->
+    <script src="aframe-master/dist/aframe-v1.0.4.min.js"></script>
+    <script src="aframe-environment-component-master/dist/aframe-environment-component.min.js"></script>
+    <script src="aframe-extras-master/dist/aframe-extras.min.js"></script>
+    <script src="aframe-teleport-controls-master/dist/aframe-teleport-controls.js"></script>
+    <script src="superframe-master/components/thumb-controls/dist/aframe-thumb-controls-component.min.js"></script>
+    <!-- These are added to provide for 3D text and tracked movement of the duck 3D model  -->
+    <script src="superframe-master/components/text-geometry/dist/aframe-text-geometry-component.min.js"></script>
+    <script src="aframe-alongpath-component-master/dist/aframe-alongpath-component.min.js" ></script>
+    <script src="aframe-curve-component-master/dist/aframe-curve-component.min.js"></script><!-- for creating Navmesh... Also uncomment a-scene inspector-plugin-recast
+    <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+    --><!-- The JavaScript below provides for selection and action on objects, environment and audio -->
+    <script type="text/javascript">// Audio squawk for the duck
+      var squawk = new Audio('https://rocketvirtual.com/A-Frame_WebXR/assets/mp3/duck.mp3');// Function to execute onclick
+      function fire_laser() {// Make Duck Quack sound
+        squawk.play();//Disappear Duck
+        document.getElementById('movingDuck').setAttribute('visible', 'false');
+      }function doCylinder() {
+        
+        // Bring back visibility of Duck and Cube, turn Sphere red again
+        document.getElementById('movingDuck').setAttribute('visible', true);
+        document.getElementById('cube').setAttribute('visible', true);
+        document.getElementById('sphere').setAttribute('color', 'red');
+      }function doCube() {
+        
+        // Make Sphere green, disappear Cube for now
+        document.getElementById('sphere').setAttribute('color', 'green');
+        document.getElementById('cube').setAttribute('visible', false);      
+      }// Component to do on click.
+      AFRAME.registerComponent('click-listener', {
+        init: function () {this.el.addEventListener('click', function (evt) {// remove clicked object from view
+                //this.setAttribute('visible', false);
+      
+            });
+        }
+      });//   Solves Google Chrome mute of audio https://stackoverflow.com/questions/47921013/play-sound-on-click-in-a-frame?answertab=active#tab-top
+      AFRAME.registerComponent('audiohandler', {
+        init:function() {
+            let playing = false;
+            let audio = document.querySelector("#playAudio");
+            this.el.addEventListener('click', () => {if(!playing) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
+                playing = !playing;
+            });
+        }
+      })</script></head>
+  <body><button id="playButton" type="button">Play Music</button>
+    <!-- The music sound of the following open source classical Mozart .mp3 file.  If you replace, make sure it's open source or you have your own rights. -->
+    <audio id="playAudio" autoplay loop>
+        <source src="https://rocketvirtual.com/A-Frame_WebXR/assets/mp3/MozartALittleNightMusic.mp3" type="audio/mpeg">
+    </audio><!-- used for creating Navmesh... see javascript component above <a-scene inspector-plugin-recast>  https://github.com/donmccurdy/aframe-inspector-plugin-recast--><a-scene background="color: #FAFAFA"><a-assets>
+            <!-- Our font -->
+            <a-asset-item id="optimerBoldFont" src="assets/fonts/optimer_bold.typeface.json"></a-asset-item><!-- Duck 3D GltF model -->
+            <a-asset-item id="duck" src="assets/gltf/Duck.glb"></a-asset-item>
+      </a-assets><!-- nav-mesh: protecting us from running thru sphere, cube and cylinder  -->
+      <a-entity id="navmesh-Hello" gltf-model="assets/gltf/AdvHelloWorldnavmesh.gltf" visible="false" nav-mesh=""></a-entity><!-- Basic movement and teleportation  -->
+      <a-entity id="cameraRig" movement-controls="constrainToNavMesh: true;" navigator="cameraRig: #cameraRig; cameraHead: #head; collisionEntities: .collision; ignoreEntities: .clickable" position="0 0 0" rotation="0 0 0">
+        <!-- camera -->
+        <a-entity id="head" camera="active: true" position="0 1.6 0" look-controls="pointerLockEnabled: true; reverseMouseDrag: true" ></a-entity>
+              <!-- Left Controller  -->
+              <a-entity class="leftController" hand-controls="hand: left; handModelStyle: lowPoly; color: #15ACCF" tracked-controls vive-controls="hand: left" oculus-touch-controls="hand: left" windows-motion-controls="hand: left" teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head; button: trigger; type: line; curveShootingSpeed: 18; collisionEntities: #navmesh-Hello; landingMaxAngle: 60" visible="true"></a-entity>
+              <!-- Right Controller  -->
+              <a-entity class="rightController" hand-controls="hand: right; handModelStyle: lowPoly; color: #15ACCF" tracked-controls vive-controls="hand: right" oculus-touch-controls="hand: right" windows-motion-controls="hand: right" laser-controls raycaster="showLine: true; far: 10; interval: 0; objects: .clickable, a-link;" line="color: lawngreen; opacity: 0.5" visible="true"></a-entity>
+      </a-entity><!-- Normal Hello World objects modified to respond to onclick and audio  -->
+      <a-box id="cube" class="clickable" position="-1 0.66921 -3" rotation="0 45 0" color="#4CC3D9" visible="true" shadow  onclick="doCube();" click-listener></a-box>
+      <a-sphere id="sphere" class="clickable" position="0 1.44508 -5" radius="1.25" color="#EF2D5E" shadow audiohandler></a-sphere>
+      <a-cylinder id="cylinder" class="clickable" position="1 0.8993 -3" radius="0.5" height="1.5" color="#FFC65D" shadow onclick="doCylinder();" click-listener></a-cylinder>
+      <a-plane position="0 0.08958 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" shadow="recieve: true" ></a-plane ><!-- Some 3D Text -->
+      <a-entity position="-3.44 2.801 -5.127" text-geometry="value: Advanced" material="color: #EC4DF4"></a-entity>
+      <a-entity position="-0.05 2.793 -5.090" text-geometry="value: Hello World; font: #optimerBoldFont" material="color: #F94DA2"></a-entity><a-entity id="movingDuck" class="clickable" gltf-model="#duck" alongpath="curve:#track;loop:true;dur:14000;rotate:true" position="0 1.6 -5" shadow="receive:false" scale="1 1 1" animation__rotate="property: rotation; dur: 2000; easing: linear; loop: true; to: 0 360 0" shadow onclick="fire_laser();" cursor-listener></a-entity><!-- A track for our Duck to follow  --> 
+      <a-curve id="track" >
+        <a-curve-point position="0 1 8" geometry="height:0.1;width:0.1;depth:0.1" material="color:#ff0000" curve-point="" visible="true"></a-curve-point>
+        <a-curve-point position="5 1 6" geometry="height:0.1;width:0.1;depth:0.1" material="color:#ff0000" curve-point="" visible="true"></a-curve-point>  
+        <a-curve-point position="7 1 0" geometry="height:0.1;width:0.1;depth:0.1" material="color:#ff0000" curve-point="" visible="true"></a-curve-point>
+        <a-curve-point position="5 1 -5" geometry="height:0.1;width:0.1;depth:0.1" material="color:#ff0000" curve-point="" visible="true"></a-curve-point>
+        <a-curve-point position="0 1 -7" geometry="height:0.1;width:0.1;depth:0.1" material="color:#ff0000" curve-point="" visible="true"></a-curve-point>
+        <a-curve-point position="-6 1 -5" geometry="height:0.1;width:0.1;depth:0.1" material="color:#ff0000" curve-point="" visible="true"></a-curve-point>
+        <a-curve-point position="-8 1 0" geometry="height:0.1;width:0.1;depth:0.1" material="color:#ff0000" curve-point="" visible="true"></a-curve-point>
+        <a-curve-point position="-6 1 6" geometry="height:0.1;width:0.1;depth:0.1" material="color:#ff0000" curve-point="" visible="true"></a-curve-point>
+        <a-curve-point position="0 1 8" geometry="height:0.1;width:0.1;depth:0.1" material="color:#ff0000" curve-point="" visible="true"></a-curve-point>
+      </a-curve><!-- The track line in red  --> 
+      <a-draw-curve curveref="#track" material="shader: line; color: red;"></a-draw-curve><!-- Our Environment -->
+      <a-entity environment="preset: forest; dressing: mushrooms; dressingColor: #6e1d8b;" shadow="recieve: true"></a-entity><!-- A light in the scene casting shadows -->
+      <a-entity light="intensity: 0.6; castShadow: true; shadowCameraLeft: -10; shadowCameraBottom: -10; shadowCameraRight: 10; shadowCameraTop: 10; shadowCameraVisible: true" position="9.9649 17.32329 13.93447"></a-entity></a-scene>
+  </body>
+</html>

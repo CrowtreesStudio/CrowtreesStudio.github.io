@@ -31,7 +31,9 @@
        <a-box id="floor" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box>
       
        <a-entity id="cameraRig" position="0 0 0">
-           <a-entity id="camera" camera position="0 1.65 0" wasd-controls look-controls ></a-entity>
+           <a-entity id="camera" camera position="0 1.65 0" wasd-controls look-controls >
+                <a-text id="TEXTfeedback" value="Hello World" position="0 0 -1" align="center" baseline="top" scale="0.5 0.5 0.5"></a-text>
+           </a-entity>
            
            <!-- Left hand laser control -->
            <!-- console log to id controller type at line 73060 -->
