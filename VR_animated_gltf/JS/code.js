@@ -1,35 +1,51 @@
-
 AFRAME.registerComponent('scenemgr', {
     // component properties held in schema
     schema:{
         animationLib:{type:'array', default:[]},
-        // deviceCheck:{type:'boolean', default:false},
-        // cineCam:{type:'selector', default:"#cinematic"},
-        // pickups:{type:'number', default:0},
-        // feedback:{type:'string', default:"Hello World"}
-    },
-    
-    init:function(){
-        const el = this.el;
-        let data = this.data;// to access properties in schema
-    //     const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-        console.log("Hello World", el);
-        
-    //     // data.activeCam.setAttribute('camera', 'active', true);
-        
-    //     // SET_COMP_PROPS(data.uiTitle, 'value', "Submariner Walkabout");
-    //     // SET_COMP_PROPS(data.uiCopy, 'value', "\nYour task is an easy one.\nCollect all the cubes to reveal the Fuel Gem.\nCollect the gem and return to your submarine.\nGood luck!");
-    //     // SET_COMP_PROPS(data.hudCopy, 'value', 'Number of Boxes Collected: '+data.pickups);
-
+        player1:{type:'selector', default:'#Player1'},
+        player2:{type:'selector', default:'#Player2'},
+        player3:{type:'selector', default:'#Player3'},
+        player4:{type:'selector', default:'#Player4'}
     },
 
     addAnimation: function(animLib){
         console.log("add animation method");
-        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
         let data = this.data;
-        SET_COMP_PROPS(data.animationLib, 'value', animLib);
+        data.animationLib = animLib;
+        console.log('animation lib is', data.animationLib);
     }
 
+});
+
+AFRAME.registerComponent('character-setup', {
+    schema:{
+        modelSkin:{type:'string', default:'Cowboy'}
+    },
+    init: function(){
+        //wait for model to load
+        this.el.addEventListener('model-loaded', () => {
+            // Something to use to for a preloader?
+            console.log(this.el.id+" loaded");
+            
+            // Grab the mesh/scene
+            const obj = this.el.getObject3D('mesh');
+            console.log("Look at mesh", obj);
+            let ident = this.el.id;
+            console.log("identify models available", obj);
+            console.log("Find Element depth",obj.children[0].children);
+            obj.children[0].children.forEach(element => {
+                console.log("element", element);
+                if(element != "Bone"){
+                    element.visible = false;
+                    element.frustumCulled = false;// stops culling (blinking)
+                }
+
+                if(element.name === "Character_"+this.data.modelSkin){
+                    element.visible = true;
+                }
+            });
+        });
+    }
 });
 
 // FIRST useful registered Component!!! - July 17, 2019
@@ -41,28 +57,31 @@ AFRAME.registerComponent('mesh-data', {
             // Something to use to for a preloader?
             console.log(this.el.id+" loaded");
             let sceneManager = document.querySelector('#scene').components.scenemgr;
-            // let sceneManager = document.querySelector('#scene').components.scenemgr;
-            console.log("This is the scenemgr", sceneManager);
+            let data = sceneManager.data;
             
             // Grab the mesh/scene
             const obj = this.el.getObject3D('mesh');
-            console.log("Entity elements",this.el);
             let ident = this.el.id;
-            console.log("Mesh "+ident,obj);
 
+            /**********************************************/
+            /**********************************************/
             // Fixing character or gltf meshes from blinking out (no longer visible)
+
             // this below does nothing
             // obj.frustumCulled = false;
+
             // We need to dig down to the 'skinnedmesh'property
             obj.children[0].children[3].frustumCulled = false;// this fixes it
             // Ideally, we can do a node search to find the 'skinnedmesh' as other objects will
             // most likely suffer the same problem but will not be necessarily always
             // register 3 within a children array
 
+            /**********************************************/
             // Since frustumCulled is off, we need to 'manually' hide meshes
             // or turn frustumCulled back on
-            obj.visible = true;
+            // obj.visible = true;
 
+            /**********************************************/
             // useful for parsing for elements
             // clean method for scanning for bones (based on isMesh version)
             // obj.traverse(function(node){
@@ -70,18 +89,35 @@ AFRAME.registerComponent('mesh-data', {
             //         console.log(node.name);
             //     }
             // })
-            
-            // Grab the animations array
-            let animNode = obj.animations;
-            let animLib = animNode;
-           console.log("Animation", animNode);
-           if(ident === "Player3"){
-            console.log("Animation Library is Player 3");
-            sceneManager.addAnimation(animLib);
-           } else {
-            console.log("nothing here");
-           }
-            
+
+            /**********************************************/
+            // Grab the animations array from selected model
+            // if(ident === "Player1"){
+            //     let animNode = obj.animations;
+            //     sceneManager.addAnimation(animNode);
+            // } else {
+            //     obj.animations = sceneManager.data.animationLib;
+            // }
+
+            // if(ident === "Player1"){
+            //     // console.log("Check target for animation",data.player1);
+            //     console.log("mesh contents of Player1?", data.player1.getObject3D('mesh'));
+            //     data.player1.setAttribute('animation-mixer', {clip:'Idle', timeScale:1.0});
+            // }else if(ident === "Player2"){
+            //     // console.log("Check target for animation",data.player2);
+            //     console.log("mesh contents of Player2?", data.player2.getObject3D('mesh'));
+            //     data.player1.setAttribute('animation-mixer', {clip:'Idle', timeScale:1.0});
+            // }else if(ident === "Player3"){
+            //     console.log("mesh contents of Player3?", data.player3.getObject3D('mesh'));
+            //     data.player3.setAttribute('animation-mixer', {clip:'Idle', timeScale:0.25});
+            // }else if(ident === "Player4"){
+            //     data.player4.setAttribute('animation-mixer', {clip:'Idle', timeScale:0.25});
+            //     console.log("mesh contents of Player4?", data.player4.getObject3D('mesh'));
+            // };
+
+            /**********************************************/
+            /**********************************************/
+            /**********************************************/
             // let list = document.getElementById('controls');
             // let item = list.getElementsByTagName('button');
             

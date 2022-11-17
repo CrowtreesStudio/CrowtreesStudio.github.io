@@ -12,11 +12,10 @@
     <div style="position:absolute; z-index: 100;">
         <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's ...1.3.0</div>
     </div>
-    <a-scene id="scene" scenemgr background="color:#000000;">
+    <a-scene id="scene" scenemgr background="color:#55ddff;" renderer="colorManagement:false;">
         <a-asset>
-            <a-asset-item id="player1" src="assets/SK_Character_Business_Man_01_Anim.glb"></a-asset-item>
-            <a-asset-item id="player2" src="assets/SK_Character_Business_Man_01.glb"></a-asset-item>
-            <a-asset-item id="player3" src="assets/standinCharacter.glb"></a-asset-item>
+            <a-asset-item id="characters" src="assets/characters.glb" ></a-asset-item>
+            <a-asset-item id="SyFycharacters" src="assets/SciFiCity_Characters.glb" ></a-asset-item>
             <a-mixin id="shadowCastRec" shadow="cast:true; receive:true" ></a-mixin>
             <a-mixin id="shadowCast" shadow="cast:true; receive:false" ></a-mixin>
             <a-mixin id="shadowRec" shadow="cast:false; receive:true" ></a-mixin>
@@ -30,54 +29,51 @@
             </a-cubemap>
         </a-asset>
 
-
-        <!-- Basic VR scene for testing -->
+<!-- *************************************** -->
+<!--        Basic VR scene for testing       -->
+<!-- *************************************** -->
         <a-box id="box" position="-3 0.5 -3" color="#2f80d1" mixin="shadowCastRec" ></a-box>
         <a-sphere position="3 0.5 -3" radius="0.5" color="orange" mixin="shadowCastRec" ></a-sphere>
         <a-cone position="-3 0.5 3" radius-bottom="0.5" color="yellow" mixin="shadowCastRec" ></a-cone>
         <a-cylinder id="tube" position="3 0.5 3" radius="0.5" color="red" mixin="shadowCastRec" ></a-cylinder>
-        
-        <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
         <a-plane id="wall" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" color="#00b95c" mixin="shadowRec" ></a-plane>
-        
-        <!-- replaced floor plane with a box -->
-        <a-box id="floor" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" mixin="shadowRec"></a-box>
 
-<!-- Adding GLTF Character to Scene -->
-        <a-gltf-model 
-            id="Player1"
-            gltf-model="#player1"
-            animation-mixer="clip: Idle; crossFadeDuration:0.5;" 
-            position="1 0 -2"
-            mixin="shadowCast"
-            rotation="0 -45 0"
-            mesh-data
-            >
+        <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
+        <!-- replaced floor plane with a box -->
+        <a-box id="floor" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#888888" mixin="shadowRec"></a-box>
+
+<!-- *************************************** -->
+<!--    Adding GLTF Characters to Scene      -->
+<!-- *************************************** -->
+        <a-gltf-model id="Player1" gltf-model="#characters" animation-mixer="clip: Idle01; crossFadeDuration: 0.5" position="1.22189 0 -2.56252" mixin="shadowCast" rotation="0 -2.995996310739075 0" character-setup="modelSkin: Cowboy_01">
         </a-gltf-model>
-        <a-gltf-model 
-            id="Player2"
-            gltf-model="#player2"
-            animation-mixer="clip: Idle; crossFadeDuration:0.5;" 
-            position="-1 0 -2"
-            mixin="shadowCast"
-            rotation="0 45 0"
-            mesh-data
-            >
+
+        <a-gltf-model id="Player2" gltf-model="#SyFycharacters" animation-mixer="clip: Talking02; crossFadeDuration: 0.5" position="3.00117 0 -0.88109" mixin="shadowCast" rotation="0 -57.85555927892514 0" character-setup="modelSkin: Alien_Male_02">
         </a-gltf-model>
-        <a-gltf-model 
-            id="Player3"
-            gltf-model="#player3"
-            animation-mixer="clip: Idle; crossFadeDuration:0.5;" 
-            position="0 0 -2"
-            mixin="shadowCast"
-            rotation="0 -90 0"
-            mesh-data
-            >
-        </a-gltf-model> 
-      
-       <a-entity id="cameraRig" position="0 0 0">
-           <a-entity id="camera" camera="fov:80; near:0.005" position="0 1.65 0" wasd-controls look-controls ></a-entity>
-           
+
+        <a-gltf-model id="Player3" gltf-model="#SyFycharacters" animation-mixer="clip: Talking01; crossFadeDuration: 0.5" position="2.13738 0 -1.75692" mixin="shadowCast" rotation="0 -70.51391584675041 0" character-setup="modelSkin: Cyber_Female_01">
+        </a-gltf-model>
+
+        <a-gltf-model id="Player4" gltf-model="#characters" animation-mixer="clip: Walking01; crossFadeDuration: 0.5" position="-2.12495 0 -1.87901" mixin="shadowCast" rotation="0 35.496454281739894 0" character-setup="modelSkin: Sheriff_01">
+        </a-gltf-model>
+
+        <a-gltf-model id="Player5" gltf-model="#characters" animation-mixer="clip: OldManIdle; crossFadeDuration:0.5;" position="0 0 -3" mixin="shadowCast" rotation="0 0 0" character-setup="modelSkin:Business_Man_01;">
+        </a-gltf-model>
+
+        <a-gltf-model id="Player6" gltf-model="#characters" animation-mixer="clip: WalkingFemale01; crossFadeDuration: 0.5" position="-3.0036 0 -1.22004" mixin="shadowCast" rotation="0 41.73539171291942 0" character-setup="modelSkin: WorkingGirl_01">
+        </a-gltf-model>
+
+        <a-gltf-model id="Player7" gltf-model="#characters" animation-mixer="clip: WalkMenace; crossFadeDuration: 0.5" position="-1.09155 0 -2.5019" mixin="shadowCast" rotation="0 36.318075759957495 0" character-setup="modelSkin: Gunman_01">
+        </a-gltf-model>
+
+        <a-gltf-model id="Player8" gltf-model="#characters" animation-mixer="clip: Running01; crossFadeDuration: 0.5; timeScale: 0.5" position="3.50882 0 0.16175" mixin="shadowCast" rotation="0 -86.83461864105192 0" character-setup="modelSkin: Cowgirl_01">
+        </a-gltf-model>
+
+<!-- *************************************** -->
+<!--        Camera Rig & Camera              -->
+<!-- *************************************** -->
+       <a-entity id="cameraRig" position="0 0 0" movement-controls="speed: 0.15;">
+           <a-entity id="camera" camera="fov:80; near:0.005" position="0 1.65 0" look-controls="pointerLockEnabled:true;" ></a-entity>
            <!-- Left hand laser control -->
            <!-- console log to id controller type at line 73060 -->
            <a-entity id="leftHand" controllisten
@@ -98,6 +94,10 @@
            <!-- the laser-controls work as indicated above and are activated (seen) 
            when they raycaster intersects an object that is (currently) within 3 meters -->
        </a-entity>
+
+<!-- *************************************** -->
+<!--                Lighting                 -->
+<!-- *************************************** -->
        <a-light type="directional" light="castShadow: true; shadowCameraVisible: false" position="-3 2.5 1.5"></a-light>
        <a-light type="probe" envMap="#pisa" ></a-light>
        
