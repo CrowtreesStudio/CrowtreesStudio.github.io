@@ -12,10 +12,18 @@
     <div style="position:absolute; z-index: 100;">
         <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's ...1.3.0</div>
     </div>
-    <a-scene id="scene" scenemgr background="color:#55ddff;" renderer="colorManagement:false;">
+    <a-scene scenemgr id="scene" background="color:#55ddff;" renderer="colorManagement:false;">
         <a-asset>
-            <a-asset-item id="characters" src="assets/characters.glb" ></a-asset-item>
-            <a-asset-item id="SyFycharacters" src="assets/SciFiCity_Characters.glb" ></a-asset-item>
+            <a-asset-item id="Western" src="assets/Western_Characters.glb" ></a-asset-item>
+            <a-asset-item id="SyFy" src="assets/SciFiCity_Characters.glb" ></a-asset-item>
+            <a-asset-item id="Adventure" src="assets/Adventure_Characters.glb" ></a-asset-item>
+            <img id="Black" src="assets/textures/Characters_Black.png">
+            <img id="Brown" src="assets/textures/Characters_Brown.png">
+            <img id="White" src="assets/textures/Characters_White.png">
+            <img id="Western01" src="assets/textures/PolygonWestern_Texture_01_A.png">
+            <img id="Western02" src="assets/textures/PolygonWestern_Texture_01_B.png">
+            <img id="Western03" src="assets/textures/PolygonWestern_Texture_01_C.png">
+            <img id="Western04" src="assets/textures/PolygonWestern_Texture_04_A.png">
             <a-mixin id="shadowCastRec" shadow="cast:true; receive:true" ></a-mixin>
             <a-mixin id="shadowCast" shadow="cast:true; receive:false" ></a-mixin>
             <a-mixin id="shadowRec" shadow="cast:false; receive:true" ></a-mixin>
@@ -45,28 +53,31 @@
 <!-- *************************************** -->
 <!--    Adding GLTF Characters to Scene      -->
 <!-- *************************************** -->
-        <a-gltf-model id="Player1" gltf-model="#characters" animation-mixer="clip: Idle01; crossFadeDuration: 0.5" position="1.22189 0 -2.56252" mixin="shadowCast" rotation="0 -2.995996310739075 0" character-setup="modelSkin: Cowboy_01">
+        <a-gltf-model id="Player1" gltf-model="#Adventure" animation-mixer="clip: Idle01; crossFadeDuration: 0.5" position="1.22189 0 -2.56252" mixin="shadowCast" rotation="0 -2.995996310739075 0" character-setup="modelSkin: Peasant; modelTexture: #White;">
         </a-gltf-model>
 
-        <a-gltf-model id="Player2" gltf-model="#SyFycharacters" animation-mixer="clip: Talking02; crossFadeDuration: 0.5" position="3.00117 0 -0.88109" mixin="shadowCast" rotation="0 -57.85555927892514 0" character-setup="modelSkin: Alien_Male_02">
+        <a-gltf-model id="Player2" gltf-model="#SyFy" animation-mixer="clip: Talking02; startFrame:2000;" position="3.00117 0 -0.88109" mixin="shadowCast" rotation="0 -57.85555927892514 0" character-setup="modelSkin: Alien_Male_02">
         </a-gltf-model>
 
-        <a-gltf-model id="Player3" gltf-model="#SyFycharacters" animation-mixer="clip: Talking01; crossFadeDuration: 0.5" position="2.13738 0 -1.75692" mixin="shadowCast" rotation="0 -70.51391584675041 0" character-setup="modelSkin: Cyber_Female_01">
+        <a-gltf-model id="Player3" gltf-model="#SyFy" animation-mixer="clip: Idle01; crossFadeDuration: 0.5" position="2.13738 0 -1.75692" mixin="shadowCast" rotation="0 -70.51391584675041 0" character-setup="modelSkin: Cyber_Female_01">
         </a-gltf-model>
 
-        <a-gltf-model id="Player4" gltf-model="#characters" animation-mixer="clip: Walking01; crossFadeDuration: 0.5" position="-2.12495 0 -1.87901" mixin="shadowCast" rotation="0 35.496454281739894 0" character-setup="modelSkin: Sheriff_01">
+        <a-gltf-model id="Player4" gltf-model="#Western" animation-mixer="clip: Walking01; crossFadeDuration: 0.5" position="-2.12495 0 -1.87901" mixin="shadowCast" rotation="0 35.496454281739894 0" character-setup="modelSkin: Sheriff_01; modelTexture: #Western01">
         </a-gltf-model>
 
-        <a-gltf-model id="Player5" gltf-model="#characters" animation-mixer="clip: OldManIdle; crossFadeDuration:0.5;" position="0 0 -3" mixin="shadowCast" rotation="0 0 0" character-setup="modelSkin:Business_Man_01;">
+        <a-gltf-model id="Player5" gltf-model="#Western" animation-mixer="clip: Idle02; crossFadeDuration:0.5;" position="0 0 -3" mixin="shadowCast" rotation="0 0 0" character-setup="modelSkin:Business_Man_01; modelTexture: #Western04">
         </a-gltf-model>
 
-        <a-gltf-model id="Player6" gltf-model="#characters" animation-mixer="clip: WalkingFemale01; crossFadeDuration: 0.5" position="-3.0036 0 -1.22004" mixin="shadowCast" rotation="0 41.73539171291942 0" character-setup="modelSkin: WorkingGirl_01">
+        <a-gltf-model id="Player6" gltf-model="#Western" animation-mixer="clip: WalkingFemale01; crossFadeDuration: 0.5; timeScale: 1.0" position="-3.0036 0 -1.22004" mixin="shadowCast" rotation="0 41.73539171291942 0" character-setup="modelSkin: WorkingGirl_01; modelTexture: #Western04">
         </a-gltf-model>
 
-        <a-gltf-model id="Player7" gltf-model="#characters" animation-mixer="clip: WalkMenace; crossFadeDuration: 0.5" position="-1.09155 0 -2.5019" mixin="shadowCast" rotation="0 36.318075759957495 0" character-setup="modelSkin: Gunman_01">
+        <a-gltf-model id="Player7" gltf-model="#Western" animation-mixer="clip: WalkMenace; crossFadeDuration: 0.5" position="-1.09155 0 -2.5019" mixin="shadowCast" rotation="0 36.318075759957495 0" character-setup="modelSkin: Gunman_01; modelTexture: #Western01">
         </a-gltf-model>
 
-        <a-gltf-model id="Player8" gltf-model="#characters" animation-mixer="clip: Running01; crossFadeDuration: 0.5; timeScale: 0.5" position="3.50882 0 0.16175" mixin="shadowCast" rotation="0 -86.83461864105192 0" character-setup="modelSkin: Cowgirl_01">
+        <a-gltf-model id="Player8" gltf-model="#Western" animation-mixer="clip: Running01; crossFadeDuration: 0.5; timeScale: 0.5" position="3.50882 0 0.16175" mixin="shadowCast" rotation="0 -86.83461864105192 0" character-setup="modelSkin: Cowgirl_01; modelTexture: #Western03">
+        </a-gltf-model>
+
+        <a-gltf-model id="Player9" gltf-model="#Adventure" animation-mixer="clip: Talking02; crossFadeDuration: 0.5; timeScale: 2.0; startFrame:1500;" position="1 0 -1.5" mixin="shadowCast" rotation="0 -30 0" character-setup="modelSkin: Nude; modelItem: SwordSheath; modelTexture: #Brown">
         </a-gltf-model>
 
 <!-- *************************************** -->
@@ -88,7 +99,7 @@
                
            </a-entity>
 
-           <!-- the hand-controls works as advertized: 
+           <!-- the hand-controls no longer work as advertized: 
            trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
 
            <!-- the laser-controls work as indicated above and are activated (seen) 

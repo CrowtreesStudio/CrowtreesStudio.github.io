@@ -20,6 +20,35 @@ AFRAME.registerComponent('contact-listener', {
     }
 });
 
+AFRAME.registerComponent('grabbed', {
+    schema:{
+        feedbackTXT:{type:'selector', default:'#feedback'},
+    },
+    init: function(){
+        let data = this.data;
+        console.log("feedback:", data.feedbackTXT);
+        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
+        SET_COMP_PROPS(data.feedbackTXT, 'value', "Listening...");
+
+    },
+    play: function() {
+        let data = this.data;
+        this.el.addEventListener('grab-start', function(evt) {
+            const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
+            SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner...");
+        });
+        this.el.addEventListener('grab-end', function(evt) {
+            const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
+            SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner Walkabout");
+
+            /* evt.detail.dropped.setAttribute('material', 'color',
+            '#'+(Math.random()*0xFFFFFF<<0).toString(16))
+            // notify super-hands that the gesture was accepted
+            evt.preventDefault() */
+        });
+    }
+  })
+
 AFRAME.registerComponent('controllisten', {
     init: function(){
         let el = this.el;// controller

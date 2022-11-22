@@ -1,136 +1,144 @@
 AFRAME.registerComponent('scenemgr', {
-    // component properties held in schema
-    schema:{
-        animationLib:{type:'array', default:[]},
-        player1:{type:'selector', default:'#Player1'},
-        player2:{type:'selector', default:'#Player2'},
-        player3:{type:'selector', default:'#Player3'},
-        player4:{type:'selector', default:'#Player4'}
-    },
+    init: function(){
+        let el = this.el;
+        console.log("Contents of Scene:", el);
+        console.log("Can I get the tag:",document.getElementsByTagName("img"));
 
-    addAnimation: function(animLib){
-        console.log("add animation method");
-        let data = this.data;
-        data.animationLib = animLib;
-        console.log('animation lib is', data.animationLib);
     }
-
-});
+})
 
 AFRAME.registerComponent('character-setup', {
     schema:{
-        modelSkin:{type:'string', default:'Cowboy'}
+        modelSkin:{type:'string', default:'Nude'},
+        modelItem:{type:'array', default:[]}, // want this to be an array
+        modelTexture:{type:'map', default:'#Brown'}
     },
     init: function(){
         //wait for model to load
         this.el.addEventListener('model-loaded', () => {
+
+            let data = this.data;// path to schema data
+            let el = this.el;// get element
+
             // Something to use to for a preloader?
-            console.log(this.el.id+" loaded");
-            
+            console.log(el.id," loaded");            
             // Grab the mesh/scene
-            const obj = this.el.getObject3D('mesh');
-            console.log("Look at mesh", obj);
-            let ident = this.el.id;
-            console.log("identify models available", obj);
-            console.log("Find Element depth",obj.children[0].children);
-            obj.children[0].children.forEach(element => {
-                console.log("element", element);
-                if(element != "Bone"){
-                    element.visible = false;
-                    element.frustumCulled = false;// stops culling (blinking)
-                }
+            const obj = el.getObject3D('mesh');
+            console.log("Take a look inside the mesh", obj);
 
-                if(element.name === "Character_"+this.data.modelSkin){
-                    element.visible = true;
-                }
+            obj.traverse(function(node){
+                if(node.isMesh){
+                    node.frustumCulled = false;// stops culling (blinking)
+
+                    /* **************************************************************** */
+                    /*      Let's hide everything first and then show the correct       */
+                    /*      meshes for both characters and items they are carrying      */
+                    /* **************************************************************** */
+                    if(node.name != "Character_"+data.modelSkin){
+                        node.visible = false;
+                    };
+
+
+                    /* ************************************************************* */
+                    /*              Add Selected Texture to Character                */
+                    /* ************************************************************* */
+                    // Apply Character Textures 
+                    let material01 = new THREE.TextureLoader().load(data.modelTexture.src);
+                    if(el.components["gltf-model"].attrValue === "#Adventure"){
+                        console.log("Which character group has been attached:", el.components["gltf-model"].attrValue);
+                        let texture = node.material;
+                        texture.map = material01;
+                        texture.map.flipY = false;
+                        texture.map.encoding = THREE.sRGBE;
+                            
+                    }else if(el.components["gltf-model"].attrValue === "#Western"){
+                        /*      Note: Western textures are as follows               */
+                        /*      Skin Colour changes _A:White, _B:Brown, _C:Black    */
+                        /*      Costume changes _01_, _02_, _03_, _04_                  */
+                        console.log("Which character group has been attached:", el.components["gltf-model"].attrValue);
+                        let texture = node.material;
+                        texture.map = material01;
+                        texture.map.flipY = false;
+                        texture.map.encoding = THREE.sRGBE;
+                            
+                    };
+
+                    /* ************************************************************* */
+                    /*          Place Items (make visible) On Character              */
+                    /* ************************************************************* */
+                    if(node.name === "Item_"+data.modelItem){
+                        node.visible = true;
+                    };
+
+                };
             });
-        });
-    }
-});
 
-// FIRST useful registered Component!!! - July 17, 2019
+        });// End addEventListner - 'model-loaded'
+    }// End Init Function
+});// End registerComponent
+    
 AFRAME.registerComponent('mesh-data', {
     init: function(){
-        //wait for model to load
-
+        //wait for model to load - - Use this for a preloader function
         this.el.addEventListener('model-loaded', () => {
-            // Something to use to for a preloader?
-            console.log(this.el.id+" loaded");
-            let sceneManager = document.querySelector('#scene').components.scenemgr;
-            let data = sceneManager.data;
             
             // Grab the mesh/scene
             const obj = this.el.getObject3D('mesh');
-            let ident = this.el.id;
-
-            /**********************************************/
-            /**********************************************/
-            // Fixing character or gltf meshes from blinking out (no longer visible)
-
-            // this below does nothing
-            // obj.frustumCulled = false;
-
-            // We need to dig down to the 'skinnedmesh'property
-            obj.children[0].children[3].frustumCulled = false;// this fixes it
-            // Ideally, we can do a node search to find the 'skinnedmesh' as other objects will
-            // most likely suffer the same problem but will not be necessarily always
-            // register 3 within a children array
-
-            /**********************************************/
-            // Since frustumCulled is off, we need to 'manually' hide meshes
-            // or turn frustumCulled back on
-            // obj.visible = true;
-
-            /**********************************************/
-            // useful for parsing for elements
-            // clean method for scanning for bones (based on isMesh version)
-            // obj.traverse(function(node){
-            //     if(node.isBone){
-            //         console.log(node.name);
-            //     }
-            // })
-
-            /**********************************************/
-            // Grab the animations array from selected model
-            // if(ident === "Player1"){
-            //     let animNode = obj.animations;
-            //     sceneManager.addAnimation(animNode);
-            // } else {
-            //     obj.animations = sceneManager.data.animationLib;
-            // }
-
-            // if(ident === "Player1"){
-            //     // console.log("Check target for animation",data.player1);
-            //     console.log("mesh contents of Player1?", data.player1.getObject3D('mesh'));
-            //     data.player1.setAttribute('animation-mixer', {clip:'Idle', timeScale:1.0});
-            // }else if(ident === "Player2"){
-            //     // console.log("Check target for animation",data.player2);
-            //     console.log("mesh contents of Player2?", data.player2.getObject3D('mesh'));
-            //     data.player1.setAttribute('animation-mixer', {clip:'Idle', timeScale:1.0});
-            // }else if(ident === "Player3"){
-            //     console.log("mesh contents of Player3?", data.player3.getObject3D('mesh'));
-            //     data.player3.setAttribute('animation-mixer', {clip:'Idle', timeScale:0.25});
-            // }else if(ident === "Player4"){
-            //     data.player4.setAttribute('animation-mixer', {clip:'Idle', timeScale:0.25});
-            //     console.log("mesh contents of Player4?", data.player4.getObject3D('mesh'));
-            // };
-
-            /**********************************************/
-            /**********************************************/
-            /**********************************************/
-            // let list = document.getElementById('controls');
-            // let item = list.getElementsByTagName('button');
+            
+            // if it's not there return
+            if(!obj){return;}
+            
+            obj.traverse(function(node){
+                if(node.isMesh){
+                //    console.log("WHat did you find node?:",node.name);
+                    
+                    if(node.name==="boxUv"){
+                        console.log(node.name);
+                        console.log(node.material);
+//                         node.material.metalness = 0.0;
+//                         node.material.roughness = 0.5;
+//                         node.material.name = "UVboxTexture";
+                        
+// //                        node.material.color=new THREE.Color(0xffffff);
+//                         node.material.color={r:1, g:1, b:1};
+//                         node.material.map= new THREE.TextureLoader().load( "assets/textures/20080817_0044_0001.JPG");
+//                         let repeat = 6;
+//                         node.material.map.repeat = {x:repeat, y:repeat};
+//                         node.material.map.wrapS = 1000;
+//                         node.material.map.wrapT = 1000;
+                        
+//                     }
+//                     if(node.name ==="floor"){
+//                         node.material.map.repeat = {x:2,y:2};
+//                     };
+                    
+//                     if(node.name ==="boxUvTextured"){
+// /*                        console.log(node.name);
+//                         console.log(node.material);*/
+//                        node.material.map=new THREE.TextureLoader().load("assets/textures/20080906_0018_0001.JPG");
+//                         // node.material.map= new THREE.TextureLoader().load( "assets/textures/20080817_0044_0001.JPG");
+//                         node.material.map.repeat = {x:3,y:3};
+//                         node.material.map.wrapS = 1000;
+//                         node.material.map.wrapT = 1000;
+                    }
+                }
+            });
+            
+            
+            
+            
+            
+            //useful for parsing for elements
+            /*let list = document.getElementById('controls');
+            let item = list.getElementsByTagName("li");*/
             
             // Parse the array for animation segments
-            // let i = 0;
-            // obj.animations.forEach(function(node){
-            //     if(item[i]!== undefined){
-            //         item[i].innerHTML=node.name;
-            //         i++;
-            //     }
-                
-            // })
-        });
+            /*let i = 0;
+            obj.animations.forEach(function(node){
+                item[i].innerHTML=node.name;
+                i++;
+            })*/
+        })
     }
 });
 
