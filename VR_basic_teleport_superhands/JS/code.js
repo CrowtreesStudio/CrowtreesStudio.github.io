@@ -26,7 +26,7 @@ AFRAME.registerComponent('grabbingtest', {
     },
     init: function(){
         let data = this.data;
-        let message = "Version: 1.0.7";
+        let message = "Version: 1.0.8";
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
         SET_COMP_PROPS(data.feedbackTXT, 'value', "Listening...");
         document.getElementById("text").innerHTML= message;
