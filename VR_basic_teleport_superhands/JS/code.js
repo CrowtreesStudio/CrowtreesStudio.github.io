@@ -20,7 +20,7 @@ AFRAME.registerComponent('contact-listener', {
     }
 });
 
-AFRAME.registerComponent('grabbingtest', {
+AFRAME.registerComponent('grabbing-test', {
     schema:{
         feedbackTXT:{type:'selector', default:'#feedback'},
     },
@@ -36,14 +36,14 @@ AFRAME.registerComponent('grabbingtest', {
         let el = this.el;
         el.addEventListener('grab-start', function(evt) {
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt);
+            SET_COMP_PROPS(data.feedbackTXT, 'value', ev.detail.el);
             // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner...");
         });
         el.addEventListener('grab-end', function(evt) {
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail);
+            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.colliderEventProperty);
             // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner Walkabout");
-            evt.detail.dropped.SET_COMP_PROPS('material', 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16))
+            SET_COMP_PROPS('material', 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16))
             evt.preventDefault();
         });
     }
