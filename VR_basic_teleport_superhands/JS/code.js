@@ -20,9 +20,9 @@ AFRAME.registerComponent('contact-listener', {
     }
 });
 
-AFRAME.registerComponent('grabbing-test', {
+AFRAME.registerComponent('grabbingtest', {
     schema:{
-        feedbackTXT:{type:'selector', default:'#feedback'},
+        feedbackTXT:{type:'selector', default:'#feedback'}
     },
     init: function(){
         let data = this.data;
