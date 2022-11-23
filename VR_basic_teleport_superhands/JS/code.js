@@ -26,7 +26,7 @@ AFRAME.registerComponent('grabbingtest', {
     },
     init: function(){
         let data = this.data;
-        let message = "Version: 1.0.4";
+        let message = "Version: 1.0.5";
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
         SET_COMP_PROPS(data.feedbackTXT, 'value', "Listening...");
         document.getElementById("text").innerHTML= message;
@@ -36,14 +36,15 @@ AFRAME.registerComponent('grabbingtest', {
         let el = this.el;
         el.addEventListener('grab-start', function(evt) {
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.el);
+            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail);
             // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner...");
         });
         el.addEventListener('grab-end', function(evt) {
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.el);
+            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.colliderEndEventProperty.el);
             // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner Walkabout");
-            console.log("Who are we talking to:", el.id);
+            console.log("Who are we talking to:", el);
+            console.log("Let's look at set component property:", AFRAME.utils.entity.setComponentProperty);
             SET_COMP_PROPS('material', 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16))
             evt.preventDefault();
         });
