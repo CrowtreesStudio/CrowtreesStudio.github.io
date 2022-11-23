@@ -29,15 +29,15 @@
 
         <a-cone class="grabbable navmesh-hole" hoverable grabbable stretchable draggable droppable position="-3 0.5 3" radius-bottom="0.5" color="yellow" shadow="cast:true; receive:false"></a-cone>
 
-        <a-cylinder id="tube" class="grabbable collide navmesh-hole" hoverable grabbable stretchable draggable droppable position="3 0.5 3" radius="0.5" color="red" shadow="cast:true; receive:false"></a-cylinder>
+        <a-cylinder id="tube" class="grabbable collide navmesh-hole" hoverable grabbable stretchable draggable droppable position="3 0.5 3" radius="0.5" color="red" shadow="cast:true; receive:false" ></a-cylinder>
 
-        <a-plane id="wall" class="navmesh-hole" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" color="#00b95c" shadow="cast:false; receive:true"></a-plane>
+        <a-plane id="wall" class="navmesh-hole" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" color="#00b95c" shadow="cast:false; receive:true" ></a-plane>
 
-        <a-sphere class="grabbable" hoverable grabbable stretchable draggable droppable color="purple" position="0 1 -2" rotation="0 45 0" scale="0.25 0.25 0.25" shadow></a-sphere>
+        <a-sphere class="grabbable" hoverable grabbable stretchable draggable droppable color="purple" position="0 1 -2" rotation="0 45 0" scale="0.25 0.25 0.25" shadow="cast:true; receive:false" ></a-sphere>
         
         <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
         <!-- replaced floor plane with a box -->
-        <a-box class="nav-mesh" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box>
+        <a-box id="floor" class="nav-mesh" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box>
 
         <!-- ******************************************** -->
         <!-- *  Camera, Feedback Text and Controllers   * -->
@@ -48,7 +48,7 @@
                 camera 
                 position="0 1.65 0" 
                 wasd-controls="acceleration: 10;" 
-                simple-navmesh-constraint="navmesh: .nav-mesh; height:1.65;exclude: .navmesh-hole;" 
+                simple-navmesh-constraint="navmesh:.nav-mesh; height:1.65; exclude:.navmesh-hole;" 
                 look-controls="pointerLockEnabled:true;" >
                     <a-text id="feedback" value="Hello World" position="0 0 -0.5" align="center" baseline="top" scale="0.25 0.25 0.25"></a-text>
             </a-entity>
