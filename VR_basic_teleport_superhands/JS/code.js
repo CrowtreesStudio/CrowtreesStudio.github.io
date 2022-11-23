@@ -26,23 +26,24 @@ AFRAME.registerComponent('grabbingtest', {
     },
     init: function(){
         let data = this.data;
-        console.log("feedback:", data.feedbackTXT);
+        let message = "Version: 1.0.4";
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
         SET_COMP_PROPS(data.feedbackTXT, 'value', "Listening...");
-
+        document.getElementById("text").innerHTML= message;
     },
     play: function() {
         let data = this.data;
         let el = this.el;
         el.addEventListener('grab-start', function(evt) {
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', ev.detail.el);
+            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.el);
             // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner...");
         });
         el.addEventListener('grab-end', function(evt) {
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.colliderEventProperty);
+            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.el);
             // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner Walkabout");
+            console.log("Who are we talking to:", el.id);
             SET_COMP_PROPS('material', 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16))
             evt.preventDefault();
         });
