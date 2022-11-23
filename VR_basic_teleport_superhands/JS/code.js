@@ -46,8 +46,8 @@ AFRAME.registerComponent('grabbingtest', {
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.target.id);
             // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner Walkabout");
             console.log("Components:", evt.detail.target.components);
-            evt.detail.target.components.setAttribute('material', 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));
-            // SET_COMP_PROPS('material', 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16))
+            // evt.detail.target.components.setAttribute('material', 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));
+            SET_COMP_PROPS(evt.detail.target.components.material, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16))
             evt.preventDefault();
         });
     }

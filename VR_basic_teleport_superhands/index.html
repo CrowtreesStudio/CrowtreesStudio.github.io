@@ -24,16 +24,16 @@
         <!-- without some additional event handlers or components.-->
         <!-- See the examples page for more -->
         <a-box id="box" class="grabbable navmesh-hole" hoverable grabbable stretchable draggable droppable grabbingtest position="-3 0.5 -3" color="#2f80d1"  shadow="cast:true; receive:false"></a-box>
+        
+        <a-sphere id="smallBall" class="grabbable" hoverable grabbable stretchable draggable droppable grabbingtest color="purple" position="0 1 -2" rotation="0 45 0" scale="0.25 0.25 0.25" shadow visible="true"></a-sphere>
 
-        <a-sphere class="grabbable" hoverable grabbable stretchable draggable droppable grabbingtest position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere>
+        <a-sphere id="largeBall" class="grabbable" hoverable grabbable stretchable draggable droppable grabbingtest position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere>
 
-        <a-cone class="grabbable navmesh-hole" hoverable grabbable stretchable draggable droppable position="-3 0.5 3" radius-bottom="0.5" color="yellow" shadow="cast:true; receive:false"></a-cone>
+        <a-cone id="cone" class="grabbable navmesh-hole" hoverable grabbable stretchable draggable droppable position="-3 0.5 3" radius-bottom="0.5" color="yellow" shadow="cast:true; receive:false"></a-cone>
 
         <a-cylinder id="tube" class="grabbable collide navmesh-hole" hoverable grabbable stretchable draggable droppable position="3 0.5 3" radius="0.5" color="red" shadow="cast:true; receive:false"></a-cylinder>
 
         <a-plane id="wall" class="navmesh-hole" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" color="#00b95c" shadow="cast:false; receive:true"></a-plane>
-
-        <a-sphere class="grabbable" hoverable grabbable stretchable draggable droppable grabbingtest color="purple" position="0 1 -2" rotation="0 45 0" scale="0.25 0.25 0.25" shadow></a-sphere>
         
         <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
         <!-- replaced floor plane with a box -->
