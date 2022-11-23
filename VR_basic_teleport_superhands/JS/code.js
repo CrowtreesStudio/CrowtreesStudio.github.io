@@ -34,10 +34,12 @@ AFRAME.registerComponent('grabbed', {
     play: function() {
         let data = this.data;
         this.el.addEventListener('grab-start', function(evt) {
+            console.log("Grab Start");
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner...");
         });
         this.el.addEventListener('grab-end', function(evt) {
+            console.log("Grab Stop");
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner Walkabout");
 
