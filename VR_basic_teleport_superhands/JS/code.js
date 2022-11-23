@@ -33,16 +33,17 @@ AFRAME.registerComponent('grabbingtest', {
     },
     play: function() {
         let data = this.data;
-        this.el.addEventListener('grab-start', function(evt) {
+        let el = this.el;
+        el.addEventListener('grab-start', function(evt) {
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt);
             // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner...");
         });
-        this.el.addEventListener('grab-end', function(evt) {
+        el.addEventListener('grab-end', function(evt) {
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt);
+            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail);
             // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner Walkabout");
-            evt.detail.dropped.setAttribute('material', 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16))
+            evt.detail.dropped.SET_COMP_PROPS('material', 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16))
             evt.preventDefault();
         });
     }
@@ -54,24 +55,20 @@ AFRAME.registerComponent('controllisten', {
         let id = el.id;
         let player = document.getElementById("cameraRig");
         console.log("player is",player);
-        console.log("testing", el);
-        console.log("test2", id);
-        console.log('next: thumbstick activation!');
+        console.log("Who is calling:", id);
         el.addEventListener('axismove', function(evt){
-            console.log('thumb stick moved');
-            //test code for thumbstick courtesy SirFizX & Pavel
+            // console.log('thumb stick moved');
+            // test code for thumbstick courtesy SirFizX & Pavel
             if(evt.detail.axis[2]>0.5){
-                console.log("rotate view to the right");
                 player.object3D.rotation.y-=0.05;
             }else if(evt.detail.axis[2]<-0.5){
-                console.log("rotate view to the left");
                 player.object3D.rotation.y+=0.05;
             };
             
             if(evt.detail.axis[3]>0.5){
-                console.log("move back");
+                // console.log("move back");
             }else if(evt.detail.axis[3]<-0.5){
-                console.log("move forward");
+                // console.log("move forward");
             };
         });
     }
