@@ -35,16 +35,15 @@ AFRAME.registerComponent('grabbingtest', {
         let data = this.data;
         this.el.addEventListener('grab-start', function(evt) {
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner...");
+            SET_COMP_PROPS(data.feedbackTXT, 'value', evt);
+            // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner...");
         });
         this.el.addEventListener('grab-end', function(evt) {
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner Walkabout");
-
-            /* evt.detail.dropped.setAttribute('material', 'color',
-            '#'+(Math.random()*0xFFFFFF<<0).toString(16))
-            // notify super-hands that the gesture was accepted
-            evt.preventDefault() */
+            SET_COMP_PROPS(data.feedbackTXT, 'value', evt);
+            // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner Walkabout");
+            evt.detail.dropped.setAttribute('material', 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16))
+            evt.preventDefault();
         });
     }
   })
