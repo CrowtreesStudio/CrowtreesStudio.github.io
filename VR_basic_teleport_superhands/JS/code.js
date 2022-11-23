@@ -35,11 +35,13 @@ AFRAME.registerComponent('grabbingtest', {
         let data = this.data;
         let el = this.el;
         el.addEventListener('grab-start', function(evt) {
+            console.log(evt);
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail);
             // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner...");
         });
         el.addEventListener('grab-end', function(evt) {
+            console.log(evt);
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.colliderEndEventProperty.el);
             // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner Walkabout");
