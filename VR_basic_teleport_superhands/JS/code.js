@@ -26,7 +26,7 @@ AFRAME.registerComponent('grabbingtest', {
     },
     init: function(){
         let data = this.data;
-        let message = "Version: 1.0.6";
+        let message = "Version: 1.0.7";
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
         SET_COMP_PROPS(data.feedbackTXT, 'value', "Listening...");
         document.getElementById("text").innerHTML= message;
@@ -37,7 +37,7 @@ AFRAME.registerComponent('grabbingtest', {
         el.addEventListener('grab-start', function(evt) {
             console.log(evt);
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand);
+            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
             // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner...");
         });
         el.addEventListener('grab-end', function(evt) {
@@ -45,9 +45,9 @@ AFRAME.registerComponent('grabbingtest', {
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.target.id);
             // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner Walkabout");
-            console.log("Who are we talking to:", evt.detail.target.id);
-            console.log("Let's look at set component property:", AFRAME.utils.entity.setComponentProperty);
-            SET_COMP_PROPS('material', 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16))
+            console.log("Components:", evt.detail.target.components);
+            evt.detail.target.components.setAttribute('material', 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));
+            // SET_COMP_PROPS('material', 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16))
             evt.preventDefault();
         });
     }
