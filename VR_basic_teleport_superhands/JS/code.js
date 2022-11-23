@@ -20,7 +20,7 @@ AFRAME.registerComponent('contact-listener', {
     }
 });
 
-AFRAME.registerComponent('grabbingnow', {
+AFRAME.registerComponent('grabbed', {
     schema:{
         feedbackTXT:{type:'selector', default:'#feedback'},
     },
@@ -34,12 +34,10 @@ AFRAME.registerComponent('grabbingnow', {
     play: function() {
         let data = this.data;
         this.el.addEventListener('grab-start', function(evt) {
-            console.log("Grab Start");
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner...");
         });
         this.el.addEventListener('grab-end', function(evt) {
-            console.log("Grab Stop");
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner Walkabout");
 
