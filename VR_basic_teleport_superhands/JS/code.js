@@ -19,6 +19,48 @@ AFRAME.registerComponent('contact-listener', {
 //        });
     }
 });
+AFRAME.registerComponent('pointer', {
+    // built-in method
+    init:function(){
+        // grab scope
+        const el = this.el;
+        
+        // On Click
+        el.addEventListener('click', (evt) => {
+
+            // grab clicked target info
+            let target = evt.detail.intersection;
+            console.log(evt.detail);
+            console.log("target", target);
+            console.log("Inside object.el call", target.object.el);// we're inside the a-entity element
+            // target.object.el.setAttribute('visible', false);// this works
+            const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
+            // SET_COMP_PROPS(target.object.el, 'opacity', 0.25);// this works
+            SET_COMP_PROPS(target.object.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// this works
+
+            // UI panels
+            // let uiCheck = target.object.el.parentEl;
+
+            // Call Scene Manager Component
+            /* let sceneManager = document.querySelector('#scene').components.scenemgr;
+            console.log("scene mgr", sceneManager); */
+
+            /* if (uiCheck.id === "uiGroup") {
+                sceneManager.uiMethod(target, uiCheck);
+            } else {
+                sceneManager.collectorMethod(target);
+            }; */
+
+        });
+        // When hovering on a clickable item, change the cursor colour.
+        el.addEventListener('mouseenter', ()=>{
+            el.setAttribute('material', {color: '#00ff00'});
+        });
+        el.addEventListener('mouseleave', ()=>{
+           el.setAttribute('material', {color: '#ffffff'}); 
+        });
+    }
+});
 
 AFRAME.registerComponent('grabbingtest', {
     schema:{
@@ -46,8 +88,10 @@ AFRAME.registerComponent('grabbingtest', {
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.target.id);
             // SET_COMP_PROPS(data.feedbackTXT, 'value', "Submariner Walkabout");
             console.log("Components:", evt.detail.target.components);
-            // evt.detail.target.components.setAttribute('material', 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));
-            SET_COMP_PROPS(evt.detail.target.components.material, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16))
+
+            SET_COMP_PROPS(evt.detail.target.object.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// not working
+            // SET_COMP_PROPS(evt.detail.target.components.material, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// not working
+
             evt.preventDefault();
         });
     }

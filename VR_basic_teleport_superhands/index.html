@@ -23,9 +23,9 @@
         <!-- hover & drag-drop won't have any obvious effect -->
         <!-- without some additional event handlers or components.-->
         <!-- See the examples page for more -->
-        <a-box id="box" class="grabbable navmesh-hole" hoverable grabbable stretchable draggable droppable grabbingtest position="-3 0.5 -3" color="#2f80d1"  shadow="cast:true; receive:false"></a-box>
+        <a-box id="box" class="grabbable clickable" hoverable grabbable stretchable draggable droppable grabbingtest position="-3 0.5 -3" color="#2f80d1"  shadow="cast:true; receive:false"></a-box>
         
-        <a-sphere id="smallBall" class="grabbable" hoverable grabbable stretchable draggable droppable grabbingtest color="purple" position="0 1 -2" rotation="0 45 0" scale="0.25 0.25 0.25" shadow visible="true"></a-sphere>
+        <a-sphere id="smallBall" class="grabbable clickable" hoverable grabbable stretchable draggable droppable grabbingtest color="purple" position="0 1 -2" rotation="0 45 0" scale="0.25 0.25 0.25" shadow visible="true"></a-sphere>
 
         <a-sphere id="largeBall" class="grabbable" hoverable grabbable stretchable draggable droppable grabbingtest position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere>
 
@@ -50,8 +50,16 @@
                 wasd-controls="acceleration: 10;" 
                 simple-navmesh-constraint="navmesh: .nav-mesh; height:1.65;exclude: .navmesh-hole;" 
                 look-controls="pointerLockEnabled:true;" >
-                    <a-text id="feedback" value="Hello World" position="0 -0.15 -0.5" align="center" baseline="top" scale="0.25 0.25 0.25"></a-text>
-            </a-entity>
+                    <!-- Cursor -->
+                    <a-cursor 
+                        pointer 
+                        raycaster="objects: .clickable; far: 1;"
+                        position="0 0 -0.5"
+                        color="#ffffff">
+                    </a-cursor><!-- Cursor End -->
+                    <!-- Text Field -->
+                    <a-text id="feedback" value="Hello World" position="0 -0.15 -0.5" align="center" baseline="top" scale="0.25 0.25 0.25"></a-text><!-- Text Field End -->
+                </a-entity>
             
             <!-- Left hand laser control -->
             <!-- console log to id controller type at line 73060 -->
