@@ -16,9 +16,9 @@ AFRAME.registerComponent('scenemgr', {
             console.log("device check yes or no:", AFRAME.utils.device.checkHeadsetConnected());
 
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
-                cursor.setAttribute('visible', false);
                 message = "Cursor has been hidden";
                 SET_COMP_PROPS(data.feedbackTXT, 'value', message);
+                SET_COMP_PROPS(cursor, 'visible', false);
             }else{
                 message = "It's Desktop or Mobile";
                 SET_COMP_PROPS(data.feedbackTXT, 'value', message);
@@ -30,6 +30,7 @@ AFRAME.registerComponent('scenemgr', {
 
     collectorMgmt: function(forCollection){
         console.log("Hello from collectorMgmt:", forCollection);
+        SET_COMP_PROPS(forCollection.object3D.el, 'visible', false);
     }
 });
 
@@ -48,8 +49,8 @@ AFRAME.registerComponent('pointer', {
             // grab clicked target info
             let target = evt.detail.intersection;
             console.log(evt.detail);
-            console.log("target", target);
-            console.log("Inside object.el call", target.object.el);// we're inside the a-entity element
+            console.log("target from pointer click", target);
+            console.log("Inside object.el call from pointer click", target.object.el);// we're inside the a-entity element
             // target.object.el.setAttribute('visible', false);// this works
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             // SET_COMP_PROPS(target.object.el, 'opacity', 0.25);// this works
@@ -89,7 +90,7 @@ AFRAME.registerComponent('grabbingtest', {
     },
     init: function(){
         let data = this.data;
-        let message = "Version: 1.1.1";
+        let message = "Version: 1.1.2";
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
         SET_COMP_PROPS(data.feedbackTXT, 'value', "Listening...");
         document.getElementById("text").innerHTML= message;
