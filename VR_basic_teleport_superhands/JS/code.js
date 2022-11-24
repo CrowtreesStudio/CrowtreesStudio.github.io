@@ -1,3 +1,6 @@
+/* ******************************************************** */
+/* Component to listen for mouse click on entity - desktop  */
+/* ******************************************************** */
 AFRAME.registerComponent('pointer', {
     // built-in method
     init:function(){
@@ -41,16 +44,16 @@ AFRAME.registerComponent('pointer', {
     }
 });
 
+/* *********************************************************** */
+/* Component to listen for HMD controllers grabbing an entity  */
+/* *********************************************************** */
 AFRAME.registerComponent('grabbingtest', {
     schema:{
         feedbackTXT:{type:'selector', default:'#feedback'}
     },
     init: function(){
-        /* ******************************************************* */
-        /* Component to listen for controllers grabbing an entity  */
-        /* ******************************************************* */
         let data = this.data;
-        let message = "Version: 1.0.9";
+        let message = "Version: 1.0.9.1";
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
         SET_COMP_PROPS(data.feedbackTXT, 'value', "Listening...");
         document.getElementById("text").innerHTML= message;
@@ -72,18 +75,17 @@ AFRAME.registerComponent('grabbingtest', {
 
             console.log("Components:", evt.detail.target.components);// 'target' is a detail object
 
-            SET_COMP_PROPS(evt.detail.target.object.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// new
+            SET_COMP_PROPS(evt.detail.target.object3D.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// new
             evt.preventDefault();// not sure what this does yet
         });
     }
   })
 
-
+/* *********************************************************** */
+/* Component to use the HMD controller joystick to turn around */
+/* *********************************************************** */
 AFRAME.registerComponent('controllisten', {
     init: function(){
-        /* ******************************************************* */
-        /* Component to use the controller joystick to turn around */
-        /* ******************************************************* */
         let el = this.el;// controller
         let id = el.id;
         let player = document.getElementById("cameraRig");
