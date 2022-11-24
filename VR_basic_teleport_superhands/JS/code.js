@@ -18,6 +18,7 @@ AFRAME.registerComponent('scenemgr', {
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Cursor has been hidden";
                 SET_COMP_PROPS(data.feedbackTXT, 'value', message);
+                console.log("cursor", cursor);
                 SET_COMP_PROPS(cursor, 'visible', false);
             }else{
                 message = "It's Desktop or Mobile";
@@ -29,6 +30,7 @@ AFRAME.registerComponent('scenemgr', {
     },
 
     collectorMgmt: function(forCollection){
+        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
         console.log("Hello from collectorMgmt:", forCollection);
         SET_COMP_PROPS(forCollection.object3D.el, 'visible', false);
     }
@@ -90,7 +92,7 @@ AFRAME.registerComponent('grabbingtest', {
     },
     init: function(){
         let data = this.data;
-        let message = "Version: 1.1.2";
+        let message = "Version: 1.1.3";
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
         SET_COMP_PROPS(data.feedbackTXT, 'value', "Listening...");
         document.getElementById("text").innerHTML= message;
