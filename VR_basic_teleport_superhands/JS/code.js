@@ -1,3 +1,30 @@
+AFRAME.registerComponent('scenemgr', {
+    schema:{
+        feedbackTXT:{type:'selector', default:'#feedback'}
+    },
+
+    init: function(){
+        let data = this.data;
+        let cursor = document.getElementsByTagName("a-cursor");
+        let message = "";
+        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
+
+        if(AFRAME.utils.device.checkHeadsetConnected()==="true"){
+            cursor.setAttribute('visible', false);
+            message = "Cursor has been hidden";
+            SET_COMP_PROPS(data.feedbackTXT, 'value', message);
+        }else{
+            message = "It's Desktop or Mobile";
+            SET_COMP_PROPS(data.feedbackTXT, 'value', message);
+        }
+        console.log("Hello from scenemgr");
+    },
+
+    collectorMgmt: function(forCollection){
+        console.log("Hello from collectorMgmt:", forCollection);
+    }
+});
+
 /* ******************************************************** */
 /* Component to listen for mouse click on entity - desktop  */
 /* ******************************************************** */
@@ -53,7 +80,7 @@ AFRAME.registerComponent('grabbingtest', {
     },
     init: function(){
         let data = this.data;
-        let message = "Version: 1.0.9.1";
+        let message = "Version: 1.1.0";
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
         SET_COMP_PROPS(data.feedbackTXT, 'value', "Listening...");
         document.getElementById("text").innerHTML= message;
@@ -61,6 +88,8 @@ AFRAME.registerComponent('grabbingtest', {
     play: function() {
         let data = this.data;
         let el = this.el;
+        let sceneManager = document.querySelector('#scene').components.scenemgr;
+        console.log("scene mgr", sceneManager);
 
         el.addEventListener('grab-start', function(evt) {
             console.log(evt);
@@ -70,13 +99,15 @@ AFRAME.registerComponent('grabbingtest', {
 
         el.addEventListener('grab-end', function(evt) {
             console.log(evt);
+            
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.target.id);
 
-            console.log("Components:", evt.detail.target.components);// 'target' is a detail object
-
-            SET_COMP_PROPS(evt.detail.target.object3D.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// new
+            SET_COMP_PROPS(evt.detail.target.object3D.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// Works!
+            sceneManager.collectorMgmt(evt.detail.target);
             evt.preventDefault();// not sure what this does yet
+
+            
         });
     }
   })
