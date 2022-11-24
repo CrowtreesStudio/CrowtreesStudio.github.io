@@ -19,7 +19,7 @@ AFRAME.registerComponent('scenemgr', {
                 message = "Cursor has been hidden";
                 SET_COMP_PROPS(data.feedbackTXT, 'value', message);
                 console.log("cursor", cursor);
-                SET_COMP_PROPS(cursor.object3D.el , 'visible', false);
+                SET_COMP_PROPS(cursor.object.el , 'visible', false);
             }else{
                 message = "It's Desktop or Mobile";
                 SET_COMP_PROPS(data.feedbackTXT, 'value', message);
@@ -31,7 +31,7 @@ AFRAME.registerComponent('scenemgr', {
 
     collectorMgmt: function(forCollection){
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-        console.log("Hello from collectorMgmt:", forCollection.object);
+        console.log("Hello from collectorMgmt:", forCollection.object.el);
         console.log("Hello from collectorMgmt object3D:", forCollection.object3D.el);
         // forCollection.object.el.setAttribute('class', 'not-clickable');
         // SET_COMP_PROPS(forCollection.object3D.el, 'visible', false);
@@ -58,21 +58,8 @@ AFRAME.registerComponent('pointer', {
             console.log("Inside object.el call from pointer click", target.object.el);// we're inside the a-entity element
             // target.object.el.setAttribute('visible', false);// this works
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-            // SET_COMP_PROPS(target.object.el, 'opacity', 0.25);// this works
+            SET_COMP_PROPS(target.object.el, 'opacity', 0.25);// this works
             SET_COMP_PROPS(target.object.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// this works
-
-            // UI panels
-            // let uiCheck = target.object.el.parentEl;
-
-            // Call Scene Manager Component
-            /* let sceneManager = document.querySelector('#scene').components.scenemgr;
-            console.log("scene mgr", sceneManager); */
-
-            /* if (uiCheck.id === "uiGroup") {
-                sceneManager.uiMethod(target, uiCheck);
-            } else {
-                sceneManager.collectorMethod(target);
-            }; */
 
         });
         // When hovering on a clickable item, change the cursor colour.
