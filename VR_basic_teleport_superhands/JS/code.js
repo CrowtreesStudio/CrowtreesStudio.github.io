@@ -4,19 +4,27 @@ AFRAME.registerComponent('scenemgr', {
     },
 
     init: function(){
+        let el = this.el;
         let data = this.data;
         let cursor = document.getElementsByTagName("a-cursor");
         let message = "";
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
+        
+        
 
-        if(AFRAME.utils.device.checkHeadsetConnected()==="true"){
-            cursor.setAttribute('visible', false);
-            message = "Cursor has been hidden";
-            SET_COMP_PROPS(data.feedbackTXT, 'value', message);
-        }else{
-            message = "It's Desktop or Mobile";
-            SET_COMP_PROPS(data.feedbackTXT, 'value', message);
-        }
+        el.addEventListener('enter-vr', evt=>{
+            console.log("device check yes or no:", AFRAME.utils.device.checkHeadsetConnected());
+
+            if(AFRAME.utils.device.checkHeadsetConnected() === true){
+                cursor.setAttribute('visible', false);
+                message = "Cursor has been hidden";
+                SET_COMP_PROPS(data.feedbackTXT, 'value', message);
+            }else{
+                message = "It's Desktop or Mobile";
+                SET_COMP_PROPS(data.feedbackTXT, 'value', message);
+            }
+        });
+        
         console.log("Hello from scenemgr");
     },
 
@@ -76,11 +84,12 @@ AFRAME.registerComponent('pointer', {
 /* *********************************************************** */
 AFRAME.registerComponent('grabbingtest', {
     schema:{
-        feedbackTXT:{type:'selector', default:'#feedback'}
+        feedbackTXT:{type:'selector', default:'#feedback'},
+        sceneLocator:{type:'selector', default:'a-scene'}
     },
     init: function(){
         let data = this.data;
-        let message = "Version: 1.1.0";
+        let message = "Version: 1.1.1";
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
         SET_COMP_PROPS(data.feedbackTXT, 'value', "Listening...");
         document.getElementById("text").innerHTML= message;
@@ -88,7 +97,8 @@ AFRAME.registerComponent('grabbingtest', {
     play: function() {
         let data = this.data;
         let el = this.el;
-        let sceneManager = document.querySelector('#scene').components.scenemgr;
+        console.log("finding sceneManager:", data.sceneLocator.components.scenemgr);
+        let sceneManager = data.sceneLocator.components.scenemgr;
         console.log("scene mgr", sceneManager);
 
         el.addEventListener('grab-start', function(evt) {
