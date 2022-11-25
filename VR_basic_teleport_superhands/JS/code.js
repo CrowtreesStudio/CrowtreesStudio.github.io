@@ -1,40 +1,47 @@
 AFRAME.registerComponent('scenemgr', {
     schema:{
-        feedbackTXT:{type:'selector', default:'#feedback'}
+        feedbackTXT:{type:'selector', default:'#feedback'},
+        cursor:{type:'selector', default:'a-cursor'}
     },
 
     init: function(){
         let el = this.el;
         let data = this.data;
-        let cursor = document.getElementsByTagName("a-cursor");
-        let message = "";
+        let message = "Version: 1.1.5";
+        document.getElementById("text").innerHTML= message;
+        
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-        
-        
+        SET_COMP_PROPS(data.feedbackTXT, 'value', "Listening...");
 
         el.addEventListener('enter-vr', evt=>{
-            console.log("device check yes or no:", AFRAME.utils.device.checkHeadsetConnected());
-
+            console.log("HMD device check True or False:", AFRAME.utils.device.checkHeadsetConnected());
+            console.log("Mobile device check True or False:", AFRAME.utils.device.isMobile());
+            console.log("Device check:", AFRAME.utils.device);
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Cursor has been hidden";
                 SET_COMP_PROPS(data.feedbackTXT, 'value', message);
-                console.log("cursor", cursor.object);
-                SET_COMP_PROPS(cursor.object3D.el , 'visible', false);
+                SET_COMP_PROPS(data.cursor , 'visible', false);// this works
+                // data.cursor.setAttribute('visible', false);// this also works
             }else{
                 message = "It's Desktop or Mobile";
                 SET_COMP_PROPS(data.feedbackTXT, 'value', message);
             }
         });
-        
-        console.log("Hello from scenemgr");
+
+        el.addEventListener('exit-vr', evt=>{
+            message = "Cursor visible";
+            SET_COMP_PROPS(data.feedbackTXT, 'value', message);
+            SET_COMP_PROPS(data.cursor , 'visible', true);// this works
+        });
     },
 
     collectorMgmt: function(forCollection){
+        console.log("Hello from collectorMgmt:", forCollection);
+        let data = this.data;
+        let message = forCollection.id;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-        console.log("Hello from collectorMgmt:", forCollection.object);
-        console.log("Hello from collectorMgmt object3D:", forCollection.object3D.el);
-        // forCollection.object.el.setAttribute('class', 'not-clickable');
-        // SET_COMP_PROPS(forCollection.object3D.el, 'visible', false);
+        SET_COMP_PROPS(data.feedbackTXT, 'value', message);
+        SET_COMP_PROPS(forCollection.object3D.el, 'class', 'not-clickable');//Working
         SET_COMP_PROPS(forCollection.object3D.el, 'visible', false);// this works
     }
 });
@@ -43,25 +50,26 @@ AFRAME.registerComponent('scenemgr', {
 /* Component to listen for mouse click on entity - desktop  */
 /* ******************************************************** */
 AFRAME.registerComponent('pointer', {
-    // built-in method
+    // built-in methods
+    schema:{
+        sceneLocator:{type:'selector', default:'a-scene'},
+    },
+
     init:function(){
-        // grab scope
-        const el = this.el;
+    },
+    
+    play:function(){
+        const el = this.el;// grab scope
+        let data = this.data;// grab schema data
         
-        // On Click
+        // On click event
         el.addEventListener('click', (evt) => {
-
             // grab clicked target info
-            let target = evt.detail.intersection;
-            console.log(evt.detail);
-            console.log("target from pointer click", target);
-            console.log("Inside object.el call from pointer click", target.object.el);// we're inside the a-entity element
-            // target.object.el.setAttribute('visible', false);// this works
-            const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-            SET_COMP_PROPS(target.object.el, 'opacity', 0.25);// this works
-            SET_COMP_PROPS(target.object.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// this works
-
+            let target = evt.detail.intersectedEl;
+            let sceneManager = data.sceneLocator.components.scenemgr;
+            sceneManager.collectorMgmt(target);// this works
         });
+
         // When hovering on a clickable item, change the cursor colour.
         el.addEventListener('mouseenter', ()=>{
             el.setAttribute('material', {color: '#00ff00'});
@@ -77,42 +85,29 @@ AFRAME.registerComponent('pointer', {
 /* *********************************************************** */
 AFRAME.registerComponent('grabbingtest', {
     schema:{
-        feedbackTXT:{type:'selector', default:'#feedback'},
-        sceneLocator:{type:'selector', default:'a-scene'}
+        sceneLocator:{type:'selector', default:'a-scene'},
     },
     init: function(){
-        let data = this.data;
-        let message = "Version: 1.1.4.2";
-        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-        SET_COMP_PROPS(data.feedbackTXT, 'value', "Listening...");
-        document.getElementById("text").innerHTML= message;
-
-        console.log("scene locator:", sceneLocator);
     },
+
     play: function() {
+        console.log("Grabbing test");
         let data = this.data;
         let el = this.el;
-        console.log("finding sceneManager:", data.sceneLocator.components.scenemgr);
         let sceneManager = data.sceneLocator.components.scenemgr;
-        console.log("scene mgr", sceneManager);
+        // console.log("scenemanager:", sceneManager);
 
         el.addEventListener('grab-start', function(evt) {
-            console.log(evt);
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
         });
 
         el.addEventListener('grab-end', function(evt) {
-            console.log(evt);
-            
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.target.id);
-
-            SET_COMP_PROPS(evt.detail.target.object3D.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// Works!
-            sceneManager.collectorMgmt(evt.detail.target);
+            // SET_COMP_PROPS(evt.detail.target.object3D.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// Works!
+            sceneManager.collectorMgmt(evt.detail.target);// Works - it calls scene manager and the method
             evt.preventDefault();// not sure what this does yet
-
-            
         });
     }
   })
@@ -123,10 +118,10 @@ AFRAME.registerComponent('grabbingtest', {
 AFRAME.registerComponent('controllisten', {
     init: function(){
         let el = this.el;// controller
-        let id = el.id;
+        // let id = el.id;
         let player = document.getElementById("cameraRig");
-        console.log("player is",player);
-        console.log("Who is calling:", id);
+        // console.log("player is",player);
+        // console.log("Who is calling:", id);
         el.addEventListener('axismove', function(evt){
             // console.log('thumb stick moved');
             // test code for thumbstick courtesy SirFizX & Pavel
