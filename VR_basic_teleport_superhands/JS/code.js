@@ -1,3 +1,6 @@
+/* Working version 1.2 */
+/* Includes teleport, grab and collect with device detection */
+
 AFRAME.registerComponent('scenemgr', {
     schema:{
         feedbackTXT:{type:'selector', default:'#feedback'},
@@ -7,32 +10,30 @@ AFRAME.registerComponent('scenemgr', {
     init: function(){
         let el = this.el;
         let data = this.data;
-        let message = "Version: 1.1.5.1";
+        let message = "Version: 1.2.0";
         document.getElementById("text").innerHTML= message;
         
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
         SET_COMP_PROPS(data.feedbackTXT, 'value', "Listening...");
 
         el.addEventListener('enter-vr', evt=>{
-            console.log("HMD device check True or False:", AFRAME.utils.device.checkHeadsetConnected());
-            console.log("Mobile device check True or False:", AFRAME.utils.device.isMobile());
-            console.log("Device check:", AFRAME.utils.device);
+            // console.log("Device check:", AFRAME.utils.device);
+
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Cursor has been hidden";
-                // SET_COMP_PROPS(data.feedbackTXT, 'value', message);
                 SET_COMP_PROPS(data.cursor , 'visible', false);// this works
-                // data.cursor.setAttribute('visible', false);// this also works
             }else{
                 message = "It's Desktop or Mobile";
-            }
-            SET_COMP_PROPS(data.feedbackTXT, 'value', message);
-        });
+            };
 
+        });
+        
         el.addEventListener('exit-vr', evt=>{
             message = "Cursor visible";
-            SET_COMP_PROPS(data.feedbackTXT, 'value', message);
             SET_COMP_PROPS(data.cursor , 'visible', true);// this works
         });
+
+        SET_COMP_PROPS(data.feedbackTXT, 'value', message);
     },
 
     collectorMgmt: function(forCollection){
