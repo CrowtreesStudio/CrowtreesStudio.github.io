@@ -7,7 +7,7 @@ AFRAME.registerComponent('scenemgr', {
     init: function(){
         let el = this.el;
         let data = this.data;
-        let message = "Version: 1.1.5";
+        let message = "Version: 1.1.5.1";
         document.getElementById("text").innerHTML= message;
         
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
@@ -19,13 +19,13 @@ AFRAME.registerComponent('scenemgr', {
             console.log("Device check:", AFRAME.utils.device);
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Cursor has been hidden";
-                SET_COMP_PROPS(data.feedbackTXT, 'value', message);
+                // SET_COMP_PROPS(data.feedbackTXT, 'value', message);
                 SET_COMP_PROPS(data.cursor , 'visible', false);// this works
                 // data.cursor.setAttribute('visible', false);// this also works
             }else{
                 message = "It's Desktop or Mobile";
-                SET_COMP_PROPS(data.feedbackTXT, 'value', message);
             }
+            SET_COMP_PROPS(data.feedbackTXT, 'value', message);
         });
 
         el.addEventListener('exit-vr', evt=>{
@@ -86,6 +86,7 @@ AFRAME.registerComponent('pointer', {
 AFRAME.registerComponent('grabbingtest', {
     schema:{
         sceneLocator:{type:'selector', default:'a-scene'},
+        feedbackTXT:{type:'selector', default:'#feedback'}
     },
     init: function(){
     },
