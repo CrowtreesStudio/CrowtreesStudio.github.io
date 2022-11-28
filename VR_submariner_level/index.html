@@ -8,14 +8,14 @@
     <!-- A-Frame Framework and Component Scripts -->
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.3.1/dist/aframe-environment-component.min.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script><!-- sphere-collider-->
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.controls.min.js"></script><!-- movement-controls -->
+    <script src="components/simple-navmesh-constraint.js"></script><!-- From Ada Rose Cannon -->
+    <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
     <!-- For some unknown reason, targeting the component remotely does not work. It's weird as a downloaded and locally referenced version does work. -->
     <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script> -->
     <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.js"></script> -->
     <script src="components/aframe-teleport-controls.js"></script>
-
-    <!-- Ada's Navmesh -->
-    <script src="components/simple-navmesh-constraint.js"></script>
 
     <!-- James' Components -->
     <script src="components/mesh-shadows.js"></script>
@@ -23,8 +23,10 @@
     <script src="components/code.js"></script>
 </head>
 <body>
-    <a-scene renderer="colorManagement:false;" >
-
+    <a-scene scenemgr renderer="colorManagement:false;" >
+        <div style="position:absolute; z-index: 100;">
+            <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's ...Grab 1.0.3</div>
+        </div>
         <a-asset>
             <a-asset-item id="level" src="assets/meshes/Level.glb" ></a-asset-item>
             <a-asset-item id="navMesh" src="assets/meshes/Navmesh.glb" ></a-asset-item>
@@ -40,19 +42,10 @@
         </a-asset>
 
         <!-- scene objects -->
-        <a-entity mixin="coin" position="3 3 -4" rotation="90 0 0"></a-entity>
-        <a-entity mixin="coin" position="4 1 -4" rotation="90 0 0"></a-entity>
-        <a-entity mixin="coin" position="-3 3 -2" rotation="90 0 0"></a-entity>
-        <a-entity mixin="coin" position="-4 3 4.5" rotation="90 0 0"></a-entity>
-        
-        <!-- <a-cylinder 
-            position="1 1 -2" 
-            rotation="90 0 0" 
-            height="0.1" 
-            radius="0.25" 
-            color="#ffaa00" 
-            animation__rotation="property:rotation; to:90 360 0; loop:true; dur:2000; easing:linear;">
-        </a-cylinder> -->
+        <a-entity id="coin_01" mixin="coin" class="grabbable clickable" grabbable position="3 3 -4" rotation="90 0 0"></a-entity>
+        <a-entity id="coin_02" mixin="coin" class="grabbable clickable" grabbable position="4 1 -4" rotation="90 0 0"></a-entity>
+        <a-entity id="coin_03" mixin="coin" class="grabbable clickable" grabbable position="-3 3 -2" rotation="90 0 0"></a-entity>
+        <a-entity id="coin_04" mixin="coin" class="grabbable clickable" grabbable position="-4 3 4.5" rotation="90 0 0"></a-entity>
         
         <a-entity id="fuelGem" position="-2.25 0 2.75">
             <a-entity mixin="fuel spin bob" position="0 1 0" rotation="0 0 0"></a-entity>
@@ -61,7 +54,7 @@
 
 
         <a-gltf-model id="gameLvl" src="#level" mesh-shadows visible="true" ></a-gltf-model>
-        <a-gltf-model id="navmesh" gltf-model="#navMesh" position="0 0 0" visible="false"></a-gltf-model>
+        <a-gltf-model class="nav-mesh" gltf-model="#navMesh" position="0 0 0" visible="false"></a-gltf-model>
         <a-gltf-model 
                     id="submarine" 
                     src="#sub" 
@@ -91,40 +84,60 @@
         <a-light id="sunlight" position="-2.5 4.0 5" rotation="106 -25 -46.5" light="castShadow: true; shadowCameraLeft:-6.0;"></a-light>
         <a-light id="ambient" type="ambient" intensity="0.4"></a-light>        
 
-        <!-- Ada Rose Cannon's Navmesh Component -->
-        
-        <a-entity 
-            id="cameraRig"
-            position="4 0 4"
-            rotation="0 50 0" >
-            <!-- camera -->
+        <!-- ********************************* -->
+        <!-- ********************************* -->
+        <!--        Camera Rig and Camera      -->        
+        <!-- ********************************* -->
+        <!-- ********************************* -->
+        <!-- ******************************************** -->
+        <!-- *  Camera, Feedback Text and Controllers   * -->
+        <!-- ******************************************** -->
+        <a-entity id="cameraRig" position="4 0 4" rotation="0 50 0" movement-controls="speed:0.1;">
             <a-entity 
-                id="head" 
-                camera="near: 0.01" 
-                look-controls="pointerLockEnabled: true" 
+                id="camera" 
+                camera="near: 0.01"
                 position="0 1.65 0" 
-                wasd-controls="acceleration: 10" 
-                simple-navmesh-constraint="navmesh: #navmesh;fall: 0.1; height: 1.65" 
-                rotation="0 0 0" 
-                >
-            </a-entity>
-            <!-- hand controls -->
-            <a-entity 
-                id="left-hand"
-                controllisten 
+                simple-navmesh-constraint="navmesh: .nav-mesh; height:1.65; exclude: .navhole;" 
+                look-controls="pointerLockEnabled:true;" >
+                    <!-- Cursor -->
+                    <a-cursor 
+                        pointer 
+                        raycaster="objects: .clickable; far: 0.5;"
+                        position="0 0 -0.5"
+                        color="#ffffff"
+                        visible="true">
+                    </a-cursor><!-- Cursor End -->
+                    <!-- Text Field -->
+                    <a-text id="feedback" value="Hello World" position="0 -0.1 -0.5" align="center" baseline="top" scale="0.25 0.25 0.25"></a-text><!-- Text Field End -->
+                </a-entity>
+            
+            <!-- Left hand laser control -->
+            <!-- console log to id controller type at line 73060 -->
+            <a-entity id="leftHand"
+                controllisten
+                sphere-collider="objects: .grabbable" 
+                super-hands   
                 hand-controls="hand: left;"
                 laser-controls="hand:left;"
-                raycaster="far:3;">
-            </a-entity>                    
-            <a-entity 
-                id="right-hand"
+                raycaster="far:0.5;">
+            </a-entity> <!-- End of Left Hand -->
+
+            <!-- Right hand teleport control -->
+            <a-entity id="rightHand" 
                 controllisten
-                teleport-controls="cameraRig: #cameraRig; teleportOrigin: #head; collisionEntities: #navmesh;"
+                teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: .nav-mesh;"
+                sphere-collider="objects: .grabbable"
+                super-hands
                 hand-controls="hand: right;"
                 laser-controls="hand:right;"
-                raycaster="far:3;">
-            </a-entity>
-        </a-entity>
+                raycaster="far:0.5;">
+            </a-entity> <!-- End of Right Hand -->
+
+            <!-- the hand-controls does not work - appears broken:--> 
+            <!-- trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
+
+            <!-- the laser-controls work as indicated above and are activated (seen) 
+            when they raycaster intersects an object that is (currently) within 0.5 meters -->
 
     </a-scene>
 </body>
