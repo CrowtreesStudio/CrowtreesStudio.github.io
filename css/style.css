@@ -12,22 +12,10 @@ h4 {
 }
 
 body{
-    /* background-color: #152d2d; */
     background-color: #23000d;
     width: 100%;
     margin: 0;
     padding: 0;
-}
-
-#logo{
-    overflow: hidden;
-    height: 200px;
-}
-
-#logo object{
-    height: 100%;
-    width: 100%;
-    margin: 0 auto;
 }
 
 #masthead{
@@ -91,18 +79,19 @@ header {
     grid-column-end: span 12;
 }
 
-
 header #logo{
     position: absolute;
+    margin: 0 25px;
     z-index: 200;
-    width: 25%;
+    overflow: visible;
 }
 
 header #svg-object {
     position: relative;
+    height: 100%;
     width: 100%;
     max-width: 200px;
-    padding: 0 25px;
+    /* padding: 0 25px; */
 }
 
 .subHeader {
@@ -239,6 +228,10 @@ footer p{
 
 @media only screen and (max-width: 767px){
 
+    .page {
+        padding: 0px;
+    }
+
     /* grid shift */
     .grid {
         display: grid;
@@ -246,18 +239,59 @@ footer p{
         grid-template-rows: repeat(20);
     }
 
+    header {
+        text-align: center;
+    }
+
+    header #logo{
+        position: unset;
+        margin: 0 auto;
+        align-items: center;
+        width: 100%;
+    }
+    
+    header #svg-object {
+        width: 150px;
+        padding:0;
+    }
+
+    #masthead{
+        height: 250px;
+    }
+    
+    #masthead iframe{
+        border-radius: 0px;
+    }
+
     #copy {
         /* starting col / ending col*/
         /* starting col / span including end col*/
         grid-column: 1/ span 2;
-        border-radius: 5px;
+        border-radius: 0px;
+    }
+
+    /* buttons */
+    .item{
+        grid-column-end: span 6;
+    }
+
+    .subHeader {
+        padding: 0 5px;;
+    }
+
+    .subHeader h1{
+        padding: 15px;
+        font-size: 1.5em;
+        border-radius: 0px;
+    }
+    
+    #backTop{
+        grid-column-start: 4;
     }
 
     /* box */
     .box {
-        padding: 5px;
-        overflow: hidden;
-        border-radius: 5px;
+        border-radius: 0px;
     }
 
 
@@ -293,6 +327,10 @@ footer p{
     
     .product {
         grid-column-end: span 6;
+    }
+
+    footer {
+        border-radius: 0px;
     }
     
 }
