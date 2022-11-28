@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>Teleport, Superhands & Pick-ups</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.controls.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script><!-- sphere-collider-->
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.controls.min.js"></script><!-- movement-controls -->
     <script src="libs/simple-navmesh-constraint.js"></script><!-- From Ada Rose Cannon -->
-    <script src="libs/aframe-teleport-controls.js"></script>
+    <script src="libs/aframe-teleport-controls.js"></script><!-- Using local copy because linked does not work - weird -->
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
 
     <!-- James' Components -->
@@ -85,7 +85,7 @@
             <!-- trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
 
             <!-- the laser-controls work as indicated above and are activated (seen) 
-            when they raycaster intersects an object that is (currently) within 3 meters -->
+            when they raycaster intersects an object that is (currently) within 0.5 meters -->
         </a-entity> <!--End of cameraRig-->
        
    </a-scene>

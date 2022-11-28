@@ -35,28 +35,38 @@
     <div style="position:absolute; z-index: 100;">
         <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's ...Super Hands Events</div>
     </div>
+
+
     <a-scene environment="preset: japan; shadow: true">
         <a-assets>
           <img id="portals-preview" src="assets/portals.jpg"></img>
         </a-assets>
+
+
         <a-entity progressive-controls="objects: a-box, a-torus-knot, a-link">
+
           <a-camera position="0 1.6 0">
             <a-entity class="gazecaster">
               <a-sphere radius="0.02" visible="false" shadow>
               </a-sphere>
             </a-entity>
           </a-camera>
+
           <a-entity id="lhand" class="left-controller">
             <a-sphere radius="0.07" position="-0.01 -0.02 0.02" visible="false"
                       shadow>
             </a-sphere>
           </a-entity>
+
           <a-entity id="rhand" class="right-controller">
             <a-sphere radius="0.07" position="-0.01 -0.02 0.02" visible="true"
                       shadow>
             </a-sphere>
           </a-entity>
+
         </a-entity>
+
+
         <a-box position="0 1 -1" color="red"
                onclick="randomizeColor(this)"
                ondragstart="paintBall(event)"
@@ -66,6 +76,8 @@
                   value="click to change color\ndrag-drop to paint the knot"
                   width="1" wrap-count="15" anchor="center"></a-text>
         </a-box>
+
+
         <a-torus-knot position="0 0.838 0.152" radius="0.15" radius-tubular="0.04"
                       transparent="true" shadow
                       ondragenter="this.setAttribute('opacity', 0.5)"
@@ -73,12 +85,14 @@
                       onmousedown="this.setAttribute('wireframe', true)"
                       onclick="this.setAttribute('wireframe', false)">
         </a-torus-knot>
+
         <a-link href="portals.html" title="Other Examples"
                 image="#portals-preview"
                 onmouseover="this.setAttribute('link', {highlighted: true})"
                 onmouseout="this.setAttribute('link', {highlighted: false})"
                 position = "0 1.6 0.7" rotation="0 0 0" scale="0.25 0.25 0.25">
         </a-link>
+        
       </a-scene>
 </body>
 </html>

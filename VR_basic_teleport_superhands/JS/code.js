@@ -1,5 +1,6 @@
-/* Working version 1.2 */
-/* Includes teleport, grab and collect with device detection */
+/* Working version 1.2.* */
+/* Includes teleport, grab, collect and with device detection */
+/* Version 1.2.1 includes working desktop and mobile additions */
 
 AFRAME.registerComponent('scenemgr', {
     schema:{
