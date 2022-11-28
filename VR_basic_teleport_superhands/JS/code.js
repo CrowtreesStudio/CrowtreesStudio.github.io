@@ -10,11 +10,12 @@ AFRAME.registerComponent('scenemgr', {
     init: function(){
         let el = this.el;
         let data = this.data;
-        let message = "Version: 1.2.0";
-        document.getElementById("text").innerHTML= message;
-        
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-        SET_COMP_PROPS(data.feedbackTXT, 'value', "Listening...");
+
+        let message = "Version: 1.2.1";
+        document.getElementById("text").innerHTML= message;
+
+        message = "listening...";
 
         el.addEventListener('enter-vr', evt=>{
             // console.log("Device check:", AFRAME.utils.device);
@@ -97,7 +98,6 @@ AFRAME.registerComponent('grabbingtest', {
         let data = this.data;
         let el = this.el;
         let sceneManager = data.sceneLocator.components.scenemgr;
-        // console.log("scenemanager:", sceneManager);
 
         el.addEventListener('grab-start', function(evt) {
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
@@ -107,8 +107,10 @@ AFRAME.registerComponent('grabbingtest', {
         el.addEventListener('grab-end', function(evt) {
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.target.id);
+
             // SET_COMP_PROPS(evt.detail.target.object3D.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// Works!
-            sceneManager.collectorMgmt(evt.detail.target);// Works - it calls scene manager and the method
+            sceneManager.collectorMgmt(evt.detail.target);// Works - it calls scene manager and the method with the target
+
             evt.preventDefault();// not sure what this does yet
         });
     }

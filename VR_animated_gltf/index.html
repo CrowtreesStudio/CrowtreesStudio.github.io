@@ -83,34 +83,34 @@
 <!-- *************************************** -->
 <!--        Camera Rig & Camera              -->
 <!-- *************************************** -->
-       <a-entity id="cameraRig" position="0 0 0" movement-controls="speed: 0.15;">
-           <a-entity id="camera" camera="fov:80; near:0.005" position="0 1.65 0" look-controls="pointerLockEnabled:true;" ></a-entity>
-           <!-- Left hand laser control -->
-           <!-- console log to id controller type at line 73060 -->
-           <a-entity id="leftHand" controllisten
-              hand-controls="hand: left;" windows-motion-controls="hand: left">
-               
-           </a-entity>
+        <a-entity id="cameraRig" position="0 0 0" movement-controls="speed: 0.15;">
+            <a-entity id="camera" camera="fov:80; near:0.005" position="0 1.65 0" look-controls="pointerLockEnabled:true;" ></a-entity>
+            <!-- Left hand laser control -->
+            <!-- console log to id controller type at line 73060 -->
+            <a-entity id="leftHand" controllisten
+                hand-controls="hand: left;" windows-motion-controls="hand: left">
+                
+            </a-entity>
 
-           <!-- Right hand teleport control -->
-           <a-entity id="rightHand" controllisten
-              teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #wall, #floor;"
-              hand-controls="hand: right;" windows-motion-controls="hand:right;">
-               
-           </a-entity>
+            <!-- Right hand teleport control -->
+            <a-entity id="rightHand" controllisten
+                teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #wall, #floor;"
+                hand-controls="hand: right;" windows-motion-controls="hand:right;">
+                
+            </a-entity>
 
-           <!-- the hand-controls no longer work as advertized: 
-           trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
+            <!-- the hand-controls no longer work as advertized: 
+            trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
 
-           <!-- the laser-controls work as indicated above and are activated (seen) 
-           when they raycaster intersects an object that is (currently) within 3 meters -->
-       </a-entity>
+            <!-- the laser-controls work as indicated above and are activated (seen) 
+            when they raycaster intersects an object that is (currently) within 3 meters -->
+        </a-entity>
 
 <!-- *************************************** -->
 <!--                Lighting                 -->
 <!-- *************************************** -->
-       <a-light type="directional" light="castShadow: true; shadowCameraVisible: false" position="-3 2.5 1.5"></a-light>
-       <a-light type="probe" envMap="#pisa" ></a-light>
+        <a-light type="directional" light="castShadow: true; shadowCameraVisible: false" position="-3 2.5 1.5"></a-light>
+        <a-light type="probe" envMap="#pisa" ></a-light>
        
    </a-scene>
 </body>

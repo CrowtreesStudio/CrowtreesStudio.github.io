@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Teleport and Superhands</title>
+    <title>Teleport, Superhands & Pick-ups</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
-    <script src="libs/simple-navmesh-constraint.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.controls.min.js"></script>
+    <script src="libs/simple-navmesh-constraint.js"></script><!-- From Ada Rose Cannon -->
     <script src="libs/aframe-teleport-controls.js"></script>
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
 
@@ -23,17 +24,18 @@
         <!-- hover & drag-drop won't have any obvious effect -->
         <!-- without some additional event handlers or components.-->
         <!-- See the examples page for more -->
-        <a-box id="box" class="grabbable clickable" hoverable grabbable stretchable draggable droppable grabbingtest position="-3 0.5 -3" color="#2f80d1"  shadow="cast:true; receive:false"></a-box>
+
+        <a-box id="box" class="grabbable clickable navhole" hoverable grabbable stretchable draggable droppable grabbingtest position="-3 0.5 -3" color="#2f80d1"  shadow="cast:true; receive:false"></a-box>
         
         <a-sphere id="smallBall" class="grabbable clickable" hoverable grabbable stretchable draggable droppable grabbingtest color="purple" position="0 1 -2" rotation="0 45 0" scale="0.25 0.25 0.25" shadow visible="true"></a-sphere>
 
         <a-sphere id="largeBall" class="grabbable" hoverable grabbable stretchable draggable droppable grabbingtest position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere>
 
-        <a-cone id="cone" class="grabbable navmesh-hole" hoverable grabbable stretchable draggable droppable position="-3 0.5 3" radius-bottom="0.5" color="yellow" shadow="cast:true; receive:false"></a-cone>
+        <a-cone id="cone" class="grabbable" grabbable position="-3 0.75 3" radius-bottom="0.5" color="yellow" shadow="cast:true; receive:false"></a-cone>
 
-        <a-cylinder id="tube" class="grabbable collide navmesh-hole" hoverable grabbable stretchable draggable droppable position="3 0.5 3" radius="0.5" color="red" shadow="cast:true; receive:false"></a-cylinder>
+        <a-cylinder id="tube" class="grabbable collide" grabbable position="3 0.5 3" radius="0.5" color="red" shadow="cast:true; receive:false"></a-cylinder>
 
-        <a-plane id="wall" class="navmesh-hole" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" color="#00b95c" shadow="cast:false; receive:true"></a-plane>
+        <a-box id="wall" class="grabbable" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" depth="0.25" color="#00b95c" shadow="cast:false; receive:true"></a-box>
         
         <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
         <!-- replaced floor plane with a box -->
@@ -42,24 +44,23 @@
         <!-- ******************************************** -->
         <!-- *  Camera, Feedback Text and Controllers   * -->
         <!-- ******************************************** -->
-        <a-entity id="cameraRig" position="0 0 0">
+        <a-entity id="cameraRig" position="0 0 0" movement-controls="speed:0.1; fly:true;">
             <a-entity 
                 id="camera" 
                 camera 
                 position="0 1.65 0" 
-                wasd-controls="acceleration: 10;" 
-                simple-navmesh-constraint="navmesh: .nav-mesh; height:1.65;exclude: .navmesh-hole;" 
+                simple-navmesh-constraint="navmesh: .nav-mesh; height:1.65; exclude: .navhole;" 
                 look-controls="pointerLockEnabled:true;" >
                     <!-- Cursor -->
                     <a-cursor 
                         pointer 
-                        raycaster="objects: .clickable; far: 1;"
+                        raycaster="objects: .clickable; far: 0.5;"
                         position="0 0 -0.5"
                         color="#ffffff"
                         visible="true">
                     </a-cursor><!-- Cursor End -->
                     <!-- Text Field -->
-                    <a-text id="feedback" value="Hello World" position="0 -0.15 -0.5" align="center" baseline="top" scale="0.25 0.25 0.25"></a-text><!-- Text Field End -->
+                    <a-text id="feedback" value="Hello World" position="0 -0.1 -0.5" align="center" baseline="top" scale="0.25 0.25 0.25"></a-text><!-- Text Field End -->
                 </a-entity>
             
             <!-- Left hand laser control -->
