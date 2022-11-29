@@ -44,7 +44,7 @@
         <!-- ******************************************** -->
         <!-- *  Camera, Feedback Text and Controllers   * -->
         <!-- ******************************************** -->
-        <a-entity id="cameraRig" position="0 0 0" movement-controls="speed:0.1; fly:true;">
+        <a-entity id="cameraRig" position="0 0 0" movement-controls="enabled: true; speed:0.1; fly:false;">
             <a-entity 
                 id="camera" 
                 camera 
@@ -60,7 +60,7 @@
                         visible="true">
                     </a-cursor><!-- Cursor End -->
                     <!-- Text Field -->
-                    <a-text id="feedback" value="Hello World" position="0 -0.1 -0.5" align="center" baseline="top" scale="0.25 0.25 0.25"></a-text><!-- Text Field End -->
+                    <a-text id="feedback" value="Hello World" position="0 -0.1 -0.5" align="center" baseline="top" scale="0.15 0.15 0.15"></a-text><!-- Text Field End -->
                 </a-entity>
             
             <!-- Left hand laser control -->
@@ -70,7 +70,8 @@
                 controllisten
                 sphere-collider="objects: .grabbable" 
                 super-hands   
-                hand-controls="hand: left;">
+                hand-controls="hand: left;"
+                laser-controls raycaster="far:0.5; objects: .clickable;">
             </a-entity> <!-- End of Left Hand -->
 
             <!-- Right hand teleport control -->
@@ -81,7 +82,7 @@
                 sphere-collider="objects: .grabbable"
                 super-hands
                 hand-controls="hand: right; handModelStyle:lowPoly; color:#c568ff;"
-                laser-controls raycaster="far:3; objects: .clickable;">
+                laser-controls raycaster="far:0.5; objects: .clickable;">
             </a-entity> <!-- End of Right Hand -->
 
             <!-- the hand-controls does not work - appears broken:--> 

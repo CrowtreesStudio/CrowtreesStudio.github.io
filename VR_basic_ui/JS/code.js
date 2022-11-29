@@ -5,7 +5,11 @@
 AFRAME.registerComponent('scenemgr', {
     schema:{
         feedbackTXT:{type:'selector', default:'#feedback'},
-        cursor:{type:'selector', default:'a-cursor'}
+        cursor:{type:'selector', default:'a-cursor'},
+
+        activeCamRig:{type:'selector', default:'#cameraRig'},
+        activeCam:{type:'selector', default:"#camera"},
+        // cineCam:{type:'selector', default:"#cinematic"},
     },
 
     init: function(){
@@ -24,8 +28,10 @@ AFRAME.registerComponent('scenemgr', {
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Cursor has been hidden";
                 SET_COMP_PROPS(data.cursor , 'visible', false);// this works
+                SET_COMP_PROPS(data.activeCam, 'movement-controls.enabled', false);
             }else{
                 message = "It's Desktop or Mobile";
+                SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
             };
 
         });
