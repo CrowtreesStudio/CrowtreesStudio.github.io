@@ -24,7 +24,6 @@ AFRAME.registerComponent('scenemgr', {
 
         el.addEventListener('enter-vr', evt=>{
             // console.log("Device check:", AFRAME.utils.device);
-
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Cursor has been hidden";
                 SET_COMP_PROPS(data.cursor , 'visible', false);// this works
@@ -32,7 +31,7 @@ AFRAME.registerComponent('scenemgr', {
             }else{
                 message = "It's Desktop or Mobile";
                 SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
-            };
+            };``
 
         });
         
