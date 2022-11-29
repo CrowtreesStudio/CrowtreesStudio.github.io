@@ -25,9 +25,9 @@
         <!-- without some additional event handlers or components.-->
         <!-- See the examples page for more -->
 
-        <a-box id="box" class="grabbable clickable navhole" hoverable grabbable stretchable draggable droppable position="-3 0.5 -3" color="#2f80d1"  shadow="cast:true; receive:false"></a-box>
+        <a-box id="box" class="grabbable clickable navhole" grabbingtest hoverable grabbable stretchable draggable droppable position="-3 0.5 -3" color="#2f80d1"  shadow="cast:true; receive:false"></a-box>
         
-        <a-sphere id="smallBall" class="grabbable clickable" hoverable grabbable stretchable draggable droppable color="purple" position="0 1 -2" rotation="0 45 0" scale="0.25 0.25 0.25" shadow visible="true"></a-sphere>
+        <a-sphere id="smallBall" class="grabbable clickable" grabbingtest hoverable grabbable stretchable draggable droppable color="purple" position="0 1 -2" rotation="0 45 0" scale="0.25 0.25 0.25" shadow visible="true"></a-sphere>
 
         <a-sphere id="largeBall" class="grabbable" hoverable grabbable stretchable draggable droppable position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere>
 
@@ -66,7 +66,6 @@
             <!-- Left hand laser control -->
             <!-- console log to id controller type at line 73060 -->
             <a-entity id="leftHand"
-                grabbingtest
                 controllisten
                 sphere-collider="objects: .grabbable" 
                 super-hands   
@@ -76,7 +75,6 @@
 
             <!-- Right hand teleport control -->
             <a-entity id="rightHand"
-                grabbingtest 
                 controllisten
                 teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #floor;"
                 sphere-collider="objects: .grabbable"
