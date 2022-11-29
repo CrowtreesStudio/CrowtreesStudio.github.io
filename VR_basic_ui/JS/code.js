@@ -13,7 +13,7 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
-        let message = "Version: 1.2.1";
+        let message = "Version: 1.2.2";
         document.getElementById("text").innerHTML= message;
 
         message = "listening...";
@@ -96,6 +96,8 @@ AFRAME.registerComponent('grabbingtest', {
 
     play: function() {
         console.log("Grabbing test");
+        // Place grabbingtest on the RIGHT & LEFT HANDS and not on the objects as was the previous version
+        // The objects should yield thier id based on what the Sphere Collider returns
         let data = this.data;
         let el = this.el;
         let sceneManager = data.sceneLocator.components.scenemgr;
@@ -103,6 +105,7 @@ AFRAME.registerComponent('grabbingtest', {
         el.addEventListener('grab-start', function(evt) {
             const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
+            console.log(evt.detail);
         });
 
         el.addEventListener('grab-end', function(evt) {
@@ -113,6 +116,7 @@ AFRAME.registerComponent('grabbingtest', {
             sceneManager.collectorMgmt(evt.detail.target);// Works - it calls scene manager and the method with the target
 
             evt.preventDefault();// not sure what this does yet
+            console.log(evt.detail);
         });
     }
   })
