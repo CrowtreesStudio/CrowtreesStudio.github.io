@@ -27,7 +27,7 @@ AFRAME.registerComponent('scenemgr', {
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Cursor has been hidden";
                 SET_COMP_PROPS(data.cursor , 'visible', false);// this works
-                SET_COMP_PROPS(data.activeCam, 'movement-controls.enabled', false);
+                SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
             }else{
                 message = "It's Desktop or Mobile";
                 SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
