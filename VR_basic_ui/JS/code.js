@@ -31,7 +31,7 @@ AFRAME.registerComponent('scenemgr', {
             }else{
                 message = "It's Desktop or Mobile";
                 SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
-            };``
+            };
 
         });
         
