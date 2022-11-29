@@ -78,7 +78,8 @@
                 teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #floor;"
                 sphere-collider="objects: .grabbable"
                 super-hands
-                hand-controls="hand: right;">
+                hand-controls="hand: right; handModelStyle:lowPoly; color:#c568ff;"
+                laser-controls raycaster="far:3; objects: .clickable;">
             </a-entity> <!-- End of Right Hand -->
 
             <!-- the hand-controls does not work - appears broken:--> 

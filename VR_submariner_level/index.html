@@ -13,7 +13,6 @@
     <script src="components/simple-navmesh-constraint.js"></script><!-- From Ada Rose Cannon -->
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
     <!-- For some unknown reason, targeting the component remotely does not work. It's weird as a downloaded and locally referenced version does work. -->
-    <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.min.js"></script> -->
     <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.js"></script> -->
     <script src="components/aframe-teleport-controls.js"></script>
 
@@ -21,6 +20,7 @@
     <script src="components/mesh-shadows.js"></script>
     <script src="components/a-water.js"></script>
     <script src="components/code.js"></script>
+
 </head>
 <body>
     <a-scene scenemgr renderer="colorManagement:false;" >
@@ -31,40 +31,59 @@
             <a-asset-item id="level" src="assets/meshes/Level.glb" ></a-asset-item>
             <a-asset-item id="navMesh" src="assets/meshes/Navmesh.glb" ></a-asset-item>
             <a-asset-item id="sub" src="assets/meshes/submarine.glb" ></a-asset-item>
-            <a-mixin id="coin" geometry="primitive:cylinder; height:0.1; radius:0.25;" material="color:#ffaa00;" animation="property:rotation; to:90 360 0; loop:true; dur:2000; easing:linear;" ></a-mixin>
+            <a-mixin id="coin" geometry="primitive:cylinder; height:0.1; radius:0.25;" material="color:#ffaa00;" ></a-mixin>
             <a-mixin 
                 id="fuel" 
                 geometry="primitive:octahedron; radius:1;" 
                 scale="0.25 0.5 0.25" 
-                material="color:#ff2266; transparent:true; opacity:0.7; side:double;" ></a-mixin>
-            <a-mixin id="spin" animation__rot="property:rotation; to:0 360 0; loop:true; dur:2000; easing:linear;"></a-mixin>
-            <a-mixin id="bob" animation__pos="property:position; to:0 1.05 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad;"></a-mixin>
+                material="color:#ff2266; emissive:#05a; transparent:true; opacity:0.85; side:double;" ></a-mixin>
+            <a-mixin id="spinCoin" animation__rot="property:rotation; to:0 0 360; loop:true; dur:2000; easing:linear;"></a-mixin>
+            <a-mixin id="spinFuelGem" animation__rot="property:rotation; to:0 360 0; loop:true; dur:2000; easing:linear;"></a-mixin>
+            <a-mixin id="bobCoin" animation__pos="property:position; to:0 0 0.25; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad;"></a-mixin>
+            <a-mixin id="bobFuelGem" animation__pos="property:position; to:0 1.25 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad;"></a-mixin>
         </a-asset>
 
-        <!-- scene objects -->
-        <a-entity id="coin_01" mixin="coin" class="grabbable clickable" grabbable position="3 3 -4" rotation="90 0 0"></a-entity>
-        <a-entity id="coin_02" mixin="coin" class="grabbable clickable" grabbable position="4 1 -4" rotation="90 0 0"></a-entity>
-        <a-entity id="coin_03" mixin="coin" class="grabbable clickable" grabbable position="-3 3 -2" rotation="90 0 0"></a-entity>
-        <a-entity id="coin_04" mixin="coin" class="grabbable clickable" grabbable position="-4 3 4.5" rotation="90 0 0"></a-entity>
+        <!-- scene objects - Collectable Coins -->
+        <a-entity position="3 3 -4" rotation="90 0 0">
+            <a-entity id="coin_01" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable ></a-entity>
+        </a-entity>
+        <a-entity position="4 1 -4" rotation="90 0 0">
+            <a-entity id="coin_02" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable ></a-entity>
+        </a-entity>
+        <a-entity position="-3 3 -2" rotation="90 0 0">
+            <a-entity id="coin_03" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable ></a-entity>
+        </a-entity>
+        <a-entity position="-4 3 4.5" rotation="90 0 0">
+            <a-entity id="coin_04" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable ></a-entity>
+        </a-entity>
         
-        <a-entity id="fuelGem" position="-2.25 0 2.75">
-            <a-entity mixin="fuel spin bob" position="0 1 0" rotation="0 0 0"></a-entity>
+        <!-- Fuel Gem - Goal of 'Game' -->
+        <a-entity id="fuelGem" position="-2.25 0 2.75" visible="false">
+            <a-entity id="fuel_gem" class="not-clickable" mixin="fuel spinFuelGem bobFuelGem" position="0 1 0" rotation="0 0 0"></a-entity>
             <a-light type="point" position="0 1 0" intensity="1.0" distance="4"></a-light>
         </a-entity>
 
-
+        <!-- Submarine - Goal: Get Fuel Gem to Power Sub for Getaway -->
         <a-gltf-model id="gameLvl" src="#level" mesh-shadows visible="true" ></a-gltf-model>
         <a-gltf-model class="nav-mesh" gltf-model="#navMesh" position="0 0 0" visible="false"></a-gltf-model>
-        <a-gltf-model 
-                    id="submarine" 
-                    src="#sub" 
-                    position="3 -1.2 7" 
-                    gltf-model="assets/meshes/submarine.glb" 
-                    rotation="-181 -90 -174"
-                    shadow="cast:false; receive:true;"
-                    animation="property:position; to:3 -1.0 7; dir:alternate; loop:true; dur:1500; easing:easeInOutQuad;"
-                    animation__rotation="property:rotation; to:-179 -90 -186; dir:alternate; loop:true; dur:1500; easing:easeInOutQuad;"
-              ></a-gltf-model>
+        <a-entity 
+           id="subRig" 
+           position="0 0 0"
+           animation="property:position; to: 20 -3 0; dur:10000; easing:easeInQuad; autoplay:false;">
+           <a-gltf-model 
+              id="submarine" 
+              class="not-clickable" 
+              visible="true"
+              position="3 -1 6.5"
+              rotation="-1.5 90 -1.5" 
+              gltf-model="#sub"
+              animation="property:position; to:3 -0.85 6.5; dir:alternate; loop:true; dur:1250; easing:easeInOutQuad;"
+              animation__rotation="property:rotation; to:1.5 90 1.5; dir:alternate; loop:true; dur:1750; easing:easeInOutQuad;"
+              >   
+           </a-gltf-model>
+        </a-entity>
+
+        <!-- Environment -->
         <a-water
             position="0 -0.5 0"  
             width="100" 
@@ -77,7 +96,6 @@
             color="#891884"
             opacity="1.0">
         </a-water>
-
         <a-entity environment="preset:arches;" position="0 -4 0"></a-entity>
         
         <!-- Lights -->

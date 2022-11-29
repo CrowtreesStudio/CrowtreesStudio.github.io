@@ -36,6 +36,7 @@ AFRAME.registerComponent('scenemgr', {
         });
 
         SET_COMP_PROPS(data.feedbackTXT, 'value', message);
+        console.log(THREE.Cache);
     },
 
     collectorMgmt: function(forCollection){
