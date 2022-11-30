@@ -18,7 +18,7 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
-        let message = "Version: 1.2.1.5";
+        let message = "Version: 1.2.1.6";
         document.getElementById("text").innerHTML= message;
         message = "listening...";
 
@@ -129,19 +129,20 @@ AFRAME.registerComponent('grabbingtest', {
             let target = evt.detail.target;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
             target.components.animation__pos.animation.pause();
-            console.log("Target evt:", target);
+            console.log("TEvent - Hover Start:", target);
         });
 
         el.addEventListener('hover-end', function(evt) {
             let target = evt.detail.target;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
             target.components.animation__pos.animation.play();
-            console.log("Target evt:", target);
+            console.log("Event - Hover End:", target);
         });
 
         el.addEventListener('grab-start', function(evt) {
+            let target = evt.detail.target;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
-            console.log(evt.detail.target);
+            console.log("Event Grab Start",target);
         });
 
         el.addEventListener('grab-end', function(evt) {
@@ -151,7 +152,7 @@ AFRAME.registerComponent('grabbingtest', {
             sceneManager.collectorMgmt(evt.detail.target);// Works - it calls scene manager and the method with the target
 
             evt.preventDefault();// not sure what this does yet
-            console.log(evt.detail);
+            console.log("Event Grab End",evt.detail);
         });
     }
   })
