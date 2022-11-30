@@ -18,6 +18,11 @@
         <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's ...Grab 1.0.3</div>
     </div>
    <a-scene scenemgr background="color:#000000;">
+
+        <a-asset>
+            <a-mixin id="bob" animation__pos="property:position; to:0 1.05 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
+        </a-asset>
+
         <!-- ******************************************** -->
         <!-- *       Basic VR scene for testing         * -->
         <!-- ******************************************** -->
@@ -25,9 +30,19 @@
         <!-- without some additional event handlers or components.-->
         <!-- See the examples page for more -->
 
+        
         <a-box id="box" class="grabbable clickable navhole" grabbingtest hoverable grabbable stretchable draggable droppable position="-3 0.5 -3" color="#2f80d1"  shadow="cast:true; receive:false"></a-box>
         
-        <a-sphere id="smallBall" class="grabbable clickable" grabbingtest hoverable grabbable stretchable draggable droppable color="purple" position="0 1 -2" rotation="0 45 0" scale="0.25 0.25 0.25" shadow visible="true"></a-sphere>
+        <a-entity position="0 1 -2" scale="0.25 0.25 0.25">
+            <a-sphere 
+                id="smallBall" 
+                class="grabbable clickable" 
+                mixin="bob" 
+                grabbingtest animstart grabbable 
+                color="purple"  
+                shadow visible="true">
+            </a-sphere>
+        </a-entity>
 
         <a-sphere id="largeBall" class="grabbable" hoverable grabbable stretchable draggable droppable position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere>
 

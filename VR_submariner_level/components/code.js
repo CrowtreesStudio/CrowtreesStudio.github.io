@@ -81,11 +81,26 @@ AFRAME.registerComponent('pointer', {
         });
 
         // When hovering on a clickable item, change the cursor colour.
-        el.addEventListener('mouseenter', ()=>{
+        el.addEventListener('mouseenter', (evt)=>{
             el.setAttribute('material', {color: '#00ff00'});
+            let target = evt.detail.intersectedEl;
+            if(!target.components.animation__pos){
+                console.log("No animations");
+            }else{
+                target.components.animation__pos.animation.pause();
+                target.components.animation__rot.animation.pause();
+            }
+            
         });
-        el.addEventListener('mouseleave', ()=>{
-           el.setAttribute('material', {color: '#ffffff'}); 
+        el.addEventListener('mouseleave', (evt)=>{
+           el.setAttribute('material', {color: '#ffffff'});
+           let target = evt.detail.intersectedEl;
+            if(!target.components.animation__pos){
+                console.log("No animations");
+            }else{
+                target.components.animation__pos.animation.play();
+                target.components.animation__rot.animation.play();
+            } 
         });
     }
 });
@@ -99,22 +114,45 @@ AFRAME.registerComponent('grabbingtest', {
         feedbackTXT:{type:'selector', default:'#feedback'}
     },
     init: function(){
+        console.log("init: Grabbing test");
     },
 
     play: function() {
-        console.log("Grabbing test");
+        console.log("play: Grabbing test");
         let data = this.data;
         let el = this.el;
+        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
         let sceneManager = data.sceneLocator.components.scenemgr;
 
-        el.addEventListener('grab-start', function(evt) {
-            const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
+        el.addEventListener('hover-start', function(evt) {
+            let target = evt.detail.target;
+            // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
-            console.log("Target evt:", evt.detail.target);
+            target.components.animation__pos.animation.pause();
+            target.components.animation__rot.animation.pause();
+            console.log("Target evt:", target);
+        });
+
+        el.addEventListener('hover-end', function(evt) {
+            let target = evt.detail.target;
+            // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
+            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
+            target.components.animation__pos.animation.play();
+            target.components.animation__rot.animation.play();
+            console.log("Target evt:", target);
+        });
+
+        el.addEventListener('grab-start', function(evt) {
+            let target = evt.detail.target;
+            // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
+            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
+            target.components.animation__pos.animation.pause();
+            target.components.animation__rot.animation.pause();
+            console.log("Target evt:", target);
         });
 
         el.addEventListener('grab-end', function(evt) {
-            const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
+            // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.target.id);
 
             // SET_COMP_PROPS(evt.detail.target.object3D.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// Works!
@@ -150,5 +188,17 @@ AFRAME.registerComponent('controllisten', {
                 // console.log("move forward");
             };
         });
+    }
+});
+
+/* *********************************************************** */
+/*   Component to start play animations on an entity object    */
+/* *********************************************************** */
+AFRAME.registerComponent('animstart', {
+    init: function(){
+        let el = this.el;
+        console.log("Animation Component:", el.components);
+        el.components.animation__pos.animation.play();
+        el.components.animation__rot.animation.play();
     }
 });
