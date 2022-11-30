@@ -18,7 +18,7 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
-        let message = "Version: 1.2.1.4";
+        let message = "Version: 1.2.1.5";
         document.getElementById("text").innerHTML= message;
         message = "listening...";
 
@@ -27,6 +27,7 @@ AFRAME.registerComponent('scenemgr', {
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Cursor has been hidden";
                 SET_COMP_PROPS(data.cursor , 'visible', false);// this works
+                SET_COMP_PROPS(data.cursor , 'raycaster.enabled', false);// this works
                 SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
             }else{
                 message = "It's Desktop or Mobile";
@@ -38,6 +39,7 @@ AFRAME.registerComponent('scenemgr', {
         el.addEventListener('exit-vr', evt=>{
             message = "Cursor visible";
             SET_COMP_PROPS(data.cursor , 'visible', true);// this works
+            SET_COMP_PROPS(data.cursor , 'raycaster.enabled', true);// this works
             SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
         });
 

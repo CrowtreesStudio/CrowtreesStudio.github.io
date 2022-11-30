@@ -69,7 +69,7 @@
                     <!-- Cursor -->
                     <a-cursor 
                         pointer 
-                        raycaster="objects: .clickable; far: 0.5;"
+                        raycaster="objects: .clickable; far: 0.5; enabled:true;"
                         position="0 0 -0.5"
                         color="#ffffff"
                         visible="true">
@@ -85,6 +85,7 @@
                 sphere-collider="objects: .grabbable" 
                 super-hands   
                 hand-controls="hand: left;"
+                laser-controls raycaster="far:0.5; objects: .clickable; enabled: false;"
                 >
             </a-entity> <!-- End of Left Hand -->
 
@@ -95,6 +96,7 @@
                 sphere-collider="objects: .grabbable"
                 super-hands
                 hand-controls="hand: right; handModelStyle:lowPoly; color:#c568ff;"
+                laser-controls raycaster="far:0.5; objects: .clickable; enabled: false;"
                 >
             </a-entity> <!-- End of Right Hand -->
             <!-- laser-controls raycaster="far:0.5; objects: .clickable;" -->
