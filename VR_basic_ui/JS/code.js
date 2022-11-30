@@ -18,7 +18,7 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
-        let message = "Version: 1.2.1.6";
+        let message = "Version: 1.2.1.7";
         document.getElementById("text").innerHTML= message;
         message = "listening...";
 
@@ -128,11 +128,13 @@ AFRAME.registerComponent('grabbingtest', {
         el.addEventListener('hover-start', function(evt) {
             let target = evt.detail.target;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
+            console.log("detail hand:", evt.detail.hand);
             target.components.animation__pos.animation.pause();
-            console.log("TEvent - Hover Start:", target);
+            console.log("Event - Hover Start:", target);
         });
 
         el.addEventListener('hover-end', function(evt) {
+            console.log("Event - Hover End!?");
             let target = evt.detail.target;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
             target.components.animation__pos.animation.play();
