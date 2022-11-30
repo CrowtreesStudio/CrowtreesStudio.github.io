@@ -18,7 +18,7 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
-        let message = "Version: 1.2.1.7";
+        let message = "Version: 1.2.1.8";
         document.getElementById("text").innerHTML= message;
         message = "listening...";
 
@@ -126,19 +126,25 @@ AFRAME.registerComponent('grabbingtest', {
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
 
         el.addEventListener('hover-start', function(evt) {
+            console.log("Event - Hover Start");
             let target = evt.detail.target;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
-            console.log("detail hand:", evt.detail.hand);
-            target.components.animation__pos.animation.pause();
-            console.log("Event - Hover Start:", target);
+            if(!target.components.animation__pos){
+                console.log("No animations");
+            }else{
+                target.components.animation__pos.animation.pause();
+            }
         });
 
         el.addEventListener('hover-end', function(evt) {
-            console.log("Event - Hover End!?");
+            console.log("Event - Hover End");
             let target = evt.detail.target;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
-            target.components.animation__pos.animation.play();
-            console.log("Event - Hover End:", target);
+            if(!target.components.animation__pos){
+                console.log("No animations");
+            }else{
+                target.components.animation__pos.animation.play();
+            }
         });
 
         el.addEventListener('grab-start', function(evt) {
