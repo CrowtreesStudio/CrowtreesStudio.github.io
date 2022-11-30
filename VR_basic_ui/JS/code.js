@@ -18,7 +18,7 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
-        let message = "Version: 1.2.1.8";
+        let message = "Version: 1.2.1.9";
         document.getElementById("text").innerHTML= message;
         message = "listening...";
 
@@ -72,10 +72,12 @@ AFRAME.registerComponent('pointer', {
     play:function(){
         const el = this.el;// grab scope
         let data = this.data;// grab schema data
+        let grabit = false;
         
         // On click event
         el.addEventListener('click', (evt) => {
-            // grab clicked target info
+            console.log("clicked object");
+            grabit = true;
             let target = evt.detail.intersectedEl;
             let sceneManager = data.sceneLocator.components.scenemgr;
             sceneManager.collectorMgmt(target);// this works
@@ -83,23 +85,24 @@ AFRAME.registerComponent('pointer', {
 
         // When hovering on a clickable item, change the cursor colour.
         el.addEventListener('mouseenter', (evt)=>{
+            console.log("mouse enter");
             el.setAttribute('material', {color: '#00ff00'});
             let target = evt.detail.intersectedEl;
-            if(!target.components.animation__pos){
-                console.log("No animations");
-            }else{
-                // console.log(target.components.animation__pos.animation);
+            if(target.components.animation__pos && !grabit){
                 target.components.animation__pos.animation.pause();
+            }else{
+                console.log("No animations");
             }
         });
 
         el.addEventListener('mouseleave', (evt)=>{
+            console.log("mouse leave");
            el.setAttribute('material', {color: '#ffffff'});
            let target = evt.detail.intersectedEl;
-            if(!target.components.animation__pos){
-                console.log("No animations");
-            }else{
+            if(target.components.animation__pos && !grabit){
                 target.components.animation__pos.animation.play();
+            }else{
+                console.log("No animations");
             } 
         });
     }
@@ -123,16 +126,17 @@ AFRAME.registerComponent('grabbingtest', {
         let data = this.data;
         let el = this.el;
         let sceneManager = data.sceneLocator.components.scenemgr;
+        let grabIt = false;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
 
         el.addEventListener('hover-start', function(evt) {
             console.log("Event - Hover Start");
             let target = evt.detail.target;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
-            if(!target.components.animation__pos){
-                console.log("No animations");
-            }else{
+            if(target.components.animation__pos && !grabIt){
                 target.components.animation__pos.animation.pause();
+            }else{
+                console.log("No animations");
             }
         });
 
@@ -140,16 +144,17 @@ AFRAME.registerComponent('grabbingtest', {
             console.log("Event - Hover End");
             let target = evt.detail.target;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
-            if(!target.components.animation__pos){
-                console.log("No animations");
-            }else{
+            if(target.components.animation__pos && !grabIt){
                 target.components.animation__pos.animation.play();
+            }else{
+                console.log("No animations");
             }
         });
 
         el.addEventListener('grab-start', function(evt) {
             let target = evt.detail.target;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
+            grabIt = true;
             console.log("Event Grab Start",target);
         });
 
