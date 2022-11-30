@@ -18,7 +18,7 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
-        let message = "Version: 1.2.1.3";
+        let message = "Version: 1.2.1.4";
         document.getElementById("text").innerHTML= message;
         message = "listening...";
 
@@ -125,30 +125,24 @@ AFRAME.registerComponent('grabbingtest', {
 
         el.addEventListener('hover-start', function(evt) {
             let target = evt.detail.target;
-            // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
             target.components.animation__pos.animation.pause();
-            target.components.animation__rot.animation.pause();
             console.log("Target evt:", target);
         });
 
         el.addEventListener('hover-end', function(evt) {
             let target = evt.detail.target;
-            // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
             target.components.animation__pos.animation.play();
-            target.components.animation__rot.animation.play();
             console.log("Target evt:", target);
         });
 
         el.addEventListener('grab-start', function(evt) {
-            const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
             console.log(evt.detail.target);
         });
 
         el.addEventListener('grab-end', function(evt) {
-            const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.target.id);
 
             // SET_COMP_PROPS(evt.detail.target.object3D.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// Works!

@@ -126,7 +126,7 @@
                         visible="true">
                     </a-cursor><!-- Cursor End -->
                     <!-- Text Field -->
-                    <a-text id="feedback" value="Hello World" position="0 -0.1 -0.5" align="center" baseline="top" scale="0.25 0.25 0.25"></a-text><!-- Text Field End -->
+                    <a-text id="feedback" value="Hello World" position="0 -0.1 -0.5" align="center" baseline="top" scale="0.15 0.15 0.15"></a-text><!-- Text Field End -->
                 </a-entity>
             
             <!-- Left hand laser control -->
@@ -138,7 +138,7 @@
                 grabbingtest   
                 hand-controls="hand: left;"
                 laser-controls="hand:left;"
-                raycaster="far:0.5;">
+                raycaster="objects:.grabbable; far:0.5;">
             </a-entity> <!-- End of Left Hand -->
 
             <!-- Right hand teleport control -->
@@ -150,7 +150,7 @@
                 grabbingtest
                 hand-controls="hand: right;"
                 laser-controls="hand:right;"
-                raycaster="far:0.5;">
+                raycaster="objects:.grabbable; far:0.5;">
             </a-entity> <!-- End of Right Hand -->
 
             <!-- the hand-controls does not work - appears broken:--> 

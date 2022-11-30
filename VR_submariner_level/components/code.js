@@ -17,7 +17,7 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
-        let message = "Version: 1.2.1.3";
+        let message = "Version: 1.2.1.4";
         document.getElementById("text").innerHTML= message;
 
         message = "listening...";
