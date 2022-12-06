@@ -89,7 +89,7 @@ AFRAME.registerComponent('water', {
 
     this.mesh = new THREE.Mesh(geometry, material.material);
     el.setObject3D('mesh', this.mesh);
-    console.log("mesh", this.mesh);
+    // console.log("mesh", this.mesh);
   },
 
   remove: function () {

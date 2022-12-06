@@ -10,7 +10,7 @@
     <script src="https://unpkg.com/aframe-environment-component@1.3.1/dist/aframe-environment-component.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script><!-- sphere-collider-->
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.controls.min.js"></script><!-- movement-controls -->
-    <script src="components/simple-navmesh-constraint.js"></script><!-- From Ada Rose Cannon -->
+    <script src="components/simple-navmesh-constraint.js"></script>From Ada Rose Cannon
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
     <!-- For some unknown reason, targeting the component remotely does not work. It's weird as a downloaded and locally referenced version does work. -->
     <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.js"></script> -->
@@ -41,20 +41,22 @@
             <a-mixin id="spinFuelGem" animation__rot="property:rotation; to:0 360 0; loop:true; dur:2000; easing:linear; autoplay: false;"></a-mixin>
             <a-mixin id="bobCoin" animation__pos="property:position; to:0 0 0.25; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
             <a-mixin id="bobFuelGem" animation__pos="property:position; to:0 1.25 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
+            <a-mixin id="collectPos" animation__collpos="property:position; to: 0 1 0; dur:500; easing:linear; autoplay:false;"></a-mixin>
+            <a-mixin id="collectScale" animation__collscale="property:scale; to: 0.1 0.1 0.1; dur:500; easing:linear; autoplay:false;"></a-mixin>
         </a-asset>
 
         <!-- scene objects - Collectable Coins -->
-        <a-entity position="3 3 -4" rotation="90 0 0">
-            <a-entity id="coin_01" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable animstart ></a-entity>
+        <a-entity id="coin_holder_01" position="3 3 -4" rotation="90 0 0" mixin="collectPos collectScale">
+            <a-entity id="coin_01" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable hoverable animstart ></a-entity>
         </a-entity>
-        <a-entity position="4 1 -4" rotation="90 0 0">
-            <a-entity id="coin_02" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable animstart></a-entity>
+        <a-entity id="coin_holder_02" position="4 1 -4" rotation="90 0 0" mixin="collectPos collectScale">
+            <a-entity id="coin_02" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable hoverable animstart></a-entity>
         </a-entity>
-        <a-entity position="-3 3 -2" rotation="90 0 0">
-            <a-entity id="coin_03" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable animstart></a-entity>
+        <a-entity id="coin_holder_03" position="-3 3 -2" rotation="90 0 0" mixin="collectPos collectScale">
+            <a-entity id="coin_03" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable hoverable animstart></a-entity>
         </a-entity>
-        <a-entity position="-4 3 4.5" rotation="90 0 0">
-            <a-entity id="coin_04" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable animstart></a-entity>
+        <a-entity id="coin_holder_04" position="-4 3 4.5" rotation="90 0 0" mixin="collectPos collectScale">
+            <a-entity id="coin_04" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable hoverable animstart></a-entity>
         </a-entity>
         
         <!-- Fuel Gem - Goal of 'Game' -->
@@ -110,12 +112,13 @@
         <!-- ******************************************** -->
         <!-- *  Camera, Feedback Text and Controllers   * -->
         <!-- ******************************************** -->
-        <a-entity id="cameraRig" position="4 0 4" rotation="0 50 0" movement-controls="speed:0.1;">
-            <a-entity 
+        <!-- <a-entity id="cameraRig" position="4 0 4" rotation="0 50 0" wasd-controls="acceleration: 10;"> -->
+        <a-entity id="cameraRig" position="4 0 4" rotation="0 60 0" movement-controls="speed: 0.15;">
+            <a-camera 
                 id="camera" 
-                camera="near: 0.01"
-                position="0 1.65 0" 
-                simple-navmesh-constraint="navmesh: .nav-mesh; height:1.65; exclude: .navhole;" 
+                position="0 1.65 0"
+                simple-navmesh-constraint="navmesh: .nav-mesh; height:1.65; exclude: .navhole;"
+                wasd-controls="enabled: false;"  
                 look-controls="pointerLockEnabled:true;" >
                     <!-- Cursor -->
                     <a-cursor 
@@ -127,7 +130,7 @@
                     </a-cursor><!-- Cursor End -->
                     <!-- Text Field -->
                     <a-text id="feedback" value="Hello World" position="0 -0.1 -0.5" align="center" baseline="top" scale="0.15 0.15 0.15"></a-text><!-- Text Field End -->
-                </a-entity>
+            </a-camera>
             
             <!-- Left hand laser control -->
             <!-- console log to id controller type at line 73060 -->
@@ -158,6 +161,7 @@
 
             <!-- the laser-controls work as indicated above and are activated (seen) 
             when they raycaster intersects an object that is (currently) within 0.5 meters -->
+        </a-entity><!-- End of Camera Rig -->
 
     </a-scene>
 </body>

@@ -17,13 +17,21 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
-        let message = "Version: 1.2.1.4";
+        // Track changes in upper left corner
+        let message = "Version: 1.2.2";
         document.getElementById("text").innerHTML= message;
 
+        // Change message for tracking in VR
         message = "listening...";
 
         el.addEventListener('enter-vr', evt=>{
             // console.log("Device check:", AFRAME.utils.device);
+            // We want to check to see if we're on desktop/mobile or a Head Mounted Display
+            // if it is a HMD then hide the cursor and disable movement-controls
+            // We're using the joystick in this iteration to teleport so we don't want the
+            // move-controls active.
+            // movement-controls will allow us to use the 'gamepad' aspect to allow
+            // the player to move about using the joystick for forward/backwards & strafe left/right
 
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Cursor has been hidden";
@@ -42,17 +50,36 @@ AFRAME.registerComponent('scenemgr', {
         });
 
         SET_COMP_PROPS(data.feedbackTXT, 'value', message);
-        console.log(THREE.Cache);
+        // console.log("what is in the cache:",THREE.Cache);
     },
 
     collectorMgmt: function(forCollection){
-        console.log("Hello from collectorMgmt:", forCollection);
+        // console.log("Hello from collectorMgmt:", forCollection);
+        // console.log("Parent of target is:", forCollection.parentEl.id);
+        let el = this.el;
         let data = this.data;
         let message = forCollection.id;
-        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
+        const GET_COMP_PROPS = AFRAME.utils.entity.getComponentProperty;// GET
+        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// SET
+
+        let camPosition = GET_COMP_PROPS(data.activeCam.object3D.el, 'position');
+        let camRigPosition = GET_COMP_PROPS(data.activeCamRig.object3D.el, 'position');
+        // console.log("Camera position:", camRigPosition.x+", "+camPosition.y+", "+camRigPosition.z);
+        
+        SET_COMP_PROPS(forCollection.parentEl.object3D.el, 'animation__collpos', 'to:'+(camRigPosition.x+camPosition.x)+" "+camPosition.y+" "+(camRigPosition.z+camPosition.z));
         SET_COMP_PROPS(data.feedbackTXT, 'value', message);
         SET_COMP_PROPS(forCollection.object3D.el, 'class', 'not-clickable');//Working
-        SET_COMP_PROPS(forCollection.object3D.el, 'visible', false);// this works
+
+        forCollection.parentEl.components.animation__collpos.animation.play();
+        forCollection.parentEl.components.animation__collscale.animation.play();
+
+        // Check to see if the triggered animation(s) have completed
+        let animFinish = forCollection.parentEl.object3D.el;
+        animFinish.addEventListener('animationcomplete__collpos', (evt)=>{
+            console.log("Animation complete", evt);
+            SET_COMP_PROPS(forCollection.object3D.el, 'visible', false);// this works
+        });
+
     }
 });
 
@@ -76,6 +103,9 @@ AFRAME.registerComponent('pointer', {
         el.addEventListener('click', (evt) => {
             // grab clicked target info
             let target = evt.detail.intersectedEl;
+            // we will want to target the parent which is the coin container
+            // so that we can trigger an animation for collection
+            // that is: parentEl
             let sceneManager = data.sceneLocator.components.scenemgr;
             sceneManager.collectorMgmt(target);// this works
         });
@@ -114,11 +144,11 @@ AFRAME.registerComponent('grabbingtest', {
         feedbackTXT:{type:'selector', default:'#feedback'}
     },
     init: function(){
-        console.log("init: Grabbing test");
+        // console.log("init: Grabbing test");
     },
 
     play: function() {
-        console.log("play: Grabbing test");
+        // console.log("play: Grabbing test");
         let data = this.data;
         let el = this.el;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
@@ -197,7 +227,7 @@ AFRAME.registerComponent('controllisten', {
 AFRAME.registerComponent('animstart', {
     init: function(){
         let el = this.el;
-        console.log("Animation Component:", el.components);
+        // console.log("Animation Component:", el.components);
         el.components.animation__pos.animation.play();
         el.components.animation__rot.animation.play();
     }
