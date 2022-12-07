@@ -37,7 +37,7 @@ AFRAME.registerComponent('scenemgr', {
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Cursor has been hidden";
                 SET_COMP_PROPS(data.cursor , 'visible', false);// this works
-                // SET_COMP_PROPS(data.cursor , 'raycaster.enabled', false);// does this works?
+                SET_COMP_PROPS(data.cursor , 'raycaster.enabled', false);// does this works?
                 SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
             }else{
                 message = "It's Desktop or Mobile";
@@ -154,41 +154,46 @@ AFRAME.registerComponent('grabbingtest', {
         // console.log("play: Grabbing test");
         let data = this.data;
         let el = this.el;
+        let grabStart = false;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
         let sceneManager = data.sceneLocator.components.scenemgr;
 
         el.addEventListener('hover-start', function(evt) {
             console.log("Hover Start Event")
             let target = evt.detail.target;
-            // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
-            target.components.animation__pos.animation.pause();
-            target.components.animation__rot.animation.pause();
-            console.log("Target evt:", target);
+            if(!grabStart){
+                target.components.animation__pos.animation.pause();
+                target.components.animation__rot.animation.pause();
+                console.log("Target evt:", target);
+            }
         });
 
         el.addEventListener('hover-end', function(evt) {
-            console.log("Hover End Event")
+            console.log("Hover End Event");
             let target = evt.detail.target;
-            // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
-            target.components.animation__pos.animation.play();
-            target.components.animation__rot.animation.play();
-            console.log("Target evt:", target);
+            if(!grabStart){
+                target.components.animation__pos.animation.play();
+                target.components.animation__rot.animation.play();
+                console.log("Target evt:", target);
+            }
         });
 
         el.addEventListener('grab-start', function(evt) {
             console.log("Grab Start Event")
+            grabStart = true;
             let target = evt.detail.target;
             // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
-            target.components.animation__pos.animation.pause();
-            target.components.animation__rot.animation.pause();
+            // target.components.animation__pos.animation.pause();
+            // target.components.animation__rot.animation.pause();
             console.log("Target evt:", target);
         });
 
         el.addEventListener('grab-end', function(evt) {
             console.log("Grab End Event")
+            grabStart = false;
             // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.target.id);
 
