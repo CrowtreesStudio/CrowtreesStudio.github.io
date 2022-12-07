@@ -18,7 +18,7 @@ AFRAME.registerComponent('scenemgr', {
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
         // Track changes in upper left corner
-        let message = "Version: 1.2.2";
+        let message = "Version: 1.2.2.1";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
@@ -36,6 +36,7 @@ AFRAME.registerComponent('scenemgr', {
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Cursor has been hidden";
                 SET_COMP_PROPS(data.cursor , 'visible', false);// this works
+                SET_COMP_PROPS(data.cursor , 'enabled', false);// this works
                 SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
             }else{
                 message = "It's Desktop or Mobile";
@@ -155,6 +156,7 @@ AFRAME.registerComponent('grabbingtest', {
         let sceneManager = data.sceneLocator.components.scenemgr;
 
         el.addEventListener('hover-start', function(evt) {
+            console.log("Hover Start Event")
             let target = evt.detail.target;
             // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
@@ -164,6 +166,7 @@ AFRAME.registerComponent('grabbingtest', {
         });
 
         el.addEventListener('hover-end', function(evt) {
+            console.log("Hover End Event")
             let target = evt.detail.target;
             // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
@@ -173,6 +176,7 @@ AFRAME.registerComponent('grabbingtest', {
         });
 
         el.addEventListener('grab-start', function(evt) {
+            console.log("Grab Start Event")
             let target = evt.detail.target;
             // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
@@ -182,6 +186,7 @@ AFRAME.registerComponent('grabbingtest', {
         });
 
         el.addEventListener('grab-end', function(evt) {
+            console.log("Grab End Event")
             // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.target.id);
 

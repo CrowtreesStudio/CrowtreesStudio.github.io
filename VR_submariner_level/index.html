@@ -68,8 +68,7 @@
         <!-- Submarine - Goal: Get Fuel Gem to Power Sub for Getaway -->
         <a-gltf-model id="gameLvl" src="#level" mesh-shadows visible="true" ></a-gltf-model>
         <a-gltf-model class="nav-mesh" gltf-model="#navMesh" position="0 0 0" visible="false"></a-gltf-model>
-        <a-entity 
-           id="subRig" 
+        <a-entity id="subRig" 
            position="0 0 0"
            animation="property:position; to: 20 -3 0; dur:10000; easing:easeInQuad; autoplay:false;">
            <a-gltf-model 
@@ -96,7 +95,7 @@
             speed="2"
             noise="6" 
             color="#891884"
-            opacity="1.0">
+            opacity="0.95">
         </a-water>
         <a-entity environment="preset:arches;" position="0 -4 0"></a-entity>
         
@@ -123,7 +122,7 @@
                     <!-- Cursor -->
                     <a-cursor 
                         pointer 
-                        raycaster="objects: .clickable; far: 0.5;"
+                        raycaster="objects:.clickable; far: 0.5; enabled:true;"
                         position="0 0 -0.5"
                         color="#ffffff"
                         visible="true">
@@ -136,24 +135,24 @@
             <!-- console log to id controller type at line 73060 -->
             <a-entity id="leftHand"
                 controllisten
-                sphere-collider="objects: .grabbable" 
+                sphere-collider="objects:.grabbable;" 
                 super-hands
                 grabbingtest   
                 hand-controls="hand: left;"
                 laser-controls="hand:left;"
-                raycaster="objects:.grabbable; far:0.5;">
+                raycaster="objects:.clickable; far:0.5;">
             </a-entity> <!-- End of Left Hand -->
 
             <!-- Right hand teleport control -->
             <a-entity id="rightHand" 
                 controllisten
                 teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: .nav-mesh;"
-                sphere-collider="objects: .grabbable"
+                sphere-collider="objects:.grabbable;"
                 super-hands
                 grabbingtest
                 hand-controls="hand: right;"
                 laser-controls="hand:right;"
-                raycaster="objects:.grabbable; far:0.5;">
+                raycaster="objects:.clickable; far:0.5;">
             </a-entity> <!-- End of Right Hand -->
 
             <!-- the hand-controls does not work - appears broken:--> 
