@@ -18,13 +18,14 @@ AFRAME.registerComponent('scenemgr', {
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
         // Track changes in upper left corner
-        let message = "Version: 1.2.2.1";
+        let message = "Version: 1.2.2.2";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
         message = "listening...";
 
         el.addEventListener('enter-vr', evt=>{
+            console.log("entering VR mode");
             // console.log("Device check:", AFRAME.utils.device);
             // We want to check to see if we're on desktop/mobile or a Head Mounted Display
             // if it is a HMD then hide the cursor and disable movement-controls
@@ -36,20 +37,21 @@ AFRAME.registerComponent('scenemgr', {
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Cursor has been hidden";
                 SET_COMP_PROPS(data.cursor , 'visible', false);// this works
-                SET_COMP_PROPS(data.cursor , 'enabled', false);// this works
+                // SET_COMP_PROPS(data.cursor , 'raycaster.enabled', false);// does this works?
                 SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
             }else{
                 message = "It's Desktop or Mobile";
                 SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
             };
 
+            SET_COMP_PROPS(data.feedbackTXT, 'value', message);
         });
         
         el.addEventListener('exit-vr', evt=>{
             message = "Cursor visible";
             SET_COMP_PROPS(data.cursor , 'visible', true);// this works
         });
-
+        
         SET_COMP_PROPS(data.feedbackTXT, 'value', message);
         // console.log("what is in the cache:",THREE.Cache);
     },

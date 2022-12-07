@@ -31,7 +31,7 @@
             <a-asset-item id="level" src="assets/meshes/Level.glb" ></a-asset-item>
             <a-asset-item id="navMesh" src="assets/meshes/Navmesh.glb" ></a-asset-item>
             <a-asset-item id="sub" src="assets/meshes/submarine.glb" ></a-asset-item>
-            <a-mixin id="coin" geometry="primitive:cylinder; height:0.1; radius:0.25;" material="color:#ffaa00;" ></a-mixin>
+            <a-mixin id="coin" grabbingtest geometry="primitive:cylinder; height:0.1; radius:0.25;" material="color:#ffaa00;" ></a-mixin>
             <a-mixin 
                 id="fuel" 
                 geometry="primitive:octahedron; radius:1;" 
@@ -136,8 +136,7 @@
             <a-entity id="leftHand"
                 controllisten
                 sphere-collider="objects:.grabbable;" 
-                super-hands
-                grabbingtest   
+                super-hands   
                 hand-controls="hand: left;"
                 laser-controls="hand:left;"
                 raycaster="objects:.clickable; far:0.5;">
@@ -149,7 +148,6 @@
                 teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: .nav-mesh;"
                 sphere-collider="objects:.grabbable;"
                 super-hands
-                grabbingtest
                 hand-controls="hand: right;"
                 laser-controls="hand:right;"
                 raycaster="objects:.clickable; far:0.5;">
