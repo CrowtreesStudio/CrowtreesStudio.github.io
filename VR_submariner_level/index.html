@@ -32,32 +32,30 @@
             <a-asset-item id="navMesh" src="assets/meshes/Navmesh.glb" ></a-asset-item>
             <a-asset-item id="sub" src="assets/meshes/submarine.glb" ></a-asset-item>
             <a-asset-item id="coin_mesh" src="assets/meshes/Simple_Coin.glb" ></a-asset-item>
-            <a-mixin id="coin" grabbingtest geometry="primitive:cylinder; height:0.1; radius:0.25;" material="color:#ffaa00;" ></a-mixin>
+            <a-mixin id="coin" gltf-model="#coin_mesh" grabbingtest ></a-mixin>
             <a-mixin 
                 id="fuel" 
                 geometry="primitive:octahedron; radius:1;" 
                 scale="0.25 0.5 0.25" 
                 material="color:#ff2266; emissive:#05a; transparent:true; opacity:0.85; side:double;" ></a-mixin>
-            <a-mixin id="spinCoin" animation__rot="property:rotation; to:0 0 360; loop:true; dur:2000; easing:linear; autoplay: false;"></a-mixin>
-            <a-mixin id="spinFuelGem" animation__rot="property:rotation; to:0 360 0; loop:true; dur:2000; easing:linear; autoplay: false;"></a-mixin>
-            <a-mixin id="bobCoin" animation__pos="property:position; to:0 0 0.25; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
-            <a-mixin id="bobFuelGem" animation__pos="property:position; to:0 1.25 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
+            <a-mixin id="spin" animation__rot="property:rotation; to:0 360 0; loop:true; dur:2000; easing:linear; autoplay: false;"></a-mixin>
+            <a-mixin id="bob" animation__pos="property:position; to:0 0.25 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
             <a-mixin id="collectPos" animation__collpos="property:position; to: 0 1 0; dur:500; easing:linear; autoplay:false;"></a-mixin>
             <a-mixin id="collectScale" animation__collscale="property:scale; to: 0.1 0.1 0.1; dur:500; easing:linear; autoplay:false;"></a-mixin>
         </a-asset>
 
         <!-- scene objects - Collectable Coins -->
-        <a-entity id="coin_holder_01" position="3 3 -4" rotation="90 0 0" mixin="collectPos collectScale">
-            <a-entity id="coin_01" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable hoverable animstart ></a-entity>
+        <a-entity id="coin_holder_01" position="3 3 -4" mixin="collectPos collectScale">
+            <a-entity id="coin_01" mixin="coin spin bob" class="grabbable clickable" grabbable hoverable animstart ></a-entity>
         </a-entity>
-        <a-entity id="coin_holder_02" position="4 1 -4" rotation="90 0 0" mixin="collectPos collectScale">
-            <a-entity id="coin_02" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable hoverable animstart></a-entity>
+        <a-entity id="coin_holder_02" position="4 1 -4" mixin="collectPos collectScale">
+            <a-entity id="coin_02" mixin="coin spin bob" class="grabbable clickable" grabbable hoverable animstart></a-entity>
         </a-entity>
-        <a-entity id="coin_holder_03" position="-3 3 -2" rotation="90 0 0" mixin="collectPos collectScale">
-            <a-entity id="coin_03" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable hoverable animstart></a-entity>
+        <a-entity id="coin_holder_03" position="-3 3 -2" mixin="collectPos collectScale">
+            <a-entity id="coin_03" mixin="coin spin bob" class="grabbable clickable" grabbable hoverable animstart></a-entity>
         </a-entity>
-        <a-entity id="coin_holder_04" position="-4 3 4.5" rotation="90 0 0" mixin="collectPos collectScale">
-            <a-entity id="coin_04" mixin="coin spinCoin bobCoin" class="grabbable clickable" grabbable hoverable animstart></a-entity>
+        <a-entity id="coin_holder_04" position="-4 3 4.5" mixin="collectPos collectScale">
+            <a-entity id="coin_04" mixin="coin spin bob" class="grabbable clickable" grabbable hoverable animstart></a-entity>
         </a-entity>
         
         <!-- Fuel Gem - Goal of 'Game' -->

@@ -18,7 +18,7 @@ AFRAME.registerComponent('scenemgr', {
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
         // Track changes in upper left corner
-        let message = "Version: 1.2.2.3";
+        let message = "Version: 1.2.2.4";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
@@ -239,7 +239,7 @@ AFRAME.registerComponent('controllisten', {
 AFRAME.registerComponent('animstart', {
     init: function(){
         let el = this.el;
-        // console.log("Animation Component:", el.components);
+        console.log("Animation Component:", el.components);
         el.components.animation__pos.animation.play();
         el.components.animation__rot.animation.play();
     }
