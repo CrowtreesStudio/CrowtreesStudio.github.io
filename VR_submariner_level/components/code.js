@@ -18,7 +18,7 @@ AFRAME.registerComponent('scenemgr', {
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
         // Track changes in upper left corner
-        let message = "Version: 1.2.2.2";
+        let message = "Version: 1.2.2.3";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
