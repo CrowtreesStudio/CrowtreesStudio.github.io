@@ -38,7 +38,7 @@ AFRAME.registerComponent('scenemgr', {
         SET_COMP_PROPS(data.cineCam, 'active', false);
 
         // Track changes in upper left corner
-        let message = "Version: 1.3.1";
+        let message = "Version: 1.3.2";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
