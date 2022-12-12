@@ -40,7 +40,7 @@ AFRAME.registerComponent('scenemgr', {
         SET_COMP_PROPS(data.cineCam, 'active', false);
 
         // Track changes in upper left corner
-        let message = "Version: 1.3.3.7";
+        let message = "Version: 1.3.3.8";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
@@ -60,7 +60,7 @@ AFRAME.registerComponent('scenemgr', {
             }
         });
 
-        el.addEventListener('teleport', function (e) {
+        el.addEventListener('teleported', function (e) {
             console.log(e.detail.oldPosition, e.detail.newPosition, e.detail.hitPoint);
         });
 
@@ -129,18 +129,17 @@ AFRAME.registerComponent('scenemgr', {
             /* A Coin has been selected and will be added to the total number of Coins collected */
             data.coinsCollected++;
             selectedObj.parentEl.components.animation__collscale.animation.play();
-            SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable');//Fuel Gem now not selectable
+            SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable not-grabbable');//Fuel Gem now not selectable
             message = "Total coins collected: "+data.coinsCollected.toString();
         }else if(itemClicked === 'fuel' && data.coinsCollected >= data.coinsNeeded){
             /* The Fuel Gem has been collected and now the Submarine can be selected */
             data.fuelGemCollected = true;
-            console.log("Gem being collected =", data.fuelGemCollected);
             selectedObj.parentEl.components.animation__collscale.animation.play();
             console.log("dim light:", selectedObj.parentEl.children[1]);
-            // selectedObj.parentEl.children[1].components.animation__colllight.animation.play();// turn off light
-            SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable');//Fuel Gem now not selectable
+            selectedObj.parentEl.children[1].components.animation__colllight.animation.play();// turn off light
+            SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable not-grabbable');//Fuel Gem now not selectable
             SET_COMP_PROPS(data.submarine, 'class', 'clickable');//Submarine is selectable
-            SET_COMP_PROPS(data.cursor, 'far', 2.0);
+            SET_COMP_PROPS(data.cursor, 'raycaster.far', 2.0);
             SET_COMP_PROPS(data.ltHand , 'raycaster.enabled', true);
             SET_COMP_PROPS(data.rtHand , 'raycaster.enabled', true);
             message="Well Done! Return to the Submarine";
