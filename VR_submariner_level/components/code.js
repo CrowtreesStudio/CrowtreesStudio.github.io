@@ -1,15 +1,30 @@
 /* Working version 1.2.* */
 /* Includes teleport, grab, collect and with device detection */
 /* Version 1.2.1 includes working desktop and mobile additions */
+    // AFRAME.registerComponent('pixel-ratio', {
+    //     schema: {
+    //         type: 'number'
+    //     },
+    //     update: function() {
+    //         this.el.sceneEl.renderer.setPixelRatio(this.data)
+    //     }
+    // });
 
 AFRAME.registerComponent('scenemgr', {
     schema:{
         feedbackTXT:{type:'selector', default:'#feedback'},
         cursor:{type:'selector', default:'a-cursor'},
+        fuelGem:{type:'selector', default:'#fuelGem'},
+        submarine:{type:'selector', default:'#submarine'},
 
         activeCamRig:{type:'selector', default:'#cameraRig'},
         activeCam:{type:'selector', default:"#camera"},
-        // cineCam:{type:'selector', default:"#cinematic"},
+        cineCam:{type:'selector', default:"#cinematic"},
+
+        coinsNeeded:{type:'number', default:4},
+        coinsCollected:{type:'number', default:0},
+        fuelGemCollected:{type:'boolean', default:false}
+
     },
 
     init: function(){
@@ -18,15 +33,29 @@ AFRAME.registerComponent('scenemgr', {
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
         // Track changes in upper left corner
-        let message = "Version: 1.2.2.4";
+        let message = "Version: 1.3.0";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
         message = "listening...";
 
+        // Hide VR ui button if not a mobile device
+        window.addEventListener('load', evt=>{
+            // I'm leaving these here as a useful exploration
+            console.log("Device check:", AFRAME.utils.device);
+            console.log("WebXR enabled?:", AFRAME.utils.device.isWebXRAvailable);
+            console.log("Is it a Browser?:", AFRAME.utils.device.isBrowserEnvironment);
+            console.log("Is it a VR Display?:", AFRAME.utils.device.getVRDisplay());
+            console.log("Is it iOS?:", AFRAME.utils.device.isIOS());
+            console.log("Is it a HMD connected?:", AFRAME.utils.device.checkHeadsetConnected());
+            if(!!AFRAME.utils.device.isIOS){
+                SET_COMP_PROPS(el, 'vr-mode-ui.enabled', false);
+            }
+        })
+
         el.addEventListener('enter-vr', evt=>{
             console.log("entering VR mode");
-            // console.log("Device check:", AFRAME.utils.device);
+            console.log("Device check:", AFRAME.utils.device);
             // We want to check to see if we're on desktop/mobile or a Head Mounted Display
             // if it is a HMD then hide the cursor and disable movement-controls
             // We're using the joystick in this iteration to teleport so we don't want the
@@ -42,6 +71,7 @@ AFRAME.registerComponent('scenemgr', {
             }else{
                 message = "It's Desktop or Mobile";
                 SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
+
             };
 
             SET_COMP_PROPS(data.feedbackTXT, 'value', message);
@@ -56,32 +86,65 @@ AFRAME.registerComponent('scenemgr', {
         // console.log("what is in the cache:",THREE.Cache);
     },
 
-    collectorMgmt: function(forCollection){
-        // console.log("Hello from collectorMgmt:", forCollection);
-        // console.log("Parent of target is:", forCollection.parentEl.id);
-        let el = this.el;
+    /*****************************************/
+    /*         Collection Management        */
+    /*****************************************/
+    collectorMgmt: function(selectedObj){
         let data = this.data;
-        let message = forCollection.id;
-        const GET_COMP_PROPS = AFRAME.utils.entity.getComponentProperty;// GET
+        let message = selectedObj.id;
+        // const GET_COMP_PROPS = AFRAME.utils.entity.getComponentProperty;// GET
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// SET
 
-        let camPosition = GET_COMP_PROPS(data.activeCam.object3D.el, 'position');
-        let camRigPosition = GET_COMP_PROPS(data.activeCamRig.object3D.el, 'position');
-        // console.log("Camera position:", camRigPosition.x+", "+camPosition.y+", "+camRigPosition.z);
-        
-        SET_COMP_PROPS(forCollection.parentEl.object3D.el, 'animation__collpos', 'to:'+(camRigPosition.x+camPosition.x)+" "+camPosition.y+" "+(camRigPosition.z+camPosition.z));
-        SET_COMP_PROPS(data.feedbackTXT, 'value', message);
-        SET_COMP_PROPS(forCollection.object3D.el, 'class', 'not-clickable');//Working
-
-        forCollection.parentEl.components.animation__collpos.animation.play();
-        forCollection.parentEl.components.animation__collscale.animation.play();
+        /* Below is an attempt to get the Coin & Fuel Gem to move 
+        to the Player but it isn't working well. The CamRig and Camera
+        get 'out of phase' position wise so it flies off in all directions. */
+        // let camPosition = GET_COMP_PROPS(data.activeCam.object3D.el, 'position');
+        // let camRigPosition = GET_COMP_PROPS(data.activeCamRig.object3D.el, 'position');        
+        // SET_COMP_PROPS(selectedObj.parentEl.object3D.el, 'animation__collpos', 'to:'+(camRigPosition.x+camPosition.x)+" "+camPosition.y+" "+(camRigPosition.z+camPosition.z));
 
         // Check to see if the triggered animation(s) have completed
-        let animFinish = forCollection.parentEl.object3D.el;
-        animFinish.addEventListener('animationcomplete__collpos', (evt)=>{
-            console.log("Animation complete", evt);
-            SET_COMP_PROPS(forCollection.object3D.el, 'visible', false);// this works
+        // This is used by both the Coins and Gem
+        // is there a better place to put it?
+        let animFinish = selectedObj.parentEl.object3D.el;
+        animFinish.addEventListener('animationcomplete__collscale', (evt)=>{
+            SET_COMP_PROPS(selectedObj.object3D.el, 'visible', false);// this works
         });
+
+        /* Check which object has been seleceted */
+        let itemClicked = selectedObj.id.substr(0,4);
+        if(itemClicked === 'coin' && data.coinsCollected < data.coinsNeeded){
+            /* A Coin has been selected and will be added to the total number of Coins collected */
+            data.coinsCollected++;
+            selectedObj.parentEl.components.animation__collscale.animation.play();
+            SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable');//Fuel Gem now not selectable
+            message = "total coins collected "+data.coinsCollected.toString();
+        }else if(itemClicked === 'fuel' && data.coinsCollected >= data.coinsNeeded){
+            /* The Fuel Gem has been collected and now the Submarine can be selected */
+            data.fuelGemCollected = true;
+            selectedObj.parentEl.components.animation__collscale.animation.play();
+            selectedObj.parentEl.children[1].components.animation__colllight.animation.play();// turn off light
+            SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable');//Fuel Gem now not selectable
+            SET_COMP_PROPS(data.submarine, 'class', 'clickable');//Submarine is selectable
+            SET_COMP_PROPS(data.cursor, 'far', 1.0);
+            message="Well Done! Return to the Submarine";
+        }else if(itemClicked === 'subm'){
+            /* The Submarine has been selected and the game ends */
+            SET_COMP_PROPS(data.activeCam, 'visible', false);
+            SET_COMP_PROPS(data.activeCam, 'active', false);
+            SET_COMP_PROPS(data.cineCam, 'visible', true);
+            SET_COMP_PROPS(data.cineCam, 'active', true);
+            selectedObj.parentEl.components.animation.animation.play();
+        };
+        
+        // Animate the Fuel Gem and make it clickable
+        if(data.coinsCollected >= data.coinsNeeded && !data.fuelGemCollected){
+            SET_COMP_PROPS(data.fuelGem.object3D.el, 'visible', true);// Make Fuel Gem visible
+            SET_COMP_PROPS(data.fuelGem.children[0], 'class', 'clickable');//Make Fuel Gem Clickable
+            data.fuelGem.children[0].components.animation__pos.animation.play();// Fuel Gem mesh
+            data.fuelGem.children[1].components.animation__pos.animation.play();// Animate Point Light
+        };
+        
+        SET_COMP_PROPS(data.feedbackTXT, 'value', message);// display message on main screen for player feedback
 
     }
 });
@@ -106,14 +169,12 @@ AFRAME.registerComponent('pointer', {
         el.addEventListener('click', (evt) => {
             // grab clicked target info
             let target = evt.detail.intersectedEl;
-            // we will want to target the parent which is the coin container
-            // so that we can trigger an animation for collection
-            // that is: parentEl
             let sceneManager = data.sceneLocator.components.scenemgr;
-            sceneManager.collectorMgmt(target);// this works
+            sceneManager.collectorMgmt(target);// Call collectorMgmt method in scenemgr
         });
 
         // When hovering on a clickable item, change the cursor colour.
+        // Pause object animations
         el.addEventListener('mouseenter', (evt)=>{
             el.setAttribute('material', {color: '#00ff00'});
             let target = evt.detail.intersectedEl;
@@ -125,6 +186,8 @@ AFRAME.registerComponent('pointer', {
             }
             
         });
+        // Hover off return colour to normal
+        // Resume object's animations
         el.addEventListener('mouseleave', (evt)=>{
            el.setAttribute('material', {color: '#ffffff'});
            let target = evt.detail.intersectedEl;
@@ -151,13 +214,13 @@ AFRAME.registerComponent('grabbingtest', {
     },
 
     play: function() {
-        // console.log("play: Grabbing test");
         let data = this.data;
         let el = this.el;
         let grabStart = false;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
         let sceneManager = data.sceneLocator.components.scenemgr;
 
+        // On Hover stop object animations
         el.addEventListener('hover-start', function(evt) {
             console.log("Hover Start Event")
             let target = evt.detail.target;
@@ -169,6 +232,7 @@ AFRAME.registerComponent('grabbingtest', {
             }
         });
 
+        // On leaving Hover resume animation
         el.addEventListener('hover-end', function(evt) {
             console.log("Hover End Event");
             let target = evt.detail.target;
@@ -180,27 +244,21 @@ AFRAME.registerComponent('grabbingtest', {
             }
         });
 
+        // Object has been picked up
         el.addEventListener('grab-start', function(evt) {
             console.log("Grab Start Event")
             grabStart = true;
             let target = evt.detail.target;
-            // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
-            // target.components.animation__pos.animation.pause();
-            // target.components.animation__rot.animation.pause();
             console.log("Target evt:", target);
         });
 
+        // Player 'drops' object and object is collected
         el.addEventListener('grab-end', function(evt) {
             console.log("Grab End Event")
             grabStart = false;
-            // const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.target.id);
-
-            // SET_COMP_PROPS(evt.detail.target.object3D.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// Works!
-            sceneManager.collectorMgmt(evt.detail.target);// Works - it calls scene manager and the method with the target
-
-            evt.preventDefault();// not sure what this does yet
+            sceneManager.collectorMgmt(evt.detail.target);// Call scenemgr collectorMgmt method for collection
         });
     }
   })

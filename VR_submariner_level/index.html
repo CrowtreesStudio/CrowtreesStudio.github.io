@@ -23,6 +23,7 @@
 
 </head>
 <body>
+    <!-- <a-scene scenemgr renderer="colorManagement:false; antialias:false;" pixel-ratio="0.61" > creates lowrez vibe  -->
     <a-scene scenemgr renderer="colorManagement:false;" >
         <div style="position:absolute; z-index: 100;">
             <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's...</div>
@@ -32,16 +33,16 @@
             <a-asset-item id="navMesh" src="assets/meshes/Navmesh.glb" ></a-asset-item>
             <a-asset-item id="sub" src="assets/meshes/submarine.glb" ></a-asset-item>
             <a-asset-item id="coin_mesh" src="assets/meshes/Simple_Coin.glb" ></a-asset-item>
-            <a-mixin id="coin" gltf-model="#coin_mesh" grabbingtest ></a-mixin>
+            <a-mixin id="coin" gltf-model="#coin_mesh" grabbingtest shadow="castShadow:true;" ></a-mixin>
             <a-mixin 
                 id="fuel" 
                 geometry="primitive:octahedron; radius:1;" 
-                scale="0.25 0.5 0.25" 
                 material="color:#ff2266; emissive:#05a; transparent:true; opacity:0.85; side:double;" ></a-mixin>
             <a-mixin id="spin" animation__rot="property:rotation; to:0 360 0; loop:true; dur:2000; easing:linear; autoplay: false;"></a-mixin>
             <a-mixin id="bob" animation__pos="property:position; to:0 0.25 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
-            <a-mixin id="collectPos" animation__collpos="property:position; to: 0 1 0; dur:500; easing:linear; autoplay:false;"></a-mixin>
-            <a-mixin id="collectScale" animation__collscale="property:scale; to: 0.1 0.1 0.1; dur:500; easing:linear; autoplay:false;"></a-mixin>
+            <a-mixin id="collectPos" animation__collpos="property:position; to: 0 0.5 0; dur:500; easing:easeInQuad; autoplay:false;"></a-mixin>
+            <a-mixin id="collectScale" animation__collscale="property:scale; to: 0.1 0.1 0.1; dur:500; easing:easeInQuad; autoplay:false;"></a-mixin>
+            <a-mixin id="collectGemLight" animation__colllight="property:intensity; to: 0.0; dur:500; easing:easeInQuad; autoplay:false;"></a-mixin>
         </a-asset>
 
         <!-- scene objects - Collectable Coins -->
@@ -59,28 +60,29 @@
         </a-entity>
         
         <!-- Fuel Gem - Goal of 'Game' -->
-        <a-entity id="fuelGem" position="-2.25 0 2.75" visible="false">
-            <a-entity id="fuel_gem" class="not-clickable" mixin="fuel spinFuelGem bobFuelGem" position="0 1 0" rotation="0 0 0"></a-entity>
-            <a-light type="point" position="0 1 0" intensity="1.0" distance="4"></a-light>
+        <a-entity id="fuelGem" mixin="collectScale" position="-2.25 0.25 2.75" visible="false" >
+            <a-entity id="fuel_gem" class="not-clickable" mixin="fuel spin bob" position="0 1 0" rotation="0 0 0" scale="0.25 0.5 0.25"></a-entity>
+            <a-light mixin="bob collectGemLight" type="point" position="0 1 0" intensity="1.0" distance="4" ></a-light>
         </a-entity>
 
-        <!-- Submarine - Goal: Get Fuel Gem to Power Sub for Getaway -->
         <a-gltf-model id="gameLvl" src="#level" mesh-shadows visible="true" ></a-gltf-model>
-        <a-gltf-model class="nav-mesh" gltf-model="#navMesh" position="0 0 0" visible="false"></a-gltf-model>
+        <a-gltf-model class="nav-mesh" gltf-model="#navMesh" position="0 0 0" visible="false" ></a-gltf-model>
+        
+        <!-- Submarine - Goal: Get Fuel Gem to Power Sub for Getaway -->
         <a-entity id="subRig" 
-           position="0 0 0"
-           animation="property:position; to: 20 -3 0; dur:10000; easing:easeInQuad; autoplay:false;">
-           <a-gltf-model 
-              id="submarine" 
-              class="not-clickable" 
-              visible="true"
-              position="3 -1 6.5"
-              rotation="-1.5 90 -1.5" 
-              gltf-model="#sub"
-              animation="property:position; to:3 -0.85 6.5; dir:alternate; loop:true; dur:1250; easing:easeInOutQuad;"
-              animation__rotation="property:rotation; to:1.5 90 1.5; dir:alternate; loop:true; dur:1750; easing:easeInOutQuad;"
-              >   
-           </a-gltf-model>
+                position="0 0 0"
+                animation="property:position; to: 25 -3 0; dur:10000; easing:easeInQuad; autoplay:false;">
+            <a-gltf-model 
+                id="submarine" 
+                class="not-clickable" 
+                visible="true"
+                position="3 -1 6.5"
+                rotation="-1.5 90 -1.5" 
+                gltf-model="#sub"
+                animation="property:position; to:3 -0.85 6.5; dir:alternate; loop:true; dur:1250; easing:easeInOutQuad;"
+                animation__rotation="property:rotation; to:1.5 90 1.5; dir:alternate; loop:true; dur:1750; easing:easeInOutQuad;"
+                >   
+            </a-gltf-model>
         </a-entity>
 
         <!-- Environment -->
@@ -121,7 +123,7 @@
                     <!-- Cursor -->
                     <a-cursor 
                         pointer 
-                        raycaster="objects:.clickable; far: 0.5; enabled:true;"
+                        raycaster="objects:.clickable; far: 0.25; enabled:true;"
                         position="0 0 -0.5"
                         color="#ffffff"
                         visible="true">
@@ -158,6 +160,25 @@
             <!-- the laser-controls work as indicated above and are activated (seen) 
             when they raycaster intersects an object that is (currently) within 0.5 meters -->
         </a-entity><!-- End of Camera Rig -->
+
+        <!-- Camera 2 Rig: Cinematic -->
+        <a-entity 
+            id="rig2"  
+            position="0 4.45 -5" 
+            rotation="-25 210 0"
+            movement-controls="enabled:false;">
+            <!-- Camera -->
+            <a-entity 
+               id="cinematic"
+               camera 
+               position="0 0 0"
+               visible="false" 
+               look-controls="enabled:false;">
+               <a-entity>
+                   <a-text value="FIN" position="0 0.1 -1" text="align:center; opacity:0.90;" ></a-text>
+               </a-entity>
+            </a-entity>
+        </a-entity>
 
     </a-scene>
 </body>

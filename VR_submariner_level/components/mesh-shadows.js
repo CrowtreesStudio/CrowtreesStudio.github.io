@@ -4,7 +4,7 @@ AFRAME.registerComponent('mesh-shadows', {
         this.el.addEventListener('model-loaded', ()=>{
             // console.log("mesh check model loaded");
             const el = this.el;
-            // console.log("el to show object", el.object3D);
+            console.log("el to show object", el.getObject3D('mesh'));
             const obj = this.el.getObject3D('mesh');
             obj.children.forEach((model)=>{
                 model.receiveShadow=true;
