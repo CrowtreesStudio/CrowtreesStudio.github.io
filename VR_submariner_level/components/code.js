@@ -14,6 +14,8 @@ AFRAME.registerComponent('scenemgr', {
     schema:{
         feedbackTXT:{type:'selector', default:'#feedback'},
         cursor:{type:'selector', default:'a-cursor'},
+        rtHand:{type:'selector', default:'#leftHand'},
+        ltHand:{type:'selector', default:'#rightHand'},
         fuelGem:{type:'selector', default:'#fuelGem'},
         submarine:{type:'selector', default:'#submarine'},
 
@@ -38,7 +40,7 @@ AFRAME.registerComponent('scenemgr', {
         SET_COMP_PROPS(data.cineCam, 'active', false);
 
         // Track changes in upper left corner
-        let message = "Version: 1.3.2";
+        let message = "Version: 1.3.3";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
@@ -69,9 +71,11 @@ AFRAME.registerComponent('scenemgr', {
             // the player to move about using the joystick for forward/backwards & strafe left/right
 
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
-                message = "Cursor has been hidden";
+                message = "Welcome to the Submariner Walkabout";
                 SET_COMP_PROPS(data.cursor , 'visible', false);// this works
-                SET_COMP_PROPS(data.cursor , 'raycaster.enabled', false);// does this works?
+                SET_COMP_PROPS(data.cursor , 'raycaster.enabled', false);// this works
+                SET_COMP_PROPS(data.ltHand , 'raycaster.enabled', false);
+                SET_COMP_PROPS(data.rtHand , 'raycaster.enabled', false);
                 SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
             }else{
                 message = "It's Desktop or Mobile";
@@ -131,6 +135,8 @@ AFRAME.registerComponent('scenemgr', {
             SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable');//Fuel Gem now not selectable
             SET_COMP_PROPS(data.submarine, 'class', 'clickable');//Submarine is selectable
             SET_COMP_PROPS(data.cursor, 'far', 1.0);
+            SET_COMP_PROPS(data.ltHand , 'raycaster.enabled', true);
+            SET_COMP_PROPS(data.rtHand , 'raycaster.enabled', true);
             message="Well Done! Return to the Submarine";
         }else if(itemClicked === 'subm'){
             /* The Submarine has been selected and the game ends */
