@@ -10,8 +10,9 @@
     <script src="https://unpkg.com/aframe-environment-component@1.3.1/dist/aframe-environment-component.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script><!-- sphere-collider-->
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.controls.min.js"></script><!-- movement-controls -->
-    <script src="components/simple-navmesh-constraint.js"></script></head><!-- From Ada Rose Cannon -->
+    <script src="components/simple-navmesh-constraint.js"></script><!-- From Ada Rose Cannon -->
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
+
     <!-- For some unknown reason, targeting the component remotely does not work. It's weird as a downloaded and locally referenced version does work. -->
     <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.js"></script> -->
     <script src="components/aframe-teleport-controls.js"></script>
@@ -110,12 +111,12 @@
         <!-- ********************************* -->
         <!-- ********************************* -->
         <!-- ******************************************** -->
-        <!-- *  Camera, Feedback Text and Controllers   * -->
+        <!-- *  Camera: Main, Feedback Text and Controllers   * -->
         <!-- ******************************************** -->
         <!-- <a-entity id="cameraRig" position="4 0 4" rotation="0 50 0" wasd-controls="acceleration: 10;"> -->
         <a-entity id="cameraRig" position="4 0 4" rotation="0 60 0" movement-controls="speed: 0.15;">
             <a-camera 
-                id="camera" 
+                id="camera"
                 position="0 1.65 0"
                 simple-navmesh-constraint="navmesh: .nav-mesh; height:1.65; exclude: .navhole;"
                 wasd-controls="enabled: false;"  
@@ -129,8 +130,15 @@
                         visible="true">
                     </a-cursor><!-- Cursor End -->
                     <!-- Text Field -->
-                    <a-text id="feedback" value="Hello World" position="0 -0.1 -0.5" align="center" baseline="top" scale="0.15 0.15 0.15"></a-text><!-- Text Field End -->
-            </a-camera>
+                    <a-text 
+                        id="feedback" 
+                        value="..." 
+                        position="0 -0.1 -0.5" 
+                        align="center" 
+                        baseline="top" 
+                        scale="0.15 0.15 0.15">
+                    </a-text><!-- Text Field End -->
+            </a-camera><!-- End Camera -->
             
             <!-- Left hand laser control -->
             <!-- console log to id controller type at line 73060 -->
@@ -141,7 +149,7 @@
                 hand-controls="hand: left;"
                 laser-controls="hand:left;"
                 raycaster="objects:.clickable; far:0.5;">
-            </a-entity> <!-- End of Left Hand -->
+            </a-entity> <!-- End Left Hand -->
 
             <!-- Right hand teleport control -->
             <a-entity id="rightHand" 
@@ -152,16 +160,16 @@
                 hand-controls="hand: right;"
                 laser-controls="hand:right;"
                 raycaster="objects:.clickable; far:0.5;">
-            </a-entity> <!-- End of Right Hand -->
+            </a-entity> <!-- End Right Hand -->
 
-            <!-- the hand-controls does not work - appears broken:--> 
+            <!-- the hand-controls appears broken when display different gestures. Only displays grip:--> 
             <!-- trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
 
             <!-- the laser-controls work as indicated above and are activated (seen) 
             when they raycaster intersects an object that is (currently) within 0.5 meters -->
-        </a-entity><!-- End of Camera Rig -->
+        </a-entity><!-- End Camera Rig -->
 
-        <!-- Camera 2 Rig: Cinematic -->
+        <!-- Camera 2: Cinematic -->
         <a-entity 
             id="rig2"  
             position="0 4.45 -5" 
@@ -170,7 +178,7 @@
             <!-- Camera -->
             <a-entity 
                id="cinematic"
-               camera 
+               camera="enabled:false;" 
                position="0 0 0"
                visible="false" 
                look-controls="enabled:false;">

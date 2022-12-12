@@ -1,4 +1,4 @@
-/* Working version 1.2.* */
+/* Based on working version 1.2.* of VR_basic_teleport_collect */
 /* Includes teleport, grab, collect and with device detection */
 /* Version 1.2.1 includes working desktop and mobile additions */
     // AFRAME.registerComponent('pixel-ratio', {
@@ -32,8 +32,13 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
+        // Make sure main camera is active
+        SET_COMP_PROPS(data.activeCam, 'active', true);
+        // Make sure the cinematic camera is off
+        SET_COMP_PROPS(data.cineCam, 'active', false);
+
         // Track changes in upper left corner
-        let message = "Version: 1.3.0";
+        let message = "Version: 1.3.1";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
