@@ -37,7 +37,7 @@
             <a-mixin id="coin" gltf-model="#coin_mesh" grabbingtest shadow="castShadow:true;" ></a-mixin>
             <a-mixin 
                 id="fuel"
-                grabbingtest 
+                grabbingtest
                 geometry="primitive:octahedron; radius:1;" 
                 material="color:#ff2266; emissive:#05a; transparent:true; opacity:0.85; side:double;" ></a-mixin>
             <a-mixin id="spin" animation__rot="property:rotation; to:0 360 0; loop:true; dur:2000; easing:linear; autoplay: false;"></a-mixin>
@@ -63,8 +63,8 @@
         
         <!-- Fuel Gem - Goal of 'Game' -->
         <a-entity id="fuelGem" mixin="collectScale" position="-2.25 0.25 2.75" visible="false" >
-            <a-entity id="fuel_gem" class="not-clickable grabbable" mixin="fuel spin bob" position="0 1 0" rotation="0 0 0" scale="0.25 0.5 0.25"></a-entity>
-            <a-light mixin="bob collectGemLight" type="point" position="0 1 0" intensity="1.0" distance="4" ></a-light>
+            <a-entity id="fuel_gem" class="not-clickable grabbable" grabbable hoverable mixin="fuel spin bob" position="0 1 0" rotation="0 0 0" scale="0.25 0.5 0.25"></a-entity>
+            <a-light mixin="bob collectGemLightDim" type="point" position="0 1 0" intensity="1.0" distance="4" ></a-light>
         </a-entity>
 
         <a-gltf-model id="gameLvl" src="#level" mesh-shadows visible="true" ></a-gltf-model>
@@ -76,8 +76,7 @@
                 animation="property:position; to: 25 -3 0; dur:10000; easing:easeInQuad; autoplay:false;">
             <a-gltf-model 
                 id="submarine" 
-                class="not-clickable"
-                grabbingtest 
+                class="not-clickable" 
                 visible="true"
                 position="3 -1 6.5"
                 rotation="-1.5 90 -1.5" 

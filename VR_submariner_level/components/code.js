@@ -40,7 +40,7 @@ AFRAME.registerComponent('scenemgr', {
         SET_COMP_PROPS(data.cineCam, 'active', false);
 
         // Track changes in upper left corner
-        let message = "Version: 1.3.3.5";
+        let message = "Version: 1.3.3.6";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
@@ -134,6 +134,7 @@ AFRAME.registerComponent('scenemgr', {
         }else if(itemClicked === 'fuel' && data.coinsCollected >= data.coinsNeeded){
             /* The Fuel Gem has been collected and now the Submarine can be selected */
             data.fuelGemCollected = true;
+            console.log("Gem being collected =", data.fuelGemCollected);
             selectedObj.parentEl.components.animation__collscale.animation.play();
             selectedObj.parentEl.children[1].components.animation__colllight.animation.play();// turn off light
             SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable');//Fuel Gem now not selectable
@@ -262,7 +263,7 @@ AFRAME.registerComponent('grabbingtest', {
         el.addEventListener('grab-start', function(evt) {
             console.log("Grab Start Event")
             grabStart = true;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
+            // SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
         });
 
         // Player 'drops' object and object is collected
