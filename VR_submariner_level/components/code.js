@@ -40,7 +40,7 @@ AFRAME.registerComponent('scenemgr', {
         SET_COMP_PROPS(data.cineCam, 'active', false);
 
         // Track changes in upper left corner
-        let message = "Version: 1.3.3.8";
+        let message = "Version: 1.3.3.9";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
@@ -61,7 +61,7 @@ AFRAME.registerComponent('scenemgr', {
         });
 
         el.addEventListener('teleported', function (e) {
-            console.log(e.detail.oldPosition, e.detail.newPosition, e.detail.hitPoint);
+            console.log(e.detail.oldPosition, e.detail.newPosition, e.detail.hitPoint,"Contents of Detail:", e.detail);
         });
 
         el.addEventListener('enter-vr', evt=>{
@@ -111,9 +111,10 @@ AFRAME.registerComponent('scenemgr', {
         /* Below is an attempt to get the Coin & Fuel Gem to move 
         to the Player but it isn't working well. The CamRig and Camera
         get 'out of phase' position wise so it flies off in all directions. */
-        // let camPosition = GET_COMP_PROPS(data.activeCam.object3D.el, 'position');
-        // let camRigPosition = GET_COMP_PROPS(data.activeCamRig.object3D.el, 'position');        
-        // SET_COMP_PROPS(selectedObj.parentEl.object3D.el, 'animation__collpos', 'to:'+(camRigPosition.x+camPosition.x)+" "+camPosition.y+" "+(camRigPosition.z+camPosition.z));
+        let position = new THREE.Vector3();
+        console.log("World position of camera:", data.activeCam.object3D.getWorldPosition(position));
+        let camPosition = data.activeCam.object3D.getWorldPosition(position);      
+        SET_COMP_PROPS(selectedObj.parentEl.object3D.el, 'animation__collpos', 'to:'+camPosition.x+" "+(camPosition.y-0.1)+" "+camPosition.z);
 
         // Check to see if the triggered animation(s) have completed
         // This is used by both the Coins and Gem
@@ -128,12 +129,14 @@ AFRAME.registerComponent('scenemgr', {
         if(itemClicked === 'coin' && data.coinsCollected < data.coinsNeeded){
             /* A Coin has been selected and will be added to the total number of Coins collected */
             data.coinsCollected++;
+            selectedObj.parentEl.components.animation__collpos.animation.play();
             selectedObj.parentEl.components.animation__collscale.animation.play();
             SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable not-grabbable');//Fuel Gem now not selectable
             message = "Total coins collected: "+data.coinsCollected.toString();
         }else if(itemClicked === 'fuel' && data.coinsCollected >= data.coinsNeeded){
             /* The Fuel Gem has been collected and now the Submarine can be selected */
             data.fuelGemCollected = true;
+            selectedObj.parentEl.components.animation__collpos.animation.play();
             selectedObj.parentEl.components.animation__collscale.animation.play();
             console.log("dim light:", selectedObj.parentEl.children[1]);
             selectedObj.parentEl.children[1].components.animation__colllight.animation.play();// turn off light
@@ -142,6 +145,8 @@ AFRAME.registerComponent('scenemgr', {
             SET_COMP_PROPS(data.cursor, 'raycaster.far', 2.0);
             SET_COMP_PROPS(data.ltHand , 'raycaster.enabled', true);
             SET_COMP_PROPS(data.rtHand , 'raycaster.enabled', true);
+            SET_COMP_PROPS(data.ltHand , 'raycaster.far', 2.0);
+            SET_COMP_PROPS(data.rtHand , 'raycaster.far', 2.0);
             message="Well Done! Return to the Submarine";
         }else if(itemClicked === 'subm'){
             /* The Submarine has been selected and the game ends */
@@ -149,6 +154,8 @@ AFRAME.registerComponent('scenemgr', {
             SET_COMP_PROPS(data.activeCam, 'active', false);
             SET_COMP_PROPS(data.cineCam, 'visible', true);
             SET_COMP_PROPS(data.cineCam, 'active', true);
+            SET_COMP_PROPS(data.ltHand, 'visible', false);
+            SET_COMP_PROPS(data.rtHand, 'visible', false);
             selectedObj.parentEl.components.animation.animation.play();
         };
         

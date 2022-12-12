@@ -62,7 +62,7 @@
         </a-entity>
         
         <!-- Fuel Gem - Goal of 'Game' -->
-        <a-entity id="fuelGem" mixin="collectScale" position="-2.25 0.25 2.75" visible="false" >
+        <a-entity id="fuelGem" mixin="collectPos collectScale" position="-2.25 0.25 2.75" visible="false" >
             <a-entity id="fuel_gem" class="not-clickable grabbable" grabbable hoverable mixin="fuel spin bob" position="0 1 0" rotation="0 0 0" scale="0.25 0.5 0.25"></a-entity>
             <a-light mixin="bob collectGemLightDim" type="point" position="0 1 0" intensity="1.0" distance="4" ></a-light>
         </a-entity>
@@ -173,10 +173,11 @@
         </a-entity><!-- End Camera Rig -->
 
         <!-- Camera 2: Cinematic -->
+        <!--rotation="-25 210 0"-->
         <a-entity 
             id="rig2"  
-            position="0 4.45 -5" 
-            rotation="-25 210 0"
+            position="0 4.45 -5"
+            rotation="0 210 0"
             movement-controls="enabled:false;">
             <!-- Camera -->
             <a-entity 
