@@ -40,7 +40,7 @@ AFRAME.registerComponent('scenemgr', {
         SET_COMP_PROPS(data.cineCam, 'active', false);
 
         // Track changes in upper left corner
-        let message = "Version: 1.3.3";
+        let message = "Version: 1.3.3.5";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
@@ -58,7 +58,11 @@ AFRAME.registerComponent('scenemgr', {
             if(!!AFRAME.utils.device.isIOS){
                 SET_COMP_PROPS(el, 'vr-mode-ui.enabled', false);
             }
-        })
+        });
+
+        el.addEventListener('teleport', function (e) {
+            console.log(e.detail.oldPosition, e.detail.newPosition, e.detail.hitPoint);
+        });
 
         el.addEventListener('enter-vr', evt=>{
             console.log("entering VR mode");
@@ -126,7 +130,7 @@ AFRAME.registerComponent('scenemgr', {
             data.coinsCollected++;
             selectedObj.parentEl.components.animation__collscale.animation.play();
             SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable');//Fuel Gem now not selectable
-            message = "total coins collected "+data.coinsCollected.toString();
+            message = "Total coins collected: "+data.coinsCollected.toString();
         }else if(itemClicked === 'fuel' && data.coinsCollected >= data.coinsNeeded){
             /* The Fuel Gem has been collected and now the Submarine can be selected */
             data.fuelGemCollected = true;
@@ -235,11 +239,11 @@ AFRAME.registerComponent('grabbingtest', {
         el.addEventListener('hover-start', function(evt) {
             console.log("Hover Start Event")
             let target = evt.detail.target;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
+            // SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
             if(!grabStart){
                 target.components.animation__pos.animation.pause();
                 target.components.animation__rot.animation.pause();
-                console.log("Target evt:", target);
+                // console.log("Target evt:", target);
             }
         });
 
@@ -247,11 +251,10 @@ AFRAME.registerComponent('grabbingtest', {
         el.addEventListener('hover-end', function(evt) {
             console.log("Hover End Event");
             let target = evt.detail.target;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
+            // SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
             if(!grabStart){
                 target.components.animation__pos.animation.play();
                 target.components.animation__rot.animation.play();
-                console.log("Target evt:", target);
             }
         });
 
@@ -259,9 +262,7 @@ AFRAME.registerComponent('grabbingtest', {
         el.addEventListener('grab-start', function(evt) {
             console.log("Grab Start Event")
             grabStart = true;
-            let target = evt.detail.target;
             SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
-            console.log("Target evt:", target);
         });
 
         // Player 'drops' object and object is collected
@@ -308,7 +309,7 @@ AFRAME.registerComponent('controllisten', {
 AFRAME.registerComponent('animstart', {
     init: function(){
         let el = this.el;
-        console.log("Animation Component:", el.components);
+        // console.log("Animation Component:", el.components);
         el.components.animation__pos.animation.play();
         el.components.animation__rot.animation.play();
     }
