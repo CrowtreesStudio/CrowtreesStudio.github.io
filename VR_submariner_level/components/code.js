@@ -136,10 +136,11 @@ AFRAME.registerComponent('scenemgr', {
             data.fuelGemCollected = true;
             console.log("Gem being collected =", data.fuelGemCollected);
             selectedObj.parentEl.components.animation__collscale.animation.play();
-            selectedObj.parentEl.children[1].components.animation__colllight.animation.play();// turn off light
+            console.log("dim light:", selectedObj.parentEl.children[1]);
+            // selectedObj.parentEl.children[1].components.animation__colllight.animation.play();// turn off light
             SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable');//Fuel Gem now not selectable
             SET_COMP_PROPS(data.submarine, 'class', 'clickable');//Submarine is selectable
-            SET_COMP_PROPS(data.cursor, 'far', 1.0);
+            SET_COMP_PROPS(data.cursor, 'far', 2.0);
             SET_COMP_PROPS(data.ltHand , 'raycaster.enabled', true);
             SET_COMP_PROPS(data.rtHand , 'raycaster.enabled', true);
             message="Well Done! Return to the Submarine";
