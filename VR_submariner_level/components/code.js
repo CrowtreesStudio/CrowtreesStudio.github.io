@@ -1,15 +1,10 @@
 /* Based on working version 1.2.* of VR_basic_teleport_collect */
 /* Includes teleport, grab, collect and with device detection */
 /* Version 1.2.1 includes working desktop and mobile additions */
-    // AFRAME.registerComponent('pixel-ratio', {
-    //     schema: {
-    //         type: 'number'
-    //     },
-    //     update: function() {
-    //         this.el.sceneEl.renderer.setPixelRatio(this.data)
-    //     }
-    // });
 
+/* ****************************************************************************** */
+/*   Scene Manager component that manages game logic & takes calls from events    */
+/* ****************************************************************************** */
 AFRAME.registerComponent('scenemgr', {
     schema:{
         feedbackTXT:{type:'selector', default:'#feedback'},
@@ -40,7 +35,7 @@ AFRAME.registerComponent('scenemgr', {
         SET_COMP_PROPS(data.cineCam, 'active', false);
 
         // Track changes in upper left corner
-        let message = "Version: 1.3.5";
+        let message = "Version: 1.3.6";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
@@ -173,10 +168,80 @@ AFRAME.registerComponent('scenemgr', {
     }
 });
 
+/* ************************************************************************************ */
+/* *********************************************************** */
+/* *********************************************************** */
+/*   Components that set-up initial game state & conditions    */
+/* *********************************************************** */
+/* *********************************************************** */
+/* ************************************************************** */
+/*   Component to start playing animations on an entity object    */
+/* ************************************************************** */
+AFRAME.registerComponent('animstart', {
+    init: function(){
+        let el = this.el;
+        // console.log("Animation Component:", el.components);
+        el.components.animation__pos.animation.play();
+        el.components.animation__rot.animation.play();
+    }
+});
+
+/* ********************************************************************** */
+/*   Component to parse mesh objects and apply shadows: receive & cast    */
+/* ********************************************************************** */
+AFRAME.registerComponent('mesh-shadows', {
+    // built-in method
+    update:function(){
+        this.el.addEventListener('model-loaded', ()=>{
+            // console.log("mesh check model loaded");
+            const el = this.el;
+            console.log("el to show object", el.getObject3D('mesh'));
+            const obj = this.el.getObject3D('mesh');
+            obj.children.forEach((model)=>{
+                //model.receiveShadow=true;
+                if(model.name === 'ground'){
+                    model.castShadow=false;
+                    model.receiveShadow=true;
+                }else if(model.name != 'coin'){
+                    model.castShadow=true;
+                    model.receiveShadow=true;
+                    model.material.shadowSide=1;
+                }else{
+                    model.castShadow=true;
+                    model.material.shadowSide=1;
+                }
+            });
+        });
+    }
+});
+
+/* ******************************************************* */
+/*          Component that reads camera rotation           */
+/* ******************************************************* */
+AFRAME.registerComponent('rotation-reader', {
+    tick: function () {
+      // `this.el` is the element.
+      // `object3D` is the three.js object.
+  
+      // `rotation` is a three.js Euler using radians. `quaternion` also available.
+      //   console.log(this.el.object3D.quaternion);
+      console.log(this.el.object3D.rotation);
+  
+      // `position` is a three.js Vector3.
+      console.log(this.el.object3D.position);
+    }
+    // <a-entity camera look-controls rotation-reader>
+  });
+
+/* ************************************************************************************ */
+/* ********************************************************** */
+/*   Components that provide player with game interactions    */
+/* ********************************************************** */
+/* ********************************************************** */
 /* ******************************************************** */
 /* Component to listen for mouse click on entity - desktop  */
 /* ******************************************************** */
-AFRAME.registerComponent('pointer', {
+AFRAME.registerComponent('cursor-selector', {
     // built-in methods
     schema:{
         sceneLocator:{type:'selector', default:'a-scene'},
@@ -228,7 +293,7 @@ AFRAME.registerComponent('pointer', {
 /* *********************************************************** */
 /* Component to listen for HMD controllers grabbing an entity  */
 /* *********************************************************** */
-AFRAME.registerComponent('grabbingtest', {
+AFRAME.registerComponent('grabbing', {
     schema:{
         sceneLocator:{type:'selector', default:'a-scene'},
         feedbackTXT:{type:'selector', default:'#feedback'}
@@ -282,7 +347,7 @@ AFRAME.registerComponent('grabbingtest', {
             sceneManager.collectorMgmt(evt.detail.target);// Call scenemgr collectorMgmt method for collection
         });
     }
-  })
+});
 
 /* *********************************************************** */
 /* Component to use the HMD controller joystick to turn around */
@@ -312,43 +377,11 @@ AFRAME.registerComponent('controllisten', {
     }
 });
 
-/* *********************************************************** */
-/*   Component to start play animations on an entity object    */
-/* *********************************************************** */
-AFRAME.registerComponent('animstart', {
-    init: function(){
-        let el = this.el;
-        // console.log("Animation Component:", el.components);
-        el.components.animation__pos.animation.play();
-        el.components.animation__rot.animation.play();
-    }
-});
-
-AFRAME.registerComponent('mesh-animation', {
-    // built-in method
-    update:function(){
-        this.el.addEventListener('model-loaded', ()=>{
-            // console.log("mesh check model loaded");
-            const el = this.el;
-            console.log("el to show object", el.getObject3D('mesh'));
-            const obj = this.el.getObject3D('mesh');
-
-        });
-    }
-});
-
-AFRAME.registerComponent('rotation-reader', {
-    tick: function () {
-      // `this.el` is the element.
-      // `object3D` is the three.js object.
-  
-      // `rotation` is a three.js Euler using radians. `quaternion` also available.
-    //   console.log(this.el.object3D.quaternion);
-      console.log(this.el.object3D.rotation);
-  
-      // `position` is a three.js Vector3.
-      console.log(this.el.object3D.position);
-    }
-  });
-  
-  // <a-entity camera look-controls rotation-reader>
+    // AFRAME.registerComponent('pixel-ratio', {
+    //     schema: {
+    //         type: 'number'
+    //     },
+    //     update: function() {
+    //         this.el.sceneEl.renderer.setPixelRatio(this.data)
+    //     }
+    // });

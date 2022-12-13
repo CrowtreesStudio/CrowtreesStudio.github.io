@@ -8,10 +8,7 @@
     <!-- A-Frame Framework and Component Scripts -->
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.3.1/dist/aframe-environment-component.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script> <!-- sphere-collider -->
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.controls.min.js"></script><!-- movement-controls -->
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.loaders.min.js"></script><!-- Animation Mixer -->
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <script src="components/simple-navmesh-constraint.js"></script><!-- From Ada Rose Cannon -->
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
 
@@ -20,7 +17,6 @@
     <script src="components/aframe-teleport-controls.js"></script>
 
     <!-- James' Components -->
-    <script src="components/mesh-shadows.js"></script>
     <script src="components/a-water.js"></script>
     <script src="components/code.js"></script>
 
@@ -36,10 +32,10 @@
             <a-asset-item id="navMesh" src="assets/meshes/Navmesh.glb" ></a-asset-item>
             <a-asset-item id="sub" src="assets/meshes/submarine.glb" ></a-asset-item>
             <a-asset-item id="coin_mesh" src="assets/meshes/Simple_Coin.glb" ></a-asset-item>
-            <a-mixin id="coin" gltf-model="#coin_mesh" grabbingtest shadow="castShadow:true;" ></a-mixin>
+            <a-mixin id="coin" gltf-model="#coin_mesh" grabbing mesh-shadows ></a-mixin>
             <a-mixin 
                 id="fuel"
-                grabbingtest
+                grabbing
                 geometry="primitive:octahedron; radius:1;" 
                 material="color:#ff2266; emissive:#05a; transparent:true; opacity:0.85; side:double;" ></a-mixin>
             <a-mixin id="spin" animation__rot="property:rotation; to:0 360 0; loop:true; dur:2000; easing:linear; autoplay: false;"></a-mixin>
@@ -50,11 +46,12 @@
         </a-asset>
 
         <!-- scene objects - Collectable Coins -->
-        <a-entity id="coin_holder_01" position="3 3 -4" mixin="collectPos collectScale">
-            <a-entity id="coin_01" mixin="coin spin bob" class="grabbable clickable" grabbable hoverable animstart ></a-entity>
+        <a-entity id="coin_holder_01" position="3 3 -3.5" mixin="collectPos collectScale">
+            <a-entity id="coin_01" mixin="coin spin bob" class="grabbable clickable" grabbable hoverable animstart></a-entity>
         </a-entity>
-        <a-entity id="coin_holder_02" position="4 1 -4" mixin="collectPos collectScale">
+        <a-entity id="coin_holder_02" position="3 1 -3.2" mixin="collectPos collectScale">
             <a-entity id="coin_02" mixin="coin spin bob" class="grabbable clickable" grabbable hoverable animstart></a-entity>
+            
         </a-entity>
         <a-entity id="coin_holder_03" position="-3 3 -2" mixin="collectPos collectScale">
             <a-entity id="coin_03" mixin="coin spin bob" class="grabbable clickable" grabbable hoverable animstart></a-entity>
@@ -75,10 +72,9 @@
         <!-- Submarine - Goal: Get Fuel Gem to Power Sub for Getaway -->
         <a-entity id="subRig" 
                 position="0 0 0"
-                animation="property:position; to: 35 -3 0; dur:10000; easing:easeInQuad; autoplay:false;">
+                animation="property:position; to: 45 -5 0; dur:10000; easing:easeInQuad; autoplay:false;">
             <a-gltf-model 
                 id="submarine"
-                mesh-animation
                 animation-mixer="clip: submarineAction; timeScale: 6.0;" 
                 class="not-clickable" 
                 visible="true"
@@ -107,7 +103,7 @@
         <a-entity environment="preset:arches;" position="0 -4 0"></a-entity>
         
         <!-- Lights -->
-        <a-light id="sunlight" position="-2.5 4.0 5" rotation="106 -25 -46.5" light="castShadow: true; shadowCameraLeft:-6.0;"></a-light>
+        <a-light id="sunlight" position="-2.5 4.0 5" rotation="106 -25 -46.5" light="castShadow: true; shadowCameraLeft:-6.0; shadowCameraTop:6.0; shadowCameraNear:-0.5;"></a-light>
         <a-light id="ambient" type="ambient" intensity="0.4"></a-light>        
 
         <!-- ********************************* -->
@@ -128,7 +124,7 @@
                 look-controls="pointerLockEnabled:true;" >
                     <!-- Cursor -->
                     <a-cursor 
-                        pointer 
+                        cursor-selector 
                         raycaster="objects:.clickable; far: 0.25; enabled:true;"
                         position="0 0 -0.5"
                         color="#ffffff"
@@ -152,8 +148,8 @@
                 sphere-collider="objects:.grabbable;" 
                 super-hands   
                 hand-controls="hand: left;"
+                cursor-selector
                 laser-controls="hand:left;"
-                pointer
                 raycaster="objects:.clickable; far:1.0;">
             </a-entity> <!-- End Left Hand -->
 
@@ -164,15 +160,15 @@
                 sphere-collider="objects:.grabbable;"
                 super-hands
                 hand-controls="hand: right;"
+                cursor-selector
                 laser-controls="hand:right;"
-                pointer
                 raycaster="objects:.clickable; far:1.0;">
             </a-entity> <!-- End Right Hand -->
 
             <!-- the hand-controls appears broken when display different gestures. Only displays grip:--> 
             <!-- trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
 
-            <!-- the laser-controls work as indicated above and are activated (seen) 
+            <!-- the laser-controls work (not anymore... !?) as indicated above and are activated (seen) 
             when they raycaster intersects an object that is (currently) within 0.5 meters -->
         </a-entity><!-- End Camera Rig -->
 
