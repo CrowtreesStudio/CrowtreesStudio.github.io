@@ -8,8 +8,10 @@
     <!-- A-Frame Framework and Component Scripts -->
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.3.1/dist/aframe-environment-component.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script><!-- sphere-collider-->
+    <!-- <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script> <!-- sphere-collider -->
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.controls.min.js"></script><!-- movement-controls -->
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.loaders.min.js"></script><!-- Animation Mixer -->
     <script src="components/simple-navmesh-constraint.js"></script><!-- From Ada Rose Cannon -->
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
 
@@ -25,7 +27,7 @@
 </head>
 <body>
     <!-- <a-scene scenemgr renderer="colorManagement:false; antialias:false;" pixel-ratio="0.61" > creates lowrez vibe  -->
-    <a-scene scenemgr renderer="colorManagement:false;" >
+    <a-scene scenemgr="coinsNeeded:1;" renderer="colorManagement:false;" >
         <div style="position:absolute; z-index: 100;">
             <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's...</div>
         </div>
@@ -73,9 +75,11 @@
         <!-- Submarine - Goal: Get Fuel Gem to Power Sub for Getaway -->
         <a-entity id="subRig" 
                 position="0 0 0"
-                animation="property:position; to: 25 -3 0; dur:10000; easing:easeInQuad; autoplay:false;">
+                animation="property:position; to: 35 -3 0; dur:10000; easing:easeInQuad; autoplay:false;">
             <a-gltf-model 
-                id="submarine" 
+                id="submarine"
+                mesh-animation
+                animation-mixer="clip: submarineAction; timeScale: 6.0;" 
                 class="not-clickable" 
                 visible="true"
                 position="3 -1 6.5"
@@ -176,14 +180,14 @@
         <!--rotation="-25 210 0"-->
         <a-entity 
             id="rig2"  
-            position="0 4.45 -5"
-            rotation="0 210 0"
+            position="0 5 -3"
             movement-controls="enabled:false;">
             <!-- Camera -->
             <a-entity 
                id="cinematic"
                camera="enabled:false;" 
                position="0 0 0"
+               rotation="0 200 0"
                visible="false" 
                look-controls="enabled:false;">
                <a-entity>

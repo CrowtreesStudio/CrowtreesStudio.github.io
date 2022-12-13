@@ -40,7 +40,7 @@ AFRAME.registerComponent('scenemgr', {
         SET_COMP_PROPS(data.cineCam, 'active', false);
 
         // Track changes in upper left corner
-        let message = "Version: 1.3.3.9";
+        let message = "Version: 1.3.5";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
@@ -156,6 +156,7 @@ AFRAME.registerComponent('scenemgr', {
             SET_COMP_PROPS(data.cineCam, 'active', true);
             SET_COMP_PROPS(data.ltHand, 'visible', false);
             SET_COMP_PROPS(data.rtHand, 'visible', false);
+            SET_COMP_PROPS(data.submarine, 'animation-mixer.clip', 'prop_rotation');
             selectedObj.parentEl.components.animation.animation.play();
         };
         
@@ -322,3 +323,32 @@ AFRAME.registerComponent('animstart', {
         el.components.animation__rot.animation.play();
     }
 });
+
+AFRAME.registerComponent('mesh-animation', {
+    // built-in method
+    update:function(){
+        this.el.addEventListener('model-loaded', ()=>{
+            // console.log("mesh check model loaded");
+            const el = this.el;
+            console.log("el to show object", el.getObject3D('mesh'));
+            const obj = this.el.getObject3D('mesh');
+
+        });
+    }
+});
+
+AFRAME.registerComponent('rotation-reader', {
+    tick: function () {
+      // `this.el` is the element.
+      // `object3D` is the three.js object.
+  
+      // `rotation` is a three.js Euler using radians. `quaternion` also available.
+    //   console.log(this.el.object3D.quaternion);
+      console.log(this.el.object3D.rotation);
+  
+      // `position` is a three.js Vector3.
+      console.log(this.el.object3D.position);
+    }
+  });
+  
+  // <a-entity camera look-controls rotation-reader>
