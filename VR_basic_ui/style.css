@@ -1,0 +1,35 @@
+body {
+    font-size: 16px;
+}
+* {
+    box-sizing: border-box;
+}
+#dom-overlay {
+    font-family: Sans-Serif;
+    color: white;
+}
+#dom-overlay .overlay-footer {
+    background: #00000066;
+    padding: 1em;
+    margin: 0;
+    position:absolute;
+    inset:auto 0 0 0;
+}
+
+#dom-overlay-message{
+    margin: 5px;
+}
+
+button{
+    margin: 10px;
+}
+
+#my-interface {
+    display: inline-block; 
+    background: lavenderblush; 
+    color: #333333; 
+    border-radius: 1em; 
+    padding: 1em; 
+    margin:0; 
+    accent-color: hotpink;
+}

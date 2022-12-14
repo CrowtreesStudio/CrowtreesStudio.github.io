@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>A-frame UI Explorations</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>sphere-collider
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.controls.min.js"></script>movement-controls -->
     <script src="components/simple-navmesh-constraint.js"></script><!-- From Ada Rose Cannon -->
-    <script src="components/aframe-html.js" ></script><!-- From Ada Rose Cannon -->
+    <script src="components/aframe-html.js" ></script>
     <script src="components/aframe-teleport-controls.js"></script><!-- Using local copy because linked version does not work - weird -->
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script><!-- To grab things - uses sphere-collider from extras -->
 
@@ -77,6 +78,7 @@
                 look-controls="pointerLockEnabled:true;" >
                     <!-- Cursor -->
                     <a-cursor 
+                        id="cursor"
                         pointer 
                         raycaster="objects: .clickable; far: 0.35; enabled:true;"
                         position="0 0 -0.5"
@@ -123,7 +125,7 @@
             Hello World
         </h1>
 	    <div class="overlay-footer">
-            <section style="display: inline-block; background: lavenderblush; color: #333333; border-radius: 1em; padding: 1em; margin:0; accent-color: hotpink;" id="my-interface">
+            <section id="my-interface">
                 <h2>Settings</h2>
                 <fieldset style="border:none;">
                 <legend>Thumbstick Behaviour</legend>
