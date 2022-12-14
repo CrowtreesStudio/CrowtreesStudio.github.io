@@ -14,7 +14,8 @@
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script><!-- To grab things - uses sphere-collider from extras -->
 
     <!-- James' Components -->
-    <script  src="components/code.js"></script>
+    <script src="components/code.js"></script>
+    <script src="components/aframe-ui.js"></script>
 
 </head>
 <body>
@@ -66,6 +67,13 @@
         <!-- replaced floor plane with a box -->
         <a-box id="floor" class="nav-mesh" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box>
 
+
+
+        <a-entity id="GUI" aframe-ui="boxMatBkgd:#8632c4; boxDim:3 2 0.01; boxMatBorder:#470f65;" position="0 0.65 -2" ></a-entity>
+        <!-- <a-entity id="GUI" aframe-ui="boxMat:#470f65; boxDim:3.1 2.1 0.01" position="0 2 -2.01" ></a-entity> -->
+
+
+
         <!-- ******************************************** -->
         <!-- *  Camera, Feedback Text and Controllers   * -->
         <!-- ******************************************** -->
@@ -80,14 +88,14 @@
                     <a-cursor 
                         id="cursor"
                         pointer 
-                        raycaster="objects: .clickable; far: 0.35; enabled:true;"
+                        raycaster="objects: .clickable; far: 0.5; enabled:true;"
                         position="0 0 -0.5"
                         color="#ffffff"
                         visible="true">
                     </a-cursor><!-- Cursor End -->
                     <!-- Text Field -->
                     <a-text id="feedback" value="Hello World" position="0 -0.1 -0.5" align="center" baseline="top" scale="0.15 0.15 0.15"></a-text><!-- Text Field End -->
-                </a-entity>
+            </a-entity>
             
             <!-- Left hand laser control -->
             <!-- console log to id controller type at line 73060 -->
@@ -110,6 +118,8 @@
                 laser-controls raycaster="far:0.5; objects: .clickable; enabled: false;"
                 >
             </a-entity> <!-- End of Right Hand -->
+            </a-entity><!-- End Camera -->
+
             <!-- laser-controls raycaster="far:0.5; objects: .clickable;" -->
             <!-- the hand-controls does not work - appears broken:--> 
             <!-- trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
