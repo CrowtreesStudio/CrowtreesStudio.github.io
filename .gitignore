@@ -4,3 +4,20 @@ indexBackup.html
 .vscode/launch.json
 assets/Screen Shot 2022-06-28 at 12.40.10 PM.png
 Hello_World_Advanced
+VR_basic_ui copy/assets/audio/DalekCityCorridor_loop.m4a
+VR_basic_ui copy/assets/audio/DalekCityCorridor_loop.mp3
+VR_basic_ui copy/assets/audio/DalekCityCorridor_loop.wav
+VR_basic_ui copy/assets/audio/DalekHeartBeat.mp3
+VR_basic_ui copy/assets/audio/DalekHeartBeat.ogg
+VR_basic_ui copy/assets/ui/tooltip.afdesign
+VR_basic_ui copy/assets/ui/tooltip.png
+VR_basic_ui copy/assets/ui/tooltip.svg
+VR_basic_ui copy/assets/ui/tooltip2.png
+VR_basic_ui copy/components/aframe-html.js
+VR_basic_ui copy/components/aframe-slice9-component.js
+VR_basic_ui copy/components/aframe-teleport-controls.js
+VR_basic_ui copy/components/aframe-ui.js
+VR_basic_ui copy/components/code.js
+VR_basic_ui copy/components/simple-navmesh-constraint.js
+VR_basic_ui copy/index.html
+VR_basic_ui copy/style.css
