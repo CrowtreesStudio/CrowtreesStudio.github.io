@@ -4,8 +4,15 @@
 
 AFRAME.registerComponent('scenemgr', {
     schema:{
-        feedbackTXT:{type:'selector', default:'#feedback'},
         cursor:{type:'selector', default:'a-cursor'},
+        
+        uiPanel:{type:'selector', default:'#uiGroup'},
+        uiTitle:{type:'selector', default:"#uiTitle"},
+        uiCopy:{type:'selector', default:"#uiCopy"},
+        hud:{type:'selector', default:'#HUD'},
+        hudCopy:{type:'selector', default:'#feedback'},
+
+        sound1:{type:'selector', default:'#beat'},
 
         activeCamRig:{type:'selector', default:'#cameraRig'},
         activeCam:{type:'selector', default:"#camera"},
@@ -21,6 +28,10 @@ AFRAME.registerComponent('scenemgr', {
         let message = "Version: 1.2.2.1";
         document.getElementById("text").innerHTML= message;
         message = "listening...";
+
+        SET_COMP_PROPS(data.hudCopy, 'visible', false);
+        // SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
+        SET_COMP_PROPS(data.hud, 'visible', false);// remove this when above line is enabled
 
         el.addEventListener('enter-vr', evt=>{
             // console.log("Device check:", AFRAME.utils.device);
@@ -43,7 +54,10 @@ AFRAME.registerComponent('scenemgr', {
             SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
         });
 
-        SET_COMP_PROPS(data.feedbackTXT, 'value', message);
+        SET_COMP_PROPS(data.hudCopy, 'value', message);
+
+        SET_COMP_PROPS(data.uiTitle, 'value', "Submariner Walkabout");
+        SET_COMP_PROPS(data.uiCopy, 'value', "\nYour task is an easy one.\n\nCollect all the blue coins to reveal the Fuel Gem.\n\nCollect the Fuel Gem to power your submarine, then select the submarine to end the game.\n\nGood luck!");
     },
 
     collectorMgmt: function(forCollection){
@@ -51,9 +65,16 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;
         let message = forCollection.id;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-        SET_COMP_PROPS(data.feedbackTXT, 'value', message);
+        SET_COMP_PROPS(data.hudCopy, 'value', message);
         SET_COMP_PROPS(forCollection.object3D.el, 'class', 'not-clickable');//Working
         SET_COMP_PROPS(forCollection.object3D.el, 'visible', false);// this works
+        if(forCollection.id === "button"){
+            SET_COMP_PROPS(data.hudCopy, 'visible', true);
+            SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
+            SET_COMP_PROPS(data.hud, 'visible', false);
+            // data.sound1.components.sound.playSound();
+            
+        }
     }
 });
 
@@ -88,7 +109,7 @@ AFRAME.registerComponent('pointer', {
             console.log("mouse enter");
             el.setAttribute('material', {color: '#00ff00'});
             let target = evt.detail.intersectedEl;
-            if(target.components.animation__pos && !grabit){
+            if(target.components.animation__pos){
                 target.components.animation__pos.animation.pause();
             }else{
                 console.log("No animations");
@@ -99,7 +120,7 @@ AFRAME.registerComponent('pointer', {
             console.log("mouse leave");
            el.setAttribute('material', {color: '#ffffff'});
            let target = evt.detail.intersectedEl;
-            if(target.components.animation__pos && !grabit){
+            if(target.components.animation__pos){
                 target.components.animation__pos.animation.play();
             }else{
                 console.log("No animations");
@@ -114,7 +135,7 @@ AFRAME.registerComponent('pointer', {
 AFRAME.registerComponent('grabbingtest', {
     schema:{
         sceneLocator:{type:'selector', default:'a-scene'},
-        feedbackTXT:{type:'selector', default:'#feedback'}
+        hudCopy:{type:'selector', default:'#feedback'}
     },
     init: function(){
     },
@@ -132,7 +153,7 @@ AFRAME.registerComponent('grabbingtest', {
         el.addEventListener('hover-start', function(evt) {
             console.log("Event - Hover Start");
             let target = evt.detail.target;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
+            SET_COMP_PROPS(data.hudCopy, 'value', evt.detail.hand.id);
             if(target.components.animation__pos && !grabIt){
                 target.components.animation__pos.animation.pause();
             }else{
@@ -143,7 +164,7 @@ AFRAME.registerComponent('grabbingtest', {
         el.addEventListener('hover-end', function(evt) {
             console.log("Event - Hover End");
             let target = evt.detail.target;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
+            SET_COMP_PROPS(data.hudCopy, 'value', evt.detail.hand.id);
             if(target.components.animation__pos && !grabIt){
                 target.components.animation__pos.animation.play();
             }else{
@@ -153,13 +174,13 @@ AFRAME.registerComponent('grabbingtest', {
 
         el.addEventListener('grab-start', function(evt) {
             let target = evt.detail.target;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
+            SET_COMP_PROPS(data.hudCopy, 'value', evt.detail.hand.id);
             grabIt = true;
             console.log("Event Grab Start",target);
         });
 
         el.addEventListener('grab-end', function(evt) {
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.target.id);
+            SET_COMP_PROPS(data.hudCopy, 'value', evt.detail.target.id);
 
             // SET_COMP_PROPS(evt.detail.target.object3D.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// Works!
             sceneManager.collectorMgmt(evt.detail.target);// Works - it calls scene manager and the method with the target

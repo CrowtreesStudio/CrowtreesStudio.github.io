@@ -10,7 +10,6 @@
 
 AFRAME.registerPrimitive('a-water', {
   defaultComponents: {
-    ocean: {},
     rotation: {x: -90, y: 0, z: 0}
   },
   mappings: {

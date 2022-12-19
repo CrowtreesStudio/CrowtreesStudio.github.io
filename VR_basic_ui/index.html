@@ -12,6 +12,7 @@
     <script src="components/aframe-html.js" ></script>
     <script src="components/aframe-teleport-controls.js"></script><!-- Using local copy because linked version does not work - weird -->
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script><!-- To grab things - uses sphere-collider from extras -->
+    <script src="https://unpkg.com/aframe-slice9-component/dist/aframe-slice9-component.min.js"></script>
 
     <!-- James' Components -->
     <script src="components/code.js"></script>
@@ -26,6 +27,8 @@
 
         <a-asset>
             <a-mixin id="bob" animation__pos="property:position; to:0 1.05 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
+            <image id="frame" src="assets/ui/tooltip.svg"></image>
+            <audio id="heartbeat" src="assets/audio/DalekHeartBeat.ogg" loop="true" volume="0.5"></audio>
         </a-asset>
 
         <!-- ******************************************** -->
@@ -34,12 +37,6 @@
         <!-- hover & drag-drop won't have any obvious effect -->
         <!-- without some additional event handlers or components.-->
         <!-- See the examples page for more -->
-
-        <!-- markers to let us know the real location of the hands, you probably want to make them visible="false" or just make them empty <a-entities> -->
-        <!-- <a-entity id="left-no-magnet" data-left="grip" data-no-magnet> -->
-        <a-entity html="html:#my-interface;cursor:#cursor" position="-0.142 -0.0166 -0.02928" rotation="-80 90 0" scale="0.7 0.7 0.7"></a-entity>
-        <!-- </a-entity> -->
-        <!-- <a-entity id="right-no-magnet" data-right="grip" data-no-magnet></a-entity> -->
 
         
         <a-box id="box" class="grabbable clickable navhole" grabbingtest hoverable grabbable stretchable draggable droppable position="-3 0.5 -3" color="#2f80d1"  shadow="cast:true; receive:false"></a-box>
@@ -67,12 +64,81 @@
         <!-- replaced floor plane with a box -->
         <a-box id="floor" class="nav-mesh" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box>
 
+        <!-- Nine Slice UI Background -->
+        <!-- <a-entity slice9="width: 0.5; height: 0.5; left: 21; right: 43; top: 21; bottom: 43; src: assets/ui/tooltip.png" position="0 1.5 -1.5"></a-entity> -->
 
-
-        <a-entity id="GUI" aframe-ui="boxMatBkgd:#8632c4; boxDim:3 2 0.01; boxMatBorder:#470f65;" position="0 0.65 -2" ></a-entity>
-        <!-- <a-entity id="GUI" aframe-ui="boxMat:#470f65; boxDim:3.1 2.1 0.01" position="0 2 -2.01" ></a-entity> -->
-
-
+        <!-- I think mine will work better so I'll write it up as a component -->
+        <a-entity scale="0.15 0.15" position="0 1.65 -0.5">
+            <!-- Panel Corners -->
+            <!-- top left -->
+            <a-plane 
+                position="-0.55 0.55 0" 
+                rotation="0 0 0"
+                width="0.5" height="0.5" scale="1 1"
+                material="src:#frame; transparent:true; offset:0 0.6666; repeat:0.3333 0.3333;" >
+            </a-plane>
+            <!-- top right -->
+            <a-plane 
+                position="0.5 0.5 0" 
+                rotation="0 0 0"
+                width="0.5" height="0.5" scale="1 1"
+                material="src:#frame; transparent:true; offset:0.6666 0.6666; repeat:0.3333 0.3333;" >
+            </a-plane>
+            <!-- bottom left -->
+            <a-plane 
+                position="-0.5 -0.5 0" 
+                rotation="0 0 0"
+                width="0.5" height="0.5" scale="1 1" 
+                material="src:#frame; transparent:true; offset: 0 0; repeat:0.3333 0.3333;" >
+            </a-plane>
+            <!-- bottom right -->
+            <a-plane 
+                position="0.5 -0.5 0" 
+                rotation="0 0 0"
+                width="0.5" height="0.5" scale="1 1"
+                material="src:#frame; transparent:true; offset: 0.6666 1.0; repeat:0.3333 0.3333;" >
+            </a-plane>
+            <!-- Panel middle bits -->
+            <!-- left -->
+            <a-plane 
+                position="-0.5 0 0" 
+                rotation="0 0 0"
+                width="0.5" height="0.5" scale="1 1"
+                material="src:#frame; transparent:true; offset: 0 0.3333; repeat:0.3333 0.3333;" >
+            </a-plane>
+            <!-- top -->
+            <a-plane 
+                position="0 0.5 0" 
+                rotation="0 0 0"
+                width="0.5" height="0.5" scale="1 1" 
+                material="src:#frame; transparent:true; offset: 0.3333 0.6666; repeat:0.3333 0.3333;" >
+            </a-plane>
+            <!-- right -->
+            <a-plane 
+                position="0.5 0 0" 
+                rotation="0 0 0"
+                width="0.5" height="0.5" scale="1 1" 
+                material="src:#frame; transparent:true; offset: 0.6666 0.3333; repeat:0.3333 0.3333;" >
+            </a-plane>
+            <!-- bottom -->
+            <a-plane 
+                position="0 -0.5 0" 
+                rotation="0 0 0"
+                width="0.5" height="0.5" scale="1 1" 
+                material="src:#frame; transparent:true; offset: 0.3333 0.0; repeat:0.3333 0.3333;" >
+            </a-plane>
+            <!-- middle bit -->
+            <a-plane 
+                position="0 0 0" 
+                rotation="0 0 0"
+                width="0.5" height="0.5" scale="1 1"
+                material="src:#frame; transparent:true; offset: 0.3333 0.3333; repeat:0.3333 0.3333;" >
+            </a-plane>
+        </a-entity>
+        <a-entity position="0 1.65 -1">
+            <a-cylinder position="-0.25 0 0" rotation="-90 0 0" radius="0.25" height="0.01" segments-radial="8" theta-start="-90" theta-length="90" color="blue" wireframe="false"></a-cylinder>
+            <a-cylinder position="-0.25 0 0.01" rotation="-90 0 0" radius="0.2" height="0.01" segments-radial="8" theta-start="-90" theta-length="90" color="orange" wireframe="false"></a-cylinder>
+        </a-entity>
 
         <!-- ******************************************** -->
         <!-- *  Camera, Feedback Text and Controllers   * -->
@@ -94,31 +160,77 @@
                         visible="true">
                     </a-cursor><!-- Cursor End -->
                     <!-- Text Field -->
-                    <a-text id="feedback" value="Hello World" position="0 -0.1 -0.5" align="center" baseline="top" scale="0.15 0.15 0.15"></a-text><!-- Text Field End -->
-            </a-entity>
-            
-            <!-- Left hand laser control -->
-            <!-- console log to id controller type at line 73060 -->
-            <a-entity id="leftHand"
-                controllisten
-                sphere-collider="objects: .grabbable" 
-                super-hands   
-                hand-controls="hand: left;"
-                laser-controls raycaster="far:0.5; objects: .clickable; enabled: false;"
-                >
-            </a-entity> <!-- End of Left Hand -->
-
-            <!-- Right hand teleport control -->
-            <a-entity id="rightHand"
-                controllisten
-                teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #floor;"
-                sphere-collider="objects: .grabbable"
-                super-hands
-                hand-controls="hand: right; handModelStyle:lowPoly; color:#c568ff;"
-                laser-controls raycaster="far:0.5; objects: .clickable; enabled: false;"
-                >
-            </a-entity> <!-- End of Right Hand -->
+                    <a-text id="feedback" value="" position="0 -0.1 -0.5" align="center" baseline="top" scale="0.15 0.15 0.15"></a-text><!-- Text Field End -->
             </a-entity><!-- End Camera -->
+
+            <a-sound id="beat" src="#heartbeat" loop="true"></a-sound>
+            
+                <!-- Left hand laser control -->
+                <!-- console log to id controller type at line 73060 -->
+                <a-entity id="leftHand"
+                    controllisten
+                    sphere-collider="objects: .grabbable" 
+                    super-hands   
+                    hand-controls="hand: left;"
+                    laser-controls raycaster="far:0.5; objects: .clickable; enabled: false;"
+                    >
+                </a-entity> <!-- End of Left Hand -->
+
+                <!-- Right hand teleport control -->
+                <a-entity id="rightHand"
+                    controllisten
+                    teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #floor;"
+                    sphere-collider="objects: .grabbable"
+                    super-hands
+                    hand-controls="hand: right; handModelStyle:lowPoly; color:#c568ff;"
+                    laser-controls raycaster="far:0.5; objects: .clickable; enabled: false;"
+                    >
+                </a-entity> <!-- End of Right Hand -->
+
+                <!-- HUD Main UI Panel -->
+                <a-user-interface 
+                id="HUD"
+                fieldsize="1.0 .75 0.001"
+                bordersize="0.04"
+                fieldcolor="#8632c4"
+                bordercolor="#470f65"
+                position="0 1.65 -0.75">
+                    <a-text 
+                        id="uiTitle" 
+                        value="Dialogue Title" 
+                        position="0 0.275 0"
+                        color="#ffcfff" 
+                        text="align:center; wrapCount: 20; width:auto;" >
+                    </a-text>
+                    
+                    <!-- Main Dialogue: Copy -->
+                    <a-text 
+                        id="uiCopy"
+                        value="This might be interesting..."
+                        position="0 0.02 0"
+                        color="#f9afff" 
+                        text="align:center; wrapCount:40; width:auto;">
+                    </a-text>
+                    
+                    <!-- Button -->
+                    <a-box
+                        id="button" 
+                        class="clickable"
+                        position="0 -0.275 0.01" 
+                        color="#ffbb00" 
+                        width="0.35" 
+                        height="0.075"
+                        depth = "0.01">
+                        <a-text 
+                            value="Click to Begin"
+                            position="0 0.005 0.01" 
+                            text="align:center; wrapCount:35; width:auto;"
+                            color="#470f65">
+                        </a-text>
+                    </a-box>
+                <!-- </a-user-inter÷face> -->
+
+            </a-entity> <!--End of cameraRig-->
 
             <!-- laser-controls raycaster="far:0.5; objects: .clickable;" -->
             <!-- the hand-controls does not work - appears broken:--> 
@@ -126,58 +238,10 @@
 
             <!-- the laser-controls work as indicated above and are activated (seen) 
             when they raycaster intersects an object that is (currently) within 0.5 meters -->
-        </a-entity> <!--End of cameraRig-->
+            
+            
        
    </a-scene>
-
-    <div id="dom-overlay">
-        <h1>
-            Hello World
-        </h1>
-	    <div class="overlay-footer">
-            <section id="my-interface">
-                <h2>Settings</h2>
-                <fieldset style="border:none;">
-                <legend>Thumbstick Behaviour</legend>
-                <input onclick="toggleThumbstick(this)" type="radio" id="thumbstick-teleport" name="thumbstick" value="teleport" checked><label for="thumbstick-teleport"> Teleport</label>
-                <input onclick="toggleThumbstick(this)" type="radio" id="thumbstick-move" name="thumbstick" value="move"><label for="thumbstick-move"> Move</label>
-                </fieldset>
-                <button onclick="AFRAME.scenes[0].exitVR()" style="display: block;">Exit Immersive</button>
-            </section>
-      
-        <!-- HTML form logic -->
-            <script>
-                let movementType = 'teleport';
-                function toggleThumbstick(detail) {
-                const rayPointers = ['[data-right="ray"]', '[data-left="ray"]'].map(s => document.querySelector(s));
-                const type = detail.value;
-                movementType = type;
-                if (type === 'move') {
-                    cameraRig.setAttribute('movement-controls', 'enabled', true);
-                    for (const p of rayPointers) p.removeAttribute('mixin');
-                }
-                if (type === 'teleport') {
-                    cameraRig.setAttribute('movement-controls', 'enabled', false);
-                    for (const p of rayPointers) p.setAttribute('mixin', 'blink');
-                }
-                }
-                // If the user is teleporting disable movement-controls in XR
-                const sceneEl = document.querySelector("a-scene");
-                sceneEl.addEventListener("enter-vr", function() {
-                if (movementType === 'teleport') {
-                    cameraRig.setAttribute('movement-controls', 'enabled', false);
-                }
-                });
-                sceneEl.addEventListener("exit-vr", function() {
-                cameraRig.setAttribute('movement-controls', 'enabled', true);
-                });
-            </script>
-            <div id="dom-overlay-message">Enter AR or VR to start.</div>
-        </div>
-	</div>
-  
-  <div class="glitchButton" style="position: absolute; top: 1em; right: 1em;"></div><script src="https://button.glitch.me/button.js"></script>
-
 </body>
 </html>
 
