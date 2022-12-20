@@ -21,6 +21,8 @@ AFRAME.registerComponent('scenemgr', {
         activeCamRig:{type:'selector', default:'#cameraRig'},
         activeCam:{type:'selector', default:"#camera"},
         cineCam:{type:'selector', default:"#cinematic"},
+        takeScreenShot:{type:'boolean', default:false},
+        scrnShotCam:{type:'selector', default:"#scrnShotCam"},
 
         coinsNeeded:{type:'number', default:4},
         coinsCollected:{type:'number', default:0},
@@ -33,13 +35,24 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
-        // Make sure main camera is active
-        SET_COMP_PROPS(data.activeCam, 'active', true);
-        // Make sure the cinematic camera is off
-        SET_COMP_PROPS(data.cineCam, 'active', false);
-
-        // Prevent movement until menu panel button clicked
-        SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
+        //screenshots
+        if(data.takeScreenShot){
+            console.log("take screenshot", data.takeScreenShot);
+            SET_COMP_PROPS(data.activeCam, 'visible', false);
+            SET_COMP_PROPS(data.activeCam, 'active', false);
+            SET_COMP_PROPS(data.cineCam, 'visible', false);
+            SET_COMP_PROPS(data.cineCam, 'active', false);
+            SET_COMP_PROPS(data.scrnShotCam, 'visible', true);
+            SET_COMP_PROPS(data.scrnShotCam, 'active', true);
+            SET_COMP_PROPS(data.uiGroup, 'visible', false);
+        }else{
+            // Make sure main camera is active
+            SET_COMP_PROPS(data.activeCam, 'active', true);
+            // Make sure the cinematic camera is off
+            SET_COMP_PROPS(data.cineCam, 'active', false);
+            // Prevent movement until menu panel button clicked
+            SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
+        }
 
         // Hud feedback
         SET_COMP_PROPS(data.hudCopy, 'visible', false);
