@@ -55,13 +55,16 @@
         <a-entity id="coin_holder_01" position="3 3 -3.5" mixin="collectPos collectScale">
             <a-entity id="coin_01" mixin="coin spin bob" class="grabbable clickable" grabbable hoverable animstart></a-entity>
         </a-entity>
+
         <a-entity id="coin_holder_02" position="3 1 -3.2" mixin="collectPos collectScale">
             <a-entity id="coin_02" mixin="coin spin bob" class="grabbable clickable" grabbable hoverable animstart></a-entity>
             
         </a-entity>
+
         <a-entity id="coin_holder_03" position="-3 3 -2" mixin="collectPos collectScale">
             <a-entity id="coin_03" mixin="coin spin bob" class="grabbable clickable" grabbable hoverable animstart></a-entity>
         </a-entity>
+
         <a-entity id="coin_holder_04" position="-4 3 4.5" mixin="collectPos collectScale">
             <a-entity id="coin_04" mixin="coin spin bob" class="grabbable clickable" grabbable hoverable animstart></a-entity>
         </a-entity>
@@ -128,25 +131,34 @@
                 simple-navmesh-constraint="navmesh: .nav-mesh; height:1.65; exclude: .navhole;"
                 wasd-controls="enabled: false;"  
                 look-controls="pointerLockEnabled:true;" >
-                    <!-- Cursor -->
+                <!--########-->
+                <!-- Cursor -->
+                <!--########-->
                     <a-cursor 
                         cursor-selector 
-                        raycaster="objects:.clickable; far: 0.25; enabled:true;"
+                        raycaster="objects:.clickable; far: 1.0; enabled:true;"
                         position="0 0 -0.5"
                         color="#ffffff"
                         visible="true">
                     </a-cursor><!-- Cursor End -->
-                    <!-- Text Field -->
+                <!--################-->
+                <!-- HUD Text Field -->
+                <!--################-->
                     <a-text 
                         id="feedback" 
                         value="..." 
                         position="0 -0.1 -0.5" 
-                        align="center" 
+                        text="align:center;" 
                         baseline="top" 
-                        scale="0.15 0.15 0.15">
-                    </a-text><!-- Text Field End -->
+                        scale="0.15 0.15 0.15"
+                        opacity="1.0"
+                        animation="property:position; to:0 0.25 -0.5; dur:2000; easing:easeInSine; autoplay:false;"
+                        animation__fade="property: opacity; to: 0; dur:2000; easing:easeInSine; autoplay:false;">
+                    </a-text><!-- End of HUD Text Field -->
             </a-camera><!-- End Camera -->
-            
+        <!--###############################-->
+        <!-- Left & RIght Hand Controllers -->
+        <!--###############################-->
             <!-- Left hand laser control -->
             <!-- console log to id controller type at line 73060 -->
             <a-entity id="leftHand"
@@ -169,19 +181,14 @@
                 cursor-selector
                 laser-controls="hand:right;"
                 raycaster="objects:.clickable; far:1.0;">
+                <!-- the hand-controls appears broken when display different gestures. Only displays grip:--> 
+                <!-- trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
             </a-entity> <!-- End Right Hand -->
-
-            <!-- the hand-controls appears broken when display different gestures. Only displays grip:--> 
-            <!-- trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
-
-            <!-- the laser-controls work (not anymore... !?) as indicated above and are activated (seen) 
-            when they raycaster intersects an object that is (currently) within 0.5 meters -->
         </a-entity><!-- End Camera Rig -->
 
         <!-- Camera 2: Cinematic -->
         <!--rotation="-25 210 0"-->
-        <a-entity 
-            id="rig2"  
+        <a-entity id="rig2"  
             position="0 5 -3"
             movement-controls="enabled:false;">
             <!-- Camera -->
@@ -198,6 +205,50 @@
             </a-entity>
         </a-entity>
 
+        <!-- Main Intro Panel -->
+        
+        <a-entity id="uiGroup" position="3.0 1.75 3.4" rotation="0 60 0">
+            <!-- Main Panel Title -->
+                <a-text id="uiTitle" 
+                    position="0 0.2 0"
+                    color="#ffcfff"
+                    value="Dialogue Title" 
+                    text="align:center; width:1.75; wrapCount: 25;" >
+                </a-text>
+            <!-- Main Field Copy -->
+                <a-text id="uiCopy"
+                    position="0 -0.025 0"
+                    color="#f9afff"
+                    value="This might be interesting..." 
+                    text="align:center; wrapCount:40; width:1.75;">
+                </a-text>
+            <!-- Button -->
+                <a-plane 
+                    id="button"
+                    class="clickable"
+                    position="0 -0.35 0.1" 
+                    color="#470f65" 
+                    width="0.45" 
+                    height="0.1">
+                    <a-entity
+                        position="0 0.004 0"
+                        color="#f9afff" 
+                        text="align:center; width:auto; wrapCount:25; value:Click to Begin">
+                    </a-entity>
+                </a-plane>
+            <!-- Main Field Frame -->
+                <a-plane 
+                    color="#8632c4" 
+                    position="0 -0.09 -0.001"
+                    width="1.7"
+                    height="0.76" 
+                    visible="true"
+                    material="shader:flat;">
+                <!-- Frame Border -->
+                    <a-plane position="0 0 -0.001" width="1.75" height="0.81" color="#470f65" material="shader:flat;"></a-plane>
+                </a-plane>
+            </a-entity>
+        
     </a-scene>
 </body>
 </html>

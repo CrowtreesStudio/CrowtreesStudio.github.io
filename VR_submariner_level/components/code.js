@@ -7,7 +7,11 @@
 /* ****************************************************************************** */
 AFRAME.registerComponent('scenemgr', {
     schema:{
-        feedbackTXT:{type:'selector', default:'#feedback'},
+        hudCopy:{type:'selector', default:'#feedback'},
+        uiGroup:{type:'selector', default:'#uiGroup'},
+        uiTitle:{type:'selector', default:'#uiTitle'},
+        uiCopy:{type:'selector', default:'#uiCopy'},
+        
         cursor:{type:'selector', default:'a-cursor'},
         rtHand:{type:'selector', default:'#leftHand'},
         ltHand:{type:'selector', default:'#rightHand'},
@@ -34,12 +38,23 @@ AFRAME.registerComponent('scenemgr', {
         // Make sure the cinematic camera is off
         SET_COMP_PROPS(data.cineCam, 'active', false);
 
+        // Prevent movement until menu panel button clicked
+        SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
+
+        // Hud feedback
+        SET_COMP_PROPS(data.hudCopy, 'visible', false);
+
+        // UI Panel display
+        SET_COMP_PROPS(data.uiTitle, 'value', 'Submariner Walkabout');
+        SET_COMP_PROPS(data.uiCopy, 'value', '\nYour task is an easy one.\nCollect all the blue coins to reveal the Fuel Gem.\nReturn to your submarine with the Fuel Gem to power your engine and end the game.\nGood luck!"');
+
+
         // Track changes in upper left corner
-        let message = "Version: 1.3.6";
+        let message = "Version: 1.4.0";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
-        message = "listening...";
+        // message = "Collect "+data.coinsNeeded+" coins";
 
         // Hide VR ui button if not a mobile device
         window.addEventListener('load', evt=>{
@@ -90,8 +105,45 @@ AFRAME.registerComponent('scenemgr', {
             SET_COMP_PROPS(data.cursor , 'visible', true);// this works
         });
         
-        SET_COMP_PROPS(data.feedbackTXT, 'value', message);
+        SET_COMP_PROPS(data.hudCopy, 'value', message);
         // console.log("what is in the cache:",THREE.Cache);
+    },
+
+
+//     startExperience: function(){
+//         console.log("startExperience");
+//         let data = this.data;
+//         data.beginScrn.style.display = 'none';
+// //        data.dialHud.style.display = 'block';
+//         if(data.browserCheck){
+//                 data.soundFirefox[0].loop=true;// for firefox
+//                 data.soundFirefox[0].volume=0.1;// for firefox
+//                 data.soundFirefox[0].play();// for firefox
+//             }else{
+//                 data.sound1.components.sound.playSound();
+//             }
+//     },
+
+    // UI Panels
+    // HUD & feedback
+    uiMethod: function(){
+        let data = this.data;
+        // data.sound3.components.sound.playSound();
+
+        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
+        SET_COMP_PROPS(data.hudCopy, 'opacity', 1.0);        
+
+        data.hudCopy.components.animation.animation.reset();
+        data.hudCopy.components.animation__fade.animation.reset();
+        
+
+        this.delayAnim(data.hudCopy.components.animation.animation,1000);
+        this.delayAnim(data.hudCopy.components.animation__fade.animation, 1000);
+    },
+    
+    delayAnim: function(target, delay){
+        console.log("delayAnim");
+        setTimeout(function(){target.play()}, delay);
     },
 
     /*****************************************/
@@ -99,13 +151,10 @@ AFRAME.registerComponent('scenemgr', {
     /*****************************************/
     collectorMgmt: function(selectedObj){
         let data = this.data;
-        let message = selectedObj.id;
+
         // const GET_COMP_PROPS = AFRAME.utils.entity.getComponentProperty;// GET
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// SET
 
-        /* Below is an attempt to get the Coin & Fuel Gem to move 
-        to the Player but it isn't working well. The CamRig and Camera
-        get 'out of phase' position wise so it flies off in all directions. */
         let position = new THREE.Vector3();
         console.log("World position of camera:", data.activeCam.object3D.getWorldPosition(position));
         let camPosition = data.activeCam.object3D.getWorldPosition(position);      
@@ -115,7 +164,7 @@ AFRAME.registerComponent('scenemgr', {
         // This is used by both the Coins and Gem
         // is there a better place to put it?
         let animFinish = selectedObj.parentEl.object3D.el;
-        animFinish.addEventListener('animationcomplete__collscale', (evt)=>{
+        animFinish.addEventListener('animationcomplete__collscale', ()=>{
             SET_COMP_PROPS(selectedObj.object3D.el, 'visible', false);// this works
         });
 
@@ -124,10 +173,20 @@ AFRAME.registerComponent('scenemgr', {
         if(itemClicked === 'coin' && data.coinsCollected < data.coinsNeeded){
             /* A Coin has been selected and will be added to the total number of Coins collected */
             data.coinsCollected++;
+            if(data.coinsCollected<=1){
+                message = "You have 1 coin";
+            }else{
+                message = "You have "+data.coinsCollected.toString()+" coins";
+            };
+            message += " of "+data.coinsNeeded+" collected";
+
+            this.uiMethod(data.hudCopy);
+            
+            SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable not-grabbable');//Fuel Gem now not selectable
+            
             selectedObj.parentEl.components.animation__collpos.animation.play();
             selectedObj.parentEl.components.animation__collscale.animation.play();
-            SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable not-grabbable');//Fuel Gem now not selectable
-            message = "Total coins collected: "+data.coinsCollected.toString();
+            
         }else if(itemClicked === 'fuel' && data.coinsCollected >= data.coinsNeeded){
             /* The Fuel Gem has been collected and now the Submarine can be selected */
             data.fuelGemCollected = true;
@@ -143,6 +202,7 @@ AFRAME.registerComponent('scenemgr', {
             SET_COMP_PROPS(data.ltHand , 'raycaster.far', 2.0);
             SET_COMP_PROPS(data.rtHand , 'raycaster.far', 2.0);
             message="Well Done! Return to the Submarine";
+            this.uiMethod(data.hudCopy);
         }else if(itemClicked === 'subm'){
             /* The Submarine has been selected and the game ends */
             SET_COMP_PROPS(data.activeCam, 'visible', false);
@@ -153,6 +213,15 @@ AFRAME.registerComponent('scenemgr', {
             SET_COMP_PROPS(data.rtHand, 'visible', false);
             SET_COMP_PROPS(data.submarine, 'animation-mixer.clip', 'prop_rotation');
             selectedObj.parentEl.components.animation.animation.play();
+            message="Get outta 'ere!";
+        }else if(itemClicked === 'butt'){
+            SET_COMP_PROPS(data.hudCopy, 'visible', true);
+            SET_COMP_PROPS(data.uiGroup, 'visible', false);
+            SET_COMP_PROPS(data.cursor, 'class', 'not-clickable');//Submarine is selectable
+            SET_COMP_PROPS(data.cursor, 'raycaster.far', 0.3);
+            SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
+            message = "Collect "+data.coinsNeeded+" coins";
+            this.uiMethod(data.hudCopy);
         };
         
         // Animate the Fuel Gem and make it clickable
@@ -163,7 +232,7 @@ AFRAME.registerComponent('scenemgr', {
             data.fuelGem.children[1].components.animation__pos.animation.play();// Animate Point Light
         };
         
-        SET_COMP_PROPS(data.feedbackTXT, 'value', message);// display message on main screen for player feedback
+        SET_COMP_PROPS(data.hudCopy, 'value', message);// display message on main screen for player feedback
 
     }
 });
@@ -258,6 +327,7 @@ AFRAME.registerComponent('cursor-selector', {
         el.addEventListener('click', (evt) => {
             // grab clicked target info
             let target = evt.detail.intersectedEl;
+            console.log("Click event", target);
             let sceneManager = data.sceneLocator.components.scenemgr;
             sceneManager.collectorMgmt(target);// Call collectorMgmt method in scenemgr
         });
@@ -296,7 +366,7 @@ AFRAME.registerComponent('cursor-selector', {
 AFRAME.registerComponent('grabbing', {
     schema:{
         sceneLocator:{type:'selector', default:'a-scene'},
-        feedbackTXT:{type:'selector', default:'#feedback'}
+        hudCopy:{type:'selector', default:'#feedback'}
     },
     init: function(){
         // console.log("init: Grabbing test");
@@ -313,11 +383,9 @@ AFRAME.registerComponent('grabbing', {
         el.addEventListener('hover-start', function(evt) {
             console.log("Hover Start Event")
             let target = evt.detail.target;
-            // SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
             if(!grabStart){
                 target.components.animation__pos.animation.pause();
                 target.components.animation__rot.animation.pause();
-                // console.log("Target evt:", target);
             }
         });
 
@@ -325,7 +393,6 @@ AFRAME.registerComponent('grabbing', {
         el.addEventListener('hover-end', function(evt) {
             console.log("Hover End Event");
             let target = evt.detail.target;
-            // SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
             if(!grabStart){
                 target.components.animation__pos.animation.play();
                 target.components.animation__rot.animation.play();
@@ -336,14 +403,13 @@ AFRAME.registerComponent('grabbing', {
         el.addEventListener('grab-start', function(evt) {
             console.log("Grab Start Event")
             grabStart = true;
-            // SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
         });
 
         // Player 'drops' object and object is collected
         el.addEventListener('grab-end', function(evt) {
             console.log("Grab End Event")
             grabStart = false;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.target.id);
+            SET_COMP_PROPS(data.hudCopy, 'value', evt.detail.target.id);
             sceneManager.collectorMgmt(evt.detail.target);// Call scenemgr collectorMgmt method for collection
         });
     }
