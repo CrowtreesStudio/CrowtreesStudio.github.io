@@ -50,9 +50,13 @@ AFRAME.registerComponent('scenemgr', {
             SET_COMP_PROPS(data.activeCam, 'active', true);
             // Make sure the cinematic camera is off
             SET_COMP_PROPS(data.cineCam, 'active', false);
+            // Screenshot Camera off
+            // SET_COMP_PROPS(data.scrnShotCam, 'active', false);
             // Prevent movement until menu panel button clicked
             SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
         }
+
+        console.log("cameras:", data.activeCam, data.cineCam, data.scrnShotCam);
 
         // Hud feedback
         SET_COMP_PROPS(data.hudCopy, 'visible', false);
@@ -63,7 +67,7 @@ AFRAME.registerComponent('scenemgr', {
 
 
         // Track changes in upper left corner
-        let message = "Version: 1.4.0";
+        let message = "Version: 1.4.1";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR

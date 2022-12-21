@@ -29,7 +29,7 @@
 </head>
 <body>
     <!-- <a-scene scenemgr renderer="colorManagement:false; antialias:false;" pixel-ratio="0.61" > creates lowrez vibe  -->
-    <a-scene scenemgr="coinsNeeded:4; takeScreenShot:false;" renderer="colorManagement:false;" >
+    <a-scene scenemgr="coinsNeeded:4;" renderer="colorManagement:false;" >
         <div style="position:absolute; z-index: 100;">
             <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's...</div>
         </div>
@@ -127,6 +127,7 @@
         <a-entity id="cameraRig" position="4 0 4" rotation="0 60 0" movement-controls="speed: 0.15;">
             <a-camera 
                 id="camera"
+                camera="active:true;"
                 position="0 1.65 0"
                 simple-navmesh-constraint="navmesh: .nav-mesh; height:1.65; exclude: .navhole;"
                 wasd-controls="enabled: false;"  
@@ -192,33 +193,32 @@
             position="0 5 -3"
             movement-controls="enabled:false;">
             <!-- Camera -->
-            <a-entity 
+            <a-entity
                id="cinematic"
-               camera="enabled:false;" 
+               camera="active:false;" 
                position="0 0 0"
-               rotation="0 200 0"
+               rotation="0 220 0"
                visible="false" 
                look-controls="enabled:false;">
-               <a-entity>
                    <a-text value="FIN" position="0 0.1 -1" text="align:center; opacity:0.90;" ></a-text>
-               </a-entity>
             </a-entity>
         </a-entity>
 
-        <!-- Camera 3: Screenshot Camera -->
-        <a-entity id="rig3"  
-            position="0 5 -3"
+        <!-- Camera 3: Screenshot -->
+        <!-- <a-entity id="rig3"  
+            position="10 5 10"
+            rotation="-20 55 0"
             movement-controls="enabled:false;">
-            <!-- Camera -->
-            <a-entity 
+            <a-camera
                id="scrnShotCam"
-               camera="enabled:false;" 
-               position="9.5 0 15"
-               rotation="-15 45 -0.8"
+               camera="active:false;" 
+               position="0 0 0"
+               rotation="0 0 0"
                visible="false" 
                look-controls="enabled:false;">
-            </a-entity>
-        </a-entity>
+            </a-camera>
+        </a-entity> -->
+        
         
 
         <!-- Main Intro Panel -->
