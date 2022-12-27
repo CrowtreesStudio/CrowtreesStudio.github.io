@@ -22,8 +22,6 @@ AFRAME.registerComponent('scenemgr', {
         activeCamRig:{type:'selector', default:'#cameraRig'},
         activeCam:{type:'selector', default:"#camera"},
         cineCam:{type:'selector', default:"#cinematic"},
-        takeScreenShot:{type:'boolean', default:false},
-        scrnShotCam:{type:'selector', default:"#scrnShotCam"},
 
         usingHMD:{type:'boolean', default:false},
 
@@ -44,27 +42,6 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
-        //screenshots
-        if(data.takeScreenShot){
-            console.log("take screenshot", data.takeScreenShot);
-            SET_COMP_PROPS(data.activeCam, 'visible', false);
-            SET_COMP_PROPS(data.activeCam, 'active', false);
-            SET_COMP_PROPS(data.cineCam, 'visible', false);
-            SET_COMP_PROPS(data.cineCam, 'active', false);
-            SET_COMP_PROPS(data.scrnShotCam, 'visible', true);
-            SET_COMP_PROPS(data.scrnShotCam, 'active', true);
-            SET_COMP_PROPS(data.uiGroup, 'visible', false);
-        }else{
-            // Make sure main camera is active
-            SET_COMP_PROPS(data.activeCam, 'active', true);
-            // Make sure the cinematic camera is off
-            SET_COMP_PROPS(data.cineCam, 'active', false);
-            // Screenshot Camera off
-            // SET_COMP_PROPS(data.scrnShotCam, 'active', false);
-            // Prevent movement until menu panel button clicked
-            SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
-        }
-
         // Hud feedback
         SET_COMP_PROPS(data.hudCopy, 'visible', false);
         // UI Panel display
@@ -73,7 +50,7 @@ AFRAME.registerComponent('scenemgr', {
 
 
         // Track changes in upper left corner
-        let message = "Version: 1.4.4";
+        let message = "Version: 1.4.5";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
@@ -89,7 +66,7 @@ AFRAME.registerComponent('scenemgr', {
             console.log("Is it iOS?:", AFRAME.utils.device.isIOS());
             console.log("Is it a HMD connected?:", AFRAME.utils.device.checkHeadsetConnected());
             if(!!AFRAME.utils.device.isIOS){
-                SET_COMP_PROPS(el, 'vr-mode-ui.enabled', false);
+                // SET_COMP_PROPS(el, 'vr-mode-ui.enabled', false);
             }
         });
 
@@ -100,12 +77,6 @@ AFRAME.registerComponent('scenemgr', {
         el.addEventListener('enter-vr', evt=>{
             console.log("entering VR mode");
             console.log("Device check:", AFRAME.utils.device);
-            // We want to check to see if we're on desktop/mobile or a Head Mounted Display
-            // if it is a HMD then hide the cursor and disable movement-controls
-            // We're using the joystick in this iteration to teleport so we don't want the
-            // move-controls active.
-            // movement-controls will allow us to use the 'gamepad' aspect to allow
-            // the player to move about using the joystick for forward/backwards & strafe left/right
 
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Welcome to the Submariner Walkabout";
@@ -248,8 +219,8 @@ AFRAME.registerComponent('scenemgr', {
                 SET_COMP_PROPS(data.ltHand , 'raycaster.enabled', false);
                 SET_COMP_PROPS(data.rtHand , 'raycaster.enabled', false);
             }else{
-                SET_COMP_PROPS(data.cursor, 'raycaster.far', 0.3);
-                SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
+                // SET_COMP_PROPS(data.cursor, 'raycaster.far', 0.3);
+                // SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
             }
             
             message = "Collect "+data.coinsNeeded+" coins";
