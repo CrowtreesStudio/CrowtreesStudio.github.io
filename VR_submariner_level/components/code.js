@@ -74,7 +74,7 @@ AFRAME.registerComponent('scenemgr', {
 
 
         // Track changes in upper left corner
-        let message = "Version: 1.4.2";
+        let message = "Version: 1.4.3";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
@@ -90,7 +90,7 @@ AFRAME.registerComponent('scenemgr', {
             console.log("Is it iOS?:", AFRAME.utils.device.isIOS());
             console.log("Is it a HMD connected?:", AFRAME.utils.device.checkHeadsetConnected());
             if(!!AFRAME.utils.device.isIOS){
-                SET_COMP_PROPS(el, 'vr-mode-ui.enabled', false);
+                // SET_COMP_PROPS(el, 'vr-mode-ui.enabled', false);
             }
         });
 
