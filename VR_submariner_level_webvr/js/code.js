@@ -37,6 +37,10 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;// to access properties in schema
         
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
+
+        document.querySelector('a-scene').addEventListener('loaded', (evt)=>{
+            console.log("A-Scene has loaded");
+        })
         
         data.activeCam.setAttribute('camera', 'active', true);
         

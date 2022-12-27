@@ -1,0 +1,56 @@
+body #begin{
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: #6b0074;
+}
+
+body #infoBox{
+    width: 100%;
+    height: 40%;
+}
+
+body #preload{
+    position: relative;
+    height: 100%;
+    text-align: center;
+}
+
+body #svg-object{
+    height: 115%;
+}
+
+body #copy{
+    text-align: center;
+    color: #faf;
+    font-size: 1.5em;
+    padding: 10px;
+}
+
+
+
+body #buttonBox{
+    position: relative;
+    margin: 40px 0 20px 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+body #buttonBox #click{
+    margin: 0 auto;
+    width: 100%;
+    max-width: 200px;
+    background-color: #f5ff00;
+    padding: 10px 20px 10px 20px;
+    border-radius: 45px 45px 45px 45px;
+    border: 5px solid #fdaa0d;
+    font-size: 1.5em;
+    text-decoration: none;
+    color: #008e00;
+}
+
+
+@media only screen and (max-width:800px){
+}

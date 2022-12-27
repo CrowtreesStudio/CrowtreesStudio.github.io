@@ -12,6 +12,7 @@ AFRAME.registerComponent('scenemgr', {
         uiTitle:{type:'selector', default:'#uiTitle'},
         uiCopy:{type:'selector', default:'#uiCopy'},
         
+        beginScrn:{type:'selector', default:'#begin'},
         cursor:{type:'selector', default:'a-cursor'},
         rtHand:{type:'selector', default:'#leftHand'},
         ltHand:{type:'selector', default:'#rightHand'},
@@ -26,7 +27,13 @@ AFRAME.registerComponent('scenemgr', {
 
         coinsNeeded:{type:'number', default:4},
         coinsCollected:{type:'number', default:0},
-        fuelGemCollected:{type:'boolean', default:false}
+        fuelGemCollected:{type:'boolean', default:false},
+
+        sound1:{type:'selector', default:'#oceanWaves'},
+        sound2:{type:'selector', default:'#gemSnd'},
+        sound3:{type:'selector', default:'#itemPickup'},
+        sound4:{type:'selector', default:'#subEngine'},
+        soundFirefox:{type:'selectorAll', default:'audio'}
 
     },
 
@@ -67,7 +74,7 @@ AFRAME.registerComponent('scenemgr', {
 
 
         // Track changes in upper left corner
-        let message = "Version: 1.4.1";
+        let message = "Version: 1.4.2";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
@@ -127,19 +134,20 @@ AFRAME.registerComponent('scenemgr', {
     },
 
 
-//     startExperience: function(){
-//         console.log("startExperience");
-//         let data = this.data;
-//         data.beginScrn.style.display = 'none';
-// //        data.dialHud.style.display = 'block';
-//         if(data.browserCheck){
-//                 data.soundFirefox[0].loop=true;// for firefox
-//                 data.soundFirefox[0].volume=0.1;// for firefox
-//                 data.soundFirefox[0].play();// for firefox
-//             }else{
-//                 data.sound1.components.sound.playSound();
-//             }
-//     },
+    startExperience: function(){
+        console.log("startExperience");
+        let data = this.data;
+        data.beginScrn.style.display = 'none';
+//        data.dialHud.style.display = 'block';
+        if(data.browserCheck){
+                data.soundFirefox[0].loop=true;// for firefox
+                data.soundFirefox[0].volume=0.1;// for firefox
+                data.soundFirefox[0].play();// for firefox
+            }else{
+                data.sound1.components.sound.playSound();
+                console.log("sound:", data.sound1);
+            }
+    },
 
     // UI Panels
     // HUD & feedback
@@ -203,12 +211,14 @@ AFRAME.registerComponent('scenemgr', {
             
             selectedObj.parentEl.components.animation__collpos.animation.play();
             selectedObj.parentEl.components.animation__collscale.animation.play();
+            data.sound3.components.sound.playSound();
             
         }else if(itemClicked === 'fuel' && data.coinsCollected >= data.coinsNeeded){
             /* The Fuel Gem has been collected and now the Submarine can be selected */
             data.fuelGemCollected = true;
             selectedObj.parentEl.components.animation__collpos.animation.play();
             selectedObj.parentEl.components.animation__collscale.animation.play();
+            data.sound3.components.sound.playSound();
             console.log("dim light:", selectedObj.parentEl.children[1]);
             selectedObj.parentEl.children[1].components.animation__colllight.animation.play();// turn off light
             SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable not-grabbable');//Fuel Gem now not selectable
@@ -230,8 +240,10 @@ AFRAME.registerComponent('scenemgr', {
             SET_COMP_PROPS(data.rtHand, 'visible', false);
             SET_COMP_PROPS(data.submarine, 'animation-mixer.clip', 'prop_rotation');
             selectedObj.parentEl.components.animation.animation.play();
+            data.sound4.components.sound.playSound();
             message="Get outta 'ere!";
         }else if(itemClicked === 'butt'){
+            data.sound3.components.sound.playSound();
             SET_COMP_PROPS(data.hudCopy, 'visible', true);
             SET_COMP_PROPS(data.uiGroup, 'visible', false);
             SET_COMP_PROPS(data.cursor, 'class', 'not-clickable');//Submarine is selectable
@@ -247,6 +259,7 @@ AFRAME.registerComponent('scenemgr', {
             SET_COMP_PROPS(data.fuelGem.children[0], 'class', 'clickable');//Make Fuel Gem Clickable
             data.fuelGem.children[0].components.animation__pos.animation.play();// Fuel Gem mesh
             data.fuelGem.children[1].components.animation__pos.animation.play();// Animate Point Light
+            data.sound2.components.sound.playSound();
         };
         
         SET_COMP_PROPS(data.hudCopy, 'value', message);// display message on main screen for player feedback
@@ -358,6 +371,7 @@ AFRAME.registerComponent('cursor-selector', {
                 console.log("No animations");
             }else{
                 target.components.animation__pos.animation.pause();
+                target.parentEl.children[1].components.animation__pos.animation.pause()
                 target.components.animation__rot.animation.pause();
             }
             
@@ -371,6 +385,7 @@ AFRAME.registerComponent('cursor-selector', {
                 console.log("No animations");
             }else{
                 target.components.animation__pos.animation.play();
+                target.parentEl.children[1].components.animation__pos.animation.play()
                 target.components.animation__rot.animation.play();
             } 
         });
@@ -403,6 +418,7 @@ AFRAME.registerComponent('grabbing', {
             if(!grabStart){
                 target.components.animation__pos.animation.pause();
                 target.components.animation__rot.animation.pause();
+                target.parentEl.children[1].components.animation__pos.animation.pause()
             }
         });
 
@@ -413,6 +429,7 @@ AFRAME.registerComponent('grabbing', {
             if(!grabStart){
                 target.components.animation__pos.animation.play();
                 target.components.animation__rot.animation.play();
+                target.parentEl.children[1].components.animation__pos.animation.play()
             }
         });
 
