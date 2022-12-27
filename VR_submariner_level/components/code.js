@@ -25,6 +25,8 @@ AFRAME.registerComponent('scenemgr', {
         takeScreenShot:{type:'boolean', default:false},
         scrnShotCam:{type:'selector', default:"#scrnShotCam"},
 
+        usingHMD:{type:'boolean', default:false},
+
         coinsNeeded:{type:'number', default:4},
         coinsCollected:{type:'number', default:0},
         fuelGemCollected:{type:'boolean', default:false},
@@ -63,18 +65,15 @@ AFRAME.registerComponent('scenemgr', {
             SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
         }
 
-        console.log("cameras:", data.activeCam, data.cineCam, data.scrnShotCam);
-
         // Hud feedback
         SET_COMP_PROPS(data.hudCopy, 'visible', false);
-
         // UI Panel display
         SET_COMP_PROPS(data.uiTitle, 'value', 'Submariner Walkabout');
         SET_COMP_PROPS(data.uiCopy, 'value', '\nYour task is an easy one.\nCollect all the blue coins to reveal the Fuel Gem.\nReturn to your submarine with the Fuel Gem to power your engine and end the game.\nGood luck!"');
 
 
         // Track changes in upper left corner
-        let message = "Version: 1.4.3";
+        let message = "Version: 1.4.4";
         document.getElementById("text").innerHTML= message;
 
         // Change message for tracking in VR
@@ -90,7 +89,7 @@ AFRAME.registerComponent('scenemgr', {
             console.log("Is it iOS?:", AFRAME.utils.device.isIOS());
             console.log("Is it a HMD connected?:", AFRAME.utils.device.checkHeadsetConnected());
             if(!!AFRAME.utils.device.isIOS){
-                // SET_COMP_PROPS(el, 'vr-mode-ui.enabled', false);
+                SET_COMP_PROPS(el, 'vr-mode-ui.enabled', false);
             }
         });
 
@@ -110,11 +109,11 @@ AFRAME.registerComponent('scenemgr', {
 
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Welcome to the Submariner Walkabout";
+                SET_COMP_PROPS(data.usingHMD, true);
                 SET_COMP_PROPS(data.cursor , 'visible', false);// this works
                 SET_COMP_PROPS(data.cursor , 'raycaster.enabled', false);// this works
-                SET_COMP_PROPS(data.ltHand , 'raycaster.enabled', false);
-                SET_COMP_PROPS(data.rtHand , 'raycaster.enabled', false);
                 SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
+                SET_COMP_PROPS(el, 'vr-mode-ui.enabled', true);
             }else{
                 message = "It's Desktop or Mobile";
                 SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
@@ -153,15 +152,11 @@ AFRAME.registerComponent('scenemgr', {
     // HUD & feedback
     uiMethod: function(){
         let data = this.data;
-        // data.sound3.components.sound.playSound();
-
         const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
+        
         SET_COMP_PROPS(data.hudCopy, 'opacity', 1.0);        
-
         data.hudCopy.components.animation.animation.reset();
         data.hudCopy.components.animation__fade.animation.reset();
-        
-
         this.delayAnim(data.hudCopy.components.animation.animation,1000);
         this.delayAnim(data.hudCopy.components.animation__fade.animation, 1000);
     },
@@ -204,7 +199,6 @@ AFRAME.registerComponent('scenemgr', {
                 message = "You have "+data.coinsCollected.toString()+" coins";
             };
             message += " of "+data.coinsNeeded+" collected";
-
             this.uiMethod(data.hudCopy);
             
             SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable not-grabbable');//Fuel Gem now not selectable
@@ -223,11 +217,14 @@ AFRAME.registerComponent('scenemgr', {
             selectedObj.parentEl.children[1].components.animation__colllight.animation.play();// turn off light
             SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable not-grabbable');//Fuel Gem now not selectable
             SET_COMP_PROPS(data.submarine, 'class', 'clickable');//Submarine is selectable
-            SET_COMP_PROPS(data.cursor, 'raycaster.far', 2.0);
-            SET_COMP_PROPS(data.ltHand , 'raycaster.enabled', true);
-            SET_COMP_PROPS(data.rtHand , 'raycaster.enabled', true);
-            SET_COMP_PROPS(data.ltHand , 'raycaster.far', 2.0);
-            SET_COMP_PROPS(data.rtHand , 'raycaster.far', 2.0);
+            if(data.usingHMD){
+                SET_COMP_PROPS(data.ltHand , 'raycaster.enabled', true);
+                SET_COMP_PROPS(data.rtHand , 'raycaster.enabled', true);
+                SET_COMP_PROPS(data.ltHand , 'raycaster.far', 2.0);
+                SET_COMP_PROPS(data.rtHand , 'raycaster.far', 2.0);
+            }else{
+                SET_COMP_PROPS(data.cursor, 'raycaster.far', 2.0);
+            }
             message="Well Done! Return to the Submarine";
             this.uiMethod(data.hudCopy);
         }else if(itemClicked === 'subm'){
@@ -246,9 +243,15 @@ AFRAME.registerComponent('scenemgr', {
             data.sound3.components.sound.playSound();
             SET_COMP_PROPS(data.hudCopy, 'visible', true);
             SET_COMP_PROPS(data.uiGroup, 'visible', false);
-            SET_COMP_PROPS(data.cursor, 'class', 'not-clickable');//Submarine is selectable
-            SET_COMP_PROPS(data.cursor, 'raycaster.far', 0.3);
-            SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
+            SET_COMP_PROPS(data.submarine, 'class', 'not-clickable');//Submarine is not selectable
+            if(data.usingHMD){
+                SET_COMP_PROPS(data.ltHand , 'raycaster.enabled', false);
+                SET_COMP_PROPS(data.rtHand , 'raycaster.enabled', false);
+            }else{
+                SET_COMP_PROPS(data.cursor, 'raycaster.far', 0.3);
+                SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
+            }
+            
             message = "Collect "+data.coinsNeeded+" coins";
             this.uiMethod(data.hudCopy);
         };
