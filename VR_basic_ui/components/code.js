@@ -22,6 +22,10 @@ AFRAME.registerComponent('scenemgr', {
         document.getElementById("text").innerHTML= message;
         message = "listening...";
 
+        el.addEventListener('teleported', function (e) {// to track teleport events - will have use later?
+            console.log(e.detail.oldPosition, e.detail.newPosition, e.detail.hitPoint,"Contents of Detail:", e.detail);
+        });
+
         el.addEventListener('enter-vr', evt=>{
             // console.log("Device check:", AFRAME.utils.device);
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
