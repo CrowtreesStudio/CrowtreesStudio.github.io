@@ -53,7 +53,6 @@ AFRAME.registerComponent('scenemgr', {
         let message = "Version: 1.4.6";// Track changes in upper left corner
         document.getElementById("text").innerHTML= message;
 
-        // Hide VR ui button if not a mobile device
         window.addEventListener('load', evt=>{
             // I'm leaving these here as a useful exploration
             console.log("Device check:", AFRAME.utils.device);
