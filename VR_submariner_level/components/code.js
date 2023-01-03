@@ -50,7 +50,7 @@ AFRAME.registerComponent('scenemgr', {
         SET_COMP_PROPS(data.uiTitle, 'value', 'Submariner Walkabout');// UI Panel display - introduction panel
         SET_COMP_PROPS(data.uiCopy, 'value', '\nYour task is an easy one.\nCollect all the blue coins to reveal the Fuel Gem.\nReturn to your submarine with the Fuel Gem to power your engine and end the game.\nGood luck!"');
 
-        let message = "Version: 1.4.6";// Track changes in upper left corner
+        let message = "Version: 1.4.6.2";// Track changes in upper left corner
         document.getElementById("text").innerHTML= message;
 
         window.addEventListener('load', evt=>{
@@ -69,14 +69,14 @@ AFRAME.registerComponent('scenemgr', {
 
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Welcome to the Submariner Walkabout";
-                SET_COMP_PROPS(data.usingHMD, true);
+                data.usingHMD=true;
                 SET_COMP_PROPS(data.cursor , 'visible', false);// this works
                 SET_COMP_PROPS(data.cursor , 'raycaster.enabled', false);// this works
                 SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
-                SET_COMP_PROPS(el, 'vr-mode-ui.enabled', true);
+                // SET_COMP_PROPS(el, 'vr-mode-ui.enabled', true);
             }else{// we're on a desktop or mobile
                 message = "Welcome to the Submariner Walkabout on desktop/mobile";
-                SET_COMP_PROPS(el, 'vr-mode-ui.enabled', false);
+                // SET_COMP_PROPS(el, 'vr-mode-ui.enabled', false);
                 SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
             };
             // SET_COMP_PROPS(data.hudCopy, 'value', message);// do I need this here?

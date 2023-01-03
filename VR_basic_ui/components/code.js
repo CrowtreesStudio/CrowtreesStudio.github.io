@@ -71,6 +71,7 @@ AFRAME.registerComponent('pointer', {
     },
 
     init:function(){
+        console.log("data:", this.data);
     },
     
     play:function(){
