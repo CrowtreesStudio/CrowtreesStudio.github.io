@@ -172,26 +172,37 @@
             
             <!-- Left hand laser control -->
             <!-- console log to id controller type at line 73060 -->
-            <a-entity id="leftHand"
+            <!-- <a-entity id="leftHand"
+                hand-controls="hand: left;"
                 super-hands   
                 sphere-collider="objects: .grabbable" 
-                hand-controls="hand: left;"
                 controllisten
                 laser-controls="hand:left;" raycaster="far:0.5; objects: .clickable; enabled: false;"
+                >
+            </a-entity> -->
+            <a-entity id="leftHand"
+                hand-controls="hand: left;"
                 >
             </a-entity> <!-- End of Left Hand -->
 
             <!-- Right hand teleport control -->
-            <a-entity id="rightHand"
+            <!-- <a-entity id="rightHand"
+                hand-controls="hand: right;"
                 super-hands
                 sphere-collider="objects: .grabbable"
-                hand-controls="hand: right;"
                 controllisten
                 laser-controls="hand:right;" raycaster="far:0.5; objects: .clickable; enabled: false;"
                 teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #floor;"
                 >
+            </a-entity>  -->
+            <a-entity id="rightHand"
+                hand-controls="hand: right;"
+                >
             </a-entity> <!-- End of Right Hand -->
             </a-entity><!-- End Camera -->
+
+            <!-- <a-entity hand-tracking-controls="hand: left"></a-entity>
+             <a-entity hand-tracking-controls="hand: right"></a-entity> -->
 
             <!-- laser-controls raycaster="far:0.5; objects: .clickable;" -->
             <!-- the hand-controls does not work - appears broken:--> 
