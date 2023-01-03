@@ -173,21 +173,21 @@
             <!-- Left hand laser control -->
             <!-- console log to id controller type at line 73060 -->
             <a-entity id="leftHand"
+                super-hands   
+                sphere-collider="objects: .grabbable" 
                 hand-controls="hand: left;"
                 controllisten
-                sphere-collider="objects: .grabbable" 
-                super-hands   
-                laser-controls raycaster="far:0.5; objects: .clickable; enabled: false;"
+                laser-controls="hand:left;" raycaster="far:0.5; objects: .clickable; enabled: false;"
                 >
             </a-entity> <!-- End of Left Hand -->
 
             <!-- Right hand teleport control -->
             <a-entity id="rightHand"
+                super-hands
+                sphere-collider="objects: .grabbable"
                 hand-controls="hand: right;"
                 controllisten
-                sphere-collider="objects: .grabbable"
-                super-hands
-                laser-controls raycaster="far:0.5; objects: .clickable; enabled: false;"
+                laser-controls="hand:right;" raycaster="far:0.5; objects: .clickable; enabled: false;"
                 teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #floor;"
                 >
             </a-entity> <!-- End of Right Hand -->
