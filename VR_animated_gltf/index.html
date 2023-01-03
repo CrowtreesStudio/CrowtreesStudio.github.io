@@ -59,7 +59,7 @@
         <a-gltf-model id="Player2" gltf-model="#SyFy" animation-mixer="clip: Talking02; startFrame:2000;" position="3.00117 0 -0.88109" mixin="shadowCast" rotation="0 -57.85555927892514 0" character-setup="modelSkin: Alien_Male_02">
         </a-gltf-model>
 
-        <a-gltf-model id="Player3" gltf-model="#SyFy" animation-mixer="clip: Idle01; crossFadeDuration: 0.5" position="2.13738 0 -1.75692" mixin="shadowCast" rotation="0 -70.51391584675041 0" character-setup="modelSkin: Cyber_Female_01">
+        <a-gltf-model id="Player3" gltf-model="#SyFy" animation-mixer="clip: Talking01; crossFadeDuration: 0.5" position="2.13738 0 -1.75692" mixin="shadowCast" rotation="0 -70.51391584675041 0" character-setup="modelSkin: Cyber_Female_01">
         </a-gltf-model>
 
         <a-gltf-model id="Player4" gltf-model="#Western" animation-mixer="clip: Walking01; crossFadeDuration: 0.5" position="-2.12495 0 -1.87901" mixin="shadowCast" rotation="0 35.496454281739894 0" character-setup="modelSkin: Sheriff_01; modelTexture: #Western01">
@@ -83,7 +83,8 @@
 <!-- *************************************** -->
 <!--        Camera Rig & Camera              -->
 <!-- *************************************** -->
-        <a-entity id="cameraRig" position="0 0 0" movement-controls="speed: 0.15;">
+        <!-- <a-entity id="cameraRig" position="0 0 0" movement-controls="speed: 0.15;"> -->
+        <a-entity id="cameraRig" position="0 0 0">
             <a-entity id="camera" camera="fov:80; near:0.005" position="0 1.65 0" look-controls="pointerLockEnabled:true;" ></a-entity>
             <!-- Left hand laser control -->
             <!-- console log to id controller type at line 73060 -->

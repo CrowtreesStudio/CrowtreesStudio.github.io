@@ -13,6 +13,7 @@
     <script src="components/aframe-teleport-controls.js"></script><!-- Using local copy because linked version does not work - weird -->
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script><!-- To grab things - uses sphere-collider from extras -->
     <script src="components/aframe-slice9-component.js" ></script>
+    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
     <!-- James' Components -->
     <script src="components/code.js"></script>
     <script src="components/aframe-ui.js"></script>
@@ -26,7 +27,7 @@
 
         <a-asset>
             <a-mixin id="bob" animation__pos="property:position; to:0 1.05 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
-            <image id="frame" src="assets/ui/tooltip.svg"></image>
+            <image id="frame" src="assets/ui/tooltip2.png"></image>
             <audio id="heartbeat" src="assets/audio/DalekHeartBeat.ogg" loop="true" volume="0.5"></audio>
         </a-asset>
 
@@ -59,6 +60,8 @@
 
         <a-box id="wall" class="grabbable" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" depth="0.25" color="#00b95c" shadow="cast:false; receive:true"></a-box>
         
+        <a-entity geometry="primitive:box;" position="1 0.5 1" material="shader:gif;src:url(assets/images/banana.gif);color:green;opacity:.8"></a-entity>
+
         <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
         <!-- replaced floor plane with a box -->
         <a-box id="floor" class="nav-mesh" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box>
@@ -70,11 +73,11 @@
         <!-- Nine Slice UI Background -->
         <!-- <a-entity slice9="width: 0.5; height: 0.5; left: 21; right: 43; top: 21; bottom: 43; src: assets/ui/tooltip.png" position="0 1.5 -1.5"></a-entity> -->
 
-        <a-entity id="aframe UI" aframe-ui="size:1 1 0.1; uiTexture:#frame" position="-0.5 1.6 -1"></a-entity>
-        <a-entity slice9="width: 1; height: 1; left: 20; right: 43; top: 20; bottom: 43; src:assets/ui/tooltip2.png; debug:true;" position="0.5 1.6 -1" ></a-entity>
+        <a-entity id="aframe UI" aframe-ui="size:1 1 0.1; uiTexture:#frame; opacity:0.75;" position="-0.5 1.6 -1"></a-entity>
+        <a-entity slice9="width: 2; height: 1; left: 20; right: 43; top: 20; bottom: 43; src:assets/ui/tooltip2.png; debug:true;" position="0.5 1.6 -1" ></a-entity>
 
         <!-- I think mine will work better so I'll write it up as a component -->
-        <a-entity scale="0.15 0.15" position="0 1.65 -1.5">
+        <a-entity id="mySlice9" scale="0.15 0.15" position="0 1.65 -1.5">
             <!-- Panel Corners -->
             <!-- top left -->
             <a-plane 

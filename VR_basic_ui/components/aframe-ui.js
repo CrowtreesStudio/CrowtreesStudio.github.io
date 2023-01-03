@@ -2,8 +2,8 @@
 AFRAME.registerComponent('aframe-ui', {
     schema:{
         size:{type:'vec3', default:{x:0.5, y:0.5, z:0.5}},
-        color:{type:'color', default: '#faa'},
-        texture:{type:'map', default:'assets/ui/tooltip.svg'},
+        color:{type:'color', default: '#000'},
+        texture:{type:'map', default:'assets/ui/tooltip.png'},
         opacity:{default: 1.0, min: 0, max: 1},
         transparent:{type:'boolean', default: true},
         debug:{type:'boolean', default: false}
@@ -17,6 +17,7 @@ AFRAME.registerComponent('aframe-ui', {
         let geoMesh = new THREE.PlaneBufferGeometry(data.size.x, data.size.y, 3, 3);
         
         var texture = new THREE.TextureLoader().load(data.texture); // remove color = ...
+        console.log("texture",texture);
 
         let geoMat = new THREE.MeshBasicMaterial({
             color: data.color,
