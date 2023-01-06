@@ -50,7 +50,7 @@ AFRAME.registerComponent('scenemgr', {
         SET_COMP_PROPS(data.uiTitle, 'value', 'Submariner Walkabout');// UI Panel display - introduction panel
         SET_COMP_PROPS(data.uiCopy, 'value', '\nYour task is an easy one.\nCollect all the blue coins to reveal the Fuel Gem.\nReturn to your submarine with the Fuel Gem to power your engine and end the game.\nGood luck!"');
 
-        let message = "Version: 1.4.6.2";// Track changes in upper left corner
+        let message = "Version: 1.5.0";// Track changes in upper left corner
         document.getElementById("text").innerHTML= message;
 
         window.addEventListener('load', evt=>{
