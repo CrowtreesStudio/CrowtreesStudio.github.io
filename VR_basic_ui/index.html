@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>A-frame UI Explorations</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>sphere-collider
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.controls.min.js"></script>movement-controls -->
@@ -28,6 +28,7 @@
         <a-asset>
             <a-mixin id="bob" animation__pos="property:position; to:0 1.05 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
             <image id="frame" src="assets/ui/tooltip2.png"></image>
+            <image id="skyDome" src="assets/images/skymap.png"
             <audio id="heartbeat" src="assets/audio/DalekHeartBeat.ogg" loop="true" volume="0.5"></audio>
         </a-asset>
 
@@ -66,15 +67,11 @@
         <!-- replaced floor plane with a box -->
         <a-box id="floor" class="nav-mesh" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box>
 
+        <a-sky id="sky" src="#skyDome"></a-sky>
 
-
-        <!-- <a-entity id="GUI" aframe-ui="boxMatBkgd:#8632c4; boxDim:3 2 0.01; boxMatBorder:#470f65;" position="0 0.65 -2" ></a-entity> -->
-        <!-- <a-entity id="GUI" aframe-ui="boxMat:#470f65; boxDim:3.1 2.1 0.01" position="0 2 -2.01" ></a-entity> -->
-        <!-- Nine Slice UI Background -->
-        <!-- <a-entity slice9="width: 0.5; height: 0.5; left: 21; right: 43; top: 21; bottom: 43; src: assets/ui/tooltip.png" position="0 1.5 -1.5"></a-entity> -->
-
-        <a-entity id="aframe UI" aframe-ui="size:1 1 0.1; uiTexture:#frame; opacity:0.75;" position="-0.5 1.6 -1"></a-entity>
-        <a-entity slice9="width: 2; height: 1; left: 20; right: 43; top: 20; bottom: 43; src:assets/ui/tooltip2.png; debug:true;" position="0.5 1.6 -1" ></a-entity>
+        <!-- UI Experiments and Explorations -->
+        <a-entity id="aframe UI" aframe-ui="size:0.8 0.6; padding:0.15; uiTexture:#frame; opacity:0.75; debug:false;" position="0 1.6 -1"></a-entity>
+        <!-- <a-entity slice9="width: 2; height: 1; left: 20; right: 43; top: 20; bottom: 43; src:assets/ui/tooltip2.png; debug:true;" position="0.5 1.6 -1" ></a-entity> -->
 
         <!-- I think mine will work better so I'll write it up as a component -->
         <a-entity id="mySlice9" scale="0.15 0.15" position="0 1.65 -1.5">
@@ -172,21 +169,18 @@
             
             <!-- Left hand laser control -->
             <!-- console log to id controller type at line 73060 -->
-            <!-- <a-entity id="leftHand"
+            <a-entity id="leftHand"
                 hand-controls="hand: left;"
                 super-hands   
                 sphere-collider="objects: .grabbable" 
                 controllisten
                 laser-controls="hand:left;" raycaster="far:0.5; objects: .clickable; enabled: false;"
                 >
-            </a-entity> -->
-            <a-entity id="leftHand"
-                hand-tracking-controls="hand: left;"
-                >
-            </a-entity> <!-- End of Left Hand -->
+            </a-entity>
+            <!-- End of Left Hand -->
 
             <!-- Right hand teleport control -->
-            <!-- <a-entity id="rightHand"
+            <a-entity id="rightHand"
                 hand-controls="hand: right;"
                 super-hands
                 sphere-collider="objects: .grabbable"
@@ -194,9 +188,9 @@
                 laser-controls="hand:right;" raycaster="far:0.5; objects: .clickable; enabled: false;"
                 teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #floor;"
                 >
-            </a-entity>  -->
-            <a-entity id="rightHand" hand-tracking-controls="hand: right; color: #ffcccc">
-            </a-entity> <!-- End of Right Hand -->
+            </a-entity>
+            <!-- End of Right Hand -->
+
             </a-entity><!-- End Camera -->
 
             <!-- <a-entity hand-tracking-controls="hand: left"></a-entity>
