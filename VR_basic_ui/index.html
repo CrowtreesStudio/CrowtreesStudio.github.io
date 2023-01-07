@@ -16,6 +16,7 @@
     <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
     <!-- James' Components -->
     <script src="components/code.js"></script>
+    <script src="components/hand-interaction"></script>
     <script src="components/aframe-ui.js"></script>
 
 </head>
@@ -28,7 +29,7 @@
         <a-asset>
             <a-mixin id="bob" animation__pos="property:position; to:0 1.05 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
             <image id="frame" src="assets/ui/tooltip2.png"></image>
-            <image id="skyDome" src="assets/images/skymap.png"
+            <image id="skyDome" src="assets/images/skymap.jpg"></image>
             <audio id="heartbeat" src="assets/audio/DalekHeartBeat.ogg" loop="true" volume="0.5"></audio>
         </a-asset>
 
@@ -38,16 +39,22 @@
         <!-- hover & drag-drop won't have any obvious effect -->
         <!-- without some additional event handlers or components.-->
         <!-- See the examples page for more -->
-
-        
-        <a-box id="box" class="grabbable clickable navhole" grabbingtest hoverable grabbable stretchable draggable droppable position="-3 0.5 -3" color="#2f80d1"  shadow="cast:true; receive:false"></a-box>
+        <a-box 
+            id="box" 
+            class="grabbable clickable navhole" 
+            hand-interaction hoverable grabbable 
+            position="-3 0.5 -3" 
+            color="#2f80d1"  
+            shadow="cast:true; receive:false">
+        </a-box>
         
         <a-entity position="0 1 -2" scale="0.25 0.25 0.25">
             <a-sphere 
                 id="smallBall" 
                 class="grabbable clickable" 
-                mixin="bob" 
-                grabbingtest animstart grabbable hoverable 
+                mixin="bob"
+                animstart 
+                hand-interaction hoverable grabbable
                 color="purple"  
                 shadow visible="true">
             </a-sphere>
@@ -61,7 +68,7 @@
 
         <a-box id="wall" class="grabbable" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" depth="0.25" color="#00b95c" shadow="cast:false; receive:true"></a-box>
         
-        <a-entity geometry="primitive:box;" position="-2 0.5 -2" material="shader:gif;src:url(assets/images/banana.gif);color:green;opacity:.8"></a-entity>
+        <!-- <a-entity geometry="primitive:box;" position="-2 0.5 -2" material="shader:gif;src:url(assets/images/banana.gif);color:green;opacity:.8"></a-entity> -->
 
         <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
         <!-- replaced floor plane with a box -->
@@ -70,78 +77,7 @@
         <a-sky id="sky" src="#skyDome"></a-sky>
 
         <!-- UI Experiments and Explorations -->
-        <a-entity id="aframe UI" aframe-ui="size:0.8 0.6; padding:0.15; uiTexture:#frame; opacity:0.75; debug:false;" position="0 1.6 -1"></a-entity>
-        <!-- <a-entity slice9="width: 2; height: 1; left: 20; right: 43; top: 20; bottom: 43; src:assets/ui/tooltip2.png; debug:true;" position="0.5 1.6 -1" ></a-entity> -->
-
-        <!-- I think mine will work better so I'll write it up as a component -->
-        <a-entity id="mySlice9" scale="0.15 0.15" position="0 1.65 -1.5">
-            <!-- Panel Corners -->
-            <!-- top left -->
-            <a-plane 
-                position="-0.55 0.55 0" 
-                rotation="0 0 0"
-                width="0.5" height="0.5" scale="1 1"
-                material="src:#frame; transparent:true; offset:0 0.6666; repeat:0.3333 0.3333;" >
-            </a-plane>
-            <!-- top right -->
-            <a-plane 
-                position="0.5 0.5 0" 
-                rotation="0 0 0"
-                width="0.5" height="0.5" scale="1 1"
-                material="src:#frame; transparent:true; offset:0.6666 0.6666; repeat:0.3333 0.3333;" >
-            </a-plane>
-            <!-- bottom left -->
-            <a-plane 
-                position="-0.5 -0.5 0" 
-                rotation="0 0 0"
-                width="0.5" height="0.5" scale="1 1" 
-                material="src:#frame; transparent:true; offset: 0 0; repeat:0.3333 0.3333;" >
-            </a-plane>
-            <!-- bottom right -->
-            <a-plane 
-                position="0.5 -0.5 0" 
-                rotation="0 0 0"
-                width="0.5" height="0.5" scale="1 1"
-                material="src:#frame; transparent:true; offset: 0.6666 1.0; repeat:0.3333 0.3333;" >
-            </a-plane>
-            <!-- Panel middle bits -->
-            <!-- left -->
-            <a-plane 
-                position="-0.5 0 0" 
-                rotation="0 0 0"
-                width="0.5" height="0.5" scale="1 1"
-                material="src:#frame; transparent:true; offset: 0 0.3333; repeat:0.3333 0.3333;" >
-            </a-plane>
-            <!-- top -->
-            <a-plane 
-                position="0 0.5 0" 
-                rotation="0 0 0"
-                width="0.5" height="0.5" scale="1 1" 
-                material="src:#frame; transparent:true; offset: 0.3333 0.6666; repeat:0.3333 0.3333;" >
-            </a-plane>
-            <!-- right -->
-            <a-plane 
-                position="0.5 0 0" 
-                rotation="0 0 0"
-                width="0.5" height="0.5" scale="1 1" 
-                material="src:#frame; transparent:true; offset: 0.6666 0.3333; repeat:0.3333 0.3333;" >
-            </a-plane>
-            <!-- bottom -->
-            <a-plane 
-                position="0 -0.5 0" 
-                rotation="0 0 0"
-                width="0.5" height="0.5" scale="1 1" 
-                material="src:#frame; transparent:true; offset: 0.3333 0.0; repeat:0.3333 0.3333;" >
-            </a-plane>
-            <!-- middle bit -->
-            <a-plane 
-                position="0 0 0" 
-                rotation="0 0 0"
-                width="0.5" height="0.5" scale="1 1"
-                material="src:#frame; transparent:true; offset: 0.3333 0.3333; repeat:0.3333 0.3333;" >
-            </a-plane>
-        </a-entity>
-
+        <a-entity id="aframe UI" aframe-ui="size:1.0 0.25; padding:0.075; uiTexture:#frame; color:#fff; opacity:1.0; debug:false;" position="0 1.6 -1"></a-entity>
 
 
         <!-- ******************************************** -->
@@ -170,9 +106,9 @@
             <!-- Left hand laser control -->
             <!-- console log to id controller type at line 73060 -->
             <a-entity id="leftHand"
-                hand-controls="hand: left;"
-                super-hands   
                 sphere-collider="objects: .grabbable" 
+                super-hands   
+                hand-controls="hand: left;"
                 controllisten
                 laser-controls="hand:left;" raycaster="far:0.5; objects: .clickable; enabled: false;"
                 >

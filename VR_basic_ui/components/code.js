@@ -9,14 +9,12 @@ AFRAME.registerComponent('scenemgr', {
 
         activeCamRig:{type:'selector', default:'#cameraRig'},
         activeCam:{type:'selector', default:"#camera"},
-        // cineCam:{type:'selector', default:"#cinematic"},
 
     },
 
     init: function(){
         let el = this.el;
         let data = this.data;
-        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
 
         let message = "Version: 1.2.6";
         document.getElementById("text").innerHTML= message;
@@ -28,36 +26,36 @@ AFRAME.registerComponent('scenemgr', {
 
         el.addEventListener('enter-vr', evt=>{
             // console.log("Device check:", AFRAME.utils.device);
+            console.log("evt:", evt);
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Cursor has been hidden";
-                SET_COMP_PROPS(data.cursor , 'visible', false);// this works
-                SET_COMP_PROPS(data.cursor , 'raycaster.enabled', false);// this works
-                SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
+                data.cursor.setAttribute('visible', false);
+                data.cursor.setAttribute('raycaster.enabled', false);
+                data.activeCamRig.setAttribute('movement-controls.enabled', false);
             }else{
                 message = "It's Desktop or Mobile";
-                SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
+                data.activeCamRig.setAttribute('movement-controls.enabled', true);
             };
 
         });
         
         el.addEventListener('exit-vr', evt=>{
             message = "Cursor visible";
-            SET_COMP_PROPS(data.cursor , 'visible', true);// this works
-            SET_COMP_PROPS(data.cursor , 'raycaster.enabled', true);// this works
-            SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
+            data.cursor.setAttribute('visible', true);
+            data.cursor.setAttribute('raycaster.enabled', true);
+            data.activeCamRig.setAttribute('movement-controls.enabled', true);
         });
 
-        SET_COMP_PROPS(data.feedbackTXT, 'value', message);
+        data.feedbackTXT.setAttribute('value', message);
     },
 
     collectorMgmt: function(forCollection){
         console.log("Hello from collectorMgmt:", forCollection);
         let data = this.data;
         let message = forCollection.id;
-        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-        SET_COMP_PROPS(data.feedbackTXT, 'value', message);
-        SET_COMP_PROPS(forCollection.object3D.el, 'class', 'not-clickable');//Working
-        SET_COMP_PROPS(forCollection.object3D.el, 'visible', false);// this works
+        data.feedbackTXT.setAttribute('value', message);
+        forCollection.object3D.el.setAttribute('class', 'not-clickable');
+        forCollection.object3D.el.setAttribute('visible', false);
     }
 });
 
@@ -85,7 +83,7 @@ AFRAME.registerComponent('pointer', {
             grabit = true;
             let target = evt.detail.intersectedEl;
             let sceneManager = data.sceneLocator.components.scenemgr;
-            sceneManager.collectorMgmt(target);// this works
+            sceneManager.collectorMgmt(target);
         });
 
         // When hovering on a clickable item, change the cursor colour.
@@ -93,6 +91,7 @@ AFRAME.registerComponent('pointer', {
             console.log("mouse enter");
             el.setAttribute('material', {color: '#00ff00'});
             let target = evt.detail.intersectedEl;
+            target.object3D.el.setAttribute('color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// just for fun
             if(target.components.animation__pos && !grabit){
                 target.components.animation__pos.animation.pause();
             }else{
@@ -112,68 +111,6 @@ AFRAME.registerComponent('pointer', {
         });
     }
 });
-
-/* *********************************************************** */
-/* Component to listen for HMD controllers grabbing an entity  */
-/* *********************************************************** */
-AFRAME.registerComponent('grabbingtest', {
-    schema:{
-        sceneLocator:{type:'selector', default:'a-scene'},
-        feedbackTXT:{type:'selector', default:'#feedback'}
-    },
-    init: function(){
-    },
-
-    play: function() {
-        console.log("Grabbing test");
-        // Place grabbingtest on the RIGHT & LEFT HANDS and not on the objects as was the previous version
-        // The objects should yield thier id based on what the Sphere Collider returns
-        let data = this.data;
-        let el = this.el;
-        let sceneManager = data.sceneLocator.components.scenemgr;
-        let grabIt = false;
-        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
-
-        el.addEventListener('hover-start', function(evt) {
-            console.log("Event - Hover Start");
-            let target = evt.detail.target;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
-            if(target.components.animation__pos && !grabIt){
-                target.components.animation__pos.animation.pause();
-            }else{
-                console.log("No animations");
-            }
-        });
-
-        el.addEventListener('hover-end', function(evt) {
-            console.log("Event - Hover End");
-            let target = evt.detail.target;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
-            if(target.components.animation__pos && !grabIt){
-                target.components.animation__pos.animation.play();
-            }else{
-                console.log("No animations");
-            }
-        });
-
-        el.addEventListener('grab-start', function(evt) {
-            let target = evt.detail.target;
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.hand.id);
-            grabIt = true;
-            console.log("Event Grab Start",target);
-        });
-
-        el.addEventListener('grab-end', function(evt) {
-            SET_COMP_PROPS(data.feedbackTXT, 'value', evt.detail.target.id);
-
-            // SET_COMP_PROPS(evt.detail.target.object3D.el, 'color', '#'+(Math.random()*0xFFFFFF<<0).toString(16));// Works!
-            sceneManager.collectorMgmt(evt.detail.target);// Works - it calls scene manager and the method with the target
-
-            evt.preventDefault();// not sure what this does yet
-            console.log("Event Grab End",evt.detail);
-        });
-    }
-  })
 
 /* *********************************************************** */
 /* Component to use the HMD controller joystick to turn around */
