@@ -187,9 +187,9 @@
             <!-- Left hand laser control -->
             <!-- console log to id controller type at line 73060 -->
             <a-entity id="leftHand"
-                controllisten
+                controlrotation
                 sphere-collider="objects:.grabbable;" 
-                super-hands   
+                super-hands
                 hand-controls="hand: left;"
                 cursor-selector
                 laser-controls="hand:left;" raycaster="objects:.clickable; far:1.0;">
@@ -197,7 +197,7 @@
 
             <!-- Right hand teleport control -->
             <a-entity id="rightHand" 
-                controllisten
+                controlrotation
                 teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: .nav-mesh;"
                 sphere-collider="objects:.grabbable;"
                 super-hands

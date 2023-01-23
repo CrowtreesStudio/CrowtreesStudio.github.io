@@ -30,11 +30,11 @@ AFRAME.registerComponent('scenemgr', {
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Cursor has been hidden";
                 data.cursor.setAttribute('visible', false);
-                data.cursor.setAttribute('raycaster.enabled', false);
-                data.activeCamRig.setAttribute('movement-controls.enabled', false);
+                data.cursor.setAttribute('raycaster', 'enabled', false);
+                data.activeCamRig.setAttribute('movement-controls', 'enabled', false);
             }else{
                 message = "It's Desktop or Mobile";
-                data.activeCamRig.setAttribute('movement-controls.enabled', true);
+                data.activeCamRig.setAttribute('movement-controls', 'enabled', true);
             };
 
         });
@@ -42,8 +42,8 @@ AFRAME.registerComponent('scenemgr', {
         el.addEventListener('exit-vr', evt=>{
             message = "Cursor visible";
             data.cursor.setAttribute('visible', true);
-            data.cursor.setAttribute('raycaster.enabled', true);
-            data.activeCamRig.setAttribute('movement-controls.enabled', true);
+            data.cursor.setAttribute('raycaster', 'enabled', true);
+            data.activeCamRig.setAttribute('movement-controls', 'enabled', true);
         });
 
         data.feedbackTXT.setAttribute('value', message);

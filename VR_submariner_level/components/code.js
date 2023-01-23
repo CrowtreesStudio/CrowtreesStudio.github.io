@@ -39,16 +39,17 @@ AFRAME.registerComponent('scenemgr', {
     },
 /* ######################################################################### */
     init: function(){
-        let el = this.el;
-        let data = this.data;
-        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
+        const el = this.el;
+        const data = this.data;
+        el.setAttribute('vr-mode-ui', 'enabled', false);
 
-        SET_COMP_PROPS(el, 'vr-mode-ui.enabled', false);
+        data.activeCamRig.setAttribute('movement-controls','enabled', false);
+        data.submarine.setAttribute('class', 'not-clickable');//Submarine is not selectable
 
         /* UI Display and feedback */
-        SET_COMP_PROPS(data.hudCopy, 'visible', false);// Hud feedback - moves with player, shows coins collected, instructions, etc
-        SET_COMP_PROPS(data.uiTitle, 'value', 'Submariner Walkabout');// UI Panel display - introduction panel
-        SET_COMP_PROPS(data.uiCopy, 'value', '\nYour task is an easy one.\nCollect all the blue coins to reveal the Fuel Gem.\nReturn to your submarine with the Fuel Gem to power your engine and end the game.\nGood luck!"');
+        data.hudCopy.setAttribute('visible', false);// Hud feedback - moves with player, shows coins collected, instructions, etc
+        data.uiTitle.setAttribute('value', 'Submariner Walkabout');// UI Panel display - introduction panel
+        data.uiCopy.setAttribute('value', '\nYour task is an easy one.\nCollect all the blue coins to reveal the Fuel Gem.\nReturn to your submarine with the Fuel Gem to power your engine and end the game.\nGood luck!"');
 
         let message = "Version: 1.5.0";// Track changes in upper left corner
         document.getElementById("text").innerHTML= message;
@@ -65,59 +66,49 @@ AFRAME.registerComponent('scenemgr', {
 
         el.addEventListener('enter-vr', evt=>{
             console.log("entering VR mode");
-            console.log("Device check:", AFRAME.utils.device);
-
             if(AFRAME.utils.device.checkHeadsetConnected() === true){
                 message = "Welcome to the Submariner Walkabout";
                 data.usingHMD=true;
-                SET_COMP_PROPS(data.cursor , 'visible', false);// this works
-                SET_COMP_PROPS(data.cursor , 'raycaster.enabled', false);// this works
-                SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', false);
-                // SET_COMP_PROPS(el, 'vr-mode-ui.enabled', true);
+                data.cursor.setAttribute('visible', false);// this works
+                data.cursor.setAttribute('raycaster', 'enabled', false);// this works
+                data.activeCamRig.setAttribute('movement-controls','enabled', false);
             }else{// we're on a desktop or mobile
                 message = "Welcome to the Submariner Walkabout on desktop/mobile";
-                // SET_COMP_PROPS(el, 'vr-mode-ui.enabled', false);
-                SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
+                el.setAttribute('vr-mode-ui', 'enabled', false);
+                data.activeCamRig.setAttribute('movement-controls','enabled', true);
             };
-            // SET_COMP_PROPS(data.hudCopy, 'value', message);// do I need this here?
         });
         
         el.addEventListener('exit-vr', evt=>{
             message = "Cursor visible";
-            SET_COMP_PROPS(data.cursor , 'visible', true);// this works
-            SET_COMP_PROPS(el, 'vr-mode-ui.enabled', true);
+            data.cursor.setAttribute('visible', true);// this works
+            el.setAttribute('vr-mode-ui', 'enabled', true);
         });
-        SET_COMP_PROPS(data.hudCopy, 'value', message);
+        data.hudCopy.setAttribute('value', message);
     },
 
 /* ######################################################################### */
     startExperience: function(){
         let el = this.el;
         let data = this.data;
-        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
+
         data.beginScrn.style.display = 'none';
-        SET_COMP_PROPS(el, 'vr-mode-ui.enabled', true);
-        if(data.browserCheck){
-                data.soundFirefox[0].loop=true;// for firefox
-                data.soundFirefox[0].volume=0.1;// for firefox
-                data.soundFirefox[0].play();// for firefox
-            }else{
-                data.sound1.components.sound.playSound();
-                console.log("sound:", data.sound1);
-            }
+        el.setAttribute('vr-mode-ui', 'enabled', false);
+
+        data.sound1.components.sound.playSound();
+        console.log("sound:", data.sound1);
     },
 /* ######################################################################### */
     //HUD feedback and animation
     uiMethod: function(){
         let data = this.data;
-        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;
-        SET_COMP_PROPS(data.hudCopy, 'opacity', 1.0);        
+        data.hudCopy.setAttribute('opacity', 1.0);        
         data.hudCopy.components.animation.animation.reset();
         data.hudCopy.components.animation__fade.animation.reset();
         this.delayAnim(data.hudCopy.components.animation.animation,1000);// call delayAnim method
         this.delayAnim(data.hudCopy.components.animation__fade.animation, 1000);
     },
-/* ######################################################################### */
+    // Delay animation method
     delayAnim: function(target, delay){// mini function pretty much what it says
         console.log("delayAnim");
         setTimeout(function(){target.play()}, delay);
@@ -129,17 +120,14 @@ AFRAME.registerComponent('scenemgr', {
     /*****************************************/
     collectorMgmt: function(selectedObj){
         let data = this.data;
-        // const GET_COMP_PROPS = AFRAME.utils.entity.getComponentProperty;// GET just so I know what it looks like
-        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// SET
-
         let position = new THREE.Vector3();// where is camera in real world coordinates
         let camPosition = data.activeCam.object3D.getWorldPosition(position);      
-        SET_COMP_PROPS(selectedObj.parentEl.object3D.el, 'animation__collpos', 'to:'+camPosition.x+" "+(camPosition.y-0.1)+" "+camPosition.z);
+        selectedObj.parentEl.object3D.el.setAttribute('animation__collpos', 'to:'+camPosition.x+" "+(camPosition.y-0.1)+" "+camPosition.z);
 
         // Check to see if the triggered animation(s) have completed - better place to put this?
         let animFinish = selectedObj.parentEl.object3D.el;
         animFinish.addEventListener('animationcomplete__collscale', ()=>{
-            SET_COMP_PROPS(selectedObj.object3D.el, 'visible', false);// this works
+            selectedObj.object3D.el.setAttribute('visible', false);// this works
         });
 
         /* Check which object has been seleceted */
@@ -154,7 +142,7 @@ AFRAME.registerComponent('scenemgr', {
             };
             message += " of "+data.coinsNeeded+" collected";// feedback - message displayed after all checks
             
-            SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable not-grabbable');//coin is now not selectable
+            selectedObj.object3D.el.setAttribute('class', 'not-clickable not-grabbable');//coin is now not selectable
             
             selectedObj.parentEl.components.animation__collpos.animation.play();
             selectedObj.parentEl.components.animation__collscale.animation.play();
@@ -162,10 +150,11 @@ AFRAME.registerComponent('scenemgr', {
 
             // Animate the Fuel Gem and make it clickable
             if(data.coinsCollected >= data.coinsNeeded && !data.fuelGemCollected){
-                SET_COMP_PROPS(data.fuelGem.object3D.el, 'visible', true);// Make Fuel Gem visible
-                SET_COMP_PROPS(data.fuelGem.children[0], 'class', 'clickable');//Make Fuel Gem Clickable
+                data.fuelGem.object3D.el.setAttribute('visible', true);// Make Fuel Gem visible
+                data.fuelGem.children[0].setAttribute('class', 'clickable');//Make Fuel Gem Clickable
                 data.fuelGem.children[0].components.animation__pos.animation.play();// Fuel Gem mesh
                 data.fuelGem.children[1].components.animation__pos.animation.play();// Animate Point Light
+                data.gemAnim = true;
                 data.sound2.components.sound.playSound();
             };
 /* Fuel Gem has been clicked */
@@ -175,43 +164,43 @@ AFRAME.registerComponent('scenemgr', {
             selectedObj.parentEl.components.animation__collscale.animation.play();
             data.sound3.components.sound.playSound();// collection sound
             selectedObj.parentEl.children[1].components.animation__colllight.animation.play();// turn off light
-            SET_COMP_PROPS(selectedObj.object3D.el, 'class', 'not-clickable not-grabbable');//Fuel Gem now not selectable
-            SET_COMP_PROPS(data.submarine, 'class', 'clickable');//Submarine is selectable
+            selectedObj.object3D.el.setAttribute('class', 'not-clickable not-grabbable');//Fuel Gem now not selectable
+            data.submarine.setAttribute('class', 'clickable');//Submarine is selectable
             
             if(data.usingHMD){// Using HMD - Is this working?
                 console.log("using HMD so enable raycasters on hands")
-                SET_COMP_PROPS(data.ltHand , 'raycaster.enabled', true);
-                SET_COMP_PROPS(data.rtHand , 'raycaster.enabled', true);
-                SET_COMP_PROPS(data.ltHand , 'raycaster.far', 2.0);
-                SET_COMP_PROPS(data.rtHand , 'raycaster.far', 2.0);
+                data.ltHand.setAttribute('raycaster', 'enabled', true);
+                data.rtHand.setAttribute('raycaster', 'enabled', true);
+                data.ltHand.setAttribute('raycaster', 'far', 2.0);
+                data.rtHand.setAttribute('raycaster', 'far', 2.0);
             }else{
-                SET_COMP_PROPS(data.cursor, 'raycaster.far', 1.0);
+                data.cursor.setAttribute('raycaster', 'far', 1.0);
             }
             message="Well Done! Return to the Submarine";
 /* Submarine has been clicked */
         }else if(itemClicked === 'subm'){
             /* The Submarine has been selected and the game ends */
-            SET_COMP_PROPS(data.activeCam, 'visible', false);
-            SET_COMP_PROPS(data.activeCam, 'active', false);
-            SET_COMP_PROPS(data.cineCam, 'visible', true);
-            SET_COMP_PROPS(data.cineCam, 'active', true);
-            SET_COMP_PROPS(data.ltHand, 'visible', false);
-            SET_COMP_PROPS(data.rtHand, 'visible', false);
-            SET_COMP_PROPS(data.submarine, 'animation-mixer.clip', 'prop_rotation');
+            data.activeCam.setAttribute('visible', false);
+            data.activeCam.setAttribute('active', false);
+            data.cineCam.setAttribute('visible', true);
+            data.cineCam.setAttribute('active', true);
+            data.ltHand.setAttribute('visible', false);
+            data.rtHand.setAttribute('visible', false);
+            data.submarine.setAttribute('animation-mixer', 'clip', 'prop_rotation');
             selectedObj.parentEl.components.animation.animation.play();
             data.sound4.components.sound.playSound();
             message="Get outta 'ere!";
 /* Opening ui panel uiButton clicked */
         }else if(itemClicked === 'uiBu'){
             data.sound3.components.sound.playSound();
-            SET_COMP_PROPS(data.hudCopy, 'visible', true);
-            SET_COMP_PROPS(data.uiGroup, 'visible', false);
-            SET_COMP_PROPS(data.submarine, 'class', 'not-clickable');//Submarine is not selectable
+            data.activeCamRig.setAttribute('movement-controls','enabled', true);
+            data.hudCopy.setAttribute('visible', true);
+            data.uiGroup.setAttribute('visible', false);
             console.log("itemclick:", itemClicked);
             // SET_COMP_PROPS(data.uiButton, 'class', 'not-clickable');
             if(data.usingHMD){
-                SET_COMP_PROPS(data.ltHand , 'raycaster.enabled', false);
-                SET_COMP_PROPS(data.rtHand , 'raycaster.enabled', false);
+                data.ltHand.setAttribute('raycaster', 'enabled', false);
+                data.rtHand.setAttribute('raycaster', 'enabled', false);
             }else{
                 // SET_COMP_PROPS(data.cursor, 'raycaster.far', 0.3);
                 // SET_COMP_PROPS(data.activeCamRig, 'movement-controls.enabled', true);
@@ -221,8 +210,8 @@ AFRAME.registerComponent('scenemgr', {
         
         
         
-        SET_COMP_PROPS(data.hudCopy, 'value', message);// display message on main screen for player feedback
-        this.uiMethod();// animate feedback
+        data.hudCopy.setAttribute('value', message);// display message on main screen for player feedback
+        this.uiMethod();// a
     }
 });
 
@@ -326,12 +315,15 @@ AFRAME.registerComponent('cursor-selector', {
         el.addEventListener('mouseenter', (evt)=>{
             el.setAttribute('material', {color: '#00ff00'});
             let target = evt.detail.intersectedEl;
+            console.log("who is clicked?",target.id);
             if(!target.components.animation__pos){
                 console.log("No animations");
             }else{
                 target.components.animation__pos.animation.pause();
-                target.parentEl.children[1].components.animation__pos.animation.pause()
                 target.components.animation__rot.animation.pause();
+                if(target.id === 'fuel_gem'){
+                    target.parentEl.children[1].components.animation__pos.animation.pause()
+                }
             }
             
         });
@@ -344,8 +336,10 @@ AFRAME.registerComponent('cursor-selector', {
                 console.log("No animations");
             }else{
                 target.components.animation__pos.animation.play();
-                target.parentEl.children[1].components.animation__pos.animation.play()
                 target.components.animation__rot.animation.play();
+                if(target.id === 'fuel_gem'){
+                    target.parentEl.children[1].components.animation__pos.animation.play()
+                }
             } 
         });
     }
@@ -367,7 +361,6 @@ AFRAME.registerComponent('grabbing', {
         let data = this.data;
         let el = this.el;
         let grabStart = false;
-        const SET_COMP_PROPS = AFRAME.utils.entity.setComponentProperty;// correct method to change attributes
         let sceneManager = data.sceneLocator.components.scenemgr;
 
         // On Hover stop object animations
@@ -402,7 +395,7 @@ AFRAME.registerComponent('grabbing', {
         el.addEventListener('grab-end', function(evt) {
             console.log("Grab End Event")
             grabStart = false;
-            SET_COMP_PROPS(data.hudCopy, 'value', evt.detail.target.id);
+            data.hudCopy.setAttribute('value', evt.detail.target.id);
             sceneManager.collectorMgmt(evt.detail.target);// Call scenemgr collectorMgmt method for collection
         });
     }
@@ -411,16 +404,11 @@ AFRAME.registerComponent('grabbing', {
 /* *********************************************************** */
 /* Component to use the HMD controller joystick to turn around */
 /* *********************************************************** */
-AFRAME.registerComponent('controllisten', {
+AFRAME.registerComponent('controlrotation', {
     init: function(){
         let el = this.el;// controller
-        // let id = el.id;
         let player = document.getElementById("cameraRig");
-        // console.log("player is",player);
-        // console.log("Who is calling:", id);
         el.addEventListener('axismove', function(evt){
-            // console.log('thumb stick moved');
-            // test code for thumbstick courtesy SirFizX & Pavel
             if(evt.detail.axis[2]>0.5){
                 player.object3D.rotation.y-=0.05;
             }else if(evt.detail.axis[2]<-0.5){

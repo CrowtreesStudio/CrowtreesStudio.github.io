@@ -13,7 +13,6 @@
     <script src="components/aframe-teleport-controls.js"></script><!-- Using local copy because linked version does not work - weird -->
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script><!-- To grab things - uses sphere-collider from extras -->
     <script src="components/aframe-slice9-component.js" ></script>
-    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
     <!-- James' Components -->
     <script src="components/code.js"></script>
     <script src="components/hand-interaction"></script>
@@ -24,13 +23,14 @@
     <div style="position:absolute; z-index: 100;">
         <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's ...Grab 1.0.3</div>
     </div>
-   <a-scene scenemgr background="color:#55bbff;">
+   <a-scene scenemgr renderer="colorManagement:true;" background="color:#55bbff;">
 
         <a-asset>
             <a-mixin id="bob" animation__pos="property:position; to:0 1.05 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
             <image id="frame" src="assets/ui/tooltip2.png"></image>
             <image id="skyDome" src="assets/images/skymap.jpg"></image>
             <audio id="heartbeat" src="assets/audio/DalekHeartBeat.ogg" loop="true" volume="0.5"></audio>
+            <a-asset-item id="western" src="assets/meshes/POLYGON_Western_Demo_Scene.glb" ></a-asset-item>
         </a-asset>
 
         <!-- ******************************************** -->
@@ -67,13 +67,12 @@
         <a-cylinder id="tube" class="grabbable collide" grabbable position="3 0.5 3" radius="0.5" color="red" shadow="cast:true; receive:false"></a-cylinder>
 
         <a-box id="wall" class="grabbable" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" depth="0.25" color="#00b95c" shadow="cast:false; receive:true"></a-box>
-        
-        <!-- <a-entity geometry="primitive:box;" position="-2 0.5 -2" material="shader:gif;src:url(assets/images/banana.gif);color:green;opacity:.8"></a-entity> -->
 
         <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
         <!-- replaced floor plane with a box -->
         <a-box id="floor" class="nav-mesh" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box>
 
+        <a-gltf-model id="town" gltf-model="#western" rotation="0 90 0"></a-gltf-model>
         <a-sky id="sky" src="#skyDome"></a-sky>
 
         <!-- UI Experiments and Explorations -->
