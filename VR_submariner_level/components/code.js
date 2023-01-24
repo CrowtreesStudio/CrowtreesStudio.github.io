@@ -51,7 +51,7 @@ AFRAME.registerComponent('scenemgr', {
         data.uiTitle.setAttribute('value', 'Submariner Walkabout');// UI Panel display - introduction panel
         data.uiCopy.setAttribute('value', '\nYour task is an easy one.\nCollect all the blue coins to reveal the Fuel Gem.\nReturn to your submarine with the Fuel Gem to power your engine and end the game.\nGood luck!"');
 
-        let message = "Version: 1.5.0";// Track changes in upper left corner
+        let message = "Version: 1.5.1";// Track changes in upper left corner
         document.getElementById("text").innerHTML= message;
 
         window.addEventListener('load', evt=>{
@@ -66,17 +66,11 @@ AFRAME.registerComponent('scenemgr', {
 
         el.addEventListener('enter-vr', evt=>{
             console.log("entering VR mode");
-            if(AFRAME.utils.device.checkHeadsetConnected() === true){
-                message = "Welcome to the Submariner Walkabout";
-                data.usingHMD=true;
-                data.cursor.setAttribute('visible', false);// this works
-                data.cursor.setAttribute('raycaster', 'enabled', false);// this works
-                data.activeCamRig.setAttribute('movement-controls','enabled', false);
-            }else{// we're on a desktop or mobile
-                message = "Welcome to the Submariner Walkabout on desktop/mobile";
-                el.setAttribute('vr-mode-ui', 'enabled', false);
-                data.activeCamRig.setAttribute('movement-controls','enabled', true);
-            };
+            message = "Welcome to the Submariner Walkabout";
+            data.usingHMD=true;
+            data.cursor.setAttribute('visible', false);
+            data.cursor.setAttribute('raycaster', 'enabled', false);
+            data.activeCamRig.setAttribute('movement-controls','enabled', false);
         });
         
         el.addEventListener('exit-vr', evt=>{
