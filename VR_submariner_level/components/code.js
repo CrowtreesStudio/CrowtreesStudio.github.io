@@ -93,7 +93,7 @@ AFRAME.registerComponent('scenemgr', {
         let data = this.data;
 
         data.beginScrn.style.display = 'none';
-        el.setAttribute('vr-mode-ui', 'enabled', false);
+        el.setAttribute('vr-mode-ui', 'enabled', true);
 
         data.sound1.components.sound.playSound();
         console.log("sound:", data.sound1);
