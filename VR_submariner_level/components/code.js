@@ -51,7 +51,7 @@ AFRAME.registerComponent('scenemgr', {
         data.uiTitle.setAttribute('value', 'Submariner Walkabout');// UI Panel display - introduction panel
         data.uiCopy.setAttribute('value', '\nYour task is an easy one.\nCollect all the blue coins to reveal the Fuel Gem.\nReturn to your submarine with the Fuel Gem to power your engine and end the game.\nGood luck!"');
 
-        let message = "Version: 1.5.1";// Track changes in upper left corner
+        let message = "Version: 1.5.2";// Track changes in upper left corner
         document.getElementById("text").innerHTML= message;
 
         window.addEventListener('load', evt=>{
@@ -187,7 +187,11 @@ AFRAME.registerComponent('scenemgr', {
 /* Opening ui panel uiButton clicked */
         }else if(itemClicked === 'uiBu'){
             data.sound3.components.sound.playSound();
-            data.activeCamRig.setAttribute('movement-controls','enabled', true);
+            if(data.usingHMD){
+                data.activeCamRig.setAttribute('movement-controls','enabled', false);
+            }else{
+                data.activeCamRig.setAttribute('movement-controls','enabled', true);
+            }
             data.hudCopy.setAttribute('visible', true);
             data.uiGroup.setAttribute('visible', false);
             console.log("itemclick:", itemClicked);
