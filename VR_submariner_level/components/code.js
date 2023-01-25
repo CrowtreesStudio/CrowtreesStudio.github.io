@@ -233,53 +233,6 @@ AFRAME.registerComponent('animstart', {
     }
 });
 
-/* ********************************************************************** */
-/*   Component to parse mesh objects and apply shadows: receive & cast    */
-/* ********************************************************************** */
-AFRAME.registerComponent('mesh-shadows', {
-    // built-in method
-    update:function(){
-        this.el.addEventListener('model-loaded', ()=>{
-            // console.log("mesh check model loaded");
-            const el = this.el;
-            console.log("el to show object", el.getObject3D('mesh'));
-            const obj = this.el.getObject3D('mesh');
-            obj.children.forEach((model)=>{
-                //model.receiveShadow=true;
-                if(model.name === 'ground'){
-                    model.castShadow=false;
-                    model.receiveShadow=true;
-                }else if(model.name != 'coin'){
-                    model.castShadow=true;
-                    model.receiveShadow=true;
-                    model.material.shadowSide=1;
-                }else{
-                    model.castShadow=true;
-                    model.material.shadowSide=1;
-                }
-            });
-        });
-    }
-});
-
-/* ******************************************************* */
-/*          Component that reads camera rotation           */
-/* ******************************************************* */
-AFRAME.registerComponent('rotation-reader', {
-    tick: function () {
-      // `this.el` is the element.
-      // `object3D` is the three.js object.
-  
-      // `rotation` is a three.js Euler using radians. `quaternion` also available.
-      //   console.log(this.el.object3D.quaternion);
-      console.log(this.el.object3D.rotation);
-  
-      // `position` is a three.js Vector3.
-      console.log(this.el.object3D.position);
-    }
-    // <a-entity camera look-controls rotation-reader>
-  });
-
 /* ************************************************************************************ */
 /* ********************************************************** */
 /*   Components that provide player with game interactions    */
