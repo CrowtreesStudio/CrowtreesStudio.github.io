@@ -102,7 +102,7 @@ AFRAME.registerComponent('scenemgr', {
         this.delayAnim(data.hudCopy.components.animation.animation,1000);// call delayAnim method
         this.delayAnim(data.hudCopy.components.animation__fade.animation, 1000);
     },
-    // Delay animation method
+    // Delay UI animation method
     delayAnim: function(target, delay){// mini function pretty much what it says
         console.log("delayAnim");
         setTimeout(function(){target.play()}, delay);
@@ -215,29 +215,17 @@ AFRAME.registerComponent('scenemgr', {
     }
 });
 
-/* ************************************************************************************ */
-/* *********************************************************** */
-/* *********************************************************** */
-/*   Components that set-up initial game state & conditions    */
-/* *********************************************************** */
-/* *********************************************************** */
 /* ************************************************************** */
 /*   Component to start playing animations on an entity object    */
 /* ************************************************************** */
 AFRAME.registerComponent('animstart', {
     init: function(){
         let el = this.el;
-        // console.log("Animation Component:", el.components);
         el.components.animation__pos.animation.play();
         el.components.animation__rot.animation.play();
     }
 });
 
-/* ************************************************************************************ */
-/* ********************************************************** */
-/*   Components that provide player with game interactions    */
-/* ********************************************************** */
-/* ********************************************************** */
 /* ******************************************************** */
 /* Component to listen for mouse click on entity - desktop  */
 /* ******************************************************** */
@@ -353,35 +341,3 @@ AFRAME.registerComponent('grabbing', {
         });
     }
 });
-
-/* *********************************************************** */
-/* Component to use the HMD controller joystick to turn around */
-/* *********************************************************** */
-AFRAME.registerComponent('controlrotation', {
-    init: function(){
-        let el = this.el;// controller
-        let player = document.getElementById("cameraRig");
-        el.addEventListener('axismove', function(evt){
-            if(evt.detail.axis[2]>0.5){
-                player.object3D.rotation.y-=0.05;
-            }else if(evt.detail.axis[2]<-0.5){
-                player.object3D.rotation.y+=0.05;
-            };
-            
-            if(evt.detail.axis[3]>0.5){
-                // console.log("move back");
-            }else if(evt.detail.axis[3]<-0.5){
-                // console.log("move forward");
-            };
-        });
-    }
-});
-
-    // AFRAME.registerComponent('pixel-ratio', {
-    //     schema: {
-    //         type: 'number'
-    //     },
-    //     update: function() {
-    //         this.el.sceneEl.renderer.setPixelRatio(this.data)
-    //     }
-    // });
