@@ -23,12 +23,12 @@
     <div style="position:absolute; z-index: 100;">
         <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's ...Grab 1.0.3</div>
     </div>
-   <a-scene scenemgr renderer="colorManagement:false;" background="color:#55bbff;">
+   <a-scene scenemgr renderer="colorManagement:true;" background="color:#55bbff;">
 
         <a-asset>
             <a-mixin id="bob" animation__pos="property:position; to:0 1.05 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
             <image id="frame" src="assets/ui/tooltip2.png"></image>
-            <image id="skyDome" src="assets/images/skymap.jpg"></image>
+            <!-- <image id="skyDome" src="assets/images/skymap.jpg"></image> -->
             <audio id="heartbeat" src="assets/audio/DalekHeartBeat.ogg" loop="true" volume="0.5"></audio>
             <a-asset-item id="western" src="assets/meshes/POLYGON_Western_Demo_Scene.glb" ></a-asset-item>
         </a-asset>
@@ -70,14 +70,17 @@
 
         <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
         <!-- replaced floor plane with a box -->
-        <a-box id="floor" class="nav-mesh" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box>
+        <a-box id="floor" class="nav-mesh" width="100" depth="100" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box>
 
-        <a-gltf-model id="town" gltf-model="#western" rotation="0 90 0"></a-gltf-model>
-        <a-sky id="sky" src="#skyDome"></a-sky>
+        <a-gltf-model id="town" gltf-model="#western" position="0 0.25 0" rotation="0 90 0"></a-gltf-model>
+        <!-- <a-sky id="sky" src="#skyDome"></a-sky> -->
 
         <!-- UI Experiments and Explorations -->
-        <a-entity id="aframe UI" aframe-ui="size:1.0 0.25; padding:0.075; uiTexture:#frame; color:#fff; opacity:1.0; debug:false;" position="0 1.6 -1"></a-entity>
+        <a-entity id="aframe UI" aframe-ui="size:1.0 0.25; padding:0.1; uiTexture:#frame; color:#90f; opacity:1.0; debug:false;" position="0 1.6 -1"></a-entity>
 
+        <!-- Lights -->
+        <!-- <a-light type="directional" light="intensity: 2" position="0 4.605 3.553"></a-light> -->
+        <a-light type="ambient" light="intensity:1"></a-light>
 
         <!-- ******************************************** -->
         <!-- *  Camera, Feedback Text and Controllers   * -->

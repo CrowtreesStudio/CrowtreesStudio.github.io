@@ -174,15 +174,17 @@ AFRAME.registerComponent('scenemgr', {
 /* Submarine has been clicked */
         }else if(itemClicked === 'subm'){
             /* The Submarine has been selected and the game ends */
-            data.activeCam.setAttribute('visible', false);
+            data.activeCam.setAttribute('visible', false);// turn off main camera
             data.activeCam.setAttribute('active', false);
-            data.cineCam.setAttribute('visible', true);
+            data.cineCam.setAttribute('visible', true);// cinema cut scene
             data.cineCam.setAttribute('active', true);
-            data.ltHand.setAttribute('visible', false);
+            data.ltHand.setAttribute('visible', false);// hide controllers
             data.rtHand.setAttribute('visible', false);
-            data.submarine.setAttribute('animation-mixer', 'clip', 'prop_rotation');
-            selectedObj.parentEl.components.animation.animation.play();
-            data.sound4.components.sound.playSound();
+            data.submarine.setAttribute('animation-mixer', 'clip', 'prop_rotation');// play model animation
+            selectedObj.parentEl.components.animation.animation.play();// play rig animation
+            data.sound4.components.sound.playSound();// play motor sound
+            /* to fade sound I need to 'animate' the volume when
+             the subRig animation finishes. */
             message="Get outta 'ere!";
 /* Opening ui panel uiButton clicked */
         }else if(itemClicked === 'uiBu'){
