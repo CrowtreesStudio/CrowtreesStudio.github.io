@@ -1,6 +1,6 @@
 AFRAME.registerComponent('character-setup', {
     schema:{
-        modelSkin:{type:'string', default:'Nude'},
+        modelMesh:{type:'string', default:'Nude'},
         modelItem:{type:'array', default:[]}, // want this to be an array
         modelTexture:{type:'map', default:'#Brown'}
     },
@@ -18,7 +18,6 @@ AFRAME.registerComponent('character-setup', {
             console.log("Take a look inside the mesh", obj);
 
             obj.traverse(function(node){
-                console.log("Node Name:", node.name)
                 if(node.isMesh){
                     node.frustumCulled = false;// stops culling (blinking)
 
@@ -26,7 +25,7 @@ AFRAME.registerComponent('character-setup', {
                     /*      Let's hide all character meshes except the one we want      */
                     /*      and hide all the items (if any) they are carrying           */
                     /* **************************************************************** */
-                    if(node.name != "Character_"+data.modelSkin){
+                    if(node.name != "Character_"+data.modelMesh){
                         node.visible = false;
                     };
 
