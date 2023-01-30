@@ -21,71 +21,61 @@
             <img id="Black" src="assets/textures/Characters_Black.png">
             <img id="Brown" src="assets/textures/Characters_Brown.png">
             <img id="White" src="assets/textures/Characters_White.png">
-            <img id="Western01" src="assets/textures/PolygonWestern_Texture_01_A.png">
-            <img id="Western02" src="assets/textures/PolygonWestern_Texture_01_B.png">
-            <img id="Western03" src="assets/textures/PolygonWestern_Texture_01_C.png">
-            <img id="Western04" src="assets/textures/PolygonWestern_Texture_04_A.png">
             <a-mixin id="shadowCastRec" shadow="cast:true; receive:true" ></a-mixin>
             <a-mixin id="shadowCast" shadow="cast:true; receive:false" ></a-mixin>
             <a-mixin id="shadowRec" shadow="cast:false; receive:true" ></a-mixin>
-            <a-cubemap id="pisa">
-                <img src="https://threejs.org/examples/textures/cube/pisa/px.png">
-                <img src="https://threejs.org/examples/textures/cube/pisa/nx.png">
-                <img src="https://threejs.org/examples/textures/cube/pisa/py.png">
-                <img src="https://threejs.org/examples/textures/cube/pisa/ny.png">
-                <img src="https://threejs.org/examples/textures/cube/pisa/pz.png">
-                <img src="https://threejs.org/examples/textures/cube/pisa/nz.png">
-            </a-cubemap>
         </a-asset>
 
 <!-- *************************************** -->
 <!--        Basic VR scene for testing       -->
 <!-- *************************************** -->
-        <a-box id="box" position="-3 0.5 -3" color="#2f80d1" mixin="shadowCastRec" ></a-box>
-        <a-sphere position="3 0.5 -3" radius="0.5" color="orange" mixin="shadowCastRec" ></a-sphere>
-        <a-cone position="-3 0.5 3" radius-bottom="0.5" color="yellow" mixin="shadowCastRec" ></a-cone>
-        <a-cylinder id="tube" position="3 0.5 3" radius="0.5" color="red" mixin="shadowCastRec" ></a-cylinder>
-        <a-plane id="wall" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" color="#00b95c" mixin="shadowRec" ></a-plane>
+        <a-box id="box" 
+            height="0.75" depth="0.75" width="1.5" 
+            position="2.2 0.25 -2.7" rotation="0 -80 0" 
+            color="#2f80d1" mixin="shadowCastRec" >
+        </a-box>
+        <a-cylinder id="post" height="5" radius="0.25" position="-3.5 2.5 -8" rotation="0 0 0" mixin="shadowCastRec" ></a-cylinder>
 
         <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
         <!-- replaced floor plane with a box -->
-        <a-box id="floor" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#888888" mixin="shadowRec"></a-box>
+        <a-box id="floor" width="10" depth="10" height="0.1" position="0 -0.05 -4.75" color="#888888" mixin="shadowRec"></a-box>
 
 <!-- *************************************** -->
 <!--    Adding GLTF Characters to Scene      -->
 <!-- *************************************** -->
-        <a-gltf-model id="Player1" gltf-model="#Adventure" animation-mixer="clip: Idle01; crossFadeDuration: 0.5" position="1.22189 0 -2.56252" mixin="shadowCast" rotation="0 -2.995996310739075 0" character-setup="modelMesh: Peasant; modelTexture: #White;">
+        <a-gltf-model id="Player1" gltf-model="#Adventure" 
+            position="-3 0 -7" rotation="0 70 0" 
+            mixin="shadowCast"  
+            character-setup="modelMesh: Peasant; modelTexture: #White;"
+            animation-mixer="clip: Idle01; crossFadeDuration: 0.5">
         </a-gltf-model>
-
-        <a-gltf-model id="Player2" gltf-model="#SyFy" animation-mixer="clip: Talking02; startFrame:2000;" position="3.00117 0 -0.88109" mixin="shadowCast" rotation="0 -57.85555927892514 0" character-setup="modelMesh: Alien_Male_02">
+        <a-gltf-model id="Player2" gltf-model="#Adventure" 
+            position="3 0 -3" rotation="0 -50 0" 
+            mixin="shadowCast"  
+            character-setup="modelMesh: Shopkeeper; modelTexture: #Black;"
+            animation-mixer="clip: Idle02; crossFadeDuration: 0.5"> 
         </a-gltf-model>
-
-        <a-gltf-model id="Player3" gltf-model="#SyFy" animation-mixer="clip: Talking01; crossFadeDuration: 0.5" position="2.13738 0 -1.75692" mixin="shadowCast" rotation="0 -70.51391584675041 0" character-setup="modelMesh: Cyber_Female_01">
+        
+        <a-gltf-model id="Player3" gltf-model="#SyFy"  
+            position="4 0 -8" rotation="0 -30 0"
+            mixin="shadowCast" 
+            character-setup="modelMesh: Cyber_Female_01"
+            animation-mixer="clip: Idle01; crossFadeDuration: 0.5">
         </a-gltf-model>
+<!-- 
 
         <a-gltf-model id="Player4" gltf-model="#Western" animation-mixer="clip: Walking01; crossFadeDuration: 0.5" position="-2.12495 0 -1.87901" mixin="shadowCast" rotation="0 35.496454281739894 0" character-setup="modelMesh: Sheriff_01; modelTexture: #Western01">
         </a-gltf-model>
 
-        <a-gltf-model id="Player5" gltf-model="#Western" animation-mixer="clip: Idle02; crossFadeDuration:0.5;" position="0 0 -3" mixin="shadowCast" rotation="0 0 0" character-setup="modelMesh:Business_Man_01; modelTexture: #Western04">
-        </a-gltf-model>
-
-        <a-gltf-model id="Player6" gltf-model="#Western" animation-mixer="clip: WalkingFemale01; crossFadeDuration: 0.5; timeScale: 1.0" position="-3.0036 0 -1.22004" mixin="shadowCast" rotation="0 41.73539171291942 0" character-setup="modelMesh: WorkingGirl_01; modelTexture: #Western04">
-        </a-gltf-model>
-
-        <a-gltf-model id="Player7" gltf-model="#Western" animation-mixer="clip: WalkMenace; crossFadeDuration: 0.5" position="-1.09155 0 -2.5019" mixin="shadowCast" rotation="0 36.318075759957495 0" character-setup="modelMesh: Gunman_01; modelTexture: #Western01">
-        </a-gltf-model>
-
-        <a-gltf-model id="Player8" gltf-model="#Western" animation-mixer="clip: Running01; crossFadeDuration: 0.5; timeScale: 0.5" position="3.50882 0 0.16175" mixin="shadowCast" rotation="0 -86.83461864105192 0" character-setup="modelMesh: Cowgirl_01; modelTexture: #Western03">
-        </a-gltf-model>
-
         <a-gltf-model id="Player9" gltf-model="#Adventure" animation-mixer="clip: Talking02; crossFadeDuration: 0.5; timeScale: 2.0; startFrame:1500;" position="1 0 -1.5" mixin="shadowCast" rotation="0 -30 0" character-setup="modelMesh: Nude; modelItem: SwordSheath; modelTexture: #Brown">
-        </a-gltf-model>
+        </a-gltf-model> 
+    -->
 
 <!-- *************************************** -->
 <!--        Camera Rig & Camera              -->
 <!-- *************************************** -->
         <!-- <a-entity id="cameraRig" position="0 0 0" movement-controls="speed: 0.15;"> -->
-        <a-entity id="cameraRig" position="0 0 0">
+        <a-entity id="cameraRig" position="0 0 0" movement-controls="speed: 0.15;">
             <a-entity id="camera" camera="fov:80; near:0.005" position="0 1.65 0" look-controls="pointerLockEnabled:true;" ></a-entity>
 
             <!-- Left hand laser control -->
@@ -104,7 +94,7 @@
 <!-- *************************************** -->
 <!--                Lighting                 -->
 <!-- *************************************** -->
-        <a-light type="directional" light="castShadow: true; shadowCameraVisible: false" position="-3 2.5 1.5"></a-light>
+        <a-light type="directional" light="castShadow: true; shadowCameraVisible: false; shadowCameraLeft: -9.5" position="-3 2.5 1.5"></a-light>
         <a-light type="ambient" light="intensity:0.5;"></a-light>
         <!-- <a-light type="probe" envMap="#pisa" ></a-light> -->
    </a-scene>
