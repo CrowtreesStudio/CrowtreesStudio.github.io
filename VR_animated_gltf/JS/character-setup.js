@@ -1,6 +1,6 @@
 AFRAME.registerComponent('character-setup', {
     schema:{
-        modelMesh:{type:'string', default:'Nude'},
+        modelMesh:{type:'string', default:'Nude_Male'},
         modelItem:{type:'array', default:[]}, // want this to be an array
         modelTexture:{type:'map', default:'#Brown'}
     },
@@ -46,6 +46,12 @@ AFRAME.registerComponent('character-setup', {
                         /*      Note: Western textures are as follows               */
                         /*      Skin Colour changes _A:White, _B:Brown, _C:Black    */
                         /*      Costume changes _01_, _02_, _03_, _04_                  */
+                        let texture = node.material;
+                        texture.map = material01;
+                        texture.map.flipY = false;
+                        texture.map.encoding = THREE.sRGBE;
+                            
+                    }else{
                         let texture = node.material;
                         texture.map = material01;
                         texture.map.flipY = false;

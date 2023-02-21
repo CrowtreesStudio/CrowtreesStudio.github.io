@@ -2,22 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>HMD Animated Gltf</title>
-    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-    <script src="libs/aframe-teleport-controls.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <title>Character Interaction</title>
+    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-blink-controls/dist/aframe-blink-controls.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@fb96ab2/dist/aframe-extras.min.js"></script><!-- Animation Controls, Nav-mesh -->
     <script src="JS/character-setup.js" ></script>
-    <script  src="JS/code.js"></script>
+    <script src="JS/code.js" ></script>
 </head>
 <body>
     <div style="position:absolute; z-index: 100;">
-        <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's ...1.3.0</div>
+        <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's ...1.4.1</div>
     </div>
     <a-scene scenemgr id="scene" background="color:#55ddff;" renderer="colorManagement:false;">
         <a-asset>
             <a-asset-item id="Western" src="assets/Western_Characters.glb" ></a-asset-item>
             <a-asset-item id="SyFy" src="assets/SciFiCity_Characters.glb" ></a-asset-item>
             <a-asset-item id="Adventure" src="assets/Adventure_Characters.glb" ></a-asset-item>
+            <a-asset-item id="Base" src="assets/Base_Characters.glb" ></a-asset-item>
             <img id="Black" src="assets/textures/Characters_Black.png">
             <img id="Brown" src="assets/textures/Characters_Brown.png">
             <img id="White" src="assets/textures/Characters_White.png">
@@ -38,36 +39,44 @@
 
         <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
         <!-- replaced floor plane with a box -->
-        <a-box id="floor" width="10" depth="10" height="0.1" position="0 -0.05 -4.75" color="#888888" mixin="shadowRec"></a-box>
+        <a-box id="floor" nav-mesh width="10" depth="10" height="0.1" position="0 -0.05 -4.75" color="#888888" mixin="shadowRec"></a-box>
 
 <!-- *************************************** -->
 <!--    Adding GLTF Characters to Scene      -->
 <!-- *************************************** -->
-        <a-gltf-model id="Player1" gltf-model="#Adventure" 
+        <a-gltf-model id="Player1" gltf-model="#Base" 
             position="-3 0 -7" rotation="0 70 0" 
             mixin="shadowCast"  
-            character-setup="modelMesh: Peasant; modelTexture: #White;"
+            character-setup="modelMesh: Dummy_Male_01; modelItem: Hair_Male; modelTexture: #White;"
             animation-mixer="clip: Idle01; crossFadeDuration: 0.5">
         </a-gltf-model>
-        <a-gltf-model id="Player2" gltf-model="#Adventure" 
+        <a-gltf-model id="Player2" gltf-model="#Base" 
             position="3 0 -3" rotation="0 -50 0" 
             mixin="shadowCast"  
-            character-setup="modelMesh: Shopkeeper; modelTexture: #Black;"
+            character-setup="modelMesh: Nude_Female; modelItem: Hair_Male; modelTexture: #Black;"
             animation-mixer="clip: Idle02; crossFadeDuration: 0.5"> 
         </a-gltf-model>
         
-        <a-gltf-model id="Player3" gltf-model="#SyFy"  
+        <a-gltf-model id="Player3" gltf-model="#Base"  
             position="4 0 -8" rotation="0 -30 0"
             mixin="shadowCast" 
-            character-setup="modelMesh: Cyber_Female_01"
+            character-setup="modelMesh: Nude_Male; modelItem:Hair_Female; modelTexture:#Brown"
             animation-mixer="clip: Idle01; crossFadeDuration: 0.5">
         </a-gltf-model>
 <!-- 
 
-        <a-gltf-model id="Player4" gltf-model="#Western" animation-mixer="clip: Walking01; crossFadeDuration: 0.5" position="-2.12495 0 -1.87901" mixin="shadowCast" rotation="0 35.496454281739894 0" character-setup="modelMesh: Sheriff_01; modelTexture: #Western01">
+        <a-gltf-model id="Player4" gltf-model="#Western" 
+            animation-mixer="clip: Walking01; crossFadeDuration: 0.5" 
+            position="-2.12495 0 -1.87901" 
+            mixin="shadowCast" rotation="0 35.496454281739894 0" 
+            character-setup="modelMesh: Sheriff_01; modelTexture: #Western01">
         </a-gltf-model>
 
-        <a-gltf-model id="Player9" gltf-model="#Adventure" animation-mixer="clip: Talking02; crossFadeDuration: 0.5; timeScale: 2.0; startFrame:1500;" position="1 0 -1.5" mixin="shadowCast" rotation="0 -30 0" character-setup="modelMesh: Nude; modelItem: SwordSheath; modelTexture: #Brown">
+        <a-gltf-model id="Player9" gltf-model="#Adventure" 
+            animation-mixer="clip: Talking02; crossFadeDuration: 0.5; timeScale: 2.0; startFrame:1500;" 
+            position="1 0 -1.5" 
+            mixin="shadowCast" rotation="0 -30 0" 
+            character-setup="modelMesh: Nude; modelItem: SwordSheath; modelTexture: #Brown">
         </a-gltf-model> 
     -->
 
@@ -75,19 +84,20 @@
 <!--        Camera Rig & Camera              -->
 <!-- *************************************** -->
         <!-- <a-entity id="cameraRig" position="0 0 0" movement-controls="speed: 0.15;"> -->
-        <a-entity id="cameraRig" position="0 0 0" movement-controls="speed: 0.15;">
+        <a-entity id="cameraRig" position="0 0 0" movement-controls="speed: 0.15; constrainToNavMesh: true;">
             <a-entity id="camera" camera="fov:80; near:0.005" position="0 1.65 0" look-controls="pointerLockEnabled:true;" ></a-entity>
 
             <!-- Left hand laser control -->
             <!-- console log to id controller type at line 73060 -->
-            <a-entity id="leftHand" controllisten
-                hand-controls="hand: left;" windows-motion-controls="hand: left">
+            <a-entity id="leftHand"
+                blink-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #floor; curveShootingSpeed:5;"
+                hand-controls="hand: left;">
             </a-entity>
 
             <!-- Right hand teleport control -->
-            <a-entity id="rightHand" controllisten
-                teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #wall, #floor;"
-                hand-controls="hand: right;" windows-motion-controls="hand:right;">
+            <a-entity id="rightHand"
+                blink-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #floor;"
+                hand-controls="hand: right;">
             </a-entity>
         </a-entity>
 

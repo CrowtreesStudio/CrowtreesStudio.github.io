@@ -44,9 +44,14 @@
             </div>
         </div>
     </div>
+</body>
+    <!-- Uncomment below when doing screen capture -->
+    <!-- <div id="title-card" >
+        <object id="svg-object-two" data="assets/preloaderSVG.svg" ></object>
+    </div> -->
     <!-- <a-scene scenemgr renderer="colorManagement:false; antialias:false;" pixel-ratio="0.61" > creates lowrez vibe  -->
     <a-scene id="scene" scenemgr="coinsNeeded:4;" renderer="colorManagement:false;" >
-        <div style="position:absolute; z-index: 100;">
+        <div style="position:absolute; z-index: 100; visibility:visible;">
             <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's...</div>
         </div>
         <a-asset>
@@ -235,7 +240,7 @@
             movement-controls="enabled:false;">
             <a-camera
                id="scrnShotCam"
-               camera="active:false;" 
+               camera="active:true;" 
                position="0 0 0"
                rotation="0 0 0"
                visible="false" 
@@ -247,7 +252,7 @@
 
         <!-- Main Intro Panel -->
         
-        <a-entity id="uiGroup" position="3.0 1.75 3.4" rotation="0 60 0">
+        <a-entity id="uiGroup" position="3.0 1.75 3.4" rotation="0 60 0" visible="true">
             <!-- Main Panel Title -->
                 <a-text id="uiTitle" 
                     position="0 0.2 0"

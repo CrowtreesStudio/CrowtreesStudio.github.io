@@ -23,6 +23,7 @@ AFRAME.registerComponent('scenemgr', {
         });
         
         el.addEventListener('exit-vr', evt=>{
+            data.activeCamRig.setAttribute('movement-controls','enabled', true);
         });
 
     }
