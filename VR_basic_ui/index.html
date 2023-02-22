@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <title>A-frame UI Explorations</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>sphere-collider
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.controls.min.js"></script>movement-controls -->
-    <script src="components/simple-navmesh-constraint.js"></script><!-- From Ada Rose Cannon -->
+    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@fb96ab2/dist/aframe-extras.min.js"></script>
     <script src="components/aframe-html.js" ></script>
-    <script src="components/aframe-teleport-controls.js"></script><!-- Using local copy because linked version does not work - weird -->
+    <script src="https://cdn.jsdelivr.net/npm/aframe-blink-controls/dist/aframe-blink-controls.min.js"></script>
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script><!-- To grab things - uses sphere-collider from extras -->
-    <script src="components/aframe-slice9-component.js" ></script>
+    
     <!-- James' Components -->
     <script src="components/code.js"></script>
     <script src="components/hand-interaction"></script>
@@ -30,7 +27,6 @@
             <image id="frame" src="assets/ui/tooltip2.png"></image>
             <!-- <image id="skyDome" src="assets/images/skymap.jpg"></image> -->
             <audio id="heartbeat" src="assets/audio/DalekHeartBeat.ogg" loop="true" volume="0.5"></audio>
-            <a-asset-item id="western" src="assets/meshes/POLYGON_Western_Demo_Scene.glb" ></a-asset-item>
         </a-asset>
 
         <!-- ******************************************** -->
@@ -70,22 +66,21 @@
 
         <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
         <!-- replaced floor plane with a box -->
-        <a-box id="floor" class="nav-mesh" width="100" depth="100" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box>
+        <a-box id="floor" nav-mesh class="nav-mesh" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box>
 
-        <a-gltf-model id="town" gltf-model="#western" position="0 0.25 0" rotation="0 90 0"></a-gltf-model>
         <!-- <a-sky id="sky" src="#skyDome"></a-sky> -->
 
         <!-- UI Experiments and Explorations -->
         <a-entity id="aframe UI" aframe-ui="size:1.0 0.25; padding:0.1; uiTexture:#frame; color:#90f; opacity:1.0; debug:false;" position="0 1.6 -1"></a-entity>
 
         <!-- Lights -->
-        <!-- <a-light type="directional" light="intensity: 2" position="0 4.605 3.553"></a-light> -->
+        <a-light type="directional" light="intensity: 2; castShadow: true;" position="0 4.605 3.553" ></a-light>
         <a-light type="ambient" light="intensity:1"></a-light>
 
         <!-- ******************************************** -->
         <!-- *  Camera, Feedback Text and Controllers   * -->
         <!-- ******************************************** -->
-        <a-entity id="cameraRig" position="0 0 0" movement-controls="enabled: true; speed:0.1; fly:false;">
+        <a-entity id="cameraRig" position="0 0 0" movement-controls="enabled: true; speed:0.15; constrainToNavMesh: true; fly:false;">
             <a-entity 
                 id="camera" 
                 camera 
@@ -107,24 +102,23 @@
             
             <!-- Left hand laser control -->
             <!-- console log to id controller type at line 73060 -->
-            <a-entity id="leftHand"
-                sphere-collider="objects: .grabbable" 
+            <a-entity id="leftHand" 
                 super-hands   
                 hand-controls="hand: left;"
-                controllisten
+                sphere-collider="objects: .grabbable"
                 laser-controls="hand:left;" raycaster="far:0.5; objects: .clickable; enabled: false;"
+                blink-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #floor;"
                 >
             </a-entity>
             <!-- End of Left Hand -->
 
             <!-- Right hand teleport control -->
             <a-entity id="rightHand"
-                hand-controls="hand: right;"
                 super-hands
+                hand-controls="hand: right;"
                 sphere-collider="objects: .grabbable"
-                controllisten
                 laser-controls="hand:right;" raycaster="far:0.5; objects: .clickable; enabled: false;"
-                teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #floor;"
+                blink-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #floor;"
                 >
             </a-entity>
             <!-- End of Right Hand -->
