@@ -20,6 +20,7 @@ AFRAME.registerComponent('character-setup', {
             obj.traverse(function(node){
                 if(node.isMesh){
                     node.frustumCulled = false;// stops culling (blinking)
+                    console.log("Characters & Items Available:", node.name);
 
                     /* **************************************************************** */
                     /*      Let's hide all character meshes except the one we want      */

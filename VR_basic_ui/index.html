@@ -6,13 +6,15 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@fb96ab2/dist/aframe-extras.min.js"></script>
-    <script src="components/aframe-html.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-blink-controls/dist/aframe-blink-controls.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script><!-- To grab things - uses sphere-collider from extras -->
     
     <!-- James' Components -->
-    <script src="components/code.js"></script>
-    <script src="components/hand-interaction"></script>
+    <script src="components/scene-manager.js"></script>
+    <script src="components/animation-start.js"></script>
+    <script src="components/character-setup.js" ></script>
+    <script src="components/hand-interaction.js"></script>
     <script src="components/aframe-ui.js"></script>
 
 </head>
@@ -20,12 +22,16 @@
     <div style="position:absolute; z-index: 100;">
         <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's ...Grab 1.0.3</div>
     </div>
-   <a-scene scenemgr renderer="colorManagement:true;" background="color:#55bbff;">
+   <a-scene scene-manager renderer="colorManagement:false;" background="color:#55bbff;">
 
         <a-asset>
+            <a-asset-item id="Man" src="assets/meshes/Base_Character_Framework.glb"></a-asset-item>
             <a-mixin id="bob" animation__pos="property:position; to:0 1.05 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
-            <image id="frame" src="assets/ui/tooltip2.png"></image>
-            <!-- <image id="skyDome" src="assets/images/skymap.jpg"></image> -->
+            <img id="frame" src="assets/ui/tooltip2.png">
+            <img id="Black" src="assets/textures/Characters_Black.png">
+            <img id="Brown" src="assets/textures/Characters_Brown.png">
+            <img id="White" src="assets/textures/Characters_White.png">
+            <!-- <img id="skyDome" src="assets/images/skymap.jpg"> -->
             <audio id="heartbeat" src="assets/audio/DalekHeartBeat.ogg" loop="true" volume="0.5"></audio>
         </a-asset>
 
@@ -37,7 +43,7 @@
         <!-- See the examples page for more -->
         <a-box 
             id="box" 
-            class="grabbable clickable navhole" 
+            class="grabbable clickable" 
             hand-interaction hoverable grabbable 
             position="-3 0.5 -3" 
             color="#2f80d1"  
@@ -49,18 +55,18 @@
                 id="smallBall" 
                 class="grabbable clickable" 
                 mixin="bob"
-                animstart 
+                animation-start
                 hand-interaction hoverable grabbable
                 color="purple"  
                 shadow visible="true">
             </a-sphere>
         </a-entity>
 
-        <a-sphere id="largeBall" class="grabbable" hoverable grabbable stretchable draggable droppable position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere>
+        <a-sphere id="largeBall" class="grabbable" grabbable position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere>
 
-        <a-cone id="cone" class="grabbable" grabbable position="-3 0.75 3" radius-bottom="0.5" color="yellow" shadow="cast:true; receive:false"></a-cone>
+        <a-cone id="cone" position="-3 0.75 3" radius-bottom="0.5" color="yellow" shadow="cast:true; receive:false"></a-cone>
 
-        <a-cylinder id="tube" class="grabbable collide" grabbable position="3 0.5 3" radius="0.5" color="red" shadow="cast:true; receive:false"></a-cylinder>
+        <a-cylinder id="tube" class="grabbable collide" grabbable position="3 0.5 3" radius="0.5" color="#660000" shadow="cast:true; receive:false" ></a-cylinder>
 
         <a-box id="wall" class="grabbable" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" depth="0.25" color="#00b95c" shadow="cast:false; receive:true"></a-box>
 
@@ -70,17 +76,51 @@
 
         <!-- <a-sky id="sky" src="#skyDome"></a-sky> -->
 
-        <!-- UI Experiments and Explorations -->
-        <a-entity id="aframe UI" aframe-ui="size:1.0 0.25; padding:0.1; uiTexture:#frame; color:#90f; opacity:1.0; debug:false;" position="0 1.6 -1"></a-entity>
+
+
+
+
+        <!-- ************************* -->
+        <!-- *  Character model(s)   * -->
+        <!-- ************************* -->
+        <a-gltf-model id="Player1" gltf-model="#Man" 
+            position="1.5 0 -3" rotation="0 0 0" 
+            character-setup="modelMesh: Nude_Male; modelTexture: #White;"
+            animation-mixer="clip: Idle02; timeScale:2; crossFadeDuration: 0.5">
+        </a-gltf-model>
+
+        <a-gltf-model id="Player1" gltf-model="#Man" 
+            position="-1.5 0 -3" rotation="0 0 0" 
+            character-setup="modelMesh: Nude_Male; modelTexture: #Black;"
+            animation-mixer="clip: Idle01; timeScale:2; crossFadeDuration: 0.5">
+        </a-gltf-model>
+
+
 
         <!-- Lights -->
-        <a-light type="directional" light="intensity: 2; castShadow: true;" position="0 4.605 3.553" ></a-light>
-        <a-light type="ambient" light="intensity:1"></a-light>
+        <a-light type="directional" light="intensity: 1.2; castShadow: true;" position="0 4.605 3.553" ></a-light>
+        <a-light type="ambient" light="intensity:0.75"></a-light>
+
 
         <!-- ******************************************** -->
         <!-- *  Camera, Feedback Text and Controllers   * -->
         <!-- ******************************************** -->
-        <a-entity id="cameraRig" position="0 0 0" movement-controls="enabled: true; speed:0.15; constrainToNavMesh: true; fly:false;">
+        <a-entity id="cameraRig" position="1.5 0 -2" movement-controls="enabled: true; speed:0.15; constrainToNavMesh: true; fly:false;">
+            <!-- UI Experiments and Explorations -->
+            <a-entity 
+                id="aframe UI" 
+                aframe-ui="size:1.0 0.25; padding:0.1; uiTexture:#frame; color:#90f; opacity:1.0; debug:false;" 
+                position="0.65 1.8 -1.0" 
+                rotation="0 0 0"
+                look-at="[camera]">
+                    <a-text 
+                        position="0 0 0" 
+                        value="Hello there! I hope that you are well and are interested in finding out more about our town.\nIf you have any questions, please feel free to ask me. I really don't mind."
+                        anchor="center"
+                        height="0.25"
+                        width="0.9" ></a-text>
+            </a-entity>
+
             <a-entity 
                 id="camera" 
                 camera 
@@ -141,6 +181,5 @@
 </html>
 
 <!-- below are specific settings which we'll currently ignore -->
-<!-- teleport-controls="type: parabolic; collisionEntities: #ground" -->
 <!-- hand-controls="hand:left; handModelStyle:toon; color:#c568ff;" -->
 <!-- hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" laser-controls raycaster="far:3; objects: .clickable;" -->

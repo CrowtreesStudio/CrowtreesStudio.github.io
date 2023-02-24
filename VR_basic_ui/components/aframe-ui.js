@@ -109,8 +109,8 @@ AFRAME.registerComponent('aframe-ui', {
 	    setPos(12, -w2,   -h2);
 	    setPos(15, w2,    -h2);
 
-	    this.geometry.attributes.position.needsUpdate = true;
-	    this.geometry.attributes.uv.needsUpdate = true;
+	    // this.geometry.attributes.position.needsUpdate = true;
+	    // this.geometry.attributes.uv.needsUpdate = true;
 
     }
 })
