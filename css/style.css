@@ -173,7 +173,8 @@ article{
     position: absolute;
     margin: 10px 0 0 10px;
     font-size: 4em;
-    color: #222436;
+    color: #e6cb00;
+    /* color: #222436; */
     line-height: 1em;
 }
 
@@ -196,7 +197,8 @@ article{
 
 .box .stroke{
     -webkit-text-stroke-width: 4px;
-    -webkit-text-stroke-color:#8892d8;
+    -webkit-text-stroke-color:#580000;
+    /* -webkit-text-stroke-color:#8892d8; */
 }
 
 .product {
