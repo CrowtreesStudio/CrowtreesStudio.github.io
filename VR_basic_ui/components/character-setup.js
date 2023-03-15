@@ -15,7 +15,7 @@ AFRAME.registerComponent('character-setup', {
             console.log(el.id," loaded");            
             // Grab the mesh/scene
             const obj = el.getObject3D('mesh');
-            console.log("Take a look inside the mesh", obj);
+            // console.log("Take a look inside the mesh", obj);
 
             obj.traverse(function(node){
                 if(node.isMesh){
@@ -48,7 +48,7 @@ AFRAME.registerComponent('character-setup', {
                         /*      Note: Western textures are as follows               */
                         /*      Skin Colour changes _A:White, _B:Brown, _C:Black    */
                         /*      Costume changes _01_, _02_, _03_, _04_                  */
-                        console.log("HEllo from western texture.");
+                        console.log("Hello from western texture.");
                         let texture = node.material;
                         texture.map = material01;
                         texture.map.flipY = false;
@@ -56,12 +56,12 @@ AFRAME.registerComponent('character-setup', {
                             
                     }else{
                         let texture = node.material;
-                        console.log("Texture Var:", texture.map);
-                        console.log("Material src:", material01);// Loaded in a-asset
+                        // console.log("Texture Var:", texture.map);
+                        // console.log("Material src:", material01);// Loaded in a-asset
 
-                        console.log("texture map 1:", texture.map);
+                        // console.log("texture map 1:", texture.map);
                         texture.map = material01;
-                        console.log("texture map 2:", texture.map);
+                        // console.log("texture map 2:", texture.map);
                         texture.map.flipY = false;
                         // texture.map.encoding = THREE.sRGBE;
                         texture.map.encoding = THREE.LinearEncoding;

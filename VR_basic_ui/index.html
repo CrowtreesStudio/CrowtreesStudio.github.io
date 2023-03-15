@@ -16,6 +16,7 @@
     <script src="components/character-setup.js" ></script>
     <script src="components/hand-interaction.js"></script>
     <script src="components/aframe-ui.js"></script>
+    <script src="components/mesh-shadows.js"></script>
 
 </head>
 <body>
@@ -26,6 +27,8 @@
 
         <a-asset>
             <a-asset-item id="Man" src="assets/meshes/Base_Character_Framework.glb"></a-asset-item>
+            <a-asset-item id="Scene" src="assets/meshes/SyntyStarterFreebie.glb" ></a-asset-item>
+            <a-asset-item id="Navmesh" src="assets/meshes/SyntyStarterFreebie_Navmesh.glb" ></a-asset-item>
             <a-mixin id="bob" animation__pos="property:position; to:0 1.05 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
             <img id="frame" src="assets/ui/tooltip2.png">
             <img id="Black" src="assets/textures/Characters_Black.png">
@@ -45,7 +48,7 @@
             id="box" 
             class="grabbable clickable" 
             hand-interaction hoverable grabbable 
-            position="-3 0.5 -3" 
+            position="-3 0.5 3" 
             color="#2f80d1"  
             shadow="cast:true; receive:false">
         </a-box>
@@ -62,17 +65,17 @@
             </a-sphere>
         </a-entity>
 
-        <a-sphere id="largeBall" class="grabbable" grabbable position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere>
+        <!-- <a-sphere id="largeBall" class="grabbable" grabbable position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere> -->
 
-        <a-cone id="cone" position="-3 0.75 3" radius-bottom="0.5" color="yellow" shadow="cast:true; receive:false"></a-cone>
+        <!-- <a-cone id="cone" position="-3 0.75 3" radius-bottom="0.5" color="yellow" shadow="cast:true; receive:false"></a-cone> -->
 
-        <a-cylinder id="tube" class="grabbable collide" grabbable position="3 0.5 3" radius="0.5" color="#660000" shadow="cast:true; receive:false" ></a-cylinder>
+        <!-- <a-cylinder id="tube" class="grabbable collide" grabbable position="3 0.5 3" radius="0.5" color="#660000" shadow="cast:true; receive:false" ></a-cylinder> -->
 
-        <a-box id="wall" class="grabbable" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" depth="0.25" color="#00b95c" shadow="cast:false; receive:true"></a-box>
+        <!-- <a-box id="wall" class="grabbable" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" depth="0.25" color="#00b95c" shadow="cast:false; receive:true"></a-box> -->
 
         <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
         <!-- replaced floor plane with a box -->
-        <a-box id="floor" nav-mesh class="nav-mesh" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box>
+        <!-- <a-box id="floor" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box> -->
 
         <!-- <a-sky id="sky" src="#skyDome"></a-sky> -->
 
@@ -84,31 +87,49 @@
         <!-- *  Character model(s)   * -->
         <!-- ************************* -->
         <a-gltf-model id="Player1" gltf-model="#Man" 
-            position="1.5 0 -3" rotation="0 0 0" 
+            position="1.5 0.15 -3" rotation="0 0 0" 
             character-setup="modelMesh: Nude_Male; modelTexture: #White;"
             animation-mixer="clip: Idle02; timeScale:2; crossFadeDuration: 0.5">
         </a-gltf-model>
 
         <a-gltf-model id="Player1" gltf-model="#Man" 
-            position="-1.5 0 -3" rotation="0 0 0" 
+            position="-1.5 0.175 -3" rotation="0 0 0" 
             character-setup="modelMesh: Nude_Male; modelTexture: #Black;"
             animation-mixer="clip: Idle01; timeScale:2; crossFadeDuration: 0.5">
+        </a-gltf-model>
+
+        <a-gltf-model id="SceneModel"
+            gltf-model="#Scene"
+            mesh-shadows
+            position="0 0 0">
+        </a-gltf-model>
+
+        <a-gltf-model id="navmesh"
+            gltf-model="#Navmesh"
+            nav-mesh
+            position="0 0 0"
+            visible="false">
         </a-gltf-model>
 
 
 
         <!-- Lights -->
-        <a-light type="directional" light="intensity: 1.2; castShadow: true;" position="0 4.605 3.553" ></a-light>
-        <a-light type="ambient" light="intensity:0.75"></a-light>
+        <a-light id="sun" 
+            type="directional" 
+            light="intensity: 1.2; castShadow: true; shadowCameraTop: 20; shadowCameraRight: 20; shadowCameraBottom: -20; shadowCameraLeft: -25; shadowMapHeight: 4048; shadowMapWidth:4048;" 
+            position="0 13 20" >
+        </a-light>
+        <a-light id="ambient" type="ambient" light="intensity:0.75"></a-light>
 
 
         <!-- ******************************************** -->
         <!-- *  Camera, Feedback Text and Controllers   * -->
         <!-- ******************************************** -->
-        <a-entity id="cameraRig" position="1.5 0 -2" movement-controls="enabled: true; speed:0.15; constrainToNavMesh: true; fly:false;">
+        <a-entity id="cameraRig" position="0 0 0" movement-controls="enabled: true; speed:0.25; constrainToNavMesh: true; fly:false;">
             <!-- UI Experiments and Explorations -->
             <a-entity 
-                id="aframe UI" 
+                id="aframe UI"
+                visible="false" 
                 aframe-ui="size:1.0 0.25; padding:0.1; uiTexture:#frame; color:#90f; opacity:1.0; debug:false;" 
                 position="0.65 1.8 -1.0" 
                 rotation="0 0 0"
@@ -125,7 +146,6 @@
                 id="camera" 
                 camera 
                 position="0 1.65 0" 
-                simple-navmesh-constraint="navmesh: .nav-mesh; height:1.65; exclude: .navhole;" 
                 look-controls="pointerLockEnabled:true;" >
                     <!-- Cursor -->
                     <a-cursor 
@@ -147,7 +167,7 @@
                 hand-controls="hand: left;"
                 sphere-collider="objects: .grabbable"
                 laser-controls="hand:left;" raycaster="far:0.5; objects: .clickable; enabled: false;"
-                blink-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #box, #tube, #floor;"
+                blink-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #Navmesh;"
                 >
             </a-entity>
             <!-- End of Left Hand -->
@@ -183,3 +203,4 @@
 <!-- below are specific settings which we'll currently ignore -->
 <!-- hand-controls="hand:left; handModelStyle:toon; color:#c568ff;" -->
 <!-- hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" laser-controls raycaster="far:3; objects: .clickable;" -->
+
