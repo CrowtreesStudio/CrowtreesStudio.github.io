@@ -87,14 +87,16 @@
         <!-- *  Character model(s)   * -->
         <!-- ************************* -->
         <a-gltf-model id="Player1" gltf-model="#Man" 
-            position="1.5 0.15 -3" rotation="0 0 0" 
+            position="12.686 0.379 -7.31" rotation="0 -30 0" 
             character-setup="modelMesh: Nude_Male; modelTexture: #White;"
+            shadow="cast:false; receive: true;"
             animation-mixer="clip: Idle02; timeScale:2; crossFadeDuration: 0.5">
         </a-gltf-model>
 
-        <a-gltf-model id="Player1" gltf-model="#Man" 
-            position="-1.5 0.175 -3" rotation="0 0 0" 
+        <a-gltf-model id="Player2" gltf-model="#Man" 
+            position="-12.56 0.102 5.42" rotation="0 90 0" 
             character-setup="modelMesh: Nude_Male; modelTexture: #Black;"
+            mesh-shadows
             animation-mixer="clip: Idle01; timeScale:2; crossFadeDuration: 0.5">
         </a-gltf-model>
 
@@ -120,6 +122,8 @@
             position="0 13 20" >
         </a-light>
         <a-light id="ambient" type="ambient" light="intensity:0.75"></a-light>
+        <!-- Cafe Int Lighting -->
+        <a-light id="cafe" type="point" position="11.734 2.495 -6.34" light="intensity: 0.75; color: #fff3cf; groundColor: #fff5e6; distance: 4.49"></a-light>
 
 
         <!-- ******************************************** -->
