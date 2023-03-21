@@ -65,7 +65,7 @@ AFRAME.registerComponent('pointer', {
     },
 
     init:function(){
-        console.log("data:", this.data);
+        // console.log("data:", this.data);
     },
     
     play:function(){

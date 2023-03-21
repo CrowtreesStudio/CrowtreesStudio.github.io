@@ -10,7 +10,7 @@ AFRAME.registerComponent('hand-interaction', {
     },
 
     play: function() {
-        console.log("Grabbing test");
+        // console.log("Grabbing test");
         // Place grabbingtest on the RIGHT & LEFT HANDS and not on the objects as was the previous version
         // The objects should yield thier id based on what the Sphere Collider returns
         let data = this.data;

@@ -12,11 +12,16 @@ AFRAME.registerComponent('mesh-shadows', {
 
             obj.children.forEach((model)=>{
                 if(model.children.length > 0){
-                    console.log("There are children", model);
+                    // console.log("There are children", model.children);
                     model.children.forEach((node)=>{
-                        node.castShadow=true;
-                        node.receiveShadow=true;
-                        node.material.shadowSide=1;
+                        // console.log("node:", node.type);
+                        if(node.type === 'Mesh' || node.type === 'SkinnedMesh'){
+                            node.castShadow=true;
+                            node.receiveShadow=true;
+                            node.material.shadowSide=1;
+                        }else{
+                            return;
+                        }
                     });
                 }else{
                     console.log("Simple shadow activation for", model.name);

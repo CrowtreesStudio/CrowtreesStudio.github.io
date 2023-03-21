@@ -27,6 +27,7 @@
 
         <a-asset>
             <a-asset-item id="Man" src="assets/meshes/Base_Character_Framework.glb"></a-asset-item>
+            <a-asset-item id="Characters" src="assets/meshes/Starter_Characters.glb"></a-asset-item>
             <a-asset-item id="Scene" src="assets/meshes/SyntyStarterFreebie.glb" ></a-asset-item>
             <a-asset-item id="Navmesh" src="assets/meshes/SyntyStarterFreebie_Navmesh.glb" ></a-asset-item>
             <a-mixin id="bob" animation__pos="property:position; to:0 1.05 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
@@ -34,6 +35,10 @@
             <img id="Black" src="assets/textures/Characters_Black.png">
             <img id="Brown" src="assets/textures/Characters_Brown.png">
             <img id="White" src="assets/textures/Characters_White.png">
+            <img id="Blue" src="assets/textures/PolygonStarter_Texture_01.png">
+            <img id="Red" src="assets/textures/PolygonStarter_Texture_02.png">
+            <img id="Grey" src="assets/textures/PolygonStarter_Texture_03.png">
+            <img id="Yellow" src="assets/textures/PolygonStarter_Texture_04.png">
             <!-- <img id="skyDome" src="assets/images/skymap.jpg"> -->
             <audio id="heartbeat" src="assets/audio/DalekHeartBeat.ogg" loop="true" volume="0.5"></audio>
         </a-asset>
@@ -86,17 +91,24 @@
         <!-- ************************* -->
         <!-- *  Character model(s)   * -->
         <!-- ************************* -->
-        <a-gltf-model id="Player1" gltf-model="#Man" 
+        <a-gltf-model id="Player1" gltf-model="#Characters" 
             position="12.686 0.379 -7.31" rotation="0 -30 0" 
-            character-setup="modelMesh: Nude_Male; modelTexture: #White;"
-            shadow="cast:false; receive: true;"
-            animation-mixer="clip: Idle02; timeScale:2; crossFadeDuration: 0.5">
+            character-setup="modelMesh: Male; modelTexture: #Yellow; modelItem:Item_Hair_Male, Wep_WaterPistol_Hip"
+            mesh-shadows
+            animation-mixer="clip: Talking02; timeScale:2; crossFadeDuration: 0.5">
         </a-gltf-model>
 
-        <a-gltf-model id="Player2" gltf-model="#Man" 
-            position="-12.56 0.102 5.42" rotation="0 90 0" 
-            character-setup="modelMesh: Nude_Male; modelTexture: #Black;"
+        <a-gltf-model id="Player2" gltf-model="#Characters" 
+            position="-12.56 0.102 5.42" rotation="0 90 0"
             mesh-shadows
+            character-setup="modelMesh: Male; modelTexture: #Grey; modelItem:Wep_Sword_Hip, Wep_Shield_Back, Item_Hair_Male;"
+            animation-mixer="clip: Idle01; timeScale:2; crossFadeDuration: 0.5">
+        </a-gltf-model>
+
+        <a-gltf-model id="Player3" gltf-model="#Characters" 
+            position="6.5 0.05 15" rotation="0 -160 0"
+            mesh-shadows 
+            character-setup="modelMesh: Female; modelTexture: #Red; modelItem:Wep_Sword_RT, Wep_Shield_LT, Item_Hair_Female;"
             animation-mixer="clip: Idle01; timeScale:2; crossFadeDuration: 0.5">
         </a-gltf-model>
 
@@ -119,11 +131,13 @@
         <a-light id="sun" 
             type="directional" 
             light="intensity: 1.2; castShadow: true; shadowCameraTop: 20; shadowCameraRight: 20; shadowCameraBottom: -20; shadowCameraLeft: -25; shadowMapHeight: 4048; shadowMapWidth:4048;" 
-            position="0 13 20" >
+            position="2 13 9" >
         </a-light>
-        <a-light id="ambient" type="ambient" light="intensity:0.75"></a-light>
+        <a-light id="ambient" type="ambient" light="intensity:1.5"></a-light>
+
+        <!-- ******************************************** -->
         <!-- Cafe Int Lighting -->
-        <a-light id="cafe" type="point" position="11.734 2.495 -6.34" light="intensity: 0.75; color: #fff3cf; groundColor: #fff5e6; distance: 4.49"></a-light>
+        <a-light id="cafe" type="point" position="12.8 2.7 -6.6" light="color: #fff3cf; groundColor: #fff5e6; distance: 4.49"></a-light>
 
 
         <!-- ******************************************** -->
@@ -189,22 +203,15 @@
 
             </a-entity><!-- End Camera -->
 
-            <!-- <a-entity hand-tracking-controls="hand: left"></a-entity>
-             <a-entity hand-tracking-controls="hand: right"></a-entity> -->
+            <!-- hand-tracking-controls seems to be broken now -->
+            <!--<a-entity hand-tracking-controls="hand: left"></a-entity>
+            <a-entity hand-tracking-controls="hand: right"></a-entity> -->
 
-            <!-- laser-controls raycaster="far:0.5; objects: .clickable;" -->
             <!-- the hand-controls does not work - appears broken:--> 
             <!-- trigger = grip, trigger+sidebutton= point+thumb up, trigger+touchpad = point + thumb down -->
-
-            <!-- the laser-controls work as indicated above and are activated (seen) 
-            when they raycaster intersects an object that is (currently) within 0.5 meters -->
         </a-entity> <!--End of cameraRig-->
        
    </a-scene>
 </body>
 </html>
-
-<!-- below are specific settings which we'll currently ignore -->
-<!-- hand-controls="hand:left; handModelStyle:toon; color:#c568ff;" -->
-<!-- hand-controls="hand:right; handModelStyle:lowPoly; color:#c568ff;" laser-controls raycaster="far:3; objects: .clickable;" -->
 

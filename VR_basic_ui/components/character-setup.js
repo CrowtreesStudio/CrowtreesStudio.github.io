@@ -36,45 +36,22 @@ AFRAME.registerComponent('character-setup', {
                     /* ************************************************************* */
                     // Apply Character Textures 
                     let material01 = new THREE.TextureLoader().load(data.modelTexture.src);
-
-                    if(el.components["gltf-model"].attrValue === "#Adventure"){
-                        console.log("Which character group has been attached:", el.components["gltf-model"].attrValue);
-                        let texture = node.material;
-                        texture.map = material01;
-                        texture.map.flipY = false;
-                        texture.map.encoding = THREE.sRGBE;
-                            
-                    }else if(el.components["gltf-model"].attrValue === "#Western"){
-                        /*      Note: Western textures are as follows               */
-                        /*      Skin Colour changes _A:White, _B:Brown, _C:Black    */
-                        /*      Costume changes _01_, _02_, _03_, _04_                  */
-                        console.log("Hello from western texture.");
-                        let texture = node.material;
-                        texture.map = material01;
-                        texture.map.flipY = false;
-                        texture.map.encoding = THREE.sRGBE;
-                            
-                    }else{
-                        let texture = node.material;
-                        // console.log("Texture Var:", texture.map);
-                        // console.log("Material src:", material01);// Loaded in a-asset
-
-                        // console.log("texture map 1:", texture.map);
-                        texture.map = material01;
-                        // console.log("texture map 2:", texture.map);
-                        texture.map.flipY = false;
-                        // texture.map.encoding = THREE.sRGBE;
-                        texture.map.encoding = THREE.LinearEncoding;
-                            
-                    }; 
+                    let texture = node.material;
+                    texture.map = material01;
+                    texture.map.flipY = false;
+                    // texture.map.encoding = THREE.sRGBE;
+                    texture.map.encoding = THREE.LinearEncoding;
 
                     /* ************************************************************* */
                     /*          Place Items (make visible) On Character              */
                     /* ************************************************************* */
-                    if(node.name === "Item_"+data.modelItem){
-                        node.visible = true;
+                    if(data.modelItem.length > 0){
+                        data.modelItem.forEach((item) => {
+                            if(node.name === item){
+                                node.visible = true;
+                            }
+                        });
                     };
-
                 };
             });
 

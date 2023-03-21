@@ -18,7 +18,7 @@ AFRAME.registerComponent('aframe-ui', {
         let geometry = new THREE.PlaneBufferGeometry(data.size.x, data.size.y, 3, 3);
         
         var texture = new THREE.TextureLoader().load(data.texture); // remove color = ...
-        console.log("texture",texture);
+        // console.log("texture",texture);
 
         let geoMat = new THREE.MeshBasicMaterial({
             color: data.color,
@@ -33,9 +33,9 @@ AFRAME.registerComponent('aframe-ui', {
         el.setObject3D('mesh', mesh);
 
         let pos = mesh.geometry.attributes.position.array;
-        console.log("Looking For pos:", mesh.geometry.attributes.position.array);
+        // console.log("Looking For pos:", mesh.geometry.attributes.position.array);
 
-        console.log("Looking For UVs:", mesh.geometry.attributes.uv.array);
+        // console.log("Looking For UVs:", mesh.geometry.attributes.uv.array);
         var uvs = mesh.geometry.attributes.uv.array;
 
         // Taken from Nine Slice component
@@ -80,14 +80,14 @@ AFRAME.registerComponent('aframe-ui', {
         setUV(15,  1, 0);
 
         // Update vertex positions
-        console.log("size:", data.size);
+        // console.log("size:", data.size);
 	    var w2 = data.size.x / 2;
 	    var h2 = data.size.y / 2;
 	    var left = -w2 + data.padding;
 	    var right = w2 - data.padding;
 	    var top = h2 - data.padding;
 	    var bottom = -h2 + data.padding;
-        console.log("bottom:", bottom," top:",top);
+        // console.log("bottom:", bottom," top:",top);
 
 	    setPos(0, -w2,    h2);
 	    setPos(1, left,   h2);
