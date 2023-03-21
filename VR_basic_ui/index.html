@@ -26,15 +26,11 @@
    <a-scene scene-manager renderer="colorManagement:false;" background="color:#55bbff;">
 
         <a-asset>
-            <a-asset-item id="Man" src="assets/meshes/Base_Character_Framework.glb"></a-asset-item>
             <a-asset-item id="Characters" src="assets/meshes/Starter_Characters.glb"></a-asset-item>
             <a-asset-item id="Scene" src="assets/meshes/SyntyStarterFreebie.glb" ></a-asset-item>
             <a-asset-item id="Navmesh" src="assets/meshes/SyntyStarterFreebie_Navmesh.glb" ></a-asset-item>
             <a-mixin id="bob" animation__pos="property:position; to:0 1.05 0; dir:alternate; loop:true; dur:1000; easing:easeInOutQuad; autoplay: false;"></a-mixin>
             <img id="frame" src="assets/ui/tooltip2.png">
-            <img id="Black" src="assets/textures/Characters_Black.png">
-            <img id="Brown" src="assets/textures/Characters_Brown.png">
-            <img id="White" src="assets/textures/Characters_White.png">
             <img id="Blue" src="assets/textures/PolygonStarter_Texture_01.png">
             <img id="Red" src="assets/textures/PolygonStarter_Texture_02.png">
             <img id="Grey" src="assets/textures/PolygonStarter_Texture_03.png">
@@ -70,24 +66,6 @@
             </a-sphere>
         </a-entity>
 
-        <!-- <a-sphere id="largeBall" class="grabbable" grabbable position="3 0.5 -3" radius="0.5" color="orange" shadow="cast:true; receive:false"></a-sphere> -->
-
-        <!-- <a-cone id="cone" position="-3 0.75 3" radius-bottom="0.5" color="yellow" shadow="cast:true; receive:false"></a-cone> -->
-
-        <!-- <a-cylinder id="tube" class="grabbable collide" grabbable position="3 0.5 3" radius="0.5" color="#660000" shadow="cast:true; receive:false" ></a-cylinder> -->
-
-        <!-- <a-box id="wall" class="grabbable" rotation="0 0 0" position="0 2.5 -4" height="5" width="5" depth="0.25" color="#00b95c" shadow="cast:false; receive:true"></a-box> -->
-
-        <!-- planes don't appear to accept "clicks" from controllers for teleporting -->
-        <!-- replaced floor plane with a box -->
-        <!-- <a-box id="floor" width="10" depth="10" height="0.1" position="0 -0.05 0" color="#177b0a" shadow="cast:false; receive:true;"></a-box> -->
-
-        <!-- <a-sky id="sky" src="#skyDome"></a-sky> -->
-
-
-
-
-
         <!-- ************************* -->
         <!-- *  Character model(s)   * -->
         <!-- ************************* -->
@@ -99,14 +77,14 @@
         </a-gltf-model>
 
         <a-gltf-model id="Player2" gltf-model="#Characters" 
-            position="-12.56 0.102 5.42" rotation="0 90 0"
+            position="-13.5 0.07 5.75" rotation="0 90 0"
             mesh-shadows
             character-setup="modelMesh: Male; modelTexture: #Grey; modelItem:Wep_Sword_Hip, Wep_Shield_Back, Item_Hair_Male;"
             animation-mixer="clip: Idle01; timeScale:2; crossFadeDuration: 0.5">
         </a-gltf-model>
 
         <a-gltf-model id="Player3" gltf-model="#Characters" 
-            position="6.5 0.05 15" rotation="0 -160 0"
+            position="6 0.05 15" rotation="0 -160 0"
             mesh-shadows 
             character-setup="modelMesh: Female; modelTexture: #Red; modelItem:Wep_Sword_RT, Wep_Shield_LT, Item_Hair_Female;"
             animation-mixer="clip: Idle01; timeScale:2; crossFadeDuration: 0.5">
@@ -130,10 +108,10 @@
         <!-- Lights -->
         <a-light id="sun" 
             type="directional" 
-            light="intensity: 1.2; castShadow: true; shadowCameraTop: 20; shadowCameraRight: 20; shadowCameraBottom: -20; shadowCameraLeft: -25; shadowMapHeight: 4048; shadowMapWidth:4048;" 
+            light="intensity: 4; castShadow: true; shadowCameraTop: 20; shadowCameraRight: 20; shadowCameraBottom: -20; shadowCameraLeft: -25; shadowMapHeight: 4048; shadowMapWidth:4048;" 
             position="2 13 9" >
         </a-light>
-        <a-light id="ambient" type="ambient" light="intensity:1.5"></a-light>
+        <a-light id="ambient" type="ambient" light="intensity:1"></a-light>
 
         <!-- ******************************************** -->
         <!-- Cafe Int Lighting -->
