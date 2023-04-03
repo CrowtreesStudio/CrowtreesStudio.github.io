@@ -23,7 +23,7 @@
     <div style="position:absolute; z-index: 100;">
         <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's ...Grab 1.0.3</div>
     </div>
-   <a-scene scene-manager renderer="colorManagement:false;" background="color:#55bbff;">
+   <a-scene scene-manager background="color:#55bbff;">
 
         <a-asset>
             <a-asset-item id="Characters" src="assets/meshes/Starter_Characters.glb"></a-asset-item>
@@ -45,18 +45,20 @@
         <!-- hover & drag-drop won't have any obvious effect -->
         <!-- without some additional event handlers or components.-->
         <!-- See the examples page for more -->
-        <a-box 
-            id="box" 
-            class="grabbable clickable" 
-            hand-interaction hoverable grabbable 
-            position="-3 0.5 3" 
-            color="#2f80d1"  
-            shadow="cast:true; receive:false">
-        </a-box>
+        <a-entity id="boxContainer" position="-1.347 0.675 7.087">
+            <a-box 
+                id="box" 
+                class="grabbable clickable" 
+                hand-interaction hoverable grabbable 
+                position="-3 0.5 3" 
+                color="#2f80d1"  
+                shadow="cast:true; receive:false">
+            </a-box>
+        </a-entity>
         
-        <a-entity position="0 1 -2" scale="0.25 0.25 0.25">
+        <a-entity id="ballContainer" position="3.4 1 6.8" scale="0.25 0.25 0.25">
             <a-sphere 
-                id="smallBall" 
+                id="smallBall"
                 class="grabbable clickable" 
                 mixin="bob"
                 animation-start
@@ -90,6 +92,9 @@
             animation-mixer="clip: Idle01; timeScale:2; crossFadeDuration: 0.5">
         </a-gltf-model>
 
+        <!-- *************************** -->
+        <!-- *  Scene/Level model(s)   * -->
+        <!-- *************************** -->
         <a-gltf-model id="SceneModel"
             gltf-model="#Scene"
             mesh-shadows
@@ -104,17 +109,19 @@
         </a-gltf-model>
 
 
-
-        <!-- Lights -->
+        <!-- *************************** -->
+        <!-- *      Scene Lights       * -->
+        <!-- *************************** -->
         <a-light id="sun" 
             type="directional" 
-            light="intensity: 4; castShadow: true; shadowCameraTop: 20; shadowCameraRight: 20; shadowCameraBottom: -20; shadowCameraLeft: -25; shadowMapHeight: 4048; shadowMapWidth:4048;" 
+            light="intensity: 1; castShadow: true; shadowCameraTop: 20; shadowCameraRight: 20; shadowCameraBottom: -20; shadowCameraLeft: -25; shadowMapHeight: 4048; shadowMapWidth:4048;" 
             position="2 13 9" >
         </a-light>
-        <a-light id="ambient" type="ambient" light="intensity:1"></a-light>
-
-        <!-- ******************************************** -->
+        <a-light id="ambient" type="ambient" light="intensity:0.5"></a-light>
+        
+        <!-- ***************** -->
         <!-- Cafe Int Lighting -->
+        <!-- ***************** -->
         <a-light id="cafe" type="point" position="12.8 2.7 -6.6" light="color: #fff3cf; groundColor: #fff5e6; distance: 4.49"></a-light>
 
 

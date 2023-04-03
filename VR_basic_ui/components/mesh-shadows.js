@@ -15,12 +15,15 @@ AFRAME.registerComponent('mesh-shadows', {
                     console.log("Found a Mesh:", node.name);
                     node.castShadow=true;
                     node.receiveShadow=true;
+                    node.material.map.encoding = THREE.LinearEncoding;
                     node.material.shadowSide=1;
+                    node.material.roughness=0.75;
                 }else if(node.isMesh){
                     console.log("Node found called:", node.name);
                     node.castShadow=false;
                     node.receiveShadow=false;
                     node.material.shadowSide=1;
+                    node.material.roughness=0.75;
                 }
             });
 
