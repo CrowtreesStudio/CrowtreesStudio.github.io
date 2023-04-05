@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,26 +7,20 @@
     <title>Submariner Walkabout WebXR</title>
     <link rel="stylesheet" href="style.css">
     <!-- A-Frame Framework and Component Scripts -->
-    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-environment-component@1.3.1/dist/aframe-environment-component.min.js"></script>
+    <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
 
-    <!-- For some unknown reason, the full extras script breaks in the game. This is getting rather old. -->
-    <!-- <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script> -->
-
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script> <!-- sphere-collider -->
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.controls.min.js"></script><!-- movement-controls -->
-    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.loaders.min.js"></script><!-- Animation Mixer -->
-    <script src="components/simple-navmesh-constraint.js"></script><!-- From Ada Rose Cannon -->
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@67d1130/dist/aframe-extras.min.js"></script><!-- sphere-collider, movement-controls, animation mixer -->
+    
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/aframe-blink-controls/dist/aframe-blink-controls.min.js"></script>
+    
+    <script src="components/simple-navmesh-constraint.js"></script><!-- From Ada Rose Cannon -->
 
-    <!-- For some unknown reason, targeting the component remotely does not work. It's weird as a downloaded and locally referenced version does work. -->
-    <!-- <script src="https://rawgit.com/fernandojsg/aframe-teleport-controls/master/dist/aframe-teleport-controls.js"></script> -->
-    <script src="components/aframe-teleport-controls.js"></script>
-
-    <!-- James' Components -->
+    <!-- Custom Components -->
     <script src="components/a-water.js"></script>
     <script src="components/mesh-shadows.js"></script>
-    <script src="components/controlrotation.js"></script>
     <script src="components/code.js"></script>
 
 </head>
@@ -191,24 +185,22 @@
         <!--###############################-->
         <!-- Left & RIght Hand Controllers -->
         <!--###############################-->
-            <!-- Left hand laser control -->
-            <!-- console log to id controller type at line 73060 -->
+            <!-- Left hand -->
             <a-entity id="leftHand"
-                controlrotation
+                hand-controls="hand: left;"
+                blink-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #navMesh; snapTurn:true; hitCylinderColor:#fcc600; curveHitColor: #fcc600;"
                 sphere-collider="objects:.grabbable;" 
                 super-hands
-                hand-controls="hand: left;"
                 cursor-selector
                 laser-controls="hand:left;" raycaster="objects:.clickable; far:1.0;">
             </a-entity> <!-- End Left Hand -->
 
-            <!-- Right hand teleport control -->
+            <!-- Right hand -->
             <a-entity id="rightHand" 
-                controlrotation
-                teleport-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: .nav-mesh;"
+                hand-controls="hand: right;"
+                blink-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #navMesh; snapTurn:true; hitCylinderColor:#fcc600; curveHitColor: #fcc600;"
                 sphere-collider="objects:.grabbable;"
                 super-hands
-                hand-controls="hand: right;"
                 cursor-selector
                 laser-controls="hand:right;" raycaster="objects:.clickable; far:1.0;">
                 <!-- the hand-controls appears broken when display different gestures. Only displays grip:--> 
