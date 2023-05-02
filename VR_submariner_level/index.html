@@ -9,9 +9,7 @@
     <!-- A-Frame Framework and Component Scripts -->
     <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.3.2/dist/aframe-environment-component.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@67d1130/dist/aframe-extras.min.js"></script><!-- sphere-collider, movement-controls, animation mixer -->
-    
     <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/aframe-blink-controls/dist/aframe-blink-controls.min.js"></script>
@@ -48,7 +46,7 @@
         <div style="position:absolute; z-index: 100; visibility:visible;">
             <div id="text" style="color:white; font-size: 1.25em; text-align:center;">Now it's...</div>
         </div>
-        <a-asset>
+        <a-assets>
             <a-asset-item id="level" src="assets/meshes/Level.glb" ></a-asset-item>
             <a-asset-item id="navMesh" src="assets/meshes/Navmesh.glb" ></a-asset-item>
             <a-asset-item id="sub" src="assets/meshes/submarine.glb" ></a-asset-item>
@@ -68,7 +66,7 @@
             <audio id="pickup" src="assets/sfx/pickup.mp3"></audio>
             <audio id="gemAppears" src="assets/sfx/gemAppears.mp3"></audio>
             <audio id="subMotor" src="assets/sfx/subMotor.mp3"></audio>
-        </a-asset>
+        </a-assets>
 
         <!-- scene objects - Collectable Coins -->
         <a-entity id="coin_holder_01" position="3 3 -3.5" mixin="collectPos collectScale">
@@ -96,6 +94,7 @@
         </a-entity>
 
         <a-gltf-model id="gameLvl" src="#level" mesh-shadows visible="true" ></a-gltf-model>
+        
         <a-gltf-model class="nav-mesh" gltf-model="#navMesh" position="0 0 0" visible="false" ></a-gltf-model>
         
         <!-- Submarine - Goal: Get Fuel Gem to Power Sub for Getaway -->
@@ -188,7 +187,7 @@
             <!-- Left hand -->
             <a-entity id="leftHand"
                 hand-controls="hand: left;"
-                blink-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #navMesh; snapTurn:true; hitCylinderColor:#fcc600; curveHitColor: #fcc600;"
+                blink-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: .nav-mesh; snapTurn:true; hitCylinderColor:#fcc600; curveHitColor: #fcc600;"
                 sphere-collider="objects:.grabbable;" 
                 super-hands
                 cursor-selector
@@ -198,7 +197,7 @@
             <!-- Right hand -->
             <a-entity id="rightHand" 
                 hand-controls="hand: right;"
-                blink-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: #navMesh; snapTurn:true; hitCylinderColor:#fcc600; curveHitColor: #fcc600;"
+                blink-controls="cameraRig: #cameraRig; teleportOrigin: #camera; collisionEntities: .nav-mesh; snapTurn:true; hitCylinderColor:#fcc600; curveHitColor: #fcc600;"
                 sphere-collider="objects:.grabbable;"
                 super-hands
                 cursor-selector
