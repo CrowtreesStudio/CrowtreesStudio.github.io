@@ -13,9 +13,6 @@ AFRAME.registerComponent('mesh-shadows', {
                 if(model.name === 'ground'){
                     model.castShadow=false;
                     model.receiveShadow=true;
-                }else if(model.name != 'coin'){
-                    // model.castShadow=true;
-                    // model.receiveShadow=true;
                 }else{
                     model.castShadow=true;
                     model.receiveShadow=true;
