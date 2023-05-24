@@ -30,11 +30,7 @@ AFRAME.registerComponent('scenemgr', {
         coinsCollected:{type:'number', default:0},
         fuelGemCollected:{type:'boolean', default:false},
 
-        sound1:{type:'selector', default:'#oceanWaves'},
-        sound2:{type:'selector', default:'#gemSnd'},
-        sound3:{type:'selector', default:'#itemPickup'},
-        sound4:{type:'selector', default:'#subEngine'},
-        soundFirefox:{type:'selectorAll', default:'audio'}
+        soundClips:{type:'selectorAll', default:'audio'}
 
     },
 /* ######################################################################### */
@@ -64,6 +60,8 @@ AFRAME.registerComponent('scenemgr', {
             console.log("Is it a HMD connected?:", AFRAME.utils.device.checkHeadsetConnected());
         });
 
+        console.log("Sound check:", data.soundClips);
+        
         el.addEventListener('enter-vr', evt=>{
             console.log("entering VR mode");
             message = "Welcome to the Submariner Walkabout";
@@ -85,12 +83,17 @@ AFRAME.registerComponent('scenemgr', {
     startExperience: function(){
         let el = this.el;
         let data = this.data;
-
         data.beginScrn.style.display = 'none';
         el.setAttribute('vr-mode-ui', 'enabled', true);
+        this.audioPlayback(0, true, 0.1);// sound clip, loop, volume
+    },
 
-        data.sound1.components.sound.playSound();
-        console.log("sound:", data.sound1);
+    audioPlayback: function(clip, repeat, vol){
+        let data = this.data;
+        data.soundClips[clip].loop=repeat;// for firefox
+        data.soundClips[clip].volume=vol;// for firefox
+        data.soundClips[clip].play();// for firefox
+        console.log("sound:", data.soundClips[clip]);
     },
 /* ######################################################################### */
     //HUD feedback and animation
@@ -140,7 +143,8 @@ AFRAME.registerComponent('scenemgr', {
             
             selectedObj.parentEl.components.animation__collpos.animation.play();
             selectedObj.parentEl.components.animation__collscale.animation.play();
-            data.sound3.components.sound.playSound();
+            // pick-up sound
+            this.audioPlayback(1, false, 1);// sound clip, loop, volume
 
             // Animate the Fuel Gem and make it clickable
             if(data.coinsCollected >= data.coinsNeeded && !data.fuelGemCollected){
@@ -149,14 +153,17 @@ AFRAME.registerComponent('scenemgr', {
                 data.fuelGem.children[0].components.animation__pos.animation.play();// Fuel Gem mesh
                 data.fuelGem.children[1].components.animation__pos.animation.play();// Animate Point Light
                 data.gemAnim = true;
-                data.sound2.components.sound.playSound();
+                // Fuel Jewel Materializes
+                this.audioPlayback(2, false, 0.25);// sound clip, loop, volume
             };
 /* Fuel Gem has been clicked */
         }else if(itemClicked === 'fuel' && data.coinsCollected >= data.coinsNeeded){// redundant check on coins?
             data.fuelGemCollected = true;//now the Submarine can be selected
             selectedObj.parentEl.components.animation__collpos.animation.play();// play animations
             selectedObj.parentEl.components.animation__collscale.animation.play();
-            data.sound3.components.sound.playSound();// collection sound
+            // Fuel Pick-up sound
+            this.audioPlayback(1, false, 1);// sound clip, loop, volume
+
             selectedObj.parentEl.children[1].components.animation__colllight.animation.play();// turn off light
             selectedObj.object3D.el.setAttribute('class', 'not-clickable not-grabbable');//Fuel Gem now not selectable
             data.submarine.setAttribute('class', 'clickable');//Submarine is selectable
@@ -182,13 +189,18 @@ AFRAME.registerComponent('scenemgr', {
             data.rtHand.setAttribute('visible', false);
             data.submarine.setAttribute('animation-mixer', 'clip', 'prop_rotation');// play model animation
             selectedObj.parentEl.components.animation.animation.play();// play rig animation
-            data.sound4.components.sound.playSound();// play motor sound
+
+            // Motor Sound
+            this.audioPlayback(3, true, 0.25);// sound clip, loop, volume
             /* to fade sound I need to 'animate' the volume when
              the subRig animation finishes. */
+
             message="Get outta 'ere!";
 /* Opening ui panel uiButton clicked */
         }else if(itemClicked === 'uiBu'){
-            data.sound3.components.sound.playSound();
+            // UI Button Clicked
+            this.audioPlayback(1, false, 1);// sound clip, loop, volume
+    
             if(data.usingHMD){
                 data.activeCamRig.setAttribute('movement-controls','enabled', false);
             }else{
