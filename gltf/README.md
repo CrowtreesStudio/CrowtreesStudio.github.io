@@ -4,3 +4,4 @@ https://cdn.jsdelivr.net/gh/CrowtreesStudio/CrowtreesStudio.github.io@master/glt
 https://cdn.jsdelivr.net/gh/CrowtreesStudio/CrowtreesStudio.github.io@master/gltf/RetroTVvideoWall2.glb
 https://cdn.jsdelivr.net/gh/CrowtreesStudio/CrowtreesStudio.github.io@master/gltf/RetroTVvideoWall_UVsqrd.glb
 https://cdn.jsdelivr.net/gh/CrowtreesStudio/CrowtreesStudio.github.io@master/gltf/RetroTVvideoWall_UVsqrd_singleMesh.glb
+Nude Synty Character Male: https://cdn.jsdelivr.net/gh/CrowtreesStudio/CrowtreesStudio.github.io@master/gltf/Base_Characters.glb
