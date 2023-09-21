@@ -6,7 +6,7 @@ Video Wall - Screens One Mesh: https://cdn.jsdelivr.net/gh/CrowtreesStudio/Crowt
 Nude Synty Character Male: https://cdn.jsdelivr.net/gh/CrowtreesStudio/CrowtreesStudio.github.io@master/gltf/Base_Characters.glb  
 Control Deck Example: https://cdn.jsdelivr.net/gh/CrowtreesStudio/CrowtreesStudio.github.io@master/gltf/controlDeck.glb  
 Texture_01_A: https://cdn.jsdelivr.net/gh/CrowtreesStudio/CrowtreesStudio.github.io@master/gltf/PolygonSciFiSpace_Texture_01_A.png  
-Texture_01_B:  
-Texture_01_C:  
-Texture_01_D:  
+Texture_01_B: https://cdn.jsdelivr.net/gh/CrowtreesStudio/CrowtreesStudio.github.io@master/gltf/PolygonSciFiSpace_Texture_02_A.png  
+Texture_01_C: https://cdn.jsdelivr.net/gh/CrowtreesStudio/CrowtreesStudio.github.io@master/gltf/PolygonSciFiSpace_Texture_03_A.png  
+Texture_01_D: https://cdn.jsdelivr.net/gh/CrowtreesStudio/CrowtreesStudio.github.io@master/gltf/PolygonSciFiSpace_Texture_04_A.png  
 
